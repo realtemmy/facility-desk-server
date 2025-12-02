@@ -1,4 +1,4 @@
-import { RoleName, UserStatus } from '../../../../generated/prisma';
+import { RoleName, UserStatus } from '../../../generated/prisma';
 
 export interface UserResponse {
   id: string;

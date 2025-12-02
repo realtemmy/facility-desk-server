@@ -3,6 +3,7 @@ import { AuthController } from './auth.controller';
 import { registerValidation, loginValidation } from './auth.validation';
 import { validate } from '../../middleware/validate.middleware';
 import { authRateLimiter } from '../../middleware/rate-limit.middleware';
+import { authenticate } from '../../middleware/auth.middleware';
 
 const router = Router();
 const authController = new AuthController();
@@ -28,6 +29,9 @@ router.post(
   '/refresh',
   authController.refresh
 );
+
+// GET /api/v1/auth/me
+router.get("/me", authenticate, authController.me);
 
 // POST /api/v1/auth/logout
 router.post(

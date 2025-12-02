@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
-import { AuthService } from './auth.service';
-import { cookieOptions } from '../../utils/cookie.util';
+import { Request, Response, NextFunction } from "express";
+import { AuthService } from "./auth.service";
+import { cookieOptions } from "../../utils/cookie.util";
 
 const authService = new AuthService();
 
@@ -10,14 +10,14 @@ export class AuthController {
       const result = await authService.register(req.body);
 
       // Set refresh token as httpOnly cookie
-      res.cookie('refresh_token', result.refreshToken, cookieOptions);
+      res.cookie("refresh_token", result.refreshToken, cookieOptions);
 
       res.status(201).json({
         success: true,
         data: {
           user: result.user,
-          accessToken: result.accessToken
-        }
+          accessToken: result.accessToken,
+        },
       });
     } catch (error) {
       next(error);
@@ -29,14 +29,14 @@ export class AuthController {
       const result = await authService.login(req.body);
 
       // Set refresh token as httpOnly cookie
-      res.cookie('refresh_token', result.refreshToken, cookieOptions);
+      res.cookie("refresh_token", result.refreshToken, cookieOptions);
 
       res.status(200).json({
         success: true,
         data: {
           user: result.user,
-          accessToken: result.accessToken
-        }
+          accessToken: result.accessToken,
+        },
       });
     } catch (error) {
       next(error);
@@ -51,26 +51,41 @@ export class AuthController {
         return res.status(401).json({
           success: false,
           error: {
-            message: 'Refresh token not provided',
-            code: 'NO_REFRESH_TOKEN'
-          }
+            message: "Refresh token not provided",
+            code: "NO_REFRESH_TOKEN",
+          },
         });
       }
 
       const result = await authService.refresh(refreshToken);
 
       // Set new refresh token as httpOnly cookie
-      res.cookie('refresh_token', result.refreshToken, cookieOptions);
+      res.cookie("refresh_token", result.refreshToken, cookieOptions);
 
       res.status(200).json({
         success: true,
         data: {
-          accessToken: result.accessToken
-        }
+          accessToken: result.accessToken,
+        },
       });
     } catch (error) {
       next(error);
     }
+  }
+
+  async me(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = req.user?.id;
+      const result = await authService.me(userId!);
+
+      // Set new refresh token as httpOnly cookie
+      res.cookie("refresh_token", result.refreshToken, cookieOptions)
+
+      res.status(200).json({
+        status: true,
+        data: { user: result.user, accessToken: result.accessToken },
+      });
+    } catch (error) {}
   }
 
   async logout(req: Request, res: Response, next: NextFunction) {
@@ -82,11 +97,11 @@ export class AuthController {
       }
 
       // Clear refresh token cookie
-      res.clearCookie('refresh_token', cookieOptions);
+      res.clearCookie("refresh_token", cookieOptions);
 
       res.status(200).json({
         success: true,
-        message: 'Logged out successfully'
+        message: "Logged out successfully",
       });
     } catch (error) {
       next(error);

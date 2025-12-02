@@ -1,29 +1,34 @@
-import { prisma } from '../../config/database';
-import { hashPassword, comparePassword } from '../../utils/password.util';
-import { generateAccessToken, generateRefreshToken } from '../../utils/jwt.util';
-import { AuthError, ConflictError, NotFoundError } from '../../errors';
-import { RegisterDto } from './dto/register.dto';
-import { LoginDto } from './dto/login.dto';
-import { AuthResponse, UserResponse } from './dto/auth-response.dto';
+import { prisma } from "../../config/database";
+import { hashPassword, comparePassword } from "../../utils/password.util";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+} from "../../utils/jwt.util";
+import { AuthError, ConflictError, NotFoundError } from "../../errors";
+import { RegisterDto } from "./dto/register.dto";
+import { LoginDto } from "./dto/login.dto";
+import { AuthResponse, UserResponse } from "./dto/auth-response.dto";
 
 export class AuthService {
-  async register(data: RegisterDto): Promise<AuthResponse & { refreshToken: string }> {
+  async register(
+    data: RegisterDto
+  ): Promise<AuthResponse & { refreshToken: string }> {
     // Check if user exists
     const existingUser = await prisma.user.findUnique({
-      where: { email: data.email }
+      where: { email: data.email },
     });
 
     if (existingUser) {
-      throw new ConflictError('Email already registered');
+      throw new ConflictError("Email already registered");
     }
 
     // Get role
     const role = await prisma.role.findUnique({
-      where: { name: data.roleName }
+      where: { name: data.roleName },
     });
 
     if (!role) {
-      throw new NotFoundError('Role');
+      throw new NotFoundError("Role");
     }
 
     // Hash password
@@ -36,15 +41,19 @@ export class AuthService {
         password: hashedPassword,
         firstName: data.firstName,
         lastName: data.lastName,
-        roleId: role.id
+        roleId: role.id,
       },
       include: {
-        role: true
-      }
+        role: true,
+      },
     });
 
     // Generate tokens
-    const { accessToken, refreshToken } = await this.generateTokens(user.id, user.email, role.id);
+    const { accessToken, refreshToken } = await this.generateTokens(
+      user.id,
+      user.email,
+      role.id
+    );
 
     // Remove password from response
     const { password: _, ...userWithoutPassword } = user;
@@ -52,35 +61,41 @@ export class AuthService {
     return {
       user: userWithoutPassword as UserResponse,
       accessToken,
-      refreshToken
+      refreshToken,
     };
   }
 
-  async login(data: LoginDto): Promise<AuthResponse & { refreshToken: string }> {
+  async login(
+    data: LoginDto
+  ): Promise<AuthResponse & { refreshToken: string }> {
     // Find user
     const user = await prisma.user.findUnique({
       where: { email: data.email },
-      include: { role: true }
+      include: { role: true },
     });
 
     if (!user) {
-      throw new AuthError('Invalid credentials');
+      throw new AuthError("Invalid credentials");
     }
 
     // Check status
-    if (user.status !== 'ACTIVE') {
-      throw new AuthError('Account is not active');
+    if (user.status !== "ACTIVE") {
+      throw new AuthError("Account is not active");
     }
 
     // Verify password
     const isValidPassword = await comparePassword(data.password, user.password);
 
     if (!isValidPassword) {
-      throw new AuthError('Invalid credentials');
+      throw new AuthError("Invalid credentials");
     }
 
     // Generate tokens
-    const { accessToken, refreshToken } = await this.generateTokens(user.id, user.email, user.roleId);
+    const { accessToken, refreshToken } = await this.generateTokens(
+      user.id,
+      user.email,
+      user.roleId
+    );
 
     // Remove password
     const { password: _, ...userWithoutPassword } = user;
@@ -88,53 +103,84 @@ export class AuthService {
     return {
       user: userWithoutPassword as UserResponse,
       accessToken,
-      refreshToken
+      refreshToken,
     };
   }
 
-  async refresh(refreshToken: string): Promise<{ accessToken: string; refreshToken: string }> {
+  async refresh(
+    refreshToken: string
+  ): Promise<{ accessToken: string; refreshToken: string }> {
     // Check if token exists in database
     const storedToken = await prisma.refreshToken.findUnique({
       where: { token: refreshToken },
       include: {
         user: {
-          include: { role: true }
-        }
-      }
+          include: { role: true },
+        },
+      },
     });
 
     if (!storedToken) {
-      throw new AuthError('Invalid refresh token');
+      throw new AuthError("Invalid refresh token");
     }
 
     // Check expiration
     if (new Date() > storedToken.expiresAt) {
       await prisma.refreshToken.delete({ where: { id: storedToken.id } });
-      throw new AuthError('Refresh token expired');
+      throw new AuthError("Refresh token expired");
     }
 
     // Check user status
-    if (storedToken.user.status !== 'ACTIVE') {
-      throw new AuthError('Account is not active');
+    if (storedToken.user.status !== "ACTIVE") {
+      throw new AuthError("Account is not active");
     }
 
     // Generate new tokens
     const { accessToken, refreshToken: newRefreshToken } =
-      await this.generateTokens(storedToken.userId, storedToken.user.email, storedToken.user.roleId);
+      await this.generateTokens(
+        storedToken.userId,
+        storedToken.user.email,
+        storedToken.user.roleId
+      );
 
     // Delete old token
     await prisma.refreshToken.delete({ where: { id: storedToken.id } });
 
     return {
       accessToken,
-      refreshToken: newRefreshToken
+      refreshToken: newRefreshToken,
+    };
+  }
+
+  async me(userId: string): Promise<AuthResponse & { refreshToken: string }> {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      include: { role: true },
+    });
+
+    if (!user) {
+      throw new AuthError("User not found");
+    }
+
+    const { password: _, ...userWithoutPassword } = user;
+
+    const { accessToken, refreshToken } = await this.generateTokens(
+      user.id,
+      user.email,
+      user.roleId
+    );
+
+    return {
+      user: userWithoutPassword as UserResponse,
+      accessToken,
+      refreshToken,
     };
   }
 
   async logout(refreshToken: string): Promise<void> {
     // Delete refresh token from database
     await prisma.refreshToken.deleteMany({
-      where: { token: refreshToken }
+      where: { token: refreshToken },
     });
   }
 
@@ -143,13 +189,13 @@ export class AuthService {
     const accessToken = generateAccessToken({
       userId,
       email,
-      roleId
+      roleId,
     });
 
     // Generate refresh token
     const refreshTokenValue = generateRefreshToken({
       userId,
-      tokenId: userId // Using userId as tokenId for simplicity
+      tokenId: userId, // Using userId as tokenId for simplicity
     });
 
     // Store refresh token
@@ -160,13 +206,13 @@ export class AuthService {
       data: {
         token: refreshTokenValue,
         userId,
-        expiresAt
-      }
+        expiresAt,
+      },
     });
 
     return {
       accessToken,
-      refreshToken: refreshTokenValue
+      refreshToken: refreshTokenValue,
     };
   }
 }
