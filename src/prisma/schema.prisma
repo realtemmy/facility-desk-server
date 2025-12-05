@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
@@ -10,7 +7,6 @@ datasource db {
   provider = "postgresql"
 }
 
-// Enums
 enum RoleName {
   ADMIN
   TECHNICIAN
@@ -29,19 +25,53 @@ enum UserStatus {
   SUSPENDED
 }
 
-// Models
+enum Criticality {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum Condition {
+  GOOD
+  FAIR
+  POOR
+}
+
+enum MainUse {
+  RESIDENTIAL
+  COMMERCIAL
+  INDUSTRIAL
+  MIXED
+  OTHER
+}
+
+enum ServiceStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+enum Category {
+  APARTMENT
+  HOUSE
+  OFFICE
+  SHOP
+  GARAGE
+  OTHER
+}
+
 model User {
-  id            String        @id @default(uuid())
-  email         String        @unique
+  id            String         @id @default(uuid())
+  email         String         @unique
   password      String
   firstName     String
   lastName      String
-  status        UserStatus    @default(ACTIVE)
+  status        UserStatus     @default(ACTIVE)
   roleId        String
-  role          Role          @relation(fields: [roleId], references: [id], onDelete: Restrict)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
   refreshTokens RefreshToken[]
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  role          Role           @relation(fields: [roleId], references: [id])
 
   @@index([email])
   @@index([roleId])
@@ -52,10 +82,10 @@ model Role {
   id          String       @id @default(uuid())
   name        RoleName     @unique
   description String?
-  users       User[]
-  permissions Permission[]
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
+  permissions Permission[]
+  users       User[]
 
   @@index([name])
   @@map("roles")
@@ -64,25 +94,265 @@ model Role {
 model Permission {
   id          String      @id @default(uuid())
   roleId      String
-  role        Role        @relation(fields: [roleId], references: [id], onDelete: Cascade)
   resource    String
   accessLevel AccessLevel @default(NONE)
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
+  role        Role        @relation(fields: [roleId], references: [id], onDelete: Cascade)
 
   @@unique([roleId, resource])
   @@index([roleId])
   @@map("permissions")
 }
 
+model Building {
+  id                String        @id @default(uuid())
+  code              String        @unique
+  description       String?
+  name              String
+  mainUse           MainUse       @default(RESIDENTIAL)
+  state             String?
+  address           String?
+  zip               String?
+  city              String?
+  coordinates       String?
+  condition         Condition     @default(GOOD)
+  criticality       Criticality   @default(LOW)
+  totalBuildings    Int           @default(0)
+  totalFloors       Int           @default(0)
+  totalUnits        Int           @default(0)
+  totalRooms        Int           @default(0)
+  glazedArea        Float         @default(0)
+  coveredArea       Float         @default(0)
+  cleanableArea     Float         @default(0)
+  totalNetArea      Float         @default(0)
+  totalGrossArea    Float         @default(0)
+  totalHeatedVolume Float         @default(0)
+  totalVolume       Float         @default(0)
+  serviceStatus     ServiceStatus @default(ACTIVE)
+
+  photos File[]
+  units Unit[]
+
+  calenderEntityId String?
+  calenderEntity   CalenderEntity? @relation(fields: [calenderEntityId], references: [id], onDelete: Cascade)
+
+  complexId String?
+  complex   Complex? @relation(fields: [complexId], references: [id], onDelete: Cascade)
+
+  floors Floor[]
+  rooms Room[]
+
+  @@map("buildings")
+}
+
+model Complex {
+  id             String      @id @default(uuid())
+  code           String
+  description    String
+  name           String
+  state          String?
+  address        String?
+  zip            String?
+  city           String?
+  coordinates    String?
+  condition      Condition   @default(GOOD)
+  criticality    Criticality @default(LOW)
+  totalBuildings Int         @default(0)
+  totalFloors    Int         @default(0)
+  totalUnits     Int         @default(0)
+  totalRooms     Int         @default(0)
+
+  glazedArea        Float @default(0)
+  coveredArea       Float @default(0)
+  cleanableArea     Float @default(0)
+  totalNetArea      Float @default(0)
+  totalGrossArea    Float @default(0)
+  totalHeatedVolume Float @default(0)
+  totalVolume       Float @default(0)
+
+  photos File[]
+  units Unit[]
+
+  calenderEntityId String?
+  calenderEntity   CalenderEntity? @relation(fields: [calenderEntityId], references: [id], onDelete: Cascade)
+
+  buildings Building[]
+  floors    Floor[]
+  rooms     Room[]
+
+  @@map("complexes")
+}
+
+model Floor {
+  id                String      @id @default(uuid())
+  code              String
+  description       String?
+  name              String
+  level             String?
+  state             String?
+  address           String?
+  zip               String?
+  city              String?
+  coordinates       String?
+  condition         Condition   @default(GOOD)
+  criticality       Criticality @default(LOW)
+  totalBuildings    Int         @default(0)
+  totalFloors       Int         @default(0)
+  totalUnits        Int         @default(0)
+  totalRooms        Int         @default(0)
+  glazedArea        Float       @default(0)
+  coveredArea       Float       @default(0)
+  cleanableArea     Float       @default(0)
+  totalNetArea      Float       @default(0)
+  totalGrossArea    Float       @default(0)
+  totalHeatedVolume Float       @default(0)
+  totalVolume       Float       @default(0)
+
+  photos File[]
+  rooms  Room[]
+  units  Unit[]
+
+  complexId  String?
+  complex    Complex?  @relation(fields: [complexId], references: [id], onDelete: Cascade)
+  buildingId String?
+  building   Building? @relation(fields: [buildingId], references: [id], onDelete: Cascade)
+
+  @@map("floors")
+}
+
+model Unit {
+  id             String      @id @default(uuid())
+  code           String
+  description    String?
+  name           String
+  state          String?
+  address        String?
+  zip            String?
+  city           String?
+  condition      Condition   @default(GOOD)
+  criticality    Criticality @default(LOW)
+  totalBuildings Int         @default(0)
+  totalFloors    Int         @default(0)
+  totalUnits     Int         @default(0)
+  totalRooms     Int         @default(0)
+
+  glazedArea        Float @default(0)
+  coveredArea       Float @default(0)
+  cleanableArea     Float @default(0)
+  totalNetArea      Float @default(0)
+  totalGrossArea    Float @default(0)
+  totalHeatedVolume Float @default(0)
+  totalVolume       Float @default(0)
+
+  cadastralArea   Float    @default(0)
+  urbanSection    String?
+  sheet           String?
+  plot            String?
+  subordinate     String?
+  category        Category @default(APARTMENT)
+  class           Int?
+  size            Float?
+  propertyRights  String?
+  CadastralIncome Float?
+  censusArea      String?
+  subArea         String?
+
+  serviceStatus ServiceStatus @default(ACTIVE)
+
+  photos File[]
+  rooms Room[]
+
+  floorId          String?
+  floor            Floor?          @relation(fields: [floorId], references: [id], onDelete: Cascade)
+  complexId        String?
+  complex          Complex?        @relation(fields: [complexId], references: [id], onDelete: Cascade)
+  buildingId       String?
+  building         Building?       @relation(fields: [buildingId], references: [id], onDelete: Cascade)
+  calenderEntityId String?
+  calenderEntity   CalenderEntity? @relation(fields: [calenderEntityId], references: [id], onDelete: Cascade)
+
+  @@map("units")
+}
+
+model Room {
+  id             String      @id @default(uuid())
+  code           String
+  description    String
+  name           String
+  use            MainUse     @default(RESIDENTIAL)
+  state          String?
+  address        String?
+  zip            String?
+  city           String?
+  coordinates    String?
+  condition      Condition   @default(GOOD)
+  criticality    Criticality @default(LOW)
+  totalBuildings Int         @default(0)
+  totalFloors    Int         @default(0)
+  totalUnits     Int         @default(0)
+  totalRooms     Int         @default(0)
+
+  glazedArea        Float   @default(0)
+  coveredArea       Float   @default(0)
+  cleanableArea     Float   @default(0)
+  totalNetArea      Float   @default(0)
+  totalGrossArea    Float   @default(0)
+  height            Float   @default(0)
+  totalHeatedVolume Float   @default(0)
+  totalVolume       Float   @default(0)
+  heated            Boolean @default(true)
+
+  serviceStatus ServiceStatus @default(ACTIVE)
+
+  photos File[]
+
+  floorId          String?
+  floor            Floor?          @relation(fields: [floorId], references: [id], onDelete: Cascade)
+  complexId        String?
+  complex          Complex?        @relation(fields: [complexId], references: [id], onDelete: Cascade)
+  buildingId       String?
+  building         Building?       @relation(fields: [buildingId], references: [id], onDelete: Cascade)
+  unitId           String?
+  unit             Unit?           @relation(fields: [unitId], references: [id], onDelete: Cascade)
+  calenderEntityId String?
+  calenderEntity   CalenderEntity? @relation(fields: [calenderEntityId], references: [id], onDelete: Cascade)
+
+  @@map("rooms")
+}
+
+model File {
+  id        String     @id @default(uuid())
+  url       String     @unique
+  buildings Building[]
+  complexes Complex[]
+  floors    Floor[]
+  rooms     Room[]
+  units     Unit[]
+
+  @@map("files")
+}
+
+model CalenderEntity {
+  id        String     @id @default(uuid())
+  name      String
+  buildings Building[]
+  complexes Complex[]
+
+  rooms Room[]
+  units Unit[]
+
+  @@map("calender_entities")
+}
+
 model RefreshToken {
   id        String   @id @default(uuid())
   token     String   @unique
   userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   expiresAt DateTime
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([token])
   @@index([userId])
