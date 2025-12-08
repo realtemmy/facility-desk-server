@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { AccessLevel } from '../generated/prisma';
-import { prisma } from '../config/database';
+import prisma from '../lib/prisma';
 import { ForbiddenError } from '../errors';
 
 const accessLevelHierarchy: Record<AccessLevel, number> = {

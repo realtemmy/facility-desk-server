@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
@@ -10,7 +7,6 @@ datasource db {
   provider = "postgresql"
 }
 
-// Enums
 enum RoleName {
   ADMIN
   TECHNICIAN
@@ -29,7 +25,56 @@ enum UserStatus {
   SUSPENDED
 }
 
-// Models
+enum Criticality {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum Condition {
+  GOOD
+  FAIR
+  POOR
+}
+
+enum MainUse {
+  RESIDENTIAL
+  COMMERCIAL
+  INDUSTRIAL
+  MIXED
+  OTHER
+}
+
+enum ServiceStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+enum Category {
+  APARTMENT
+  HOUSE
+  OFFICE
+  SHOP
+  GARAGE
+  OTHER
+}
+
+enum SiteType {
+  BUILDING
+  COMPLEX
+  FLOOR
+  UNIT
+  ROOM
+}
+
+enum RoomUse {
+  OFFICE
+  STORAGE
+  LABORATORY
+  OTHER
+}
+
 model User {
   id            String         @id @default(uuid())
   email         String         @unique
@@ -38,10 +83,14 @@ model User {
   lastName      String
   status        UserStatus     @default(ACTIVE)
   roleId        String
-  role          Role           @relation(fields: [roleId], references: [id], onDelete: Restrict)
-  refreshTokens RefreshToken[]
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
+  refreshTokens RefreshToken[]
+  role          Role           @relation(fields: [roleId], references: [id])
+
+  passwordResetToken String?
+  passwordExpiresAt  DateTime?
+  passwordResetAt    DateTime?
 
   @@index([email])
   @@index([roleId])
@@ -52,10 +101,10 @@ model Role {
   id          String       @id @default(uuid())
   name        RoleName     @unique
   description String?
-  users       User[]
-  permissions Permission[]
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
+  permissions Permission[]
+  users       User[]
 
   @@index([name])
   @@map("roles")
@@ -64,25 +113,174 @@ model Role {
 model Permission {
   id          String      @id @default(uuid())
   roleId      String
-  role        Role        @relation(fields: [roleId], references: [id], onDelete: Cascade)
   resource    String
   accessLevel AccessLevel @default(NONE)
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
+  role        Role        @relation(fields: [roleId], references: [id], onDelete: Cascade)
 
   @@unique([roleId, resource])
   @@index([roleId])
   @@map("permissions")
 }
 
+model Complex {
+  id          String  @id @default(uuid())
+  code        String  @unique
+  name        String
+  description String?
+
+  // Location
+  address String?
+  city    String?
+  state   String?
+  zip     String?
+
+  // Status
+  status      ServiceStatus @default(ACTIVE)
+  condition   Condition     @default(GOOD)
+  criticality Criticality   @default(LOW)
+
+  // Metrics
+  totalBuildings Int @default(0)
+
+  // Relations
+  buildings Building[]
+  photos    File[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("complexes")
+}
+
+model Building {
+  id      String  @id @default(uuid())
+  name    String
+  code    String  @unique
+  mainUse MainUse @default(RESIDENTIAL)
+
+  totalFloors Int @default(0)
+
+  address   String?
+  latitude  Float?
+  longitude Float?
+
+  status      ServiceStatus @default(ACTIVE)
+  condition   Condition     @default(GOOD)
+  criticality Criticality   @default(LOW)
+
+  complexId String
+  complex   Complex @relation(fields: [complexId], references: [id], onDelete: Cascade)
+
+  calenderEntityId String?
+  calenderEntity   CalenderEntity? @relation(fields: [calenderEntityId], references: [id], onDelete: Cascade)
+
+  photos File[]
+  floors Floor[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([complexId, code])
+  @@map("buildings")
+}
+
+model Floor {
+  id    String @id @default(uuid())
+  code  String
+  name  String
+  level Int
+
+  grossArea Float @default(0)
+
+  status      ServiceStatus @default(ACTIVE)
+  condition   Condition     @default(GOOD)
+  criticality Criticality   @default(LOW)
+
+  buildingId String?
+  building   Building? @relation(fields: [buildingId], references: [id])
+
+  rooms Room[]
+  units Unit[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([buildingId, code])
+  @@map("floors")
+}
+
+model Unit {
+  id   String @id @default(uuid())
+  code String
+  name String
+
+  floorId String
+  floor   Floor  @relation(fields: [floorId], references: [id], onDelete: Cascade)
+
+  rooms  Room[]
+  photos File[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([floorId, code])
+  @@map("units")
+}
+
+model Room {
+  id   String  @id @default(uuid())
+  name String
+  code String
+  use  RoomUse @default(OFFICE)
+
+  floorId String
+  floor   Floor   @relation(fields: [floorId], references: [id], onDelete: Cascade)
+  unitId  String?
+  unit    Unit?   @relation(fields: [unitId], references: [id])
+
+  photos File[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([floorId, code])
+  @@map("rooms")
+}
+
+model File {
+  id  String @id @default(uuid())
+  url String @unique
+
+  rooms     Room[]
+  units     Unit[]
+  buildings Building[]
+  complexes Complex[]
+
+  @@map("files")
+}
+
+model CalenderEntity {
+  id   String @id @default(uuid())
+  name String
+
+  buildings Building[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("calender_entities")
+}
+
 model RefreshToken {
   id        String   @id @default(uuid())
   token     String   @unique
   userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   expiresAt DateTime
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([token])
   @@index([userId])

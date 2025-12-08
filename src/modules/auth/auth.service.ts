@@ -1,4 +1,4 @@
-import { prisma } from "../../config/database";
+import prisma from "../../lib/prisma";
 import { hashPassword, comparePassword } from "../../utils/password.util";
 import {
   generateAccessToken,

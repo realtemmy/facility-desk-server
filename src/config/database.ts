@@ -1,7 +1,4 @@
-import prismaClient from '../lib/prisma';
-
-// Use the existing Prisma client from src/lib/prisma.ts
-export const prisma = prismaClient;
+import prisma from '../lib/prisma';
 
 export async function connectDatabase() {
   try {

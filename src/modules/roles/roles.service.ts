@@ -1,4 +1,4 @@
-import { prisma } from '../../config/database';
+import prisma from '../../lib/prisma';
 import { NotFoundError } from '../../errors';
 
 export class RolesService {

@@ -1,4 +1,4 @@
-import { RoleName } from '../../../../generated/prisma';
+import { RoleName } from "../../../generated/prisma";
 
 export interface RegisterDto {
   email: string;

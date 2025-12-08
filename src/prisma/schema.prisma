@@ -60,6 +60,21 @@ enum Category {
   OTHER
 }
 
+enum SiteType {
+  BUILDING
+  COMPLEX
+  FLOOR
+  UNIT
+  ROOM
+}
+
+enum RoomUse {
+  OFFICE
+  STORAGE
+  LABORATORY
+  OTHER
+}
+
 model User {
   id            String         @id @default(uuid())
   email         String         @unique
@@ -72,6 +87,10 @@ model User {
   updatedAt     DateTime       @updatedAt
   refreshTokens RefreshToken[]
   role          Role           @relation(fields: [roleId], references: [id])
+
+  passwordResetToken String?
+  passwordExpiresAt  DateTime?
+  passwordResetAt    DateTime?
 
   @@index([email])
   @@index([roleId])
@@ -105,242 +124,152 @@ model Permission {
   @@map("permissions")
 }
 
-model Building {
-  id                String        @id @default(uuid())
-  code              String        @unique
-  description       String?
-  name              String
-  mainUse           MainUse       @default(RESIDENTIAL)
-  state             String?
-  address           String?
-  zip               String?
-  city              String?
-  coordinates       String?
-  condition         Condition     @default(GOOD)
-  criticality       Criticality   @default(LOW)
-  totalBuildings    Int           @default(0)
-  totalFloors       Int           @default(0)
-  totalUnits        Int           @default(0)
-  totalRooms        Int           @default(0)
-  glazedArea        Float         @default(0)
-  coveredArea       Float         @default(0)
-  cleanableArea     Float         @default(0)
-  totalNetArea      Float         @default(0)
-  totalGrossArea    Float         @default(0)
-  totalHeatedVolume Float         @default(0)
-  totalVolume       Float         @default(0)
-  serviceStatus     ServiceStatus @default(ACTIVE)
-
-  photos File[]
-  units Unit[]
-
-  calenderEntityId String?
-  calenderEntity   CalenderEntity? @relation(fields: [calenderEntityId], references: [id], onDelete: Cascade)
-
-  complexId String?
-  complex   Complex? @relation(fields: [complexId], references: [id], onDelete: Cascade)
-
-  floors Floor[]
-  rooms Room[]
-
-  @@map("buildings")
-}
-
 model Complex {
-  id             String      @id @default(uuid())
-  code           String
-  description    String
-  name           String
-  state          String?
-  address        String?
-  zip            String?
-  city           String?
-  coordinates    String?
-  condition      Condition   @default(GOOD)
-  criticality    Criticality @default(LOW)
-  totalBuildings Int         @default(0)
-  totalFloors    Int         @default(0)
-  totalUnits     Int         @default(0)
-  totalRooms     Int         @default(0)
+  id          String  @id @default(uuid())
+  code        String  @unique
+  name        String
+  description String?
 
-  glazedArea        Float @default(0)
-  coveredArea       Float @default(0)
-  cleanableArea     Float @default(0)
-  totalNetArea      Float @default(0)
-  totalGrossArea    Float @default(0)
-  totalHeatedVolume Float @default(0)
-  totalVolume       Float @default(0)
+  // Location
+  address String?
+  city    String?
+  state   String?
+  zip     String?
 
-  photos File[]
-  units Unit[]
+  // Status
+  status      ServiceStatus @default(ACTIVE)
+  condition   Condition     @default(GOOD)
+  criticality Criticality   @default(LOW)
 
-  calenderEntityId String?
-  calenderEntity   CalenderEntity? @relation(fields: [calenderEntityId], references: [id], onDelete: Cascade)
+  // Metrics
+  totalBuildings Int @default(0)
 
+  // Relations
   buildings Building[]
-  floors    Floor[]
-  rooms     Room[]
+  photos    File[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("complexes")
 }
 
-model Floor {
-  id                String      @id @default(uuid())
-  code              String
-  description       String?
-  name              String
-  level             String?
-  state             String?
-  address           String?
-  zip               String?
-  city              String?
-  coordinates       String?
-  condition         Condition   @default(GOOD)
-  criticality       Criticality @default(LOW)
-  totalBuildings    Int         @default(0)
-  totalFloors       Int         @default(0)
-  totalUnits        Int         @default(0)
-  totalRooms        Int         @default(0)
-  glazedArea        Float       @default(0)
-  coveredArea       Float       @default(0)
-  cleanableArea     Float       @default(0)
-  totalNetArea      Float       @default(0)
-  totalGrossArea    Float       @default(0)
-  totalHeatedVolume Float       @default(0)
-  totalVolume       Float       @default(0)
+model Building {
+  id      String  @id @default(uuid())
+  name    String
+  code    String  @unique
+  mainUse MainUse @default(RESIDENTIAL)
+
+  totalFloors Int @default(0)
+
+  address   String?
+  latitude  Float?
+  longitude Float?
+
+  status      ServiceStatus @default(ACTIVE)
+  condition   Condition     @default(GOOD)
+  criticality Criticality   @default(LOW)
+
+  complexId String
+  complex   Complex @relation(fields: [complexId], references: [id], onDelete: Cascade)
+
+  calenderEntityId String?
+  calenderEntity   CalenderEntity? @relation(fields: [calenderEntityId], references: [id], onDelete: Cascade)
 
   photos File[]
-  rooms  Room[]
-  units  Unit[]
+  floors Floor[]
 
-  complexId  String?
-  complex    Complex?  @relation(fields: [complexId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([complexId, code])
+  @@map("buildings")
+}
+
+model Floor {
+  id    String @id @default(uuid())
+  code  String
+  name  String
+  level Int
+
+  grossArea Float @default(0)
+
+  status      ServiceStatus @default(ACTIVE)
+  condition   Condition     @default(GOOD)
+  criticality Criticality   @default(LOW)
+
   buildingId String?
-  building   Building? @relation(fields: [buildingId], references: [id], onDelete: Cascade)
+  building   Building? @relation(fields: [buildingId], references: [id])
 
+  rooms Room[]
+  units Unit[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([buildingId, code])
   @@map("floors")
 }
 
 model Unit {
-  id             String      @id @default(uuid())
-  code           String
-  description    String?
-  name           String
-  state          String?
-  address        String?
-  zip            String?
-  city           String?
-  condition      Condition   @default(GOOD)
-  criticality    Criticality @default(LOW)
-  totalBuildings Int         @default(0)
-  totalFloors    Int         @default(0)
-  totalUnits     Int         @default(0)
-  totalRooms     Int         @default(0)
+  id   String @id @default(uuid())
+  code String
+  name String
 
-  glazedArea        Float @default(0)
-  coveredArea       Float @default(0)
-  cleanableArea     Float @default(0)
-  totalNetArea      Float @default(0)
-  totalGrossArea    Float @default(0)
-  totalHeatedVolume Float @default(0)
-  totalVolume       Float @default(0)
+  floorId String
+  floor   Floor  @relation(fields: [floorId], references: [id], onDelete: Cascade)
 
-  cadastralArea   Float    @default(0)
-  urbanSection    String?
-  sheet           String?
-  plot            String?
-  subordinate     String?
-  category        Category @default(APARTMENT)
-  class           Int?
-  size            Float?
-  propertyRights  String?
-  CadastralIncome Float?
-  censusArea      String?
-  subArea         String?
-
-  serviceStatus ServiceStatus @default(ACTIVE)
-
-  photos File[]
   rooms Room[]
+  photos File[]
 
-  floorId          String?
-  floor            Floor?          @relation(fields: [floorId], references: [id], onDelete: Cascade)
-  complexId        String?
-  complex          Complex?        @relation(fields: [complexId], references: [id], onDelete: Cascade)
-  buildingId       String?
-  building         Building?       @relation(fields: [buildingId], references: [id], onDelete: Cascade)
-  calenderEntityId String?
-  calenderEntity   CalenderEntity? @relation(fields: [calenderEntityId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
+  @@unique([floorId, code])
   @@map("units")
 }
 
 model Room {
-  id             String      @id @default(uuid())
-  code           String
-  description    String
-  name           String
-  use            MainUse     @default(RESIDENTIAL)
-  state          String?
-  address        String?
-  zip            String?
-  city           String?
-  coordinates    String?
-  condition      Condition   @default(GOOD)
-  criticality    Criticality @default(LOW)
-  totalBuildings Int         @default(0)
-  totalFloors    Int         @default(0)
-  totalUnits     Int         @default(0)
-  totalRooms     Int         @default(0)
+  id   String  @id @default(uuid())
+  name String
+  code String
+  use  RoomUse @default(OFFICE)
 
-  glazedArea        Float   @default(0)
-  coveredArea       Float   @default(0)
-  cleanableArea     Float   @default(0)
-  totalNetArea      Float   @default(0)
-  totalGrossArea    Float   @default(0)
-  height            Float   @default(0)
-  totalHeatedVolume Float   @default(0)
-  totalVolume       Float   @default(0)
-  heated            Boolean @default(true)
-
-  serviceStatus ServiceStatus @default(ACTIVE)
+  floorId String
+  floor   Floor  @relation(fields: [floorId], references: [id], onDelete: Cascade)
+  unitId String?
+  unit   Unit? @relation(fields: [unitId], references: [id])
 
   photos File[]
 
-  floorId          String?
-  floor            Floor?          @relation(fields: [floorId], references: [id], onDelete: Cascade)
-  complexId        String?
-  complex          Complex?        @relation(fields: [complexId], references: [id], onDelete: Cascade)
-  buildingId       String?
-  building         Building?       @relation(fields: [buildingId], references: [id], onDelete: Cascade)
-  unitId           String?
-  unit             Unit?           @relation(fields: [unitId], references: [id], onDelete: Cascade)
-  calenderEntityId String?
-  calenderEntity   CalenderEntity? @relation(fields: [calenderEntityId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
+  @@unique([floorId, code])
   @@map("rooms")
 }
 
 model File {
-  id        String     @id @default(uuid())
-  url       String     @unique
+  id  String @id @default(uuid())
+  url String @unique
+
+  rooms Room[]
+  units Unit[]
   buildings Building[]
   complexes Complex[]
-  floors    Floor[]
-  rooms     Room[]
-  units     Unit[]
 
   @@map("files")
 }
 
 model CalenderEntity {
-  id        String     @id @default(uuid())
-  name      String
-  buildings Building[]
-  complexes Complex[]
+  id   String @id @default(uuid())
+  name String
 
-  rooms Room[]
-  units Unit[]
+  buildings Building[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
 
   @@map("calender_entities")
 }

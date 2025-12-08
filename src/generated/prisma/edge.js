@@ -101,7 +101,10 @@ exports.Prisma.UserScalarFieldEnum = {
   status: 'status',
   roleId: 'roleId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  passwordResetToken: 'passwordResetToken',
+  passwordExpiresAt: 'passwordExpiresAt',
+  passwordResetAt: 'passwordResetAt'
 };
 
 exports.Prisma.RoleScalarFieldEnum = {
@@ -117,6 +120,87 @@ exports.Prisma.PermissionScalarFieldEnum = {
   roleId: 'roleId',
   resource: 'resource',
   accessLevel: 'accessLevel',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ComplexScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  description: 'description',
+  address: 'address',
+  city: 'city',
+  state: 'state',
+  zip: 'zip',
+  status: 'status',
+  condition: 'condition',
+  criticality: 'criticality',
+  totalBuildings: 'totalBuildings',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BuildingScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  code: 'code',
+  mainUse: 'mainUse',
+  totalFloors: 'totalFloors',
+  address: 'address',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  status: 'status',
+  condition: 'condition',
+  criticality: 'criticality',
+  complexId: 'complexId',
+  calenderEntityId: 'calenderEntityId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FloorScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  level: 'level',
+  grossArea: 'grossArea',
+  status: 'status',
+  condition: 'condition',
+  criticality: 'criticality',
+  buildingId: 'buildingId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UnitScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  floorId: 'floorId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.RoomScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  code: 'code',
+  use: 'use',
+  floorId: 'floorId',
+  unitId: 'unitId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FileScalarFieldEnum = {
+  id: 'id',
+  url: 'url'
+};
+
+exports.Prisma.CalenderEntityScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -162,10 +246,67 @@ exports.UserStatus = exports.$Enums.UserStatus = {
   SUSPENDED: 'SUSPENDED'
 };
 
+exports.Criticality = exports.$Enums.Criticality = {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH'
+};
+
+exports.Condition = exports.$Enums.Condition = {
+  GOOD: 'GOOD',
+  FAIR: 'FAIR',
+  POOR: 'POOR'
+};
+
+exports.MainUse = exports.$Enums.MainUse = {
+  RESIDENTIAL: 'RESIDENTIAL',
+  COMMERCIAL: 'COMMERCIAL',
+  INDUSTRIAL: 'INDUSTRIAL',
+  MIXED: 'MIXED',
+  OTHER: 'OTHER'
+};
+
+exports.ServiceStatus = exports.$Enums.ServiceStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  SUSPENDED: 'SUSPENDED'
+};
+
+exports.Category = exports.$Enums.Category = {
+  APARTMENT: 'APARTMENT',
+  HOUSE: 'HOUSE',
+  OFFICE: 'OFFICE',
+  SHOP: 'SHOP',
+  GARAGE: 'GARAGE',
+  OTHER: 'OTHER'
+};
+
+exports.SiteType = exports.$Enums.SiteType = {
+  BUILDING: 'BUILDING',
+  COMPLEX: 'COMPLEX',
+  FLOOR: 'FLOOR',
+  UNIT: 'UNIT',
+  ROOM: 'ROOM'
+};
+
+exports.RoomUse = exports.$Enums.RoomUse = {
+  OFFICE: 'OFFICE',
+  STORAGE: 'STORAGE',
+  LABORATORY: 'LABORATORY',
+  OTHER: 'OTHER'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Role: 'Role',
   Permission: 'Permission',
+  Complex: 'Complex',
+  Building: 'Building',
+  Floor: 'Floor',
+  Unit: 'Unit',
+  Room: 'Room',
+  File: 'File',
+  CalenderEntity: 'CalenderEntity',
   RefreshToken: 'RefreshToken'
 };
 /**
@@ -176,10 +317,10 @@ const config = {
   "clientVersion": "7.0.1",
   "engineVersion": "f09f2815f091dbba658cdcd2264306d88bb5bda6",
   "activeProvider": "postgresql",
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\n// Enums\nenum RoleName {\n  ADMIN\n  TECHNICIAN\n  USER\n}\n\nenum AccessLevel {\n  NONE\n  READ\n  WRITE\n}\n\nenum UserStatus {\n  ACTIVE\n  INACTIVE\n  SUSPENDED\n}\n\n// Models\nmodel User {\n  id            String         @id @default(uuid())\n  email         String         @unique\n  password      String\n  firstName     String\n  lastName      String\n  status        UserStatus     @default(ACTIVE)\n  roleId        String\n  role          Role           @relation(fields: [roleId], references: [id], onDelete: Restrict)\n  refreshTokens RefreshToken[]\n  createdAt     DateTime       @default(now())\n  updatedAt     DateTime       @updatedAt\n\n  @@index([email])\n  @@index([roleId])\n  @@map(\"users\")\n}\n\nmodel Role {\n  id          String       @id @default(uuid())\n  name        RoleName     @unique\n  description String?\n  users       User[]\n  permissions Permission[]\n  createdAt   DateTime     @default(now())\n  updatedAt   DateTime     @updatedAt\n\n  @@index([name])\n  @@map(\"roles\")\n}\n\nmodel Permission {\n  id          String      @id @default(uuid())\n  roleId      String\n  role        Role        @relation(fields: [roleId], references: [id], onDelete: Cascade)\n  resource    String\n  accessLevel AccessLevel @default(NONE)\n  createdAt   DateTime    @default(now())\n  updatedAt   DateTime    @updatedAt\n\n  @@unique([roleId, resource])\n  @@index([roleId])\n  @@map(\"permissions\")\n}\n\nmodel RefreshToken {\n  id        String   @id @default(uuid())\n  token     String   @unique\n  userId    String\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n  expiresAt DateTime\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@index([token])\n  @@index([userId])\n  @@map(\"refresh_tokens\")\n}\n"
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nenum RoleName {\n  ADMIN\n  TECHNICIAN\n  USER\n}\n\nenum AccessLevel {\n  NONE\n  READ\n  WRITE\n}\n\nenum UserStatus {\n  ACTIVE\n  INACTIVE\n  SUSPENDED\n}\n\nenum Criticality {\n  LOW\n  MEDIUM\n  HIGH\n}\n\nenum Condition {\n  GOOD\n  FAIR\n  POOR\n}\n\nenum MainUse {\n  RESIDENTIAL\n  COMMERCIAL\n  INDUSTRIAL\n  MIXED\n  OTHER\n}\n\nenum ServiceStatus {\n  ACTIVE\n  INACTIVE\n  SUSPENDED\n}\n\nenum Category {\n  APARTMENT\n  HOUSE\n  OFFICE\n  SHOP\n  GARAGE\n  OTHER\n}\n\nenum SiteType {\n  BUILDING\n  COMPLEX\n  FLOOR\n  UNIT\n  ROOM\n}\n\nenum RoomUse {\n  OFFICE\n  STORAGE\n  LABORATORY\n  OTHER\n}\n\nmodel User {\n  id            String         @id @default(uuid())\n  email         String         @unique\n  password      String\n  firstName     String\n  lastName      String\n  status        UserStatus     @default(ACTIVE)\n  roleId        String\n  createdAt     DateTime       @default(now())\n  updatedAt     DateTime       @updatedAt\n  refreshTokens RefreshToken[]\n  role          Role           @relation(fields: [roleId], references: [id])\n\n  passwordResetToken String?\n  passwordExpiresAt  DateTime?\n  passwordResetAt    DateTime?\n\n  @@index([email])\n  @@index([roleId])\n  @@map(\"users\")\n}\n\nmodel Role {\n  id          String       @id @default(uuid())\n  name        RoleName     @unique\n  description String?\n  createdAt   DateTime     @default(now())\n  updatedAt   DateTime     @updatedAt\n  permissions Permission[]\n  users       User[]\n\n  @@index([name])\n  @@map(\"roles\")\n}\n\nmodel Permission {\n  id          String      @id @default(uuid())\n  roleId      String\n  resource    String\n  accessLevel AccessLevel @default(NONE)\n  createdAt   DateTime    @default(now())\n  updatedAt   DateTime    @updatedAt\n  role        Role        @relation(fields: [roleId], references: [id], onDelete: Cascade)\n\n  @@unique([roleId, resource])\n  @@index([roleId])\n  @@map(\"permissions\")\n}\n\nmodel Complex {\n  id          String  @id @default(uuid())\n  code        String  @unique\n  name        String\n  description String?\n\n  // Location\n  address String?\n  city    String?\n  state   String?\n  zip     String?\n\n  // Status\n  status      ServiceStatus @default(ACTIVE)\n  condition   Condition     @default(GOOD)\n  criticality Criticality   @default(LOW)\n\n  // Metrics\n  totalBuildings Int @default(0)\n\n  // Relations\n  buildings Building[]\n  photos    File[]\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map(\"complexes\")\n}\n\nmodel Building {\n  id      String  @id @default(uuid())\n  name    String\n  code    String  @unique\n  mainUse MainUse @default(RESIDENTIAL)\n\n  totalFloors Int @default(0)\n\n  address   String?\n  latitude  Float?\n  longitude Float?\n\n  status      ServiceStatus @default(ACTIVE)\n  condition   Condition     @default(GOOD)\n  criticality Criticality   @default(LOW)\n\n  complexId String\n  complex   Complex @relation(fields: [complexId], references: [id], onDelete: Cascade)\n\n  calenderEntityId String?\n  calenderEntity   CalenderEntity? @relation(fields: [calenderEntityId], references: [id], onDelete: Cascade)\n\n  photos File[]\n  floors Floor[]\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@unique([complexId, code])\n  @@map(\"buildings\")\n}\n\nmodel Floor {\n  id    String @id @default(uuid())\n  code  String\n  name  String\n  level Int\n\n  grossArea Float @default(0)\n\n  status      ServiceStatus @default(ACTIVE)\n  condition   Condition     @default(GOOD)\n  criticality Criticality   @default(LOW)\n\n  buildingId String?\n  building   Building? @relation(fields: [buildingId], references: [id])\n\n  rooms Room[]\n  units Unit[]\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@unique([buildingId, code])\n  @@map(\"floors\")\n}\n\nmodel Unit {\n  id   String @id @default(uuid())\n  code String\n  name String\n\n  floorId String\n  floor   Floor  @relation(fields: [floorId], references: [id], onDelete: Cascade)\n\n  rooms  Room[]\n  photos File[]\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@unique([floorId, code])\n  @@map(\"units\")\n}\n\nmodel Room {\n  id   String  @id @default(uuid())\n  name String\n  code String\n  use  RoomUse @default(OFFICE)\n\n  floorId String\n  floor   Floor   @relation(fields: [floorId], references: [id], onDelete: Cascade)\n  unitId  String?\n  unit    Unit?   @relation(fields: [unitId], references: [id])\n\n  photos File[]\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@unique([floorId, code])\n  @@map(\"rooms\")\n}\n\nmodel File {\n  id  String @id @default(uuid())\n  url String @unique\n\n  rooms     Room[]\n  units     Unit[]\n  buildings Building[]\n  complexes Complex[]\n\n  @@map(\"files\")\n}\n\nmodel CalenderEntity {\n  id   String @id @default(uuid())\n  name String\n\n  buildings Building[]\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map(\"calender_entities\")\n}\n\nmodel RefreshToken {\n  id        String   @id @default(uuid())\n  token     String   @unique\n  userId    String\n  expiresAt DateTime\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@index([token])\n  @@index([userId])\n  @@map(\"refresh_tokens\")\n}\n"
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"firstName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lastName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"UserStatus\"},{\"name\":\"roleId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"object\",\"type\":\"Role\",\"relationName\":\"RoleToUser\"},{\"name\":\"refreshTokens\",\"kind\":\"object\",\"type\":\"RefreshToken\",\"relationName\":\"RefreshTokenToUser\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"users\"},\"Role\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"enum\",\"type\":\"RoleName\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"RoleToUser\"},{\"name\":\"permissions\",\"kind\":\"object\",\"type\":\"Permission\",\"relationName\":\"PermissionToRole\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"roles\"},\"Permission\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"roleId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"object\",\"type\":\"Role\",\"relationName\":\"PermissionToRole\"},{\"name\":\"resource\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accessLevel\",\"kind\":\"enum\",\"type\":\"AccessLevel\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"permissions\"},\"RefreshToken\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"RefreshTokenToUser\"},{\"name\":\"expiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"refresh_tokens\"}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"firstName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lastName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"UserStatus\"},{\"name\":\"roleId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"refreshTokens\",\"kind\":\"object\",\"type\":\"RefreshToken\",\"relationName\":\"RefreshTokenToUser\"},{\"name\":\"role\",\"kind\":\"object\",\"type\":\"Role\",\"relationName\":\"RoleToUser\"},{\"name\":\"passwordResetToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"passwordExpiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"passwordResetAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"users\"},\"Role\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"enum\",\"type\":\"RoleName\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"permissions\",\"kind\":\"object\",\"type\":\"Permission\",\"relationName\":\"PermissionToRole\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"RoleToUser\"}],\"dbName\":\"roles\"},\"Permission\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"roleId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"resource\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accessLevel\",\"kind\":\"enum\",\"type\":\"AccessLevel\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"role\",\"kind\":\"object\",\"type\":\"Role\",\"relationName\":\"PermissionToRole\"}],\"dbName\":\"permissions\"},\"Complex\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"code\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"address\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"city\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"state\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"zip\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"ServiceStatus\"},{\"name\":\"condition\",\"kind\":\"enum\",\"type\":\"Condition\"},{\"name\":\"criticality\",\"kind\":\"enum\",\"type\":\"Criticality\"},{\"name\":\"totalBuildings\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"buildings\",\"kind\":\"object\",\"type\":\"Building\",\"relationName\":\"BuildingToComplex\"},{\"name\":\"photos\",\"kind\":\"object\",\"type\":\"File\",\"relationName\":\"ComplexToFile\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"complexes\"},\"Building\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"code\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"mainUse\",\"kind\":\"enum\",\"type\":\"MainUse\"},{\"name\":\"totalFloors\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"address\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"latitude\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"longitude\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"ServiceStatus\"},{\"name\":\"condition\",\"kind\":\"enum\",\"type\":\"Condition\"},{\"name\":\"criticality\",\"kind\":\"enum\",\"type\":\"Criticality\"},{\"name\":\"complexId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"complex\",\"kind\":\"object\",\"type\":\"Complex\",\"relationName\":\"BuildingToComplex\"},{\"name\":\"calenderEntityId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"calenderEntity\",\"kind\":\"object\",\"type\":\"CalenderEntity\",\"relationName\":\"BuildingToCalenderEntity\"},{\"name\":\"photos\",\"kind\":\"object\",\"type\":\"File\",\"relationName\":\"BuildingToFile\"},{\"name\":\"floors\",\"kind\":\"object\",\"type\":\"Floor\",\"relationName\":\"BuildingToFloor\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"buildings\"},\"Floor\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"code\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"level\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"grossArea\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"ServiceStatus\"},{\"name\":\"condition\",\"kind\":\"enum\",\"type\":\"Condition\"},{\"name\":\"criticality\",\"kind\":\"enum\",\"type\":\"Criticality\"},{\"name\":\"buildingId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"building\",\"kind\":\"object\",\"type\":\"Building\",\"relationName\":\"BuildingToFloor\"},{\"name\":\"rooms\",\"kind\":\"object\",\"type\":\"Room\",\"relationName\":\"FloorToRoom\"},{\"name\":\"units\",\"kind\":\"object\",\"type\":\"Unit\",\"relationName\":\"FloorToUnit\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"floors\"},\"Unit\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"code\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"floorId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"floor\",\"kind\":\"object\",\"type\":\"Floor\",\"relationName\":\"FloorToUnit\"},{\"name\":\"rooms\",\"kind\":\"object\",\"type\":\"Room\",\"relationName\":\"RoomToUnit\"},{\"name\":\"photos\",\"kind\":\"object\",\"type\":\"File\",\"relationName\":\"FileToUnit\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"units\"},\"Room\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"code\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"use\",\"kind\":\"enum\",\"type\":\"RoomUse\"},{\"name\":\"floorId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"floor\",\"kind\":\"object\",\"type\":\"Floor\",\"relationName\":\"FloorToRoom\"},{\"name\":\"unitId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"unit\",\"kind\":\"object\",\"type\":\"Unit\",\"relationName\":\"RoomToUnit\"},{\"name\":\"photos\",\"kind\":\"object\",\"type\":\"File\",\"relationName\":\"FileToRoom\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"rooms\"},\"File\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"rooms\",\"kind\":\"object\",\"type\":\"Room\",\"relationName\":\"FileToRoom\"},{\"name\":\"units\",\"kind\":\"object\",\"type\":\"Unit\",\"relationName\":\"FileToUnit\"},{\"name\":\"buildings\",\"kind\":\"object\",\"type\":\"Building\",\"relationName\":\"BuildingToFile\"},{\"name\":\"complexes\",\"kind\":\"object\",\"type\":\"Complex\",\"relationName\":\"ComplexToFile\"}],\"dbName\":\"files\"},\"CalenderEntity\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"buildings\",\"kind\":\"object\",\"type\":\"Building\",\"relationName\":\"BuildingToCalenderEntity\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"calender_entities\"},\"RefreshToken\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"RefreshTokenToUser\"}],\"dbName\":\"refresh_tokens\"}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.compilerWasm = {
   getRuntime: async () => require('./query_compiler_bg.js'),

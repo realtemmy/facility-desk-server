@@ -12,6 +12,13 @@ import authRoutes from './modules/auth/auth.routes';
 import userRoutes from './modules/users/users.routes';
 import roleRoutes from './modules/roles/roles.routes';
 import permissionRoutes from './modules/permissions/permissions.routes';
+import complexesRoutes from './modules/sites/routes/complexes.routes';
+import buildingsRoutes from './modules/sites/routes/buildings.routes';
+import floorsRoutes from './modules/sites/routes/floors.routes';
+import unitsRoutes from './modules/sites/routes/units.routes';
+import roomsRoutes from './modules/sites/routes/rooms.routes';
+import swaggerSpec from './swagger';
+import swagger from 'swagger-ui-express';
 
 const app: Application = express();
 
@@ -53,9 +60,15 @@ app.get('/health', (req: Request, res: Response) => {
 
 // API routes
 const API_VERSION = CONSTANTS.API_VERSION;
+app.use(`/api/${API_VERSION}/docs`, swagger.serve, swagger.setup(swaggerSpec));
 app.use(`/api/${API_VERSION}/auth`, authRoutes);
 app.use(`/api/${API_VERSION}/users`, apiRateLimiter, userRoutes);
 app.use(`/api/${API_VERSION}/roles`, apiRateLimiter, roleRoutes, permissionRoutes);
+app.use(`/api/${API_VERSION}/complexes`, apiRateLimiter, complexesRoutes);
+app.use(`/api/${API_VERSION}/buildings`, apiRateLimiter, buildingsRoutes);
+app.use(`/api/${API_VERSION}/floors`, apiRateLimiter, floorsRoutes);
+app.use(`/api/${API_VERSION}/units`, apiRateLimiter, unitsRoutes);
+app.use(`/api/${API_VERSION}/rooms`, apiRateLimiter, roomsRoutes);
 
 // 404 handler
 app.use((req: Request, res: Response) => {

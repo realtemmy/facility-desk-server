@@ -129,7 +129,10 @@ exports.Prisma.UserScalarFieldEnum = {
   status: 'status',
   roleId: 'roleId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  passwordResetToken: 'passwordResetToken',
+  passwordExpiresAt: 'passwordExpiresAt',
+  passwordResetAt: 'passwordResetAt'
 };
 
 exports.Prisma.RoleScalarFieldEnum = {
@@ -145,6 +148,87 @@ exports.Prisma.PermissionScalarFieldEnum = {
   roleId: 'roleId',
   resource: 'resource',
   accessLevel: 'accessLevel',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ComplexScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  description: 'description',
+  address: 'address',
+  city: 'city',
+  state: 'state',
+  zip: 'zip',
+  status: 'status',
+  condition: 'condition',
+  criticality: 'criticality',
+  totalBuildings: 'totalBuildings',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BuildingScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  code: 'code',
+  mainUse: 'mainUse',
+  totalFloors: 'totalFloors',
+  address: 'address',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  status: 'status',
+  condition: 'condition',
+  criticality: 'criticality',
+  complexId: 'complexId',
+  calenderEntityId: 'calenderEntityId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FloorScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  level: 'level',
+  grossArea: 'grossArea',
+  status: 'status',
+  condition: 'condition',
+  criticality: 'criticality',
+  buildingId: 'buildingId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UnitScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  floorId: 'floorId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.RoomScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  code: 'code',
+  use: 'use',
+  floorId: 'floorId',
+  unitId: 'unitId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FileScalarFieldEnum = {
+  id: 'id',
+  url: 'url'
+};
+
+exports.Prisma.CalenderEntityScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -190,10 +274,50 @@ exports.AccessLevel = exports.$Enums.AccessLevel = {
   WRITE: 'WRITE'
 };
 
+exports.ServiceStatus = exports.$Enums.ServiceStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  SUSPENDED: 'SUSPENDED'
+};
+
+exports.Condition = exports.$Enums.Condition = {
+  GOOD: 'GOOD',
+  FAIR: 'FAIR',
+  POOR: 'POOR'
+};
+
+exports.Criticality = exports.$Enums.Criticality = {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH'
+};
+
+exports.MainUse = exports.$Enums.MainUse = {
+  RESIDENTIAL: 'RESIDENTIAL',
+  COMMERCIAL: 'COMMERCIAL',
+  INDUSTRIAL: 'INDUSTRIAL',
+  MIXED: 'MIXED',
+  OTHER: 'OTHER'
+};
+
+exports.RoomUse = exports.$Enums.RoomUse = {
+  OFFICE: 'OFFICE',
+  STORAGE: 'STORAGE',
+  LABORATORY: 'LABORATORY',
+  OTHER: 'OTHER'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Role: 'Role',
   Permission: 'Permission',
+  Complex: 'Complex',
+  Building: 'Building',
+  Floor: 'Floor',
+  Unit: 'Unit',
+  Room: 'Room',
+  File: 'File',
+  CalenderEntity: 'CalenderEntity',
   RefreshToken: 'RefreshToken'
 };
 
