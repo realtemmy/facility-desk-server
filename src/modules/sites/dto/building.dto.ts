@@ -1,4 +1,4 @@
-import { Condition, Criticality, MainUse, ServiceStatus } from "../../../generated/prisma";
+import { Availability, Condition, Criticality, MainUse, ServiceStatus } from "../../../generated/prisma";
 
 /**
  * DTO for creating a new building
@@ -7,13 +7,28 @@ export interface CreateBuildingDto {
   name: string;
   code: string;
   mainUse?: MainUse;
-  totalFloors?: number;
+  availability?: Availability;
+  status?: ServiceStatus;
   address?: string;
   latitude?: number;
   longitude?: number;
-  status?: ServiceStatus;
+  city?: string;
+  zipCode?: string;
+
   condition?: Condition;
   criticality?: Criticality;
+
+  totalFloors?: number;
+  totalUnits?: number;
+  totalRooms?: number;
+  glazedArea?: number;
+  cleanableArea?: number;
+  coveredArea?: number;
+  totalNetArea?: number;
+  totalGrossArea?: number;
+  totalHeatedVolume?: number;
+  totalVolume?: number;
+
   complexId: string;
   calenderEntityId?: string;
   photoIds?: string[];
@@ -23,56 +38,77 @@ export interface CreateBuildingDto {
  * DTO for updating an existing building
  */
 export interface UpdateBuildingDto {
-  name?: string;
+  name: string;
   mainUse?: MainUse;
+  availability?: Availability;
+  status?: ServiceStatus;
   address?: string;
   latitude?: number;
   longitude?: number;
-  status?: ServiceStatus;
+  city?: string;
+  zipCode?: string;
+
   condition?: Condition;
   criticality?: Criticality;
+
+  totalFloors?: number;
+  totalUnits?: number;
+  totalRooms?: number;
+  glazedArea?: number;
+  cleanableArea?: number;
+  coveredArea?: number;
+  totalNetArea?: number;
+  totalGrossArea?: number;
+  totalHeatedVolume?: number;
+  totalVolume?: number;
+
+  complexId: string;
   calenderEntityId?: string;
+  photoIds?: string[];
 }
 
 /**
  * DTO for building response
  */
 export interface BuildingResponseDto {
-  id: string;
   name: string;
   code: string;
-  mainUse: MainUse;
-  totalFloors: number;
+  mainUse?: MainUse;
+  availability?: Availability;
+  status?: ServiceStatus;
   address?: string;
   latitude?: number;
   longitude?: number;
-  status: ServiceStatus;
-  condition: Condition;
-  criticality: Criticality;
+  city?: string;
+  zipCode?: string;
+
+  condition?: Condition;
+  criticality?: Criticality;
+
+  totalFloors?: number;
+  totalUnits?: number;
+  totalRooms?: number;
+  glazedArea?: number;
+  cleanableArea?: number;
+  coveredArea?: number;
+  totalNetArea?: number;
+  totalGrossArea?: number;
+  totalHeatedVolume?: number;
+  totalVolume?: number;
   complexId: string;
-  calenderEntityId?: string;
-  createdAt: Date;
-  updatedAt: Date;
-  
+
   // Related data (optional for expanded responses)
   complex?: {
     id: string;
     code: string;
     name: string;
   };
-  
-  floors?: {
-    id: string;
-    code: string;
-    name: string;
-    level: number;
-  }[];
-  
+
   photos?: {
     id: string;
     url: string;
   }[];
-  
+
   calenderEntity?: {
     id: string;
     name: string;

@@ -50,6 +50,17 @@ export class FloorsController {
         condition: req.body.condition,
         criticality: req.body.criticality,
         buildingId: req.body.buildingId,
+        totalUnits: req.body.totalUnits,
+        totalRooms: req.body.totalRooms,
+        glazedArea: req.body.glazedArea,
+        cleanableArea: req.body.cleanableArea,
+        coveredArea: req.body.coveredArea,
+        totalNetArea: req.body.totalNetArea,
+        totalGrossArea: req.body.totalGrossArea,
+        totalHeatedVolume: req.body.totalHeatedVolume,
+        totalVolume: req.body.totalVolume,
+        complexId: req.body.complexId,
+        photoIds: req.body.photoIds,
       });
       res.status(200).json({
         success: true,

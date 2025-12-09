@@ -137,6 +137,13 @@ export class UnitsService {
     const unit = await prisma.unit.findUnique({ where: { id } });
     if (!unit) throw new NotFoundError("Unit");
 
+    if(data.floorId) {
+      const floor = await floorsService.findById(data.floorId);
+      if (!floor) {
+        throw new NotFoundError("Floor");
+      }
+    }
+
     const updated = await prisma.unit.update({
       where: { id },
       data,

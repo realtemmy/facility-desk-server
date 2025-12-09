@@ -156,15 +156,25 @@ exports.Prisma.ComplexScalarFieldEnum = {
   id: 'id',
   code: 'code',
   name: 'name',
-  description: 'description',
+  availability: 'availability',
+  status: 'status',
+  calenderEntityId: 'calenderEntityId',
   address: 'address',
   city: 'city',
-  state: 'state',
-  zip: 'zip',
-  status: 'status',
+  zipCode: 'zipCode',
   condition: 'condition',
   criticality: 'criticality',
   totalBuildings: 'totalBuildings',
+  totalFloors: 'totalFloors',
+  totalUnits: 'totalUnits',
+  totalRooms: 'totalRooms',
+  glazedArea: 'glazedArea',
+  cleanableArea: 'cleanableArea',
+  coveredArea: 'coveredArea',
+  totalNetArea: 'totalNetArea',
+  totalGrossArea: 'totalGrossArea',
+  totalHeatedVolume: 'totalHeatedVolume',
+  totalVolume: 'totalVolume',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -174,13 +184,25 @@ exports.Prisma.BuildingScalarFieldEnum = {
   name: 'name',
   code: 'code',
   mainUse: 'mainUse',
-  totalFloors: 'totalFloors',
+  availability: 'availability',
+  status: 'status',
   address: 'address',
   latitude: 'latitude',
   longitude: 'longitude',
-  status: 'status',
+  city: 'city',
+  zipCode: 'zipCode',
   condition: 'condition',
   criticality: 'criticality',
+  totalFloors: 'totalFloors',
+  totalUnits: 'totalUnits',
+  totalRooms: 'totalRooms',
+  glazedArea: 'glazedArea',
+  cleanableArea: 'cleanableArea',
+  coveredArea: 'coveredArea',
+  totalNetArea: 'totalNetArea',
+  totalGrossArea: 'totalGrossArea',
+  totalHeatedVolume: 'totalHeatedVolume',
+  totalVolume: 'totalVolume',
   complexId: 'complexId',
   calenderEntityId: 'calenderEntityId',
   createdAt: 'createdAt',
@@ -192,11 +214,20 @@ exports.Prisma.FloorScalarFieldEnum = {
   code: 'code',
   name: 'name',
   level: 'level',
-  grossArea: 'grossArea',
   status: 'status',
   condition: 'condition',
   criticality: 'criticality',
+  complexId: 'complexId',
   buildingId: 'buildingId',
+  totalUnits: 'totalUnits',
+  totalRooms: 'totalRooms',
+  glazedArea: 'glazedArea',
+  cleanableArea: 'cleanableArea',
+  coveredArea: 'coveredArea',
+  totalNetArea: 'totalNetArea',
+  totalGrossArea: 'totalGrossArea',
+  totalHeatedVolume: 'totalHeatedVolume',
+  totalVolume: 'totalVolume',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -205,7 +236,34 @@ exports.Prisma.UnitScalarFieldEnum = {
   id: 'id',
   code: 'code',
   name: 'name',
+  availability: 'availability',
+  status: 'status',
+  calenderEntityId: 'calenderEntityId',
+  complexId: 'complexId',
+  buildingId: 'buildingId',
   floorId: 'floorId',
+  address: 'address',
+  city: 'city',
+  zipCode: 'zipCode',
+  totalRooms: 'totalRooms',
+  glazedArea: 'glazedArea',
+  cleanableArea: 'cleanableArea',
+  coveredArea: 'coveredArea',
+  totalNetArea: 'totalNetArea',
+  totalGrossArea: 'totalGrossArea',
+  totalHeatedVolume: 'totalHeatedVolume',
+  totalVolume: 'totalVolume',
+  cadastralArea: 'cadastralArea',
+  urbanSection: 'urbanSection',
+  sheet: 'sheet',
+  plot: 'plot',
+  subordinate: 'subordinate',
+  class: 'class',
+  size: 'size',
+  propertyRightsAndDuties: 'propertyRightsAndDuties',
+  cadastralIncome: 'cadastralIncome',
+  censusArea: 'censusArea',
+  subArea: 'subArea',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -215,8 +273,49 @@ exports.Prisma.RoomScalarFieldEnum = {
   name: 'name',
   code: 'code',
   use: 'use',
+  status: 'status',
+  calenderEntityId: 'calenderEntityId',
+  complexId: 'complexId',
+  buildingId: 'buildingId',
   floorId: 'floorId',
   unitId: 'unitId',
+  condition: 'condition',
+  criticality: 'criticality',
+  glazedArea: 'glazedArea',
+  cleanableArea: 'cleanableArea',
+  coveredArea: 'coveredArea',
+  totalNetArea: 'totalNetArea',
+  totalGrossArea: 'totalGrossArea',
+  height: 'height',
+  heated: 'heated',
+  totalVolume: 'totalVolume',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AssetCategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  type: 'type',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AssetSubCategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  categoryId: 'categoryId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AssetScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  subCategoryId: 'subCategoryId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -274,6 +373,13 @@ exports.AccessLevel = exports.$Enums.AccessLevel = {
   WRITE: 'WRITE'
 };
 
+exports.Availability = exports.$Enums.Availability = {
+  IN_USE: 'IN_USE',
+  VACANT: 'VACANT',
+  UNDER_CONSTRUCTION: 'UNDER_CONSTRUCTION',
+  RENT: 'RENT'
+};
+
 exports.ServiceStatus = exports.$Enums.ServiceStatus = {
   ACTIVE: 'ACTIVE',
   INACTIVE: 'INACTIVE',
@@ -295,16 +401,29 @@ exports.Criticality = exports.$Enums.Criticality = {
 exports.MainUse = exports.$Enums.MainUse = {
   RESIDENTIAL: 'RESIDENTIAL',
   COMMERCIAL: 'COMMERCIAL',
-  INDUSTRIAL: 'INDUSTRIAL',
-  MIXED: 'MIXED',
-  OTHER: 'OTHER'
+  CULTURAL: 'CULTURAL',
+  OFFICE: 'OFFICE',
+  RECREATIONAL: 'RECREATIONAL',
+  WAREHOUSE: 'WAREHOUSE',
+  EDUCATIONAL: 'EDUCATIONAL'
 };
 
 exports.RoomUse = exports.$Enums.RoomUse = {
   OFFICE: 'OFFICE',
-  STORAGE: 'STORAGE',
-  LABORATORY: 'LABORATORY',
-  OTHER: 'OTHER'
+  DEPOT: 'DEPOT',
+  CANTEEN: 'CANTEEN',
+  CELLAR: 'CELLAR',
+  TOILET: 'TOILET',
+  MEETING_ROOM: 'MEETING_ROOM',
+  TECHNICAL_ROOM: 'TECHNICAL_ROOM',
+  LABORATORY: 'LABORATORY'
+};
+
+exports.AssetCategoryType = exports.$Enums.AssetCategoryType = {
+  DEVICES: 'DEVICES',
+  FINISHINGS: 'FINISHINGS',
+  ITEMS: 'ITEMS',
+  MACHINERIES: 'MACHINERIES'
 };
 
 exports.Prisma.ModelName = {
@@ -316,6 +435,9 @@ exports.Prisma.ModelName = {
   Floor: 'Floor',
   Unit: 'Unit',
   Room: 'Room',
+  AssetCategory: 'AssetCategory',
+  AssetSubCategory: 'AssetSubCategory',
+  Asset: 'Asset',
   File: 'File',
   CalenderEntity: 'CalenderEntity',
   RefreshToken: 'RefreshToken'

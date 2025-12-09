@@ -1,4 +1,4 @@
-import { RoomUse } from "../../../generated/prisma";
+import { Condition, Criticality, RoomUse, ServiceStatus } from "../../../generated/prisma";
 
 /**
  * DTO for creating a new room
@@ -7,34 +7,38 @@ export interface CreateRoomDto {
   name: string;
   code: string;
   use?: RoomUse;
+  status?: ServiceStatus;
+
+  condition?: Condition;
+  criticality?: Criticality;
+
+  calenderEntityId?: string;
+  complexId?: string;
+  buildingId?: string;
   floorId: string;
   unitId?: string;
   photoIds?: string[];
+
+  glazedArea?: number;
+  cleanableArea?: number;
+  coveredArea?: number;
+  totalNetArea?: number;
+  totalGrossArea?: number;
+  totalHeatedVolume?: number;
+  totalVolume?: number;
 }
 
 /**
  * DTO for updating an existing room
  */
-export interface UpdateRoomDto {
-  name?: string;
-  use?: RoomUse;
-  floorId?: string;
-  unitId?: string;
-}
+
+export type UpdateRoomDto = Omit<CreateRoomDto, "code">;
 
 /**
  * DTO for room response
  */
-export interface RoomResponseDto {
+export interface RoomResponseDto extends CreateRoomDto {
   id: string;
-  name: string;
-  code: string;
-  use: RoomUse;
-  floorId: string;
-  unitId?: string;
-  createdAt: Date;
-  updatedAt: Date;
-  
   // Related data (optional for expanded responses)
   floor?: {
     id: string;

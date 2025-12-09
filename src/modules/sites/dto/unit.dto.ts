@@ -1,32 +1,58 @@
+import { Availability, ServiceStatus } from "../../../generated/prisma";
+import { Decimal } from "../../../generated/prisma/runtime/client";
+
 /**
  * DTO for creating a new unit
  */
 export interface CreateUnitDto {
   code: string;
   name: string;
+  availability?: Availability;
+  status?: ServiceStatus;
+
+  calenderEntityId?: string;
+  complexId?: string;
+  buildingId?: string;
   floorId: string;
+
+  address?: string;
+  city?: string;
+  zipCode?: string;
+
+  totalRooms?: number;
+  glazedArea?: number;
+  cleanableArea?: number;
+  coveredArea?: number;
+  totalNetArea?: number;
+  totalGrossArea?: number;
+  totalHeatedVolume?: number;
+  totalVolume?: number;
+
+  cadastralArea?: number;
+  urbanSection?: string;
+  sheet?: string;
+  plot?: string;
+  subordinate?: string;
+  class?: number;
+  size?: number;
+  propertyRightsAndDuties?: string;
+  cadastralIncome?: Decimal;
+  censusArea?: string;
+  subArea?: string;
+
   photoIds?: string[];
 }
 
 /**
  * DTO for updating an existing unit
  */
-export interface UpdateUnitDto {
-  name?: string;
-  floorId?: string;
-}
 
+export type UpdateUnitDto = Omit<CreateUnitDto, "code">;
 /**
  * DTO for unit response
  */
-export interface UnitResponseDto {
+export interface UnitResponseDto extends CreateUnitDto {
   id: string;
-  code: string;
-  name: string;
-  floorId: string;
-  createdAt: Date;
-  updatedAt: Date;
-  
   // Related data (optional for expanded responses)
   floor?: {
     id: string;

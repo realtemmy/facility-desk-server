@@ -96,6 +96,11 @@ export class ComplexesService {
     return complex as ComplexResponseDto;
   }
 
+  async exists(id: string): Promise<boolean> {
+    const complex = await prisma.complex.findUnique({ where: { id } });
+    return !!complex;
+  }
+
   async create(data: CreateComplexDto): Promise<ComplexResponseDto> {
     const { photoIds, ...complexData } = data;
 
@@ -128,7 +133,11 @@ export class ComplexesService {
     return complex as ComplexResponseDto;
   }
 
-  async update(id: string, data: UpdateComplexDto): Promise<ComplexResponseDto> {
+  async update(
+    id: string,
+    data: UpdateComplexDto
+  ): Promise<ComplexResponseDto> {
+    const { } = data
     const complex = await prisma.complex.findUnique({ where: { id } });
     if (!complex) throw new NotFoundError("Complex");
 

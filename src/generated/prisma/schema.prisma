@@ -40,9 +40,11 @@ enum Condition {
 enum MainUse {
   RESIDENTIAL
   COMMERCIAL
-  INDUSTRIAL
-  MIXED
-  OTHER
+  CULTURAL
+  OFFICE
+  RECREATIONAL
+  WAREHOUSE
+  EDUCATIONAL
 }
 
 enum ServiceStatus {
@@ -70,9 +72,20 @@ enum SiteType {
 
 enum RoomUse {
   OFFICE
-  STORAGE
+  DEPOT
+  CANTEEN
+  CELLAR
+  TOILET
+  MEETING_ROOM
+  TECHNICAL_ROOM
   LABORATORY
-  OTHER
+}
+
+enum Availability {
+  IN_USE
+  VACANT
+  UNDER_CONSTRUCTION
+  RENT
 }
 
 model User {
@@ -95,6 +108,13 @@ model User {
   @@index([email])
   @@index([roleId])
   @@map("users")
+}
+
+enum AssetCategoryType {
+  DEVICES
+  FINISHINGS
+  ITEMS
+  MACHINERIES
 }
 
 model Role {
@@ -125,24 +145,35 @@ model Permission {
 }
 
 model Complex {
-  id          String  @id @default(uuid())
-  code        String  @unique
-  name        String
-  description String?
+  id               String          @id @default(uuid())
+  code             String          @unique
+  name             String
+  availability     Availability    @default(IN_USE)
+  status           ServiceStatus   @default(ACTIVE)
+  calenderEntityId String?
+  calenderEntity   CalenderEntity? @relation(fields: [calenderEntityId], references: [id], onDelete: Cascade)
 
   // Location
   address String?
   city    String?
-  state   String?
-  zip     String?
+  zipCode String?
 
-  // Status
-  status      ServiceStatus @default(ACTIVE)
-  condition   Condition     @default(GOOD)
-  criticality Criticality   @default(LOW)
+  // Maintenance Date
+  condition   Condition   @default(GOOD)
+  criticality Criticality @default(LOW)
 
-  // Metrics
-  totalBuildings Int @default(0)
+  // Dimensions Data
+  totalBuildings    Int?
+  totalFloors       Int?
+  totalUnits        Int?
+  totalRooms        Int?
+  glazedArea        Float?
+  cleanableArea     Float?
+  coveredArea       Float?
+  totalNetArea      Float?
+  totalGrossArea    Float?
+  totalHeatedVolume Float?
+  totalVolume       Float?
 
   // Relations
   buildings Building[]
@@ -150,25 +181,44 @@ model Complex {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  floors    Floor[]
+  units     Unit[]
+  rooms     Room[]
 
   @@map("complexes")
 }
 
 model Building {
-  id      String  @id @default(uuid())
-  name    String
-  code    String  @unique
-  mainUse MainUse @default(RESIDENTIAL)
+  id   String @id @default(uuid())
+  name String
+  code String
 
-  totalFloors Int @default(0)
+  mainUse      MainUse       @default(RESIDENTIAL)
+  availability Availability  @default(IN_USE)
+  status       ServiceStatus @default(ACTIVE)
 
+  // Location
   address   String?
   latitude  Float?
   longitude Float?
+  city      String?
+  zipCode   String?
 
-  status      ServiceStatus @default(ACTIVE)
-  condition   Condition     @default(GOOD)
-  criticality Criticality   @default(LOW)
+  // Maintenance Data
+  condition   Condition   @default(GOOD)
+  criticality Criticality @default(LOW)
+
+  // Dimensional Date
+  totalFloors       Int?
+  totalUnits        Int?
+  totalRooms        Int?
+  glazedArea        Float?
+  cleanableArea     Float?
+  coveredArea       Float?
+  totalNetArea      Float?
+  totalGrossArea    Float?
+  totalHeatedVolume Float?
+  totalVolume       Float?
 
   complexId String
   complex   Complex @relation(fields: [complexId], references: [id], onDelete: Cascade)
@@ -181,25 +231,39 @@ model Building {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  units     Unit[]
+  rooms     Room[]
 
   @@unique([complexId, code])
   @@map("buildings")
 }
 
 model Floor {
-  id    String @id @default(uuid())
-  code  String
-  name  String
-  level Int
+  id     String        @id @default(uuid())
+  code   String
+  name   String
+  level  Int
+  status ServiceStatus @default(ACTIVE)
 
-  grossArea Float @default(0)
+  condition   Condition   @default(GOOD)
+  criticality Criticality @default(LOW)
 
-  status      ServiceStatus @default(ACTIVE)
-  condition   Condition     @default(GOOD)
-  criticality Criticality   @default(LOW)
+  // Location Data
+  complexId  String
+  complex    Complex  @relation(fields: [complexId], references: [id])
+  buildingId String
+  building   Building @relation(fields: [buildingId], references: [id])
 
-  buildingId String?
-  building   Building? @relation(fields: [buildingId], references: [id])
+  // Dimensions Data
+  totalUnits        Int?
+  totalRooms        Int?
+  glazedArea        Float?
+  cleanableArea     Float?
+  coveredArea       Float?
+  totalNetArea      Float?
+  totalGrossArea    Float?
+  totalHeatedVolume Float?
+  totalVolume       Float?
 
   rooms Room[]
   units Unit[]
@@ -212,12 +276,49 @@ model Floor {
 }
 
 model Unit {
-  id   String @id @default(uuid())
-  code String
-  name String
+  id           String        @id @default(uuid())
+  code         String
+  name         String
+  availability Availability  @default(IN_USE)
+  status       ServiceStatus @default(ACTIVE)
 
-  floorId String
-  floor   Floor  @relation(fields: [floorId], references: [id], onDelete: Cascade)
+  calenderEntityId String?
+  calenderEntity   CalenderEntity? @relation(fields: [calenderEntityId], references: [id], onDelete: Cascade)
+
+  // Address
+  complexId  String?
+  complex    Complex?  @relation(fields: [complexId], references: [id])
+  buildingId String?
+  building   Building? @relation(fields: [buildingId], references: [id])
+  floorId    String
+  floor      Floor     @relation(fields: [floorId], references: [id], onDelete: Cascade)
+
+  address String?
+  city    String?
+  zipCode String?
+
+  // Maintenance Data
+  totalRooms        Int?
+  glazedArea        Float?
+  cleanableArea     Float?
+  coveredArea       Float?
+  totalNetArea      Float?
+  totalGrossArea    Float?
+  totalHeatedVolume Float?
+  totalVolume       Float?
+
+  // Cadastral Data
+  cadastralArea           Float?
+  urbanSection            String?
+  sheet                   String?
+  plot                    String?
+  subordinate             String?
+  class                   Int?
+  size                    Float?
+  propertyRightsAndDuties String?
+  cadastralIncome         Decimal?
+  censusArea              String?
+  subArea                 String?
 
   rooms  Room[]
   photos File[]
@@ -230,23 +331,95 @@ model Unit {
 }
 
 model Room {
-  id   String  @id @default(uuid())
-  name String
-  code String
-  use  RoomUse @default(OFFICE)
+  id     String        @id @default(uuid())
+  name   String
+  code   String
+  use    RoomUse       @default(OFFICE)
+  status ServiceStatus @default(ACTIVE)
 
-  floorId String
-  floor   Floor   @relation(fields: [floorId], references: [id], onDelete: Cascade)
-  unitId  String?
-  unit    Unit?   @relation(fields: [unitId], references: [id])
+  calenderEntityId String?
+  calenderEntity   CalenderEntity? @relation(fields: [calenderEntityId], references: [id], onDelete: Cascade)
+
+  // Location Data
+  complexId  String?
+  complex    Complex?  @relation(fields: [complexId], references: [id])
+  buildingId String?
+  building   Building? @relation(fields: [buildingId], references: [id])
+  floorId    String
+  floor      Floor     @relation(fields: [floorId], references: [id], onDelete: Cascade)
+  unitId     String?
+  unit       Unit?     @relation(fields: [unitId], references: [id])
+
+  // Maintenance Data
+  condition   Condition   @default(GOOD)
+  criticality Criticality @default(LOW)
+
+  // Dimensions Data
+  glazedArea     Float?
+  cleanableArea  Float?
+  coveredArea    Float?
+  totalNetArea   Float?
+  totalGrossArea Float?
+  height         Int?
+  heated         Boolean @default(false)
+  totalVolume    Float?
 
   photos File[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([floorId, code])
+  @@unique([floorId, buildingId, code])
   @@map("rooms")
+}
+
+// Assets
+// categories - devices, finishings, items, machineries
+// subcategories - devices: burglar devices, electrical devices, climate control devices etc.
+// asset - door, window, siren, etc.
+model AssetCategory {
+  id          String            @id @default(uuid())
+  name        String            @unique
+  type        AssetCategoryType
+  description String?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  subCategories AssetSubCategory[]
+
+  @@index([type])
+  @@index([name])
+  @@map("asset_categories")
+}
+
+model AssetSubCategory {
+  id          String        @id @default(uuid())
+  name        String
+  description String?
+  categoryId  String
+  category    AssetCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  assets Asset[]
+
+  @@unique([categoryId, name])
+  @@index([categoryId])
+  @@map("asset_sub_categories")
+}
+
+model Asset {
+  id            String           @id @default(uuid())
+  name          String
+  description   String?
+  subCategoryId String
+  subCategory   AssetSubCategory @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  @@index([subCategoryId])
+  @@index([name])
+  @@map("assets")
 }
 
 model File {
@@ -266,9 +439,12 @@ model CalenderEntity {
   name String
 
   buildings Building[]
+  complexes Complex[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  units     Unit[]
+  rooms     Room[]
 
   @@map("calender_entities")
 }

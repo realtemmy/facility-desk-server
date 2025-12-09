@@ -1,4 +1,9 @@
-import { Condition, Criticality, ServiceStatus } from "../../../generated/prisma";
+import {
+  Availability,
+  Condition,
+  Criticality,
+  ServiceStatus,
+} from "../../../generated/prisma";
 
 /**
  * DTO for creating a new complex
@@ -6,15 +11,26 @@ import { Condition, Criticality, ServiceStatus } from "../../../generated/prisma
 export interface CreateComplexDto {
   code: string;
   name: string;
-  description?: string;
+  availability?: Availability;
+  status?: ServiceStatus;
+  calenderEntityId?: string;
   address?: string;
   city?: string;
-  state?: string;
-  zip?: string;
-  status?: ServiceStatus;
+  zipCode?: string;
   condition?: Condition;
   criticality?: Criticality;
   totalBuildings?: number;
+  totalFloors?: number;
+  totalUnits?: number;
+  totalRooms?: number;
+  glazedArea?: number;
+  cleanableArea?: number;
+  coveredArea?: number;
+  totalNetArea?: number;
+  totalGrossArea?: number;
+  totalHeatedVolume?: number;
+  totalVolume?: number;
+
   photoIds?: string[];
 }
 
@@ -23,11 +39,22 @@ export interface CreateComplexDto {
  */
 export interface UpdateComplexDto {
   name?: string;
-  description?: string;
-  address?: string;
+  availability?: Availability;
   status?: ServiceStatus;
   condition?: Condition;
   criticality?: Criticality;
+  calenderEntityId?: string;
+  totalBuildings?: number;
+  totalFloors?: number;
+  totalUnits?: number;
+  totalRooms?: number;
+  glazedArea?: number;
+  cleanableArea?: number;
+  coveredArea?: number;
+  totalNetArea?: number;
+  totalGrossArea?: number;
+  totalHeatedVolume?: number;
+  totalVolume?: number;
 }
 
 /**
@@ -37,25 +64,41 @@ export interface ComplexResponseDto {
   id: string;
   code: string;
   name: string;
-  description?: string;
+  availability: Availability;
   address?: string;
   city?: string;
-  state?: string;
-  zip?: string;
+  zipCode?: string;
   status: ServiceStatus;
   condition: Condition;
   criticality: Criticality;
   totalBuildings: number;
+  totalFloors: number;
+  totalUnits: number;
+  totalRooms: number;
+  glazedArea: number;
+  cleanableArea: number;
+  coveredArea: number;
+  totalNetArea: number;
+  totalGrossArea: number;
+  totalHeatedVolume: number;
+  totalVolume: number;
+
+  calenderEntityId?: string;
+  calenderEntity?: {
+    id: string;
+    name: string;
+  };
+
   createdAt: Date;
   updatedAt: Date;
-  
+
   // Related data (optional for expanded responses)
   buildings?: {
     id: string;
     code: string;
     name: string;
   }[];
-  
+
   photos?: {
     id: string;
     url: string;
@@ -68,8 +111,8 @@ export interface ComplexResponseDto {
 export interface QueryComplexDto {
   page?: number;
   limit?: number;
-  sortBy?: 'name' | 'code' | 'createdAt' | 'condition' | 'criticality';
-  sortOrder?: 'asc' | 'desc';
+  sortBy?: "name" | "code" | "createdAt" | "condition" | "criticality";
+  sortOrder?: "asc" | "desc";
   condition?: Condition;
   criticality?: Criticality;
   status?: ServiceStatus;

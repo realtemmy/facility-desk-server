@@ -8,6 +8,10 @@ import {
   UpdateBuildingDto,
 } from "../dto/building.dto";
 
+import { ComplexesService } from "./complexes.service";
+
+const complexesService = new ComplexesService();
+
 export class BuildingsService {
   async findAll(query: QueryBuildingDto): Promise<PaginatedBuildingResponseDto> {
     const {
@@ -46,35 +50,6 @@ export class BuildingsService {
         take: limit,
         skip: (page - 1) * limit,
         orderBy: { [sortBy]: sortOrder },
-        include: {
-          complex: {
-            select: {
-              id: true,
-              code: true,
-              name: true,
-            },
-          },
-          floors: {
-            select: {
-              id: true,
-              code: true,
-              name: true,
-              level: true,
-            },
-          },
-          photos: {
-            select: {
-              id: true,
-              url: true,
-            },
-          },
-          calenderEntity: {
-            select: {
-              id: true,
-              name: true,
-            },
-          },
-        },
       }),
     ]);
 
@@ -131,6 +106,12 @@ export class BuildingsService {
   async create(data: CreateBuildingDto): Promise<BuildingResponseDto> {
     const { photoIds, ...buildingData } = data;
 
+    // Check if complex exists
+    const complex = await complexesService.exists(data.complexId);
+    if(!complex) {
+      throw new NotFoundError("Complex");
+    }
+
     const building = await prisma.building.create({
       data: {
         ...buildingData,
@@ -140,35 +121,6 @@ export class BuildingsService {
           },
         }),
       },
-      include: {
-        complex: {
-          select: {
-            id: true,
-            code: true,
-            name: true,
-          },
-        },
-        floors: {
-          select: {
-            id: true,
-            code: true,
-            name: true,
-            level: true,
-          },
-        },
-        photos: {
-          select: {
-            id: true,
-            url: true,
-          },
-        },
-        calenderEntity: {
-          select: {
-            id: true,
-            name: true,
-          },
-        },
-      },
     });
 
     return building as BuildingResponseDto;
@@ -177,6 +129,14 @@ export class BuildingsService {
   async update(id: string, data: UpdateBuildingDto): Promise<BuildingResponseDto> {
     const building = await prisma.building.findUnique({ where: { id } });
     if (!building) throw new NotFoundError("Building");
+
+    // Check if complex exists
+    if(data?.complexId) {
+      const complex = await complexesService.exists(data.complexId);
+      if(!complex) {
+        throw new NotFoundError("Complex");
+      }
+    }
 
     const updated = await prisma.building.update({
       where: { id },

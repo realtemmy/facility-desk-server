@@ -19,11 +19,15 @@ import unitsRoutes from './modules/sites/routes/units.routes';
 import roomsRoutes from './modules/sites/routes/rooms.routes';
 import swaggerSpec from './swagger';
 import swagger from 'swagger-ui-express';
+import assetCategoryRoutes from './modules/assets/routes/asset-category.routes';
+import assetSubCategoryRoutes from './modules/assets/routes/asset-sub-category.routes';
+import assetRoutes from './modules/assets/routes/asset.routes';
 
 const app: Application = express();
 
 // Security middleware
 app.use(helmet());
+// Maybe compressor to reduce the size of the response
 
 // CORS configuration
 const corsOptions = {
@@ -64,11 +68,17 @@ app.use(`/api/${API_VERSION}/docs`, swagger.serve, swagger.setup(swaggerSpec));
 app.use(`/api/${API_VERSION}/auth`, authRoutes);
 app.use(`/api/${API_VERSION}/users`, apiRateLimiter, userRoutes);
 app.use(`/api/${API_VERSION}/roles`, apiRateLimiter, roleRoutes, permissionRoutes);
+// SITES
 app.use(`/api/${API_VERSION}/complexes`, apiRateLimiter, complexesRoutes);
 app.use(`/api/${API_VERSION}/buildings`, apiRateLimiter, buildingsRoutes);
 app.use(`/api/${API_VERSION}/floors`, apiRateLimiter, floorsRoutes);
 app.use(`/api/${API_VERSION}/units`, apiRateLimiter, unitsRoutes);
 app.use(`/api/${API_VERSION}/rooms`, apiRateLimiter, roomsRoutes);
+// ASSETS
+app.use(`/api/${API_VERSION}/asset-categories`, apiRateLimiter, assetCategoryRoutes);
+app.use(`/api/${API_VERSION}/asset-sub-categories`, apiRateLimiter, assetSubCategoryRoutes);
+app.use(`/api/${API_VERSION}/assets`, apiRateLimiter, assetRoutes);
+
 
 // 404 handler
 app.use((req: Request, res: Response) => {
