@@ -355,14 +355,14 @@ model Room {
   criticality Criticality @default(LOW)
 
   // Dimensions Data
-  glazedArea        Float?
-  cleanableArea     Float?
-  coveredArea       Float?
-  totalNetArea      Float?
-  totalGrossArea    Float?
-  height Int?
-  heated Boolean @default(false)
-  totalVolume       Float?
+  glazedArea     Float?
+  cleanableArea  Float?
+  coveredArea    Float?
+  totalNetArea   Float?
+  totalGrossArea Float?
+  height         Int?
+  heated         Boolean @default(false)
+  totalVolume    Float?
 
   photos File[]
 
@@ -384,40 +384,22 @@ model AssetCategory {
   description String?
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
-  
-  subCategories AssetSubCategory[]
+  assets      Asset[]
 
   @@index([type])
   @@index([name])
   @@map("asset_categories")
 }
 
-model AssetSubCategory {
-  id          String   @id @default(uuid())
+model Asset {
+  id          String        @id @default(uuid())
   name        String
   description String?
   categoryId  String
   category    AssetCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
   
-  assets Asset[]
-
-  @@unique([categoryId, name])
-  @@index([categoryId])
-  @@map("asset_sub_categories")
-}
-
-model Asset {
-  id            String   @id @default(uuid())
-  name          String
-  description   String?
-  subCategoryId String
-  subCategory   AssetSubCategory @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  @@index([subCategoryId])
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
   @@index([name])
   @@map("assets")
 }

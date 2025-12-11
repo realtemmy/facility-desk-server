@@ -7,14 +7,10 @@ import {
   AssetResponseDto,
   UpdateAssetDto,
 } from "../dto/asset.dto";
-import { AssetSubCategoryService } from "./asset-sub-category.service";
-
-const assetSubCategoryService = new AssetSubCategoryService();
 
 export class AssetService {
   async findAll(query: QueryAssetDto): Promise<PaginatedAssetResponseDto> {
     const {
-      subCategoryId,
       categoryId,
       search,
       page = 1,
@@ -24,12 +20,7 @@ export class AssetService {
     } = query;
 
     const whereClause: any = {
-      ...(subCategoryId && { subCategoryId }),
-      ...(categoryId && {
-        subCategory: {
-          categoryId,
-        },
-      }),
+      ...(categoryId && { categoryId }),
     };
 
     if (search) {
@@ -46,22 +37,6 @@ export class AssetService {
         take: limit,
         skip: (page - 1) * limit,
         orderBy: { [sortBy]: sortOrder },
-        include: {
-          subCategory: {
-            select: {
-              id: true,
-              name: true,
-              description: true,
-              category: {
-                select: {
-                  id: true,
-                  name: true,
-                  type: true,
-                },
-              },
-            },
-          },
-        },
       }),
     ]);
 
@@ -79,22 +54,6 @@ export class AssetService {
   async findById(id: string): Promise<AssetResponseDto> {
     const asset = await prisma.asset.findUnique({
       where: { id },
-      include: {
-        subCategory: {
-          select: {
-            id: true,
-            name: true,
-            description: true,
-            category: {
-              select: {
-                id: true,
-                name: true,
-                type: true,
-              },
-            },
-          },
-        },
-      },
     });
 
     if (!asset) throw new NotFoundError("Asset");
@@ -103,27 +62,22 @@ export class AssetService {
   }
 
   async create(data: CreateAssetDto): Promise<AssetResponseDto> {
-    // Check if subcategory exists
-    const subCategory = await assetSubCategoryService.findById(data.subCategoryId);
-    if (!subCategory) {
-      throw new NotFoundError("AssetSubCategory");
+    // Check if category exists
+    const category = await prisma.assetCategory.findUnique({
+      where: { id: data.categoryId },
+    });
+    if (!category) {
+      throw new NotFoundError("AssetCategory");
     }
 
     const asset = await prisma.asset.create({
       data,
       include: {
-        subCategory: {
+        category: {
           select: {
             id: true,
             name: true,
-            description: true,
-            category: {
-              select: {
-                id: true,
-                name: true,
-                type: true,
-              },
-            },
+            type: true,
           },
         },
       },
@@ -136,10 +90,12 @@ export class AssetService {
     const asset = await prisma.asset.findUnique({ where: { id } });
     if (!asset) throw new NotFoundError("Asset");
 
-    if (data.subCategoryId) {
-      const subCategory = await assetSubCategoryService.findById(data.subCategoryId);
-      if (!subCategory) {
-        throw new NotFoundError("AssetSubCategory");
+    if (data.categoryId) {
+      const category = await prisma.assetCategory.findUnique({
+        where: { id: data.categoryId },
+      });
+      if (!category) {
+        throw new NotFoundError("AssetCategory");
       }
     }
 
@@ -147,18 +103,11 @@ export class AssetService {
       where: { id },
       data,
       include: {
-        subCategory: {
+        category: {
           select: {
             id: true,
             name: true,
-            description: true,
-            category: {
-              select: {
-                id: true,
-                name: true,
-                type: true,
-              },
-            },
+            type: true,
           },
         },
       },
@@ -174,4 +123,3 @@ export class AssetService {
     await prisma.asset.delete({ where: { id } });
   }
 }
-

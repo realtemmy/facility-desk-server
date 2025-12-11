@@ -42,7 +42,11 @@ export class AssetCategoryController {
 
   async update(req: Request, res: Response, next: NextFunction) {
     try {
-      const category = await assetCategoryService.update(req.params.id, req.body);
+      const category = await assetCategoryService.update(req.params.id, {
+        description: req.body.description,
+        name: req.body.name,
+        type: req.body.type,
+      });
       res.status(200).json({
         success: true,
         data: category,
@@ -64,4 +68,3 @@ export class AssetCategoryController {
     }
   }
 }
-

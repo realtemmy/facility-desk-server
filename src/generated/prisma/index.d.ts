@@ -59,11 +59,6 @@ export type Room = $Result.DefaultSelection<Prisma.$RoomPayload>
  */
 export type AssetCategory = $Result.DefaultSelection<Prisma.$AssetCategoryPayload>
 /**
- * Model AssetSubCategory
- * 
- */
-export type AssetSubCategory = $Result.DefaultSelection<Prisma.$AssetSubCategoryPayload>
-/**
  * Model Asset
  * 
  */
@@ -467,16 +462,6 @@ export class PrismaClient<
     * ```
     */
   get assetCategory(): Prisma.AssetCategoryDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.assetSubCategory`: Exposes CRUD operations for the **AssetSubCategory** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more AssetSubCategories
-    * const assetSubCategories = await prisma.assetSubCategory.findMany()
-    * ```
-    */
-  get assetSubCategory(): Prisma.AssetSubCategoryDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.asset`: Exposes CRUD operations for the **Asset** model.
@@ -960,7 +945,6 @@ export namespace Prisma {
     Unit: 'Unit',
     Room: 'Room',
     AssetCategory: 'AssetCategory',
-    AssetSubCategory: 'AssetSubCategory',
     Asset: 'Asset',
     File: 'File',
     CalenderEntity: 'CalenderEntity',
@@ -980,7 +964,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "role" | "permission" | "complex" | "building" | "floor" | "unit" | "room" | "assetCategory" | "assetSubCategory" | "asset" | "file" | "calenderEntity" | "refreshToken"
+      modelProps: "user" | "role" | "permission" | "complex" | "building" | "floor" | "unit" | "room" | "assetCategory" | "asset" | "file" | "calenderEntity" | "refreshToken"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1650,80 +1634,6 @@ export namespace Prisma {
           }
         }
       }
-      AssetSubCategory: {
-        payload: Prisma.$AssetSubCategoryPayload<ExtArgs>
-        fields: Prisma.AssetSubCategoryFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.AssetSubCategoryFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AssetSubCategoryPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.AssetSubCategoryFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AssetSubCategoryPayload>
-          }
-          findFirst: {
-            args: Prisma.AssetSubCategoryFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AssetSubCategoryPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.AssetSubCategoryFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AssetSubCategoryPayload>
-          }
-          findMany: {
-            args: Prisma.AssetSubCategoryFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AssetSubCategoryPayload>[]
-          }
-          create: {
-            args: Prisma.AssetSubCategoryCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AssetSubCategoryPayload>
-          }
-          createMany: {
-            args: Prisma.AssetSubCategoryCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.AssetSubCategoryCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AssetSubCategoryPayload>[]
-          }
-          delete: {
-            args: Prisma.AssetSubCategoryDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AssetSubCategoryPayload>
-          }
-          update: {
-            args: Prisma.AssetSubCategoryUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AssetSubCategoryPayload>
-          }
-          deleteMany: {
-            args: Prisma.AssetSubCategoryDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.AssetSubCategoryUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.AssetSubCategoryUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AssetSubCategoryPayload>[]
-          }
-          upsert: {
-            args: Prisma.AssetSubCategoryUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AssetSubCategoryPayload>
-          }
-          aggregate: {
-            args: Prisma.AssetSubCategoryAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateAssetSubCategory>
-          }
-          groupBy: {
-            args: Prisma.AssetSubCategoryGroupByArgs<ExtArgs>
-            result: $Utils.Optional<AssetSubCategoryGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.AssetSubCategoryCountArgs<ExtArgs>
-            result: $Utils.Optional<AssetSubCategoryCountAggregateOutputType> | number
-          }
-        }
-      }
       Asset: {
         payload: Prisma.$AssetPayload<ExtArgs>
         fields: Prisma.AssetFieldRefs
@@ -2121,7 +2031,6 @@ export namespace Prisma {
     unit?: UnitOmit
     room?: RoomOmit
     assetCategory?: AssetCategoryOmit
-    assetSubCategory?: AssetSubCategoryOmit
     asset?: AssetOmit
     file?: FileOmit
     calenderEntity?: CalenderEntityOmit
@@ -2513,11 +2422,11 @@ export namespace Prisma {
    */
 
   export type AssetCategoryCountOutputType = {
-    subCategories: number
+    assets: number
   }
 
   export type AssetCategoryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    subCategories?: boolean | AssetCategoryCountOutputTypeCountSubCategoriesArgs
+    assets?: boolean | AssetCategoryCountOutputTypeCountAssetsArgs
   }
 
   // Custom InputTypes
@@ -2534,38 +2443,7 @@ export namespace Prisma {
   /**
    * AssetCategoryCountOutputType without action
    */
-  export type AssetCategoryCountOutputTypeCountSubCategoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AssetSubCategoryWhereInput
-  }
-
-
-  /**
-   * Count Type AssetSubCategoryCountOutputType
-   */
-
-  export type AssetSubCategoryCountOutputType = {
-    assets: number
-  }
-
-  export type AssetSubCategoryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    assets?: boolean | AssetSubCategoryCountOutputTypeCountAssetsArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * AssetSubCategoryCountOutputType without action
-   */
-  export type AssetSubCategoryCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AssetSubCategoryCountOutputType
-     */
-    select?: AssetSubCategoryCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * AssetSubCategoryCountOutputType without action
-   */
-  export type AssetSubCategoryCountOutputTypeCountAssetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AssetCategoryCountOutputTypeCountAssetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AssetWhereInput
   }
 
@@ -13816,7 +13694,7 @@ export namespace Prisma {
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    subCategories?: boolean | AssetCategory$subCategoriesArgs<ExtArgs>
+    assets?: boolean | AssetCategory$assetsArgs<ExtArgs>
     _count?: boolean | AssetCategoryCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["assetCategory"]>
 
@@ -13849,7 +13727,7 @@ export namespace Prisma {
 
   export type AssetCategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "type" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["assetCategory"]>
   export type AssetCategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    subCategories?: boolean | AssetCategory$subCategoriesArgs<ExtArgs>
+    assets?: boolean | AssetCategory$assetsArgs<ExtArgs>
     _count?: boolean | AssetCategoryCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AssetCategoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -13858,7 +13736,7 @@ export namespace Prisma {
   export type $AssetCategoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "AssetCategory"
     objects: {
-      subCategories: Prisma.$AssetSubCategoryPayload<ExtArgs>[]
+      assets: Prisma.$AssetPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -14261,7 +14139,7 @@ export namespace Prisma {
    */
   export interface Prisma__AssetCategoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    subCategories<T extends AssetCategory$subCategoriesArgs<ExtArgs> = {}>(args?: Subset<T, AssetCategory$subCategoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssetSubCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    assets<T extends AssetCategory$assetsArgs<ExtArgs> = {}>(args?: Subset<T, AssetCategory$assetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -14685,27 +14563,27 @@ export namespace Prisma {
   }
 
   /**
-   * AssetCategory.subCategories
+   * AssetCategory.assets
    */
-  export type AssetCategory$subCategoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AssetCategory$assetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AssetSubCategory
+     * Select specific fields to fetch from the Asset
      */
-    select?: AssetSubCategorySelect<ExtArgs> | null
+    select?: AssetSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the AssetSubCategory
+     * Omit specific fields from the Asset
      */
-    omit?: AssetSubCategoryOmit<ExtArgs> | null
+    omit?: AssetOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AssetSubCategoryInclude<ExtArgs> | null
-    where?: AssetSubCategoryWhereInput
-    orderBy?: AssetSubCategoryOrderByWithRelationInput | AssetSubCategoryOrderByWithRelationInput[]
-    cursor?: AssetSubCategoryWhereUniqueInput
+    include?: AssetInclude<ExtArgs> | null
+    where?: AssetWhereInput
+    orderBy?: AssetOrderByWithRelationInput | AssetOrderByWithRelationInput[]
+    cursor?: AssetWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: AssetSubCategoryScalarFieldEnum | AssetSubCategoryScalarFieldEnum[]
+    distinct?: AssetScalarFieldEnum | AssetScalarFieldEnum[]
   }
 
   /**
@@ -14728,1107 +14606,6 @@ export namespace Prisma {
 
 
   /**
-   * Model AssetSubCategory
-   */
-
-  export type AggregateAssetSubCategory = {
-    _count: AssetSubCategoryCountAggregateOutputType | null
-    _min: AssetSubCategoryMinAggregateOutputType | null
-    _max: AssetSubCategoryMaxAggregateOutputType | null
-  }
-
-  export type AssetSubCategoryMinAggregateOutputType = {
-    id: string | null
-    name: string | null
-    description: string | null
-    categoryId: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type AssetSubCategoryMaxAggregateOutputType = {
-    id: string | null
-    name: string | null
-    description: string | null
-    categoryId: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type AssetSubCategoryCountAggregateOutputType = {
-    id: number
-    name: number
-    description: number
-    categoryId: number
-    createdAt: number
-    updatedAt: number
-    _all: number
-  }
-
-
-  export type AssetSubCategoryMinAggregateInputType = {
-    id?: true
-    name?: true
-    description?: true
-    categoryId?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type AssetSubCategoryMaxAggregateInputType = {
-    id?: true
-    name?: true
-    description?: true
-    categoryId?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type AssetSubCategoryCountAggregateInputType = {
-    id?: true
-    name?: true
-    description?: true
-    categoryId?: true
-    createdAt?: true
-    updatedAt?: true
-    _all?: true
-  }
-
-  export type AssetSubCategoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which AssetSubCategory to aggregate.
-     */
-    where?: AssetSubCategoryWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AssetSubCategories to fetch.
-     */
-    orderBy?: AssetSubCategoryOrderByWithRelationInput | AssetSubCategoryOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: AssetSubCategoryWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AssetSubCategories from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AssetSubCategories.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned AssetSubCategories
-    **/
-    _count?: true | AssetSubCategoryCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: AssetSubCategoryMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: AssetSubCategoryMaxAggregateInputType
-  }
-
-  export type GetAssetSubCategoryAggregateType<T extends AssetSubCategoryAggregateArgs> = {
-        [P in keyof T & keyof AggregateAssetSubCategory]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateAssetSubCategory[P]>
-      : GetScalarType<T[P], AggregateAssetSubCategory[P]>
-  }
-
-
-
-
-  export type AssetSubCategoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AssetSubCategoryWhereInput
-    orderBy?: AssetSubCategoryOrderByWithAggregationInput | AssetSubCategoryOrderByWithAggregationInput[]
-    by: AssetSubCategoryScalarFieldEnum[] | AssetSubCategoryScalarFieldEnum
-    having?: AssetSubCategoryScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: AssetSubCategoryCountAggregateInputType | true
-    _min?: AssetSubCategoryMinAggregateInputType
-    _max?: AssetSubCategoryMaxAggregateInputType
-  }
-
-  export type AssetSubCategoryGroupByOutputType = {
-    id: string
-    name: string
-    description: string | null
-    categoryId: string
-    createdAt: Date
-    updatedAt: Date
-    _count: AssetSubCategoryCountAggregateOutputType | null
-    _min: AssetSubCategoryMinAggregateOutputType | null
-    _max: AssetSubCategoryMaxAggregateOutputType | null
-  }
-
-  type GetAssetSubCategoryGroupByPayload<T extends AssetSubCategoryGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<AssetSubCategoryGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof AssetSubCategoryGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], AssetSubCategoryGroupByOutputType[P]>
-            : GetScalarType<T[P], AssetSubCategoryGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type AssetSubCategorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    description?: boolean
-    categoryId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    category?: boolean | AssetCategoryDefaultArgs<ExtArgs>
-    assets?: boolean | AssetSubCategory$assetsArgs<ExtArgs>
-    _count?: boolean | AssetSubCategoryCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["assetSubCategory"]>
-
-  export type AssetSubCategorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    description?: boolean
-    categoryId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    category?: boolean | AssetCategoryDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["assetSubCategory"]>
-
-  export type AssetSubCategorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    description?: boolean
-    categoryId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    category?: boolean | AssetCategoryDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["assetSubCategory"]>
-
-  export type AssetSubCategorySelectScalar = {
-    id?: boolean
-    name?: boolean
-    description?: boolean
-    categoryId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }
-
-  export type AssetSubCategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "categoryId" | "createdAt" | "updatedAt", ExtArgs["result"]["assetSubCategory"]>
-  export type AssetSubCategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    category?: boolean | AssetCategoryDefaultArgs<ExtArgs>
-    assets?: boolean | AssetSubCategory$assetsArgs<ExtArgs>
-    _count?: boolean | AssetSubCategoryCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type AssetSubCategoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    category?: boolean | AssetCategoryDefaultArgs<ExtArgs>
-  }
-  export type AssetSubCategoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    category?: boolean | AssetCategoryDefaultArgs<ExtArgs>
-  }
-
-  export type $AssetSubCategoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "AssetSubCategory"
-    objects: {
-      category: Prisma.$AssetCategoryPayload<ExtArgs>
-      assets: Prisma.$AssetPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      name: string
-      description: string | null
-      categoryId: string
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["assetSubCategory"]>
-    composites: {}
-  }
-
-  type AssetSubCategoryGetPayload<S extends boolean | null | undefined | AssetSubCategoryDefaultArgs> = $Result.GetResult<Prisma.$AssetSubCategoryPayload, S>
-
-  type AssetSubCategoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<AssetSubCategoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: AssetSubCategoryCountAggregateInputType | true
-    }
-
-  export interface AssetSubCategoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AssetSubCategory'], meta: { name: 'AssetSubCategory' } }
-    /**
-     * Find zero or one AssetSubCategory that matches the filter.
-     * @param {AssetSubCategoryFindUniqueArgs} args - Arguments to find a AssetSubCategory
-     * @example
-     * // Get one AssetSubCategory
-     * const assetSubCategory = await prisma.assetSubCategory.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends AssetSubCategoryFindUniqueArgs>(args: SelectSubset<T, AssetSubCategoryFindUniqueArgs<ExtArgs>>): Prisma__AssetSubCategoryClient<$Result.GetResult<Prisma.$AssetSubCategoryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one AssetSubCategory that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {AssetSubCategoryFindUniqueOrThrowArgs} args - Arguments to find a AssetSubCategory
-     * @example
-     * // Get one AssetSubCategory
-     * const assetSubCategory = await prisma.assetSubCategory.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends AssetSubCategoryFindUniqueOrThrowArgs>(args: SelectSubset<T, AssetSubCategoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AssetSubCategoryClient<$Result.GetResult<Prisma.$AssetSubCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first AssetSubCategory that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AssetSubCategoryFindFirstArgs} args - Arguments to find a AssetSubCategory
-     * @example
-     * // Get one AssetSubCategory
-     * const assetSubCategory = await prisma.assetSubCategory.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends AssetSubCategoryFindFirstArgs>(args?: SelectSubset<T, AssetSubCategoryFindFirstArgs<ExtArgs>>): Prisma__AssetSubCategoryClient<$Result.GetResult<Prisma.$AssetSubCategoryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first AssetSubCategory that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AssetSubCategoryFindFirstOrThrowArgs} args - Arguments to find a AssetSubCategory
-     * @example
-     * // Get one AssetSubCategory
-     * const assetSubCategory = await prisma.assetSubCategory.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends AssetSubCategoryFindFirstOrThrowArgs>(args?: SelectSubset<T, AssetSubCategoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__AssetSubCategoryClient<$Result.GetResult<Prisma.$AssetSubCategoryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more AssetSubCategories that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AssetSubCategoryFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all AssetSubCategories
-     * const assetSubCategories = await prisma.assetSubCategory.findMany()
-     * 
-     * // Get first 10 AssetSubCategories
-     * const assetSubCategories = await prisma.assetSubCategory.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const assetSubCategoryWithIdOnly = await prisma.assetSubCategory.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends AssetSubCategoryFindManyArgs>(args?: SelectSubset<T, AssetSubCategoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssetSubCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a AssetSubCategory.
-     * @param {AssetSubCategoryCreateArgs} args - Arguments to create a AssetSubCategory.
-     * @example
-     * // Create one AssetSubCategory
-     * const AssetSubCategory = await prisma.assetSubCategory.create({
-     *   data: {
-     *     // ... data to create a AssetSubCategory
-     *   }
-     * })
-     * 
-     */
-    create<T extends AssetSubCategoryCreateArgs>(args: SelectSubset<T, AssetSubCategoryCreateArgs<ExtArgs>>): Prisma__AssetSubCategoryClient<$Result.GetResult<Prisma.$AssetSubCategoryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many AssetSubCategories.
-     * @param {AssetSubCategoryCreateManyArgs} args - Arguments to create many AssetSubCategories.
-     * @example
-     * // Create many AssetSubCategories
-     * const assetSubCategory = await prisma.assetSubCategory.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends AssetSubCategoryCreateManyArgs>(args?: SelectSubset<T, AssetSubCategoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many AssetSubCategories and returns the data saved in the database.
-     * @param {AssetSubCategoryCreateManyAndReturnArgs} args - Arguments to create many AssetSubCategories.
-     * @example
-     * // Create many AssetSubCategories
-     * const assetSubCategory = await prisma.assetSubCategory.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many AssetSubCategories and only return the `id`
-     * const assetSubCategoryWithIdOnly = await prisma.assetSubCategory.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends AssetSubCategoryCreateManyAndReturnArgs>(args?: SelectSubset<T, AssetSubCategoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssetSubCategoryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a AssetSubCategory.
-     * @param {AssetSubCategoryDeleteArgs} args - Arguments to delete one AssetSubCategory.
-     * @example
-     * // Delete one AssetSubCategory
-     * const AssetSubCategory = await prisma.assetSubCategory.delete({
-     *   where: {
-     *     // ... filter to delete one AssetSubCategory
-     *   }
-     * })
-     * 
-     */
-    delete<T extends AssetSubCategoryDeleteArgs>(args: SelectSubset<T, AssetSubCategoryDeleteArgs<ExtArgs>>): Prisma__AssetSubCategoryClient<$Result.GetResult<Prisma.$AssetSubCategoryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one AssetSubCategory.
-     * @param {AssetSubCategoryUpdateArgs} args - Arguments to update one AssetSubCategory.
-     * @example
-     * // Update one AssetSubCategory
-     * const assetSubCategory = await prisma.assetSubCategory.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends AssetSubCategoryUpdateArgs>(args: SelectSubset<T, AssetSubCategoryUpdateArgs<ExtArgs>>): Prisma__AssetSubCategoryClient<$Result.GetResult<Prisma.$AssetSubCategoryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more AssetSubCategories.
-     * @param {AssetSubCategoryDeleteManyArgs} args - Arguments to filter AssetSubCategories to delete.
-     * @example
-     * // Delete a few AssetSubCategories
-     * const { count } = await prisma.assetSubCategory.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends AssetSubCategoryDeleteManyArgs>(args?: SelectSubset<T, AssetSubCategoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more AssetSubCategories.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AssetSubCategoryUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many AssetSubCategories
-     * const assetSubCategory = await prisma.assetSubCategory.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends AssetSubCategoryUpdateManyArgs>(args: SelectSubset<T, AssetSubCategoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more AssetSubCategories and returns the data updated in the database.
-     * @param {AssetSubCategoryUpdateManyAndReturnArgs} args - Arguments to update many AssetSubCategories.
-     * @example
-     * // Update many AssetSubCategories
-     * const assetSubCategory = await prisma.assetSubCategory.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more AssetSubCategories and only return the `id`
-     * const assetSubCategoryWithIdOnly = await prisma.assetSubCategory.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends AssetSubCategoryUpdateManyAndReturnArgs>(args: SelectSubset<T, AssetSubCategoryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssetSubCategoryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one AssetSubCategory.
-     * @param {AssetSubCategoryUpsertArgs} args - Arguments to update or create a AssetSubCategory.
-     * @example
-     * // Update or create a AssetSubCategory
-     * const assetSubCategory = await prisma.assetSubCategory.upsert({
-     *   create: {
-     *     // ... data to create a AssetSubCategory
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the AssetSubCategory we want to update
-     *   }
-     * })
-     */
-    upsert<T extends AssetSubCategoryUpsertArgs>(args: SelectSubset<T, AssetSubCategoryUpsertArgs<ExtArgs>>): Prisma__AssetSubCategoryClient<$Result.GetResult<Prisma.$AssetSubCategoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of AssetSubCategories.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AssetSubCategoryCountArgs} args - Arguments to filter AssetSubCategories to count.
-     * @example
-     * // Count the number of AssetSubCategories
-     * const count = await prisma.assetSubCategory.count({
-     *   where: {
-     *     // ... the filter for the AssetSubCategories we want to count
-     *   }
-     * })
-    **/
-    count<T extends AssetSubCategoryCountArgs>(
-      args?: Subset<T, AssetSubCategoryCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], AssetSubCategoryCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a AssetSubCategory.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AssetSubCategoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends AssetSubCategoryAggregateArgs>(args: Subset<T, AssetSubCategoryAggregateArgs>): Prisma.PrismaPromise<GetAssetSubCategoryAggregateType<T>>
-
-    /**
-     * Group by AssetSubCategory.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AssetSubCategoryGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends AssetSubCategoryGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: AssetSubCategoryGroupByArgs['orderBy'] }
-        : { orderBy?: AssetSubCategoryGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, AssetSubCategoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAssetSubCategoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the AssetSubCategory model
-   */
-  readonly fields: AssetSubCategoryFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for AssetSubCategory.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__AssetSubCategoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    category<T extends AssetCategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AssetCategoryDefaultArgs<ExtArgs>>): Prisma__AssetCategoryClient<$Result.GetResult<Prisma.$AssetCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    assets<T extends AssetSubCategory$assetsArgs<ExtArgs> = {}>(args?: Subset<T, AssetSubCategory$assetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the AssetSubCategory model
-   */
-  interface AssetSubCategoryFieldRefs {
-    readonly id: FieldRef<"AssetSubCategory", 'String'>
-    readonly name: FieldRef<"AssetSubCategory", 'String'>
-    readonly description: FieldRef<"AssetSubCategory", 'String'>
-    readonly categoryId: FieldRef<"AssetSubCategory", 'String'>
-    readonly createdAt: FieldRef<"AssetSubCategory", 'DateTime'>
-    readonly updatedAt: FieldRef<"AssetSubCategory", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * AssetSubCategory findUnique
-   */
-  export type AssetSubCategoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AssetSubCategory
-     */
-    select?: AssetSubCategorySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AssetSubCategory
-     */
-    omit?: AssetSubCategoryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AssetSubCategoryInclude<ExtArgs> | null
-    /**
-     * Filter, which AssetSubCategory to fetch.
-     */
-    where: AssetSubCategoryWhereUniqueInput
-  }
-
-  /**
-   * AssetSubCategory findUniqueOrThrow
-   */
-  export type AssetSubCategoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AssetSubCategory
-     */
-    select?: AssetSubCategorySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AssetSubCategory
-     */
-    omit?: AssetSubCategoryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AssetSubCategoryInclude<ExtArgs> | null
-    /**
-     * Filter, which AssetSubCategory to fetch.
-     */
-    where: AssetSubCategoryWhereUniqueInput
-  }
-
-  /**
-   * AssetSubCategory findFirst
-   */
-  export type AssetSubCategoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AssetSubCategory
-     */
-    select?: AssetSubCategorySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AssetSubCategory
-     */
-    omit?: AssetSubCategoryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AssetSubCategoryInclude<ExtArgs> | null
-    /**
-     * Filter, which AssetSubCategory to fetch.
-     */
-    where?: AssetSubCategoryWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AssetSubCategories to fetch.
-     */
-    orderBy?: AssetSubCategoryOrderByWithRelationInput | AssetSubCategoryOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for AssetSubCategories.
-     */
-    cursor?: AssetSubCategoryWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AssetSubCategories from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AssetSubCategories.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AssetSubCategories.
-     */
-    distinct?: AssetSubCategoryScalarFieldEnum | AssetSubCategoryScalarFieldEnum[]
-  }
-
-  /**
-   * AssetSubCategory findFirstOrThrow
-   */
-  export type AssetSubCategoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AssetSubCategory
-     */
-    select?: AssetSubCategorySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AssetSubCategory
-     */
-    omit?: AssetSubCategoryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AssetSubCategoryInclude<ExtArgs> | null
-    /**
-     * Filter, which AssetSubCategory to fetch.
-     */
-    where?: AssetSubCategoryWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AssetSubCategories to fetch.
-     */
-    orderBy?: AssetSubCategoryOrderByWithRelationInput | AssetSubCategoryOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for AssetSubCategories.
-     */
-    cursor?: AssetSubCategoryWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AssetSubCategories from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AssetSubCategories.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AssetSubCategories.
-     */
-    distinct?: AssetSubCategoryScalarFieldEnum | AssetSubCategoryScalarFieldEnum[]
-  }
-
-  /**
-   * AssetSubCategory findMany
-   */
-  export type AssetSubCategoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AssetSubCategory
-     */
-    select?: AssetSubCategorySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AssetSubCategory
-     */
-    omit?: AssetSubCategoryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AssetSubCategoryInclude<ExtArgs> | null
-    /**
-     * Filter, which AssetSubCategories to fetch.
-     */
-    where?: AssetSubCategoryWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AssetSubCategories to fetch.
-     */
-    orderBy?: AssetSubCategoryOrderByWithRelationInput | AssetSubCategoryOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing AssetSubCategories.
-     */
-    cursor?: AssetSubCategoryWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AssetSubCategories from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AssetSubCategories.
-     */
-    skip?: number
-    distinct?: AssetSubCategoryScalarFieldEnum | AssetSubCategoryScalarFieldEnum[]
-  }
-
-  /**
-   * AssetSubCategory create
-   */
-  export type AssetSubCategoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AssetSubCategory
-     */
-    select?: AssetSubCategorySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AssetSubCategory
-     */
-    omit?: AssetSubCategoryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AssetSubCategoryInclude<ExtArgs> | null
-    /**
-     * The data needed to create a AssetSubCategory.
-     */
-    data: XOR<AssetSubCategoryCreateInput, AssetSubCategoryUncheckedCreateInput>
-  }
-
-  /**
-   * AssetSubCategory createMany
-   */
-  export type AssetSubCategoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many AssetSubCategories.
-     */
-    data: AssetSubCategoryCreateManyInput | AssetSubCategoryCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * AssetSubCategory createManyAndReturn
-   */
-  export type AssetSubCategoryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AssetSubCategory
-     */
-    select?: AssetSubCategorySelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the AssetSubCategory
-     */
-    omit?: AssetSubCategoryOmit<ExtArgs> | null
-    /**
-     * The data used to create many AssetSubCategories.
-     */
-    data: AssetSubCategoryCreateManyInput | AssetSubCategoryCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AssetSubCategoryIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * AssetSubCategory update
-   */
-  export type AssetSubCategoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AssetSubCategory
-     */
-    select?: AssetSubCategorySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AssetSubCategory
-     */
-    omit?: AssetSubCategoryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AssetSubCategoryInclude<ExtArgs> | null
-    /**
-     * The data needed to update a AssetSubCategory.
-     */
-    data: XOR<AssetSubCategoryUpdateInput, AssetSubCategoryUncheckedUpdateInput>
-    /**
-     * Choose, which AssetSubCategory to update.
-     */
-    where: AssetSubCategoryWhereUniqueInput
-  }
-
-  /**
-   * AssetSubCategory updateMany
-   */
-  export type AssetSubCategoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update AssetSubCategories.
-     */
-    data: XOR<AssetSubCategoryUpdateManyMutationInput, AssetSubCategoryUncheckedUpdateManyInput>
-    /**
-     * Filter which AssetSubCategories to update
-     */
-    where?: AssetSubCategoryWhereInput
-    /**
-     * Limit how many AssetSubCategories to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * AssetSubCategory updateManyAndReturn
-   */
-  export type AssetSubCategoryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AssetSubCategory
-     */
-    select?: AssetSubCategorySelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the AssetSubCategory
-     */
-    omit?: AssetSubCategoryOmit<ExtArgs> | null
-    /**
-     * The data used to update AssetSubCategories.
-     */
-    data: XOR<AssetSubCategoryUpdateManyMutationInput, AssetSubCategoryUncheckedUpdateManyInput>
-    /**
-     * Filter which AssetSubCategories to update
-     */
-    where?: AssetSubCategoryWhereInput
-    /**
-     * Limit how many AssetSubCategories to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AssetSubCategoryIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * AssetSubCategory upsert
-   */
-  export type AssetSubCategoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AssetSubCategory
-     */
-    select?: AssetSubCategorySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AssetSubCategory
-     */
-    omit?: AssetSubCategoryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AssetSubCategoryInclude<ExtArgs> | null
-    /**
-     * The filter to search for the AssetSubCategory to update in case it exists.
-     */
-    where: AssetSubCategoryWhereUniqueInput
-    /**
-     * In case the AssetSubCategory found by the `where` argument doesn't exist, create a new AssetSubCategory with this data.
-     */
-    create: XOR<AssetSubCategoryCreateInput, AssetSubCategoryUncheckedCreateInput>
-    /**
-     * In case the AssetSubCategory was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<AssetSubCategoryUpdateInput, AssetSubCategoryUncheckedUpdateInput>
-  }
-
-  /**
-   * AssetSubCategory delete
-   */
-  export type AssetSubCategoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AssetSubCategory
-     */
-    select?: AssetSubCategorySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AssetSubCategory
-     */
-    omit?: AssetSubCategoryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AssetSubCategoryInclude<ExtArgs> | null
-    /**
-     * Filter which AssetSubCategory to delete.
-     */
-    where: AssetSubCategoryWhereUniqueInput
-  }
-
-  /**
-   * AssetSubCategory deleteMany
-   */
-  export type AssetSubCategoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which AssetSubCategories to delete
-     */
-    where?: AssetSubCategoryWhereInput
-    /**
-     * Limit how many AssetSubCategories to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * AssetSubCategory.assets
-   */
-  export type AssetSubCategory$assetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Asset
-     */
-    select?: AssetSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Asset
-     */
-    omit?: AssetOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AssetInclude<ExtArgs> | null
-    where?: AssetWhereInput
-    orderBy?: AssetOrderByWithRelationInput | AssetOrderByWithRelationInput[]
-    cursor?: AssetWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: AssetScalarFieldEnum | AssetScalarFieldEnum[]
-  }
-
-  /**
-   * AssetSubCategory without action
-   */
-  export type AssetSubCategoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AssetSubCategory
-     */
-    select?: AssetSubCategorySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AssetSubCategory
-     */
-    omit?: AssetSubCategoryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AssetSubCategoryInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model Asset
    */
 
@@ -15842,27 +14619,27 @@ export namespace Prisma {
     id: string | null
     name: string | null
     description: string | null
-    subCategoryId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    categoryId: string | null
   }
 
   export type AssetMaxAggregateOutputType = {
     id: string | null
     name: string | null
     description: string | null
-    subCategoryId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    categoryId: string | null
   }
 
   export type AssetCountAggregateOutputType = {
     id: number
     name: number
     description: number
-    subCategoryId: number
     createdAt: number
     updatedAt: number
+    categoryId: number
     _all: number
   }
 
@@ -15871,27 +14648,27 @@ export namespace Prisma {
     id?: true
     name?: true
     description?: true
-    subCategoryId?: true
     createdAt?: true
     updatedAt?: true
+    categoryId?: true
   }
 
   export type AssetMaxAggregateInputType = {
     id?: true
     name?: true
     description?: true
-    subCategoryId?: true
     createdAt?: true
     updatedAt?: true
+    categoryId?: true
   }
 
   export type AssetCountAggregateInputType = {
     id?: true
     name?: true
     description?: true
-    subCategoryId?: true
     createdAt?: true
     updatedAt?: true
+    categoryId?: true
     _all?: true
   }
 
@@ -15971,9 +14748,9 @@ export namespace Prisma {
     id: string
     name: string
     description: string | null
-    subCategoryId: string
     createdAt: Date
     updatedAt: Date
+    categoryId: string
     _count: AssetCountAggregateOutputType | null
     _min: AssetMinAggregateOutputType | null
     _max: AssetMaxAggregateOutputType | null
@@ -15997,64 +14774,64 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     description?: boolean
-    subCategoryId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    subCategory?: boolean | AssetSubCategoryDefaultArgs<ExtArgs>
+    categoryId?: boolean
+    category?: boolean | AssetCategoryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["asset"]>
 
   export type AssetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     description?: boolean
-    subCategoryId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    subCategory?: boolean | AssetSubCategoryDefaultArgs<ExtArgs>
+    categoryId?: boolean
+    category?: boolean | AssetCategoryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["asset"]>
 
   export type AssetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     description?: boolean
-    subCategoryId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    subCategory?: boolean | AssetSubCategoryDefaultArgs<ExtArgs>
+    categoryId?: boolean
+    category?: boolean | AssetCategoryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["asset"]>
 
   export type AssetSelectScalar = {
     id?: boolean
     name?: boolean
     description?: boolean
-    subCategoryId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    categoryId?: boolean
   }
 
-  export type AssetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "subCategoryId" | "createdAt" | "updatedAt", ExtArgs["result"]["asset"]>
+  export type AssetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "createdAt" | "updatedAt" | "categoryId", ExtArgs["result"]["asset"]>
   export type AssetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    subCategory?: boolean | AssetSubCategoryDefaultArgs<ExtArgs>
+    category?: boolean | AssetCategoryDefaultArgs<ExtArgs>
   }
   export type AssetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    subCategory?: boolean | AssetSubCategoryDefaultArgs<ExtArgs>
+    category?: boolean | AssetCategoryDefaultArgs<ExtArgs>
   }
   export type AssetIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    subCategory?: boolean | AssetSubCategoryDefaultArgs<ExtArgs>
+    category?: boolean | AssetCategoryDefaultArgs<ExtArgs>
   }
 
   export type $AssetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Asset"
     objects: {
-      subCategory: Prisma.$AssetSubCategoryPayload<ExtArgs>
+      category: Prisma.$AssetCategoryPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
       description: string | null
-      subCategoryId: string
       createdAt: Date
       updatedAt: Date
+      categoryId: string
     }, ExtArgs["result"]["asset"]>
     composites: {}
   }
@@ -16449,7 +15226,7 @@ export namespace Prisma {
    */
   export interface Prisma__AssetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    subCategory<T extends AssetSubCategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AssetSubCategoryDefaultArgs<ExtArgs>>): Prisma__AssetSubCategoryClient<$Result.GetResult<Prisma.$AssetSubCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    category<T extends AssetCategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AssetCategoryDefaultArgs<ExtArgs>>): Prisma__AssetCategoryClient<$Result.GetResult<Prisma.$AssetCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16482,9 +15259,9 @@ export namespace Prisma {
     readonly id: FieldRef<"Asset", 'String'>
     readonly name: FieldRef<"Asset", 'String'>
     readonly description: FieldRef<"Asset", 'String'>
-    readonly subCategoryId: FieldRef<"Asset", 'String'>
     readonly createdAt: FieldRef<"Asset", 'DateTime'>
     readonly updatedAt: FieldRef<"Asset", 'DateTime'>
+    readonly categoryId: FieldRef<"Asset", 'String'>
   }
     
 
@@ -20449,25 +19226,13 @@ export namespace Prisma {
   export type AssetCategoryScalarFieldEnum = (typeof AssetCategoryScalarFieldEnum)[keyof typeof AssetCategoryScalarFieldEnum]
 
 
-  export const AssetSubCategoryScalarFieldEnum: {
-    id: 'id',
-    name: 'name',
-    description: 'description',
-    categoryId: 'categoryId',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
-  };
-
-  export type AssetSubCategoryScalarFieldEnum = (typeof AssetSubCategoryScalarFieldEnum)[keyof typeof AssetSubCategoryScalarFieldEnum]
-
-
   export const AssetScalarFieldEnum: {
     id: 'id',
     name: 'name',
     description: 'description',
-    subCategoryId: 'subCategoryId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    categoryId: 'categoryId'
   };
 
   export type AssetScalarFieldEnum = (typeof AssetScalarFieldEnum)[keyof typeof AssetScalarFieldEnum]
@@ -21837,7 +20602,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"AssetCategory"> | string | null
     createdAt?: DateTimeFilter<"AssetCategory"> | Date | string
     updatedAt?: DateTimeFilter<"AssetCategory"> | Date | string
-    subCategories?: AssetSubCategoryListRelationFilter
+    assets?: AssetListRelationFilter
   }
 
   export type AssetCategoryOrderByWithRelationInput = {
@@ -21847,7 +20612,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    subCategories?: AssetSubCategoryOrderByRelationAggregateInput
+    assets?: AssetOrderByRelationAggregateInput
   }
 
   export type AssetCategoryWhereUniqueInput = Prisma.AtLeast<{
@@ -21860,7 +20625,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"AssetCategory"> | string | null
     createdAt?: DateTimeFilter<"AssetCategory"> | Date | string
     updatedAt?: DateTimeFilter<"AssetCategory"> | Date | string
-    subCategories?: AssetSubCategoryListRelationFilter
+    assets?: AssetListRelationFilter
   }, "id" | "name">
 
   export type AssetCategoryOrderByWithAggregationInput = {
@@ -21887,70 +20652,6 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"AssetCategory"> | Date | string
   }
 
-  export type AssetSubCategoryWhereInput = {
-    AND?: AssetSubCategoryWhereInput | AssetSubCategoryWhereInput[]
-    OR?: AssetSubCategoryWhereInput[]
-    NOT?: AssetSubCategoryWhereInput | AssetSubCategoryWhereInput[]
-    id?: StringFilter<"AssetSubCategory"> | string
-    name?: StringFilter<"AssetSubCategory"> | string
-    description?: StringNullableFilter<"AssetSubCategory"> | string | null
-    categoryId?: StringFilter<"AssetSubCategory"> | string
-    createdAt?: DateTimeFilter<"AssetSubCategory"> | Date | string
-    updatedAt?: DateTimeFilter<"AssetSubCategory"> | Date | string
-    category?: XOR<AssetCategoryScalarRelationFilter, AssetCategoryWhereInput>
-    assets?: AssetListRelationFilter
-  }
-
-  export type AssetSubCategoryOrderByWithRelationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrderInput | SortOrder
-    categoryId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    category?: AssetCategoryOrderByWithRelationInput
-    assets?: AssetOrderByRelationAggregateInput
-  }
-
-  export type AssetSubCategoryWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    categoryId_name?: AssetSubCategoryCategoryIdNameCompoundUniqueInput
-    AND?: AssetSubCategoryWhereInput | AssetSubCategoryWhereInput[]
-    OR?: AssetSubCategoryWhereInput[]
-    NOT?: AssetSubCategoryWhereInput | AssetSubCategoryWhereInput[]
-    name?: StringFilter<"AssetSubCategory"> | string
-    description?: StringNullableFilter<"AssetSubCategory"> | string | null
-    categoryId?: StringFilter<"AssetSubCategory"> | string
-    createdAt?: DateTimeFilter<"AssetSubCategory"> | Date | string
-    updatedAt?: DateTimeFilter<"AssetSubCategory"> | Date | string
-    category?: XOR<AssetCategoryScalarRelationFilter, AssetCategoryWhereInput>
-    assets?: AssetListRelationFilter
-  }, "id" | "categoryId_name">
-
-  export type AssetSubCategoryOrderByWithAggregationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrderInput | SortOrder
-    categoryId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: AssetSubCategoryCountOrderByAggregateInput
-    _max?: AssetSubCategoryMaxOrderByAggregateInput
-    _min?: AssetSubCategoryMinOrderByAggregateInput
-  }
-
-  export type AssetSubCategoryScalarWhereWithAggregatesInput = {
-    AND?: AssetSubCategoryScalarWhereWithAggregatesInput | AssetSubCategoryScalarWhereWithAggregatesInput[]
-    OR?: AssetSubCategoryScalarWhereWithAggregatesInput[]
-    NOT?: AssetSubCategoryScalarWhereWithAggregatesInput | AssetSubCategoryScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"AssetSubCategory"> | string
-    name?: StringWithAggregatesFilter<"AssetSubCategory"> | string
-    description?: StringNullableWithAggregatesFilter<"AssetSubCategory"> | string | null
-    categoryId?: StringWithAggregatesFilter<"AssetSubCategory"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"AssetSubCategory"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"AssetSubCategory"> | Date | string
-  }
-
   export type AssetWhereInput = {
     AND?: AssetWhereInput | AssetWhereInput[]
     OR?: AssetWhereInput[]
@@ -21958,20 +20659,20 @@ export namespace Prisma {
     id?: StringFilter<"Asset"> | string
     name?: StringFilter<"Asset"> | string
     description?: StringNullableFilter<"Asset"> | string | null
-    subCategoryId?: StringFilter<"Asset"> | string
     createdAt?: DateTimeFilter<"Asset"> | Date | string
     updatedAt?: DateTimeFilter<"Asset"> | Date | string
-    subCategory?: XOR<AssetSubCategoryScalarRelationFilter, AssetSubCategoryWhereInput>
+    categoryId?: StringFilter<"Asset"> | string
+    category?: XOR<AssetCategoryScalarRelationFilter, AssetCategoryWhereInput>
   }
 
   export type AssetOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrderInput | SortOrder
-    subCategoryId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    subCategory?: AssetSubCategoryOrderByWithRelationInput
+    categoryId?: SortOrder
+    category?: AssetCategoryOrderByWithRelationInput
   }
 
   export type AssetWhereUniqueInput = Prisma.AtLeast<{
@@ -21981,19 +20682,19 @@ export namespace Prisma {
     NOT?: AssetWhereInput | AssetWhereInput[]
     name?: StringFilter<"Asset"> | string
     description?: StringNullableFilter<"Asset"> | string | null
-    subCategoryId?: StringFilter<"Asset"> | string
     createdAt?: DateTimeFilter<"Asset"> | Date | string
     updatedAt?: DateTimeFilter<"Asset"> | Date | string
-    subCategory?: XOR<AssetSubCategoryScalarRelationFilter, AssetSubCategoryWhereInput>
+    categoryId?: StringFilter<"Asset"> | string
+    category?: XOR<AssetCategoryScalarRelationFilter, AssetCategoryWhereInput>
   }, "id">
 
   export type AssetOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrderInput | SortOrder
-    subCategoryId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    categoryId?: SortOrder
     _count?: AssetCountOrderByAggregateInput
     _max?: AssetMaxOrderByAggregateInput
     _min?: AssetMinOrderByAggregateInput
@@ -22006,9 +20707,9 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Asset"> | string
     name?: StringWithAggregatesFilter<"Asset"> | string
     description?: StringNullableWithAggregatesFilter<"Asset"> | string | null
-    subCategoryId?: StringWithAggregatesFilter<"Asset"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Asset"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Asset"> | Date | string
+    categoryId?: StringWithAggregatesFilter<"Asset"> | string
   }
 
   export type FileWhereInput = {
@@ -23445,21 +22146,21 @@ export namespace Prisma {
   export type AssetCategoryCreateInput = {
     id?: string
     name: string
-    type: $Enums.AssetCategoryType
+    type?: $Enums.AssetCategoryType
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    subCategories?: AssetSubCategoryCreateNestedManyWithoutCategoryInput
+    assets?: AssetCreateNestedManyWithoutCategoryInput
   }
 
   export type AssetCategoryUncheckedCreateInput = {
     id?: string
     name: string
-    type: $Enums.AssetCategoryType
+    type?: $Enums.AssetCategoryType
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    subCategories?: AssetSubCategoryUncheckedCreateNestedManyWithoutCategoryInput
+    assets?: AssetUncheckedCreateNestedManyWithoutCategoryInput
   }
 
   export type AssetCategoryUpdateInput = {
@@ -23469,7 +22170,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    subCategories?: AssetSubCategoryUpdateManyWithoutCategoryNestedInput
+    assets?: AssetUpdateManyWithoutCategoryNestedInput
   }
 
   export type AssetCategoryUncheckedUpdateInput = {
@@ -23479,13 +22180,13 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    subCategories?: AssetSubCategoryUncheckedUpdateManyWithoutCategoryNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
   export type AssetCategoryCreateManyInput = {
     id?: string
     name: string
-    type: $Enums.AssetCategoryType
+    type?: $Enums.AssetCategoryType
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -23509,88 +22210,22 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type AssetSubCategoryCreateInput = {
-    id?: string
-    name: string
-    description?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    category: AssetCategoryCreateNestedOneWithoutSubCategoriesInput
-    assets?: AssetCreateNestedManyWithoutSubCategoryInput
-  }
-
-  export type AssetSubCategoryUncheckedCreateInput = {
-    id?: string
-    name: string
-    description?: string | null
-    categoryId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    assets?: AssetUncheckedCreateNestedManyWithoutSubCategoryInput
-  }
-
-  export type AssetSubCategoryUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    category?: AssetCategoryUpdateOneRequiredWithoutSubCategoriesNestedInput
-    assets?: AssetUpdateManyWithoutSubCategoryNestedInput
-  }
-
-  export type AssetSubCategoryUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    categoryId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    assets?: AssetUncheckedUpdateManyWithoutSubCategoryNestedInput
-  }
-
-  export type AssetSubCategoryCreateManyInput = {
-    id?: string
-    name: string
-    description?: string | null
-    categoryId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type AssetSubCategoryUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AssetSubCategoryUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    categoryId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type AssetCreateInput = {
     id?: string
     name: string
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    subCategory: AssetSubCategoryCreateNestedOneWithoutAssetsInput
+    category: AssetCategoryCreateNestedOneWithoutAssetsInput
   }
 
   export type AssetUncheckedCreateInput = {
     id?: string
     name: string
     description?: string | null
-    subCategoryId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    categoryId: string
   }
 
   export type AssetUpdateInput = {
@@ -23599,25 +22234,25 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    subCategory?: AssetSubCategoryUpdateOneRequiredWithoutAssetsNestedInput
+    category?: AssetCategoryUpdateOneRequiredWithoutAssetsNestedInput
   }
 
   export type AssetUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    subCategoryId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    categoryId?: StringFieldUpdateOperationsInput | string
   }
 
   export type AssetCreateManyInput = {
     id?: string
     name: string
     description?: string | null
-    subCategoryId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    categoryId: string
   }
 
   export type AssetUpdateManyMutationInput = {
@@ -23632,9 +22267,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    subCategoryId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    categoryId?: StringFieldUpdateOperationsInput | string
   }
 
   export type FileCreateInput = {
@@ -25016,13 +23651,13 @@ export namespace Prisma {
     not?: NestedEnumAssetCategoryTypeFilter<$PrismaModel> | $Enums.AssetCategoryType
   }
 
-  export type AssetSubCategoryListRelationFilter = {
-    every?: AssetSubCategoryWhereInput
-    some?: AssetSubCategoryWhereInput
-    none?: AssetSubCategoryWhereInput
+  export type AssetListRelationFilter = {
+    every?: AssetWhereInput
+    some?: AssetWhereInput
+    none?: AssetWhereInput
   }
 
-  export type AssetSubCategoryOrderByRelationAggregateInput = {
+  export type AssetOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -25068,78 +23703,31 @@ export namespace Prisma {
     isNot?: AssetCategoryWhereInput
   }
 
-  export type AssetListRelationFilter = {
-    every?: AssetWhereInput
-    some?: AssetWhereInput
-    none?: AssetWhereInput
-  }
-
-  export type AssetOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type AssetSubCategoryCategoryIdNameCompoundUniqueInput = {
-    categoryId: string
-    name: string
-  }
-
-  export type AssetSubCategoryCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    categoryId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type AssetSubCategoryMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    categoryId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type AssetSubCategoryMinOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    categoryId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type AssetSubCategoryScalarRelationFilter = {
-    is?: AssetSubCategoryWhereInput
-    isNot?: AssetSubCategoryWhereInput
-  }
-
   export type AssetCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrder
-    subCategoryId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    categoryId?: SortOrder
   }
 
   export type AssetMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrder
-    subCategoryId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    categoryId?: SortOrder
   }
 
   export type AssetMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrder
-    subCategoryId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    categoryId?: SortOrder
   }
 
   export type ComplexListRelationFilter = {
@@ -26248,120 +24836,64 @@ export namespace Prisma {
     deleteMany?: FileScalarWhereInput | FileScalarWhereInput[]
   }
 
-  export type AssetSubCategoryCreateNestedManyWithoutCategoryInput = {
-    create?: XOR<AssetSubCategoryCreateWithoutCategoryInput, AssetSubCategoryUncheckedCreateWithoutCategoryInput> | AssetSubCategoryCreateWithoutCategoryInput[] | AssetSubCategoryUncheckedCreateWithoutCategoryInput[]
-    connectOrCreate?: AssetSubCategoryCreateOrConnectWithoutCategoryInput | AssetSubCategoryCreateOrConnectWithoutCategoryInput[]
-    createMany?: AssetSubCategoryCreateManyCategoryInputEnvelope
-    connect?: AssetSubCategoryWhereUniqueInput | AssetSubCategoryWhereUniqueInput[]
+  export type AssetCreateNestedManyWithoutCategoryInput = {
+    create?: XOR<AssetCreateWithoutCategoryInput, AssetUncheckedCreateWithoutCategoryInput> | AssetCreateWithoutCategoryInput[] | AssetUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: AssetCreateOrConnectWithoutCategoryInput | AssetCreateOrConnectWithoutCategoryInput[]
+    createMany?: AssetCreateManyCategoryInputEnvelope
+    connect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
   }
 
-  export type AssetSubCategoryUncheckedCreateNestedManyWithoutCategoryInput = {
-    create?: XOR<AssetSubCategoryCreateWithoutCategoryInput, AssetSubCategoryUncheckedCreateWithoutCategoryInput> | AssetSubCategoryCreateWithoutCategoryInput[] | AssetSubCategoryUncheckedCreateWithoutCategoryInput[]
-    connectOrCreate?: AssetSubCategoryCreateOrConnectWithoutCategoryInput | AssetSubCategoryCreateOrConnectWithoutCategoryInput[]
-    createMany?: AssetSubCategoryCreateManyCategoryInputEnvelope
-    connect?: AssetSubCategoryWhereUniqueInput | AssetSubCategoryWhereUniqueInput[]
+  export type AssetUncheckedCreateNestedManyWithoutCategoryInput = {
+    create?: XOR<AssetCreateWithoutCategoryInput, AssetUncheckedCreateWithoutCategoryInput> | AssetCreateWithoutCategoryInput[] | AssetUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: AssetCreateOrConnectWithoutCategoryInput | AssetCreateOrConnectWithoutCategoryInput[]
+    createMany?: AssetCreateManyCategoryInputEnvelope
+    connect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
   }
 
   export type EnumAssetCategoryTypeFieldUpdateOperationsInput = {
     set?: $Enums.AssetCategoryType
   }
 
-  export type AssetSubCategoryUpdateManyWithoutCategoryNestedInput = {
-    create?: XOR<AssetSubCategoryCreateWithoutCategoryInput, AssetSubCategoryUncheckedCreateWithoutCategoryInput> | AssetSubCategoryCreateWithoutCategoryInput[] | AssetSubCategoryUncheckedCreateWithoutCategoryInput[]
-    connectOrCreate?: AssetSubCategoryCreateOrConnectWithoutCategoryInput | AssetSubCategoryCreateOrConnectWithoutCategoryInput[]
-    upsert?: AssetSubCategoryUpsertWithWhereUniqueWithoutCategoryInput | AssetSubCategoryUpsertWithWhereUniqueWithoutCategoryInput[]
-    createMany?: AssetSubCategoryCreateManyCategoryInputEnvelope
-    set?: AssetSubCategoryWhereUniqueInput | AssetSubCategoryWhereUniqueInput[]
-    disconnect?: AssetSubCategoryWhereUniqueInput | AssetSubCategoryWhereUniqueInput[]
-    delete?: AssetSubCategoryWhereUniqueInput | AssetSubCategoryWhereUniqueInput[]
-    connect?: AssetSubCategoryWhereUniqueInput | AssetSubCategoryWhereUniqueInput[]
-    update?: AssetSubCategoryUpdateWithWhereUniqueWithoutCategoryInput | AssetSubCategoryUpdateWithWhereUniqueWithoutCategoryInput[]
-    updateMany?: AssetSubCategoryUpdateManyWithWhereWithoutCategoryInput | AssetSubCategoryUpdateManyWithWhereWithoutCategoryInput[]
-    deleteMany?: AssetSubCategoryScalarWhereInput | AssetSubCategoryScalarWhereInput[]
-  }
-
-  export type AssetSubCategoryUncheckedUpdateManyWithoutCategoryNestedInput = {
-    create?: XOR<AssetSubCategoryCreateWithoutCategoryInput, AssetSubCategoryUncheckedCreateWithoutCategoryInput> | AssetSubCategoryCreateWithoutCategoryInput[] | AssetSubCategoryUncheckedCreateWithoutCategoryInput[]
-    connectOrCreate?: AssetSubCategoryCreateOrConnectWithoutCategoryInput | AssetSubCategoryCreateOrConnectWithoutCategoryInput[]
-    upsert?: AssetSubCategoryUpsertWithWhereUniqueWithoutCategoryInput | AssetSubCategoryUpsertWithWhereUniqueWithoutCategoryInput[]
-    createMany?: AssetSubCategoryCreateManyCategoryInputEnvelope
-    set?: AssetSubCategoryWhereUniqueInput | AssetSubCategoryWhereUniqueInput[]
-    disconnect?: AssetSubCategoryWhereUniqueInput | AssetSubCategoryWhereUniqueInput[]
-    delete?: AssetSubCategoryWhereUniqueInput | AssetSubCategoryWhereUniqueInput[]
-    connect?: AssetSubCategoryWhereUniqueInput | AssetSubCategoryWhereUniqueInput[]
-    update?: AssetSubCategoryUpdateWithWhereUniqueWithoutCategoryInput | AssetSubCategoryUpdateWithWhereUniqueWithoutCategoryInput[]
-    updateMany?: AssetSubCategoryUpdateManyWithWhereWithoutCategoryInput | AssetSubCategoryUpdateManyWithWhereWithoutCategoryInput[]
-    deleteMany?: AssetSubCategoryScalarWhereInput | AssetSubCategoryScalarWhereInput[]
-  }
-
-  export type AssetCategoryCreateNestedOneWithoutSubCategoriesInput = {
-    create?: XOR<AssetCategoryCreateWithoutSubCategoriesInput, AssetCategoryUncheckedCreateWithoutSubCategoriesInput>
-    connectOrCreate?: AssetCategoryCreateOrConnectWithoutSubCategoriesInput
-    connect?: AssetCategoryWhereUniqueInput
-  }
-
-  export type AssetCreateNestedManyWithoutSubCategoryInput = {
-    create?: XOR<AssetCreateWithoutSubCategoryInput, AssetUncheckedCreateWithoutSubCategoryInput> | AssetCreateWithoutSubCategoryInput[] | AssetUncheckedCreateWithoutSubCategoryInput[]
-    connectOrCreate?: AssetCreateOrConnectWithoutSubCategoryInput | AssetCreateOrConnectWithoutSubCategoryInput[]
-    createMany?: AssetCreateManySubCategoryInputEnvelope
-    connect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
-  }
-
-  export type AssetUncheckedCreateNestedManyWithoutSubCategoryInput = {
-    create?: XOR<AssetCreateWithoutSubCategoryInput, AssetUncheckedCreateWithoutSubCategoryInput> | AssetCreateWithoutSubCategoryInput[] | AssetUncheckedCreateWithoutSubCategoryInput[]
-    connectOrCreate?: AssetCreateOrConnectWithoutSubCategoryInput | AssetCreateOrConnectWithoutSubCategoryInput[]
-    createMany?: AssetCreateManySubCategoryInputEnvelope
-    connect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
-  }
-
-  export type AssetCategoryUpdateOneRequiredWithoutSubCategoriesNestedInput = {
-    create?: XOR<AssetCategoryCreateWithoutSubCategoriesInput, AssetCategoryUncheckedCreateWithoutSubCategoriesInput>
-    connectOrCreate?: AssetCategoryCreateOrConnectWithoutSubCategoriesInput
-    upsert?: AssetCategoryUpsertWithoutSubCategoriesInput
-    connect?: AssetCategoryWhereUniqueInput
-    update?: XOR<XOR<AssetCategoryUpdateToOneWithWhereWithoutSubCategoriesInput, AssetCategoryUpdateWithoutSubCategoriesInput>, AssetCategoryUncheckedUpdateWithoutSubCategoriesInput>
-  }
-
-  export type AssetUpdateManyWithoutSubCategoryNestedInput = {
-    create?: XOR<AssetCreateWithoutSubCategoryInput, AssetUncheckedCreateWithoutSubCategoryInput> | AssetCreateWithoutSubCategoryInput[] | AssetUncheckedCreateWithoutSubCategoryInput[]
-    connectOrCreate?: AssetCreateOrConnectWithoutSubCategoryInput | AssetCreateOrConnectWithoutSubCategoryInput[]
-    upsert?: AssetUpsertWithWhereUniqueWithoutSubCategoryInput | AssetUpsertWithWhereUniqueWithoutSubCategoryInput[]
-    createMany?: AssetCreateManySubCategoryInputEnvelope
+  export type AssetUpdateManyWithoutCategoryNestedInput = {
+    create?: XOR<AssetCreateWithoutCategoryInput, AssetUncheckedCreateWithoutCategoryInput> | AssetCreateWithoutCategoryInput[] | AssetUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: AssetCreateOrConnectWithoutCategoryInput | AssetCreateOrConnectWithoutCategoryInput[]
+    upsert?: AssetUpsertWithWhereUniqueWithoutCategoryInput | AssetUpsertWithWhereUniqueWithoutCategoryInput[]
+    createMany?: AssetCreateManyCategoryInputEnvelope
     set?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
     disconnect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
     delete?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
     connect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
-    update?: AssetUpdateWithWhereUniqueWithoutSubCategoryInput | AssetUpdateWithWhereUniqueWithoutSubCategoryInput[]
-    updateMany?: AssetUpdateManyWithWhereWithoutSubCategoryInput | AssetUpdateManyWithWhereWithoutSubCategoryInput[]
+    update?: AssetUpdateWithWhereUniqueWithoutCategoryInput | AssetUpdateWithWhereUniqueWithoutCategoryInput[]
+    updateMany?: AssetUpdateManyWithWhereWithoutCategoryInput | AssetUpdateManyWithWhereWithoutCategoryInput[]
     deleteMany?: AssetScalarWhereInput | AssetScalarWhereInput[]
   }
 
-  export type AssetUncheckedUpdateManyWithoutSubCategoryNestedInput = {
-    create?: XOR<AssetCreateWithoutSubCategoryInput, AssetUncheckedCreateWithoutSubCategoryInput> | AssetCreateWithoutSubCategoryInput[] | AssetUncheckedCreateWithoutSubCategoryInput[]
-    connectOrCreate?: AssetCreateOrConnectWithoutSubCategoryInput | AssetCreateOrConnectWithoutSubCategoryInput[]
-    upsert?: AssetUpsertWithWhereUniqueWithoutSubCategoryInput | AssetUpsertWithWhereUniqueWithoutSubCategoryInput[]
-    createMany?: AssetCreateManySubCategoryInputEnvelope
+  export type AssetUncheckedUpdateManyWithoutCategoryNestedInput = {
+    create?: XOR<AssetCreateWithoutCategoryInput, AssetUncheckedCreateWithoutCategoryInput> | AssetCreateWithoutCategoryInput[] | AssetUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: AssetCreateOrConnectWithoutCategoryInput | AssetCreateOrConnectWithoutCategoryInput[]
+    upsert?: AssetUpsertWithWhereUniqueWithoutCategoryInput | AssetUpsertWithWhereUniqueWithoutCategoryInput[]
+    createMany?: AssetCreateManyCategoryInputEnvelope
     set?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
     disconnect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
     delete?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
     connect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
-    update?: AssetUpdateWithWhereUniqueWithoutSubCategoryInput | AssetUpdateWithWhereUniqueWithoutSubCategoryInput[]
-    updateMany?: AssetUpdateManyWithWhereWithoutSubCategoryInput | AssetUpdateManyWithWhereWithoutSubCategoryInput[]
+    update?: AssetUpdateWithWhereUniqueWithoutCategoryInput | AssetUpdateWithWhereUniqueWithoutCategoryInput[]
+    updateMany?: AssetUpdateManyWithWhereWithoutCategoryInput | AssetUpdateManyWithWhereWithoutCategoryInput[]
     deleteMany?: AssetScalarWhereInput | AssetScalarWhereInput[]
   }
 
-  export type AssetSubCategoryCreateNestedOneWithoutAssetsInput = {
-    create?: XOR<AssetSubCategoryCreateWithoutAssetsInput, AssetSubCategoryUncheckedCreateWithoutAssetsInput>
-    connectOrCreate?: AssetSubCategoryCreateOrConnectWithoutAssetsInput
-    connect?: AssetSubCategoryWhereUniqueInput
+  export type AssetCategoryCreateNestedOneWithoutAssetsInput = {
+    create?: XOR<AssetCategoryCreateWithoutAssetsInput, AssetCategoryUncheckedCreateWithoutAssetsInput>
+    connectOrCreate?: AssetCategoryCreateOrConnectWithoutAssetsInput
+    connect?: AssetCategoryWhereUniqueInput
   }
 
-  export type AssetSubCategoryUpdateOneRequiredWithoutAssetsNestedInput = {
-    create?: XOR<AssetSubCategoryCreateWithoutAssetsInput, AssetSubCategoryUncheckedCreateWithoutAssetsInput>
-    connectOrCreate?: AssetSubCategoryCreateOrConnectWithoutAssetsInput
-    upsert?: AssetSubCategoryUpsertWithoutAssetsInput
-    connect?: AssetSubCategoryWhereUniqueInput
-    update?: XOR<XOR<AssetSubCategoryUpdateToOneWithWhereWithoutAssetsInput, AssetSubCategoryUpdateWithoutAssetsInput>, AssetSubCategoryUncheckedUpdateWithoutAssetsInput>
+  export type AssetCategoryUpdateOneRequiredWithoutAssetsNestedInput = {
+    create?: XOR<AssetCategoryCreateWithoutAssetsInput, AssetCategoryUncheckedCreateWithoutAssetsInput>
+    connectOrCreate?: AssetCategoryCreateOrConnectWithoutAssetsInput
+    upsert?: AssetCategoryUpsertWithoutAssetsInput
+    connect?: AssetCategoryWhereUniqueInput
+    update?: XOR<XOR<AssetCategoryUpdateToOneWithWhereWithoutAssetsInput, AssetCategoryUpdateWithoutAssetsInput>, AssetCategoryUncheckedUpdateWithoutAssetsInput>
   }
 
   export type RoomCreateNestedManyWithoutPhotosInput = {
@@ -30140,154 +28672,46 @@ export namespace Prisma {
     data: XOR<FileUpdateManyMutationInput, FileUncheckedUpdateManyWithoutRoomsInput>
   }
 
-  export type AssetSubCategoryCreateWithoutCategoryInput = {
+  export type AssetCreateWithoutCategoryInput = {
     id?: string
     name: string
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    assets?: AssetCreateNestedManyWithoutSubCategoryInput
   }
 
-  export type AssetSubCategoryUncheckedCreateWithoutCategoryInput = {
+  export type AssetUncheckedCreateWithoutCategoryInput = {
     id?: string
     name: string
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    assets?: AssetUncheckedCreateNestedManyWithoutSubCategoryInput
   }
 
-  export type AssetSubCategoryCreateOrConnectWithoutCategoryInput = {
-    where: AssetSubCategoryWhereUniqueInput
-    create: XOR<AssetSubCategoryCreateWithoutCategoryInput, AssetSubCategoryUncheckedCreateWithoutCategoryInput>
+  export type AssetCreateOrConnectWithoutCategoryInput = {
+    where: AssetWhereUniqueInput
+    create: XOR<AssetCreateWithoutCategoryInput, AssetUncheckedCreateWithoutCategoryInput>
   }
 
-  export type AssetSubCategoryCreateManyCategoryInputEnvelope = {
-    data: AssetSubCategoryCreateManyCategoryInput | AssetSubCategoryCreateManyCategoryInput[]
+  export type AssetCreateManyCategoryInputEnvelope = {
+    data: AssetCreateManyCategoryInput | AssetCreateManyCategoryInput[]
     skipDuplicates?: boolean
   }
 
-  export type AssetSubCategoryUpsertWithWhereUniqueWithoutCategoryInput = {
-    where: AssetSubCategoryWhereUniqueInput
-    update: XOR<AssetSubCategoryUpdateWithoutCategoryInput, AssetSubCategoryUncheckedUpdateWithoutCategoryInput>
-    create: XOR<AssetSubCategoryCreateWithoutCategoryInput, AssetSubCategoryUncheckedCreateWithoutCategoryInput>
-  }
-
-  export type AssetSubCategoryUpdateWithWhereUniqueWithoutCategoryInput = {
-    where: AssetSubCategoryWhereUniqueInput
-    data: XOR<AssetSubCategoryUpdateWithoutCategoryInput, AssetSubCategoryUncheckedUpdateWithoutCategoryInput>
-  }
-
-  export type AssetSubCategoryUpdateManyWithWhereWithoutCategoryInput = {
-    where: AssetSubCategoryScalarWhereInput
-    data: XOR<AssetSubCategoryUpdateManyMutationInput, AssetSubCategoryUncheckedUpdateManyWithoutCategoryInput>
-  }
-
-  export type AssetSubCategoryScalarWhereInput = {
-    AND?: AssetSubCategoryScalarWhereInput | AssetSubCategoryScalarWhereInput[]
-    OR?: AssetSubCategoryScalarWhereInput[]
-    NOT?: AssetSubCategoryScalarWhereInput | AssetSubCategoryScalarWhereInput[]
-    id?: StringFilter<"AssetSubCategory"> | string
-    name?: StringFilter<"AssetSubCategory"> | string
-    description?: StringNullableFilter<"AssetSubCategory"> | string | null
-    categoryId?: StringFilter<"AssetSubCategory"> | string
-    createdAt?: DateTimeFilter<"AssetSubCategory"> | Date | string
-    updatedAt?: DateTimeFilter<"AssetSubCategory"> | Date | string
-  }
-
-  export type AssetCategoryCreateWithoutSubCategoriesInput = {
-    id?: string
-    name: string
-    type: $Enums.AssetCategoryType
-    description?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type AssetCategoryUncheckedCreateWithoutSubCategoriesInput = {
-    id?: string
-    name: string
-    type: $Enums.AssetCategoryType
-    description?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type AssetCategoryCreateOrConnectWithoutSubCategoriesInput = {
-    where: AssetCategoryWhereUniqueInput
-    create: XOR<AssetCategoryCreateWithoutSubCategoriesInput, AssetCategoryUncheckedCreateWithoutSubCategoriesInput>
-  }
-
-  export type AssetCreateWithoutSubCategoryInput = {
-    id?: string
-    name: string
-    description?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type AssetUncheckedCreateWithoutSubCategoryInput = {
-    id?: string
-    name: string
-    description?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type AssetCreateOrConnectWithoutSubCategoryInput = {
+  export type AssetUpsertWithWhereUniqueWithoutCategoryInput = {
     where: AssetWhereUniqueInput
-    create: XOR<AssetCreateWithoutSubCategoryInput, AssetUncheckedCreateWithoutSubCategoryInput>
+    update: XOR<AssetUpdateWithoutCategoryInput, AssetUncheckedUpdateWithoutCategoryInput>
+    create: XOR<AssetCreateWithoutCategoryInput, AssetUncheckedCreateWithoutCategoryInput>
   }
 
-  export type AssetCreateManySubCategoryInputEnvelope = {
-    data: AssetCreateManySubCategoryInput | AssetCreateManySubCategoryInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type AssetCategoryUpsertWithoutSubCategoriesInput = {
-    update: XOR<AssetCategoryUpdateWithoutSubCategoriesInput, AssetCategoryUncheckedUpdateWithoutSubCategoriesInput>
-    create: XOR<AssetCategoryCreateWithoutSubCategoriesInput, AssetCategoryUncheckedCreateWithoutSubCategoriesInput>
-    where?: AssetCategoryWhereInput
-  }
-
-  export type AssetCategoryUpdateToOneWithWhereWithoutSubCategoriesInput = {
-    where?: AssetCategoryWhereInput
-    data: XOR<AssetCategoryUpdateWithoutSubCategoriesInput, AssetCategoryUncheckedUpdateWithoutSubCategoriesInput>
-  }
-
-  export type AssetCategoryUpdateWithoutSubCategoriesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    type?: EnumAssetCategoryTypeFieldUpdateOperationsInput | $Enums.AssetCategoryType
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AssetCategoryUncheckedUpdateWithoutSubCategoriesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    type?: EnumAssetCategoryTypeFieldUpdateOperationsInput | $Enums.AssetCategoryType
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AssetUpsertWithWhereUniqueWithoutSubCategoryInput = {
+  export type AssetUpdateWithWhereUniqueWithoutCategoryInput = {
     where: AssetWhereUniqueInput
-    update: XOR<AssetUpdateWithoutSubCategoryInput, AssetUncheckedUpdateWithoutSubCategoryInput>
-    create: XOR<AssetCreateWithoutSubCategoryInput, AssetUncheckedCreateWithoutSubCategoryInput>
+    data: XOR<AssetUpdateWithoutCategoryInput, AssetUncheckedUpdateWithoutCategoryInput>
   }
 
-  export type AssetUpdateWithWhereUniqueWithoutSubCategoryInput = {
-    where: AssetWhereUniqueInput
-    data: XOR<AssetUpdateWithoutSubCategoryInput, AssetUncheckedUpdateWithoutSubCategoryInput>
-  }
-
-  export type AssetUpdateManyWithWhereWithoutSubCategoryInput = {
+  export type AssetUpdateManyWithWhereWithoutCategoryInput = {
     where: AssetScalarWhereInput
-    data: XOR<AssetUpdateManyMutationInput, AssetUncheckedUpdateManyWithoutSubCategoryInput>
+    data: XOR<AssetUpdateManyMutationInput, AssetUncheckedUpdateManyWithoutCategoryInput>
   }
 
   export type AssetScalarWhereInput = {
@@ -30297,59 +28721,59 @@ export namespace Prisma {
     id?: StringFilter<"Asset"> | string
     name?: StringFilter<"Asset"> | string
     description?: StringNullableFilter<"Asset"> | string | null
-    subCategoryId?: StringFilter<"Asset"> | string
     createdAt?: DateTimeFilter<"Asset"> | Date | string
     updatedAt?: DateTimeFilter<"Asset"> | Date | string
+    categoryId?: StringFilter<"Asset"> | string
   }
 
-  export type AssetSubCategoryCreateWithoutAssetsInput = {
+  export type AssetCategoryCreateWithoutAssetsInput = {
     id?: string
     name: string
+    type?: $Enums.AssetCategoryType
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    category: AssetCategoryCreateNestedOneWithoutSubCategoriesInput
   }
 
-  export type AssetSubCategoryUncheckedCreateWithoutAssetsInput = {
+  export type AssetCategoryUncheckedCreateWithoutAssetsInput = {
     id?: string
     name: string
+    type?: $Enums.AssetCategoryType
     description?: string | null
-    categoryId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type AssetSubCategoryCreateOrConnectWithoutAssetsInput = {
-    where: AssetSubCategoryWhereUniqueInput
-    create: XOR<AssetSubCategoryCreateWithoutAssetsInput, AssetSubCategoryUncheckedCreateWithoutAssetsInput>
+  export type AssetCategoryCreateOrConnectWithoutAssetsInput = {
+    where: AssetCategoryWhereUniqueInput
+    create: XOR<AssetCategoryCreateWithoutAssetsInput, AssetCategoryUncheckedCreateWithoutAssetsInput>
   }
 
-  export type AssetSubCategoryUpsertWithoutAssetsInput = {
-    update: XOR<AssetSubCategoryUpdateWithoutAssetsInput, AssetSubCategoryUncheckedUpdateWithoutAssetsInput>
-    create: XOR<AssetSubCategoryCreateWithoutAssetsInput, AssetSubCategoryUncheckedCreateWithoutAssetsInput>
-    where?: AssetSubCategoryWhereInput
+  export type AssetCategoryUpsertWithoutAssetsInput = {
+    update: XOR<AssetCategoryUpdateWithoutAssetsInput, AssetCategoryUncheckedUpdateWithoutAssetsInput>
+    create: XOR<AssetCategoryCreateWithoutAssetsInput, AssetCategoryUncheckedCreateWithoutAssetsInput>
+    where?: AssetCategoryWhereInput
   }
 
-  export type AssetSubCategoryUpdateToOneWithWhereWithoutAssetsInput = {
-    where?: AssetSubCategoryWhereInput
-    data: XOR<AssetSubCategoryUpdateWithoutAssetsInput, AssetSubCategoryUncheckedUpdateWithoutAssetsInput>
+  export type AssetCategoryUpdateToOneWithWhereWithoutAssetsInput = {
+    where?: AssetCategoryWhereInput
+    data: XOR<AssetCategoryUpdateWithoutAssetsInput, AssetCategoryUncheckedUpdateWithoutAssetsInput>
   }
 
-  export type AssetSubCategoryUpdateWithoutAssetsInput = {
+  export type AssetCategoryUpdateWithoutAssetsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    type?: EnumAssetCategoryTypeFieldUpdateOperationsInput | $Enums.AssetCategoryType
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    category?: AssetCategoryUpdateOneRequiredWithoutSubCategoriesNestedInput
   }
 
-  export type AssetSubCategoryUncheckedUpdateWithoutAssetsInput = {
+  export type AssetCategoryUncheckedUpdateWithoutAssetsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    type?: EnumAssetCategoryTypeFieldUpdateOperationsInput | $Enums.AssetCategoryType
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    categoryId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -32490,7 +30914,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
   }
 
-  export type AssetSubCategoryCreateManyCategoryInput = {
+  export type AssetCreateManyCategoryInput = {
     id?: string
     name: string
     description?: string | null
@@ -32498,25 +30922,7 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type AssetSubCategoryUpdateWithoutCategoryInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    assets?: AssetUpdateManyWithoutSubCategoryNestedInput
-  }
-
-  export type AssetSubCategoryUncheckedUpdateWithoutCategoryInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    assets?: AssetUncheckedUpdateManyWithoutSubCategoryNestedInput
-  }
-
-  export type AssetSubCategoryUncheckedUpdateManyWithoutCategoryInput = {
+  export type AssetUpdateWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -32524,15 +30930,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type AssetCreateManySubCategoryInput = {
-    id?: string
-    name: string
-    description?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type AssetUpdateWithoutSubCategoryInput = {
+  export type AssetUncheckedUpdateWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -32540,15 +30938,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type AssetUncheckedUpdateWithoutSubCategoryInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AssetUncheckedUpdateManyWithoutSubCategoryInput = {
+  export type AssetUncheckedUpdateManyWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null

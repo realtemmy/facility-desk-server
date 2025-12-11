@@ -20,7 +20,6 @@ import roomsRoutes from './modules/sites/routes/rooms.routes';
 import swaggerSpec from './swagger';
 import swagger from 'swagger-ui-express';
 import assetCategoryRoutes from './modules/assets/routes/asset-category.routes';
-import assetSubCategoryRoutes from './modules/assets/routes/asset-sub-category.routes';
 import assetRoutes from './modules/assets/routes/asset.routes';
 
 const app: Application = express();
@@ -65,6 +64,7 @@ app.get('/health', (req: Request, res: Response) => {
 // API routes
 const API_VERSION = CONSTANTS.API_VERSION;
 app.use(`/api/${API_VERSION}/docs`, swagger.serve, swagger.setup(swaggerSpec));
+
 app.use(`/api/${API_VERSION}/auth`, authRoutes);
 app.use(`/api/${API_VERSION}/users`, apiRateLimiter, userRoutes);
 app.use(`/api/${API_VERSION}/roles`, apiRateLimiter, roleRoutes, permissionRoutes);
@@ -76,8 +76,8 @@ app.use(`/api/${API_VERSION}/units`, apiRateLimiter, unitsRoutes);
 app.use(`/api/${API_VERSION}/rooms`, apiRateLimiter, roomsRoutes);
 // ASSETS
 app.use(`/api/${API_VERSION}/asset-categories`, apiRateLimiter, assetCategoryRoutes);
-app.use(`/api/${API_VERSION}/asset-sub-categories`, apiRateLimiter, assetSubCategoryRoutes);
 app.use(`/api/${API_VERSION}/assets`, apiRateLimiter, assetRoutes);
+
 
 
 // 404 handler

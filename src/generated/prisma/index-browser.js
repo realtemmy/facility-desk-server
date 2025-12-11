@@ -302,22 +302,13 @@ exports.Prisma.AssetCategoryScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.AssetSubCategoryScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description',
-  categoryId: 'categoryId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
 exports.Prisma.AssetScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
-  subCategoryId: 'subCategoryId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  categoryId: 'categoryId'
 };
 
 exports.Prisma.FileScalarFieldEnum = {
@@ -436,7 +427,6 @@ exports.Prisma.ModelName = {
   Unit: 'Unit',
   Room: 'Room',
   AssetCategory: 'AssetCategory',
-  AssetSubCategory: 'AssetSubCategory',
   Asset: 'Asset',
   File: 'File',
   CalenderEntity: 'CalenderEntity',

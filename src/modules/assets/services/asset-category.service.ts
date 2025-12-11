@@ -9,7 +9,9 @@ import {
 } from "../dto/asset-category.dto";
 
 export class AssetCategoryService {
-  async findAll(query: QueryAssetCategoryDto): Promise<PaginatedAssetCategoryResponseDto> {
+  async findAll(
+    query: QueryAssetCategoryDto
+  ): Promise<PaginatedAssetCategoryResponseDto> {
     const {
       type,
       search,
@@ -37,15 +39,6 @@ export class AssetCategoryService {
         take: limit,
         skip: (page - 1) * limit,
         orderBy: { [sortBy]: sortOrder },
-        include: {
-          subCategories: {
-            select: {
-              id: true,
-              name: true,
-              description: true,
-            },
-          },
-        },
       }),
     ]);
 
@@ -64,7 +57,7 @@ export class AssetCategoryService {
     const category = await prisma.assetCategory.findUnique({
       where: { id },
       include: {
-        subCategories: {
+        assets: {
           select: {
             id: true,
             name: true,
@@ -84,11 +77,13 @@ export class AssetCategoryService {
     return !!category;
   }
 
-  async create(data: CreateAssetCategoryDto): Promise<AssetCategoryResponseDto> {
+  async create(
+    data: CreateAssetCategoryDto
+  ): Promise<AssetCategoryResponseDto> {
     const category = await prisma.assetCategory.create({
       data,
       include: {
-        subCategories: {
+        assets: {
           select: {
             id: true,
             name: true,
@@ -112,7 +107,7 @@ export class AssetCategoryService {
       where: { id },
       data,
       include: {
-        subCategories: {
+        assets: {
           select: {
             id: true,
             name: true,
@@ -132,4 +127,3 @@ export class AssetCategoryService {
     await prisma.assetCategory.delete({ where: { id } });
   }
 }
-

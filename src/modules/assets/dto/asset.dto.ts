@@ -1,9 +1,11 @@
+import { AssetCategoryType } from "../../../generated/prisma";
+
 /**
  * DTO for creating a new asset
  */
 export interface CreateAssetDto {
   name: string;
-  subCategoryId: string;
+  categoryId: string;
   description?: string;
 }
 
@@ -12,7 +14,7 @@ export interface CreateAssetDto {
  */
 export interface UpdateAssetDto {
   name?: string;
-  subCategoryId?: string;
+  categoryId?: string;
   description?: string;
 }
 
@@ -23,20 +25,16 @@ export interface AssetResponseDto {
   id: string;
   name: string;
   description?: string | null;
-  subCategoryId: string;
+  categoryId: string;
   createdAt: Date;
   updatedAt: Date;
   
   // Related data (optional for expanded responses)
-  subCategory?: {
+  category?: {
     id: string;
     name: string;
     description?: string | null;
-    category?: {
-      id: string;
-      name: string;
-      type: string;
-    };
+    type: AssetCategoryType;
   };
 }
 
@@ -48,7 +46,6 @@ export interface QueryAssetDto {
   limit?: number;
   sortBy?: 'name' | 'createdAt';
   sortOrder?: 'asc' | 'desc';
-  subCategoryId?: string;
   categoryId?: string;
   search?: string;
 }
@@ -65,4 +62,6 @@ export interface PaginatedAssetResponseDto {
     totalPages: number;
   };
 }
+
+
 

@@ -380,44 +380,26 @@ model Room {
 model AssetCategory {
   id          String            @id @default(uuid())
   name        String            @unique
-  type        AssetCategoryType
+  type        AssetCategoryType @default(DEVICES)
   description String?
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
-
-  subCategories AssetSubCategory[]
+  assets      Asset[]
 
   @@index([type])
   @@index([name])
   @@map("asset_categories")
 }
 
-model AssetSubCategory {
+model Asset {
   id          String        @id @default(uuid())
   name        String
   description String?
-  categoryId  String
-  category    AssetCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
+  categoryId  String
+  category    AssetCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
-  assets Asset[]
-
-  @@unique([categoryId, name])
-  @@index([categoryId])
-  @@map("asset_sub_categories")
-}
-
-model Asset {
-  id            String           @id @default(uuid())
-  name          String
-  description   String?
-  subCategoryId String
-  subCategory   AssetSubCategory @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)
-  createdAt     DateTime         @default(now())
-  updatedAt     DateTime         @updatedAt
-
-  @@index([subCategoryId])
   @@index([name])
   @@map("assets")
 }
