@@ -186,11 +186,6 @@ exports.Prisma.BuildingScalarFieldEnum = {
   mainUse: 'mainUse',
   availability: 'availability',
   status: 'status',
-  address: 'address',
-  latitude: 'latitude',
-  longitude: 'longitude',
-  city: 'city',
-  zipCode: 'zipCode',
   condition: 'condition',
   criticality: 'criticality',
   totalFloors: 'totalFloors',
@@ -203,6 +198,7 @@ exports.Prisma.BuildingScalarFieldEnum = {
   totalGrossArea: 'totalGrossArea',
   totalHeatedVolume: 'totalHeatedVolume',
   totalVolume: 'totalVolume',
+  addressId: 'addressId',
   complexId: 'complexId',
   calenderEntityId: 'calenderEntityId',
   createdAt: 'createdAt',
@@ -306,14 +302,58 @@ exports.Prisma.AssetScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
+  categoryId: 'categoryId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  categoryId: 'categoryId'
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.FileScalarFieldEnum = {
   id: 'id',
   url: 'url'
+};
+
+exports.Prisma.CompanyScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  type: 'type',
+  name: 'name',
+  description: 'description',
+  addressId: 'addressId',
+  phone: 'phone',
+  alternativePhone: 'alternativePhone',
+  email: 'email',
+  website: 'website',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.EmployeeScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  type: 'type',
+  userId: 'userId',
+  companyId: 'companyId',
+  status: 'status',
+  calenderEntityId: 'calenderEntityId'
+};
+
+exports.Prisma.TeamScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  description: 'description',
+  status: 'status',
+  supervisorId: 'supervisorId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AddressScalarFieldEnum = {
+  id: 'id',
+  street: 'street',
+  city: 'city',
+  state: 'state',
+  zipCode: 'zipCode'
 };
 
 exports.Prisma.CalenderEntityScalarFieldEnum = {
@@ -417,6 +457,19 @@ exports.AssetCategoryType = exports.$Enums.AssetCategoryType = {
   MACHINERIES: 'MACHINERIES'
 };
 
+exports.CompanyType = exports.$Enums.CompanyType = {
+  CORPORATE_GROUP: 'CORPORATE_GROUP',
+  CUSTOMER: 'CUSTOMER',
+  SUPPLIER: 'SUPPLIER'
+};
+
+exports.EmployeeType = exports.$Enums.EmployeeType = {
+  CUSTOMER_EMPLOYEE: 'CUSTOMER_EMPLOYEE',
+  EXTERNAL_EMPLOYEE: 'EXTERNAL_EMPLOYEE',
+  INTERNAL_EMPLOYEE: 'INTERNAL_EMPLOYEE',
+  SUPPLIER_EMPLOYEE: 'SUPPLIER_EMPLOYEE'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Role: 'Role',
@@ -429,6 +482,10 @@ exports.Prisma.ModelName = {
   AssetCategory: 'AssetCategory',
   Asset: 'Asset',
   File: 'File',
+  Company: 'Company',
+  Employee: 'Employee',
+  Team: 'Team',
+  Address: 'Address',
   CalenderEntity: 'CalenderEntity',
   RefreshToken: 'RefreshToken'
 };
