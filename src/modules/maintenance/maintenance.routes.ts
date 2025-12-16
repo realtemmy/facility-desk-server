@@ -88,6 +88,21 @@ router.post(
  *       - in: query
  *         name: type
  *         schema: { type: string, enum: [PREVENTIVE, CORRECTIVE] }
+ *       - in: query
+ *         name: priority
+ *         schema: { type: string, enum: [LOW, MEDIUM, HIGH] }
+ *       - in: query
+ *         name: processStatus
+ *         schema: { type: string, enum: [PENDING, IN_PROGRESS, COMPLETED] }
+ *       - in: query
+ *         name: minDate
+ *         schema: { type: string, format: date-time }
+ *       - in: query
+ *         name: maxDate
+ *         schema: { type: string, format: date-time }
+ *       - in: query
+ *         name: assetId
+ *         schema: { type: string, format: uuid }
  *     responses:
  *       200:
  *         description: List of maintenance requests

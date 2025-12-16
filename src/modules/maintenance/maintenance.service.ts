@@ -57,12 +57,26 @@ export class MaintenanceService {
 
     const where: Prisma.MaintenanceWhereInput = {};
 
+    if (page < 1 || limit < 1) {
+      throw new Error("Invalid pagination parameters");
+    }
+
     if (options.type) where.type = options.type;
-    if (options.status) where.processStatus = options.status;
+
+    // New Filters
     if (options.priority) where.priority = options.priority;
+    if (options.processStatus) where.processStatus = options.processStatus;
     if (options.siteId) where.siteId = options.siteId;
+    if (options.assetId) where.assetId = options.assetId;
     if (options.requesterId) where.requesterId = options.requesterId;
     if (options.assigneeId) where.assigneeId = options.assigneeId;
+
+    // Date Range Filtering
+    if (options.minDate || options.maxDate) {
+      where.createdAt = {};
+      if (options.minDate) where.createdAt.gte = new Date(options.minDate);
+      if (options.maxDate) where.createdAt.lte = new Date(options.maxDate);
+    }
 
     const [maintenances, total] = await Promise.all([
       prisma.maintenance.findMany({

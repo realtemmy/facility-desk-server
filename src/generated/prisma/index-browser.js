@@ -406,7 +406,7 @@ exports.Prisma.MaintenanceScalarFieldEnum = {
   suspensionReason: 'suspensionReason',
   category: 'category',
   subCategory: 'subCategory',
-  company: 'company',
+  companyId: 'companyId',
   teamId: 'teamId',
   floorId: 'floorId',
   roomId: 'roomId',
@@ -443,6 +443,7 @@ exports.Prisma.PreventiveScalarFieldEnum = {
   priority: 'priority',
   duration: 'duration',
   siteId: 'siteId',
+  assetId: 'assetId',
   buildingId: 'buildingId',
   floorId: 'floorId',
   roomId: 'roomId',
@@ -560,7 +561,8 @@ exports.EmployeeType = exports.$Enums.EmployeeType = {
 
 exports.MaintenanceType = exports.$Enums.MaintenanceType = {
   PREVENTIVE: 'PREVENTIVE',
-  CORRECTIVE: 'CORRECTIVE'
+  CORRECTIVE: 'CORRECTIVE',
+  PREDICTIVE: 'PREDICTIVE'
 };
 
 exports.Status = exports.$Enums.Status = {

@@ -253,7 +253,8 @@ export type EmployeeType = (typeof EmployeeType)[keyof typeof EmployeeType]
 
 export const MaintenanceType: {
   PREVENTIVE: 'PREVENTIVE',
-  CORRECTIVE: 'CORRECTIVE'
+  CORRECTIVE: 'CORRECTIVE',
+  PREDICTIVE: 'PREDICTIVE'
 };
 
 export type MaintenanceType = (typeof MaintenanceType)[keyof typeof MaintenanceType]
@@ -3255,10 +3256,12 @@ export namespace Prisma {
 
   export type AssetCountOutputType = {
     maintenances: number
+    preventives: number
   }
 
   export type AssetCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     maintenances?: boolean | AssetCountOutputTypeCountMaintenancesArgs
+    preventives?: boolean | AssetCountOutputTypeCountPreventivesArgs
   }
 
   // Custom InputTypes
@@ -3277,6 +3280,13 @@ export namespace Prisma {
    */
   export type AssetCountOutputTypeCountMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MaintenanceWhereInput
+  }
+
+  /**
+   * AssetCountOutputType without action
+   */
+  export type AssetCountOutputTypeCountPreventivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PreventiveWhereInput
   }
 
 
@@ -3344,10 +3354,12 @@ export namespace Prisma {
 
   export type CompanyCountOutputType = {
     employees: number
+    maintenances: number
   }
 
   export type CompanyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     employees?: boolean | CompanyCountOutputTypeCountEmployeesArgs
+    maintenances?: boolean | CompanyCountOutputTypeCountMaintenancesArgs
   }
 
   // Custom InputTypes
@@ -3366,6 +3378,13 @@ export namespace Prisma {
    */
   export type CompanyCountOutputTypeCountEmployeesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EmployeeWhereInput
+  }
+
+  /**
+   * CompanyCountOutputType without action
+   */
+  export type CompanyCountOutputTypeCountMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceWhereInput
   }
 
 
@@ -15992,6 +16011,7 @@ export namespace Prisma {
     updatedAt?: boolean
     category?: boolean | AssetCategoryDefaultArgs<ExtArgs>
     maintenances?: boolean | Asset$maintenancesArgs<ExtArgs>
+    preventives?: boolean | Asset$preventivesArgs<ExtArgs>
     _count?: boolean | AssetCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["asset"]>
 
@@ -16028,6 +16048,7 @@ export namespace Prisma {
   export type AssetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | AssetCategoryDefaultArgs<ExtArgs>
     maintenances?: boolean | Asset$maintenancesArgs<ExtArgs>
+    preventives?: boolean | Asset$preventivesArgs<ExtArgs>
     _count?: boolean | AssetCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AssetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -16042,6 +16063,7 @@ export namespace Prisma {
     objects: {
       category: Prisma.$AssetCategoryPayload<ExtArgs>
       maintenances: Prisma.$MaintenancePayload<ExtArgs>[]
+      preventives: Prisma.$PreventivePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -16446,6 +16468,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     category<T extends AssetCategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AssetCategoryDefaultArgs<ExtArgs>>): Prisma__AssetCategoryClient<$Result.GetResult<Prisma.$AssetCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     maintenances<T extends Asset$maintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Asset$maintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    preventives<T extends Asset$preventivesArgs<ExtArgs> = {}>(args?: Subset<T, Asset$preventivesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16898,6 +16921,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
+  }
+
+  /**
+   * Asset.preventives
+   */
+  export type Asset$preventivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preventive
+     */
+    select?: PreventiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preventive
+     */
+    omit?: PreventiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreventiveInclude<ExtArgs> | null
+    where?: PreventiveWhereInput
+    orderBy?: PreventiveOrderByWithRelationInput | PreventiveOrderByWithRelationInput[]
+    cursor?: PreventiveWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PreventiveScalarFieldEnum | PreventiveScalarFieldEnum[]
   }
 
   /**
@@ -18306,6 +18353,7 @@ export namespace Prisma {
     updatedAt?: boolean
     address?: boolean | AddressDefaultArgs<ExtArgs>
     employees?: boolean | Company$employeesArgs<ExtArgs>
+    maintenances?: boolean | Company$maintenancesArgs<ExtArgs>
     _count?: boolean | CompanyCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["company"]>
 
@@ -18360,6 +18408,7 @@ export namespace Prisma {
   export type CompanyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     address?: boolean | AddressDefaultArgs<ExtArgs>
     employees?: boolean | Company$employeesArgs<ExtArgs>
+    maintenances?: boolean | Company$maintenancesArgs<ExtArgs>
     _count?: boolean | CompanyCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CompanyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -18374,6 +18423,7 @@ export namespace Prisma {
     objects: {
       address: Prisma.$AddressPayload<ExtArgs>
       employees: Prisma.$EmployeePayload<ExtArgs>[]
+      maintenances: Prisma.$MaintenancePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -18784,6 +18834,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     address<T extends AddressDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AddressDefaultArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     employees<T extends Company$employeesArgs<ExtArgs> = {}>(args?: Subset<T, Company$employeesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    maintenances<T extends Company$maintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Company$maintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -19242,6 +19293,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: EmployeeScalarFieldEnum | EmployeeScalarFieldEnum[]
+  }
+
+  /**
+   * Company.maintenances
+   */
+  export type Company$maintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    where?: MaintenanceWhereInput
+    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
+    cursor?: MaintenanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
   }
 
   /**
@@ -24965,7 +25040,7 @@ export namespace Prisma {
     suspensionReason: string | null
     category: string | null
     subCategory: string | null
-    company: string | null
+    companyId: string | null
     teamId: string | null
     floorId: string | null
     roomId: string | null
@@ -25026,7 +25101,7 @@ export namespace Prisma {
     suspensionReason: string | null
     category: string | null
     subCategory: string | null
-    company: string | null
+    companyId: string | null
     teamId: string | null
     floorId: string | null
     roomId: string | null
@@ -25087,7 +25162,7 @@ export namespace Prisma {
     suspensionReason: number
     category: number
     subCategory: number
-    company: number
+    companyId: number
     teamId: number
     floorId: number
     roomId: number
@@ -25180,7 +25255,7 @@ export namespace Prisma {
     suspensionReason?: true
     category?: true
     subCategory?: true
-    company?: true
+    companyId?: true
     teamId?: true
     floorId?: true
     roomId?: true
@@ -25241,7 +25316,7 @@ export namespace Prisma {
     suspensionReason?: true
     category?: true
     subCategory?: true
-    company?: true
+    companyId?: true
     teamId?: true
     floorId?: true
     roomId?: true
@@ -25302,7 +25377,7 @@ export namespace Prisma {
     suspensionReason?: true
     category?: true
     subCategory?: true
-    company?: true
+    companyId?: true
     teamId?: true
     floorId?: true
     roomId?: true
@@ -25450,7 +25525,7 @@ export namespace Prisma {
     suspensionReason: string | null
     category: string | null
     subCategory: string | null
-    company: string | null
+    companyId: string | null
     teamId: string | null
     floorId: string | null
     roomId: string | null
@@ -25530,7 +25605,7 @@ export namespace Prisma {
     suspensionReason?: boolean
     category?: boolean
     subCategory?: boolean
-    company?: boolean
+    companyId?: boolean
     teamId?: boolean
     floorId?: boolean
     roomId?: boolean
@@ -25556,6 +25631,7 @@ export namespace Prisma {
     performer?: boolean | Maintenance$performerArgs<ExtArgs>
     requester?: boolean | Maintenance$requesterArgs<ExtArgs>
     site?: boolean | ComplexDefaultArgs<ExtArgs>
+    company?: boolean | Maintenance$companyArgs<ExtArgs>
     team?: boolean | Maintenance$teamArgs<ExtArgs>
     floor?: boolean | Maintenance$floorArgs<ExtArgs>
     room?: boolean | Maintenance$roomArgs<ExtArgs>
@@ -25601,7 +25677,7 @@ export namespace Prisma {
     suspensionReason?: boolean
     category?: boolean
     subCategory?: boolean
-    company?: boolean
+    companyId?: boolean
     teamId?: boolean
     floorId?: boolean
     roomId?: boolean
@@ -25627,6 +25703,7 @@ export namespace Prisma {
     performer?: boolean | Maintenance$performerArgs<ExtArgs>
     requester?: boolean | Maintenance$requesterArgs<ExtArgs>
     site?: boolean | ComplexDefaultArgs<ExtArgs>
+    company?: boolean | Maintenance$companyArgs<ExtArgs>
     team?: boolean | Maintenance$teamArgs<ExtArgs>
     floor?: boolean | Maintenance$floorArgs<ExtArgs>
     room?: boolean | Maintenance$roomArgs<ExtArgs>
@@ -25670,7 +25747,7 @@ export namespace Prisma {
     suspensionReason?: boolean
     category?: boolean
     subCategory?: boolean
-    company?: boolean
+    companyId?: boolean
     teamId?: boolean
     floorId?: boolean
     roomId?: boolean
@@ -25696,6 +25773,7 @@ export namespace Prisma {
     performer?: boolean | Maintenance$performerArgs<ExtArgs>
     requester?: boolean | Maintenance$requesterArgs<ExtArgs>
     site?: boolean | ComplexDefaultArgs<ExtArgs>
+    company?: boolean | Maintenance$companyArgs<ExtArgs>
     team?: boolean | Maintenance$teamArgs<ExtArgs>
     floor?: boolean | Maintenance$floorArgs<ExtArgs>
     room?: boolean | Maintenance$roomArgs<ExtArgs>
@@ -25739,7 +25817,7 @@ export namespace Prisma {
     suspensionReason?: boolean
     category?: boolean
     subCategory?: boolean
-    company?: boolean
+    companyId?: boolean
     teamId?: boolean
     floorId?: boolean
     roomId?: boolean
@@ -25764,11 +25842,12 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type MaintenanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "code" | "description" | "startDate" | "endDate" | "shortDescription" | "action" | "message" | "processNotes" | "performerId" | "processStatus" | "register" | "activityIdTimer" | "activityStartTime" | "activityEndTime" | "allDeadlines" | "processType" | "ttSysRunning" | "ttWorkRunning" | "sorting" | "requesterId" | "priority" | "siteId" | "outcome" | "dueAssignedEnd" | "execStart" | "dueExecEndDate" | "execEndDate" | "dueClosuerDate" | "totalExecTime" | "expStartDate" | "suspensionReason" | "category" | "subCategory" | "company" | "teamId" | "floorId" | "roomId" | "ttSystemOpening" | "ttWorkOpening" | "ttSystemAssignment" | "ttWorkAssignment" | "ttSystemExecution" | "ttWorkExecution" | "ttSysSuspension" | "ttWorkSuspension" | "ttEstimate" | "prevMaintenanceConfigId" | "automaticConfig" | "jointAccounting" | "hasTasks" | "estimateStatus" | "delayNotification" | "assigneeId" | "assetId" | "createdAt" | "updatedAt", ExtArgs["result"]["maintenance"]>
+  export type MaintenanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "code" | "description" | "startDate" | "endDate" | "shortDescription" | "action" | "message" | "processNotes" | "performerId" | "processStatus" | "register" | "activityIdTimer" | "activityStartTime" | "activityEndTime" | "allDeadlines" | "processType" | "ttSysRunning" | "ttWorkRunning" | "sorting" | "requesterId" | "priority" | "siteId" | "outcome" | "dueAssignedEnd" | "execStart" | "dueExecEndDate" | "execEndDate" | "dueClosuerDate" | "totalExecTime" | "expStartDate" | "suspensionReason" | "category" | "subCategory" | "companyId" | "teamId" | "floorId" | "roomId" | "ttSystemOpening" | "ttWorkOpening" | "ttSystemAssignment" | "ttWorkAssignment" | "ttSystemExecution" | "ttWorkExecution" | "ttSysSuspension" | "ttWorkSuspension" | "ttEstimate" | "prevMaintenanceConfigId" | "automaticConfig" | "jointAccounting" | "hasTasks" | "estimateStatus" | "delayNotification" | "assigneeId" | "assetId" | "createdAt" | "updatedAt", ExtArgs["result"]["maintenance"]>
   export type MaintenanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     performer?: boolean | Maintenance$performerArgs<ExtArgs>
     requester?: boolean | Maintenance$requesterArgs<ExtArgs>
     site?: boolean | ComplexDefaultArgs<ExtArgs>
+    company?: boolean | Maintenance$companyArgs<ExtArgs>
     team?: boolean | Maintenance$teamArgs<ExtArgs>
     floor?: boolean | Maintenance$floorArgs<ExtArgs>
     room?: boolean | Maintenance$roomArgs<ExtArgs>
@@ -25781,6 +25860,7 @@ export namespace Prisma {
     performer?: boolean | Maintenance$performerArgs<ExtArgs>
     requester?: boolean | Maintenance$requesterArgs<ExtArgs>
     site?: boolean | ComplexDefaultArgs<ExtArgs>
+    company?: boolean | Maintenance$companyArgs<ExtArgs>
     team?: boolean | Maintenance$teamArgs<ExtArgs>
     floor?: boolean | Maintenance$floorArgs<ExtArgs>
     room?: boolean | Maintenance$roomArgs<ExtArgs>
@@ -25791,6 +25871,7 @@ export namespace Prisma {
     performer?: boolean | Maintenance$performerArgs<ExtArgs>
     requester?: boolean | Maintenance$requesterArgs<ExtArgs>
     site?: boolean | ComplexDefaultArgs<ExtArgs>
+    company?: boolean | Maintenance$companyArgs<ExtArgs>
     team?: boolean | Maintenance$teamArgs<ExtArgs>
     floor?: boolean | Maintenance$floorArgs<ExtArgs>
     room?: boolean | Maintenance$roomArgs<ExtArgs>
@@ -25804,6 +25885,7 @@ export namespace Prisma {
       performer: Prisma.$EmployeePayload<ExtArgs> | null
       requester: Prisma.$EmployeePayload<ExtArgs> | null
       site: Prisma.$ComplexPayload<ExtArgs>
+      company: Prisma.$CompanyPayload<ExtArgs> | null
       team: Prisma.$TeamPayload<ExtArgs> | null
       floor: Prisma.$FloorPayload<ExtArgs> | null
       room: Prisma.$RoomPayload<ExtArgs> | null
@@ -25847,7 +25929,7 @@ export namespace Prisma {
       suspensionReason: string | null
       category: string | null
       subCategory: string | null
-      company: string | null
+      companyId: string | null
       teamId: string | null
       floorId: string | null
       roomId: string | null
@@ -26267,6 +26349,7 @@ export namespace Prisma {
     performer<T extends Maintenance$performerArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$performerArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     requester<T extends Maintenance$requesterArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$requesterArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     site<T extends ComplexDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ComplexDefaultArgs<ExtArgs>>): Prisma__ComplexClient<$Result.GetResult<Prisma.$ComplexPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    company<T extends Maintenance$companyArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$companyArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     team<T extends Maintenance$teamArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$teamArgs<ExtArgs>>): Prisma__TeamClient<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     floor<T extends Maintenance$floorArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$floorArgs<ExtArgs>>): Prisma__FloorClient<$Result.GetResult<Prisma.$FloorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     room<T extends Maintenance$roomArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$roomArgs<ExtArgs>>): Prisma__RoomClient<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -26337,7 +26420,7 @@ export namespace Prisma {
     readonly suspensionReason: FieldRef<"Maintenance", 'String'>
     readonly category: FieldRef<"Maintenance", 'String'>
     readonly subCategory: FieldRef<"Maintenance", 'String'>
-    readonly company: FieldRef<"Maintenance", 'String'>
+    readonly companyId: FieldRef<"Maintenance", 'String'>
     readonly teamId: FieldRef<"Maintenance", 'String'>
     readonly floorId: FieldRef<"Maintenance", 'String'>
     readonly roomId: FieldRef<"Maintenance", 'String'>
@@ -26794,6 +26877,25 @@ export namespace Prisma {
   }
 
   /**
+   * Maintenance.company
+   */
+  export type Maintenance$companyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    where?: CompanyWhereInput
+  }
+
+  /**
    * Maintenance.team
    */
   export type Maintenance$teamArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -26963,6 +27065,7 @@ export namespace Prisma {
     priority: $Enums.Priority | null
     duration: number | null
     siteId: string | null
+    assetId: string | null
     buildingId: string | null
     floorId: string | null
     roomId: string | null
@@ -26983,6 +27086,7 @@ export namespace Prisma {
     priority: $Enums.Priority | null
     duration: number | null
     siteId: string | null
+    assetId: string | null
     buildingId: string | null
     floorId: string | null
     roomId: string | null
@@ -27003,6 +27107,7 @@ export namespace Prisma {
     priority: number
     duration: number
     siteId: number
+    assetId: number
     buildingId: number
     floorId: number
     roomId: number
@@ -27033,6 +27138,7 @@ export namespace Prisma {
     priority?: true
     duration?: true
     siteId?: true
+    assetId?: true
     buildingId?: true
     floorId?: true
     roomId?: true
@@ -27053,6 +27159,7 @@ export namespace Prisma {
     priority?: true
     duration?: true
     siteId?: true
+    assetId?: true
     buildingId?: true
     floorId?: true
     roomId?: true
@@ -27073,6 +27180,7 @@ export namespace Prisma {
     priority?: true
     duration?: true
     siteId?: true
+    assetId?: true
     buildingId?: true
     floorId?: true
     roomId?: true
@@ -27180,6 +27288,7 @@ export namespace Prisma {
     priority: $Enums.Priority
     duration: number | null
     siteId: string
+    assetId: string | null
     buildingId: string | null
     floorId: string | null
     roomId: string | null
@@ -27219,6 +27328,7 @@ export namespace Prisma {
     priority?: boolean
     duration?: boolean
     siteId?: boolean
+    assetId?: boolean
     buildingId?: boolean
     floorId?: boolean
     roomId?: boolean
@@ -27226,6 +27336,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     site?: boolean | ComplexDefaultArgs<ExtArgs>
+    asset?: boolean | Preventive$assetArgs<ExtArgs>
     building?: boolean | Preventive$buildingArgs<ExtArgs>
     floor?: boolean | Preventive$floorArgs<ExtArgs>
     room?: boolean | Preventive$roomArgs<ExtArgs>
@@ -27244,6 +27355,7 @@ export namespace Prisma {
     priority?: boolean
     duration?: boolean
     siteId?: boolean
+    assetId?: boolean
     buildingId?: boolean
     floorId?: boolean
     roomId?: boolean
@@ -27251,6 +27363,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     site?: boolean | ComplexDefaultArgs<ExtArgs>
+    asset?: boolean | Preventive$assetArgs<ExtArgs>
     building?: boolean | Preventive$buildingArgs<ExtArgs>
     floor?: boolean | Preventive$floorArgs<ExtArgs>
     room?: boolean | Preventive$roomArgs<ExtArgs>
@@ -27269,6 +27382,7 @@ export namespace Prisma {
     priority?: boolean
     duration?: boolean
     siteId?: boolean
+    assetId?: boolean
     buildingId?: boolean
     floorId?: boolean
     roomId?: boolean
@@ -27276,6 +27390,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     site?: boolean | ComplexDefaultArgs<ExtArgs>
+    asset?: boolean | Preventive$assetArgs<ExtArgs>
     building?: boolean | Preventive$buildingArgs<ExtArgs>
     floor?: boolean | Preventive$floorArgs<ExtArgs>
     room?: boolean | Preventive$roomArgs<ExtArgs>
@@ -27294,6 +27409,7 @@ export namespace Prisma {
     priority?: boolean
     duration?: boolean
     siteId?: boolean
+    assetId?: boolean
     buildingId?: boolean
     floorId?: boolean
     roomId?: boolean
@@ -27302,9 +27418,10 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type PreventiveOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "description" | "frequency" | "cronExpression" | "lastRun" | "nextRun" | "priority" | "duration" | "siteId" | "buildingId" | "floorId" | "roomId" | "teamId" | "createdAt" | "updatedAt", ExtArgs["result"]["preventive"]>
+  export type PreventiveOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "description" | "frequency" | "cronExpression" | "lastRun" | "nextRun" | "priority" | "duration" | "siteId" | "assetId" | "buildingId" | "floorId" | "roomId" | "teamId" | "createdAt" | "updatedAt", ExtArgs["result"]["preventive"]>
   export type PreventiveInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     site?: boolean | ComplexDefaultArgs<ExtArgs>
+    asset?: boolean | Preventive$assetArgs<ExtArgs>
     building?: boolean | Preventive$buildingArgs<ExtArgs>
     floor?: boolean | Preventive$floorArgs<ExtArgs>
     room?: boolean | Preventive$roomArgs<ExtArgs>
@@ -27312,6 +27429,7 @@ export namespace Prisma {
   }
   export type PreventiveIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     site?: boolean | ComplexDefaultArgs<ExtArgs>
+    asset?: boolean | Preventive$assetArgs<ExtArgs>
     building?: boolean | Preventive$buildingArgs<ExtArgs>
     floor?: boolean | Preventive$floorArgs<ExtArgs>
     room?: boolean | Preventive$roomArgs<ExtArgs>
@@ -27319,6 +27437,7 @@ export namespace Prisma {
   }
   export type PreventiveIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     site?: boolean | ComplexDefaultArgs<ExtArgs>
+    asset?: boolean | Preventive$assetArgs<ExtArgs>
     building?: boolean | Preventive$buildingArgs<ExtArgs>
     floor?: boolean | Preventive$floorArgs<ExtArgs>
     room?: boolean | Preventive$roomArgs<ExtArgs>
@@ -27329,6 +27448,7 @@ export namespace Prisma {
     name: "Preventive"
     objects: {
       site: Prisma.$ComplexPayload<ExtArgs>
+      asset: Prisma.$AssetPayload<ExtArgs> | null
       building: Prisma.$BuildingPayload<ExtArgs> | null
       floor: Prisma.$FloorPayload<ExtArgs> | null
       room: Prisma.$RoomPayload<ExtArgs> | null
@@ -27346,6 +27466,7 @@ export namespace Prisma {
       priority: $Enums.Priority
       duration: number | null
       siteId: string
+      assetId: string | null
       buildingId: string | null
       floorId: string | null
       roomId: string | null
@@ -27747,6 +27868,7 @@ export namespace Prisma {
   export interface Prisma__PreventiveClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     site<T extends ComplexDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ComplexDefaultArgs<ExtArgs>>): Prisma__ComplexClient<$Result.GetResult<Prisma.$ComplexPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    asset<T extends Preventive$assetArgs<ExtArgs> = {}>(args?: Subset<T, Preventive$assetArgs<ExtArgs>>): Prisma__AssetClient<$Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     building<T extends Preventive$buildingArgs<ExtArgs> = {}>(args?: Subset<T, Preventive$buildingArgs<ExtArgs>>): Prisma__BuildingClient<$Result.GetResult<Prisma.$BuildingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     floor<T extends Preventive$floorArgs<ExtArgs> = {}>(args?: Subset<T, Preventive$floorArgs<ExtArgs>>): Prisma__FloorClient<$Result.GetResult<Prisma.$FloorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     room<T extends Preventive$roomArgs<ExtArgs> = {}>(args?: Subset<T, Preventive$roomArgs<ExtArgs>>): Prisma__RoomClient<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -27791,6 +27913,7 @@ export namespace Prisma {
     readonly priority: FieldRef<"Preventive", 'Priority'>
     readonly duration: FieldRef<"Preventive", 'Int'>
     readonly siteId: FieldRef<"Preventive", 'String'>
+    readonly assetId: FieldRef<"Preventive", 'String'>
     readonly buildingId: FieldRef<"Preventive", 'String'>
     readonly floorId: FieldRef<"Preventive", 'String'>
     readonly roomId: FieldRef<"Preventive", 'String'>
@@ -28190,6 +28313,25 @@ export namespace Prisma {
      * Limit how many Preventives to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Preventive.asset
+   */
+  export type Preventive$assetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Asset
+     */
+    select?: AssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Asset
+     */
+    omit?: AssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetInclude<ExtArgs> | null
+    where?: AssetWhereInput
   }
 
   /**
@@ -29709,7 +29851,7 @@ export namespace Prisma {
     suspensionReason: 'suspensionReason',
     category: 'category',
     subCategory: 'subCategory',
-    company: 'company',
+    companyId: 'companyId',
     teamId: 'teamId',
     floorId: 'floorId',
     roomId: 'roomId',
@@ -29749,6 +29891,7 @@ export namespace Prisma {
     priority: 'priority',
     duration: 'duration',
     siteId: 'siteId',
+    assetId: 'assetId',
     buildingId: 'buildingId',
     floorId: 'floorId',
     roomId: 'roomId',
@@ -31273,6 +31416,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Asset"> | Date | string
     category?: XOR<AssetCategoryScalarRelationFilter, AssetCategoryWhereInput>
     maintenances?: MaintenanceListRelationFilter
+    preventives?: PreventiveListRelationFilter
   }
 
   export type AssetOrderByWithRelationInput = {
@@ -31284,6 +31428,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     category?: AssetCategoryOrderByWithRelationInput
     maintenances?: MaintenanceOrderByRelationAggregateInput
+    preventives?: PreventiveOrderByRelationAggregateInput
   }
 
   export type AssetWhereUniqueInput = Prisma.AtLeast<{
@@ -31298,6 +31443,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Asset"> | Date | string
     category?: XOR<AssetCategoryScalarRelationFilter, AssetCategoryWhereInput>
     maintenances?: MaintenanceListRelationFilter
+    preventives?: PreventiveListRelationFilter
   }, "id">
 
   export type AssetOrderByWithAggregationInput = {
@@ -31399,6 +31545,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Company"> | Date | string
     address?: XOR<AddressScalarRelationFilter, AddressWhereInput>
     employees?: EmployeeListRelationFilter
+    maintenances?: MaintenanceListRelationFilter
   }
 
   export type CompanyOrderByWithRelationInput = {
@@ -31416,6 +31563,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     address?: AddressOrderByWithRelationInput
     employees?: EmployeeOrderByRelationAggregateInput
+    maintenances?: MaintenanceOrderByRelationAggregateInput
   }
 
   export type CompanyWhereUniqueInput = Prisma.AtLeast<{
@@ -31436,6 +31584,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Company"> | Date | string
     address?: XOR<AddressScalarRelationFilter, AddressWhereInput>
     employees?: EmployeeListRelationFilter
+    maintenances?: MaintenanceListRelationFilter
   }, "id" | "code">
 
   export type CompanyOrderByWithAggregationInput = {
@@ -31834,7 +31983,7 @@ export namespace Prisma {
     suspensionReason?: StringNullableFilter<"Maintenance"> | string | null
     category?: StringNullableFilter<"Maintenance"> | string | null
     subCategory?: StringNullableFilter<"Maintenance"> | string | null
-    company?: StringNullableFilter<"Maintenance"> | string | null
+    companyId?: StringNullableFilter<"Maintenance"> | string | null
     teamId?: StringNullableFilter<"Maintenance"> | string | null
     floorId?: StringNullableFilter<"Maintenance"> | string | null
     roomId?: StringNullableFilter<"Maintenance"> | string | null
@@ -31860,6 +32009,7 @@ export namespace Prisma {
     performer?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
     requester?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
     site?: XOR<ComplexScalarRelationFilter, ComplexWhereInput>
+    company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
     team?: XOR<TeamNullableScalarRelationFilter, TeamWhereInput> | null
     floor?: XOR<FloorNullableScalarRelationFilter, FloorWhereInput> | null
     room?: XOR<RoomNullableScalarRelationFilter, RoomWhereInput> | null
@@ -31904,7 +32054,7 @@ export namespace Prisma {
     suspensionReason?: SortOrderInput | SortOrder
     category?: SortOrderInput | SortOrder
     subCategory?: SortOrderInput | SortOrder
-    company?: SortOrderInput | SortOrder
+    companyId?: SortOrderInput | SortOrder
     teamId?: SortOrderInput | SortOrder
     floorId?: SortOrderInput | SortOrder
     roomId?: SortOrderInput | SortOrder
@@ -31930,6 +32080,7 @@ export namespace Prisma {
     performer?: EmployeeOrderByWithRelationInput
     requester?: EmployeeOrderByWithRelationInput
     site?: ComplexOrderByWithRelationInput
+    company?: CompanyOrderByWithRelationInput
     team?: TeamOrderByWithRelationInput
     floor?: FloorOrderByWithRelationInput
     room?: RoomOrderByWithRelationInput
@@ -31977,7 +32128,7 @@ export namespace Prisma {
     suspensionReason?: StringNullableFilter<"Maintenance"> | string | null
     category?: StringNullableFilter<"Maintenance"> | string | null
     subCategory?: StringNullableFilter<"Maintenance"> | string | null
-    company?: StringNullableFilter<"Maintenance"> | string | null
+    companyId?: StringNullableFilter<"Maintenance"> | string | null
     teamId?: StringNullableFilter<"Maintenance"> | string | null
     floorId?: StringNullableFilter<"Maintenance"> | string | null
     roomId?: StringNullableFilter<"Maintenance"> | string | null
@@ -32003,6 +32154,7 @@ export namespace Prisma {
     performer?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
     requester?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
     site?: XOR<ComplexScalarRelationFilter, ComplexWhereInput>
+    company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
     team?: XOR<TeamNullableScalarRelationFilter, TeamWhereInput> | null
     floor?: XOR<FloorNullableScalarRelationFilter, FloorWhereInput> | null
     room?: XOR<RoomNullableScalarRelationFilter, RoomWhereInput> | null
@@ -32047,7 +32199,7 @@ export namespace Prisma {
     suspensionReason?: SortOrderInput | SortOrder
     category?: SortOrderInput | SortOrder
     subCategory?: SortOrderInput | SortOrder
-    company?: SortOrderInput | SortOrder
+    companyId?: SortOrderInput | SortOrder
     teamId?: SortOrderInput | SortOrder
     floorId?: SortOrderInput | SortOrder
     roomId?: SortOrderInput | SortOrder
@@ -32116,7 +32268,7 @@ export namespace Prisma {
     suspensionReason?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     category?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     subCategory?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
-    company?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    companyId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     teamId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     floorId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     roomId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
@@ -32156,6 +32308,7 @@ export namespace Prisma {
     priority?: EnumPriorityFilter<"Preventive"> | $Enums.Priority
     duration?: IntNullableFilter<"Preventive"> | number | null
     siteId?: StringFilter<"Preventive"> | string
+    assetId?: StringNullableFilter<"Preventive"> | string | null
     buildingId?: StringNullableFilter<"Preventive"> | string | null
     floorId?: StringNullableFilter<"Preventive"> | string | null
     roomId?: StringNullableFilter<"Preventive"> | string | null
@@ -32163,6 +32316,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Preventive"> | Date | string
     updatedAt?: DateTimeFilter<"Preventive"> | Date | string
     site?: XOR<ComplexScalarRelationFilter, ComplexWhereInput>
+    asset?: XOR<AssetNullableScalarRelationFilter, AssetWhereInput> | null
     building?: XOR<BuildingNullableScalarRelationFilter, BuildingWhereInput> | null
     floor?: XOR<FloorNullableScalarRelationFilter, FloorWhereInput> | null
     room?: XOR<RoomNullableScalarRelationFilter, RoomWhereInput> | null
@@ -32181,6 +32335,7 @@ export namespace Prisma {
     priority?: SortOrder
     duration?: SortOrderInput | SortOrder
     siteId?: SortOrder
+    assetId?: SortOrderInput | SortOrder
     buildingId?: SortOrderInput | SortOrder
     floorId?: SortOrderInput | SortOrder
     roomId?: SortOrderInput | SortOrder
@@ -32188,6 +32343,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     site?: ComplexOrderByWithRelationInput
+    asset?: AssetOrderByWithRelationInput
     building?: BuildingOrderByWithRelationInput
     floor?: FloorOrderByWithRelationInput
     room?: RoomOrderByWithRelationInput
@@ -32209,6 +32365,7 @@ export namespace Prisma {
     priority?: EnumPriorityFilter<"Preventive"> | $Enums.Priority
     duration?: IntNullableFilter<"Preventive"> | number | null
     siteId?: StringFilter<"Preventive"> | string
+    assetId?: StringNullableFilter<"Preventive"> | string | null
     buildingId?: StringNullableFilter<"Preventive"> | string | null
     floorId?: StringNullableFilter<"Preventive"> | string | null
     roomId?: StringNullableFilter<"Preventive"> | string | null
@@ -32216,6 +32373,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Preventive"> | Date | string
     updatedAt?: DateTimeFilter<"Preventive"> | Date | string
     site?: XOR<ComplexScalarRelationFilter, ComplexWhereInput>
+    asset?: XOR<AssetNullableScalarRelationFilter, AssetWhereInput> | null
     building?: XOR<BuildingNullableScalarRelationFilter, BuildingWhereInput> | null
     floor?: XOR<FloorNullableScalarRelationFilter, FloorWhereInput> | null
     room?: XOR<RoomNullableScalarRelationFilter, RoomWhereInput> | null
@@ -32234,6 +32392,7 @@ export namespace Prisma {
     priority?: SortOrder
     duration?: SortOrderInput | SortOrder
     siteId?: SortOrder
+    assetId?: SortOrderInput | SortOrder
     buildingId?: SortOrderInput | SortOrder
     floorId?: SortOrderInput | SortOrder
     roomId?: SortOrderInput | SortOrder
@@ -32262,6 +32421,7 @@ export namespace Prisma {
     priority?: EnumPriorityWithAggregatesFilter<"Preventive"> | $Enums.Priority
     duration?: IntNullableWithAggregatesFilter<"Preventive"> | number | null
     siteId?: StringWithAggregatesFilter<"Preventive"> | string
+    assetId?: StringNullableWithAggregatesFilter<"Preventive"> | string | null
     buildingId?: StringNullableWithAggregatesFilter<"Preventive"> | string | null
     floorId?: StringNullableWithAggregatesFilter<"Preventive"> | string | null
     roomId?: StringNullableWithAggregatesFilter<"Preventive"> | string | null
@@ -33671,6 +33831,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     category: AssetCategoryCreateNestedOneWithoutAssetsInput
     maintenances?: MaintenanceCreateNestedManyWithoutAssetInput
+    preventives?: PreventiveCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateInput = {
@@ -33681,6 +33842,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUpdateInput = {
@@ -33691,6 +33853,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: AssetCategoryUpdateOneRequiredWithoutAssetsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutAssetNestedInput
+    preventives?: PreventiveUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateInput = {
@@ -33701,6 +33864,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenances?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetCreateManyInput = {
@@ -33800,6 +33964,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     address: AddressCreateNestedOneWithoutCompaniesInput
     employees?: EmployeeCreateNestedManyWithoutCompanyInput
+    maintenances?: MaintenanceCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyUncheckedCreateInput = {
@@ -33816,6 +33981,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: EmployeeUncheckedCreateNestedManyWithoutCompanyInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyUpdateInput = {
@@ -33832,6 +33998,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: AddressUpdateOneRequiredWithoutCompaniesNestedInput
     employees?: EmployeeUpdateManyWithoutCompanyNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutCompanyNestedInput
   }
 
   export type CompanyUncheckedUpdateInput = {
@@ -33848,6 +34015,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: EmployeeUncheckedUpdateManyWithoutCompanyNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
   export type CompanyCreateManyInput = {
@@ -34269,7 +34437,6 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -34290,6 +34457,7 @@ export namespace Prisma {
     performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
     requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
+    company?: CompanyCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
     room?: RoomCreateNestedOneWithoutMaintenancesInput
@@ -34334,7 +34502,7 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
+    companyId?: string | null
     teamId?: string | null
     floorId?: string | null
     roomId?: string | null
@@ -34393,7 +34561,6 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -34414,6 +34581,7 @@ export namespace Prisma {
     performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
     requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
     room?: RoomUpdateOneWithoutMaintenancesNestedInput
@@ -34458,7 +34626,7 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34520,7 +34688,7 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
+    companyId?: string | null
     teamId?: string | null
     floorId?: string | null
     roomId?: string | null
@@ -34578,7 +34746,6 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -34634,7 +34801,7 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34673,6 +34840,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     site: ComplexCreateNestedOneWithoutPreventivesInput
+    asset?: AssetCreateNestedOneWithoutPreventivesInput
     building?: BuildingCreateNestedOneWithoutPreventivesInput
     floor?: FloorCreateNestedOneWithoutPreventivesInput
     room?: RoomCreateNestedOneWithoutPreventivesInput
@@ -34691,6 +34859,7 @@ export namespace Prisma {
     priority?: $Enums.Priority
     duration?: number | null
     siteId: string
+    assetId?: string | null
     buildingId?: string | null
     floorId?: string | null
     roomId?: string | null
@@ -34713,6 +34882,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     site?: ComplexUpdateOneRequiredWithoutPreventivesNestedInput
+    asset?: AssetUpdateOneWithoutPreventivesNestedInput
     building?: BuildingUpdateOneWithoutPreventivesNestedInput
     floor?: FloorUpdateOneWithoutPreventivesNestedInput
     room?: RoomUpdateOneWithoutPreventivesNestedInput
@@ -34731,6 +34901,7 @@ export namespace Prisma {
     priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
     duration?: NullableIntFieldUpdateOperationsInput | number | null
     siteId?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34751,6 +34922,7 @@ export namespace Prisma {
     priority?: $Enums.Priority
     duration?: number | null
     siteId: string
+    assetId?: string | null
     buildingId?: string | null
     floorId?: string | null
     roomId?: string | null
@@ -34786,6 +34958,7 @@ export namespace Prisma {
     priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
     duration?: NullableIntFieldUpdateOperationsInput | number | null
     siteId?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36461,6 +36634,11 @@ export namespace Prisma {
     isNot?: EmployeeWhereInput | null
   }
 
+  export type CompanyNullableScalarRelationFilter = {
+    is?: CompanyWhereInput | null
+    isNot?: CompanyWhereInput | null
+  }
+
   export type TeamNullableScalarRelationFilter = {
     is?: TeamWhereInput | null
     isNot?: TeamWhereInput | null
@@ -36517,7 +36695,7 @@ export namespace Prisma {
     suspensionReason?: SortOrder
     category?: SortOrder
     subCategory?: SortOrder
-    company?: SortOrder
+    companyId?: SortOrder
     teamId?: SortOrder
     floorId?: SortOrder
     roomId?: SortOrder
@@ -36593,7 +36771,7 @@ export namespace Prisma {
     suspensionReason?: SortOrder
     category?: SortOrder
     subCategory?: SortOrder
-    company?: SortOrder
+    companyId?: SortOrder
     teamId?: SortOrder
     floorId?: SortOrder
     roomId?: SortOrder
@@ -36654,7 +36832,7 @@ export namespace Prisma {
     suspensionReason?: SortOrder
     category?: SortOrder
     subCategory?: SortOrder
-    company?: SortOrder
+    companyId?: SortOrder
     teamId?: SortOrder
     floorId?: SortOrder
     roomId?: SortOrder
@@ -36753,6 +36931,7 @@ export namespace Prisma {
     priority?: SortOrder
     duration?: SortOrder
     siteId?: SortOrder
+    assetId?: SortOrder
     buildingId?: SortOrder
     floorId?: SortOrder
     roomId?: SortOrder
@@ -36777,6 +36956,7 @@ export namespace Prisma {
     priority?: SortOrder
     duration?: SortOrder
     siteId?: SortOrder
+    assetId?: SortOrder
     buildingId?: SortOrder
     floorId?: SortOrder
     roomId?: SortOrder
@@ -36797,6 +36977,7 @@ export namespace Prisma {
     priority?: SortOrder
     duration?: SortOrder
     siteId?: SortOrder
+    assetId?: SortOrder
     buildingId?: SortOrder
     floorId?: SortOrder
     roomId?: SortOrder
@@ -38283,11 +38464,25 @@ export namespace Prisma {
     connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
   }
 
+  export type PreventiveCreateNestedManyWithoutAssetInput = {
+    create?: XOR<PreventiveCreateWithoutAssetInput, PreventiveUncheckedCreateWithoutAssetInput> | PreventiveCreateWithoutAssetInput[] | PreventiveUncheckedCreateWithoutAssetInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutAssetInput | PreventiveCreateOrConnectWithoutAssetInput[]
+    createMany?: PreventiveCreateManyAssetInputEnvelope
+    connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+  }
+
   export type MaintenanceUncheckedCreateNestedManyWithoutAssetInput = {
     create?: XOR<MaintenanceCreateWithoutAssetInput, MaintenanceUncheckedCreateWithoutAssetInput> | MaintenanceCreateWithoutAssetInput[] | MaintenanceUncheckedCreateWithoutAssetInput[]
     connectOrCreate?: MaintenanceCreateOrConnectWithoutAssetInput | MaintenanceCreateOrConnectWithoutAssetInput[]
     createMany?: MaintenanceCreateManyAssetInputEnvelope
     connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type PreventiveUncheckedCreateNestedManyWithoutAssetInput = {
+    create?: XOR<PreventiveCreateWithoutAssetInput, PreventiveUncheckedCreateWithoutAssetInput> | PreventiveCreateWithoutAssetInput[] | PreventiveUncheckedCreateWithoutAssetInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutAssetInput | PreventiveCreateOrConnectWithoutAssetInput[]
+    createMany?: PreventiveCreateManyAssetInputEnvelope
+    connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
   }
 
   export type AssetCategoryUpdateOneRequiredWithoutAssetsNestedInput = {
@@ -38312,6 +38507,20 @@ export namespace Prisma {
     deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
   }
 
+  export type PreventiveUpdateManyWithoutAssetNestedInput = {
+    create?: XOR<PreventiveCreateWithoutAssetInput, PreventiveUncheckedCreateWithoutAssetInput> | PreventiveCreateWithoutAssetInput[] | PreventiveUncheckedCreateWithoutAssetInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutAssetInput | PreventiveCreateOrConnectWithoutAssetInput[]
+    upsert?: PreventiveUpsertWithWhereUniqueWithoutAssetInput | PreventiveUpsertWithWhereUniqueWithoutAssetInput[]
+    createMany?: PreventiveCreateManyAssetInputEnvelope
+    set?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    disconnect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    delete?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    update?: PreventiveUpdateWithWhereUniqueWithoutAssetInput | PreventiveUpdateWithWhereUniqueWithoutAssetInput[]
+    updateMany?: PreventiveUpdateManyWithWhereWithoutAssetInput | PreventiveUpdateManyWithWhereWithoutAssetInput[]
+    deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
+  }
+
   export type MaintenanceUncheckedUpdateManyWithoutAssetNestedInput = {
     create?: XOR<MaintenanceCreateWithoutAssetInput, MaintenanceUncheckedCreateWithoutAssetInput> | MaintenanceCreateWithoutAssetInput[] | MaintenanceUncheckedCreateWithoutAssetInput[]
     connectOrCreate?: MaintenanceCreateOrConnectWithoutAssetInput | MaintenanceCreateOrConnectWithoutAssetInput[]
@@ -38324,6 +38533,20 @@ export namespace Prisma {
     update?: MaintenanceUpdateWithWhereUniqueWithoutAssetInput | MaintenanceUpdateWithWhereUniqueWithoutAssetInput[]
     updateMany?: MaintenanceUpdateManyWithWhereWithoutAssetInput | MaintenanceUpdateManyWithWhereWithoutAssetInput[]
     deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type PreventiveUncheckedUpdateManyWithoutAssetNestedInput = {
+    create?: XOR<PreventiveCreateWithoutAssetInput, PreventiveUncheckedCreateWithoutAssetInput> | PreventiveCreateWithoutAssetInput[] | PreventiveUncheckedCreateWithoutAssetInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutAssetInput | PreventiveCreateOrConnectWithoutAssetInput[]
+    upsert?: PreventiveUpsertWithWhereUniqueWithoutAssetInput | PreventiveUpsertWithWhereUniqueWithoutAssetInput[]
+    createMany?: PreventiveCreateManyAssetInputEnvelope
+    set?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    disconnect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    delete?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+    update?: PreventiveUpdateWithWhereUniqueWithoutAssetInput | PreventiveUpdateWithWhereUniqueWithoutAssetInput[]
+    updateMany?: PreventiveUpdateManyWithWhereWithoutAssetInput | PreventiveUpdateManyWithWhereWithoutAssetInput[]
+    deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
   }
 
   export type RoomCreateNestedManyWithoutPhotosInput = {
@@ -38507,11 +38730,25 @@ export namespace Prisma {
     connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
   }
 
+  export type MaintenanceCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<MaintenanceCreateWithoutCompanyInput, MaintenanceUncheckedCreateWithoutCompanyInput> | MaintenanceCreateWithoutCompanyInput[] | MaintenanceUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutCompanyInput | MaintenanceCreateOrConnectWithoutCompanyInput[]
+    createMany?: MaintenanceCreateManyCompanyInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
   export type EmployeeUncheckedCreateNestedManyWithoutCompanyInput = {
     create?: XOR<EmployeeCreateWithoutCompanyInput, EmployeeUncheckedCreateWithoutCompanyInput> | EmployeeCreateWithoutCompanyInput[] | EmployeeUncheckedCreateWithoutCompanyInput[]
     connectOrCreate?: EmployeeCreateOrConnectWithoutCompanyInput | EmployeeCreateOrConnectWithoutCompanyInput[]
     createMany?: EmployeeCreateManyCompanyInputEnvelope
     connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
+  }
+
+  export type MaintenanceUncheckedCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<MaintenanceCreateWithoutCompanyInput, MaintenanceUncheckedCreateWithoutCompanyInput> | MaintenanceCreateWithoutCompanyInput[] | MaintenanceUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutCompanyInput | MaintenanceCreateOrConnectWithoutCompanyInput[]
+    createMany?: MaintenanceCreateManyCompanyInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
   }
 
   export type EnumCompanyTypeFieldUpdateOperationsInput = {
@@ -38540,6 +38777,20 @@ export namespace Prisma {
     deleteMany?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
   }
 
+  export type MaintenanceUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutCompanyInput, MaintenanceUncheckedCreateWithoutCompanyInput> | MaintenanceCreateWithoutCompanyInput[] | MaintenanceUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutCompanyInput | MaintenanceCreateOrConnectWithoutCompanyInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutCompanyInput | MaintenanceUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: MaintenanceCreateManyCompanyInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutCompanyInput | MaintenanceUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutCompanyInput | MaintenanceUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
   export type EmployeeUncheckedUpdateManyWithoutCompanyNestedInput = {
     create?: XOR<EmployeeCreateWithoutCompanyInput, EmployeeUncheckedCreateWithoutCompanyInput> | EmployeeCreateWithoutCompanyInput[] | EmployeeUncheckedCreateWithoutCompanyInput[]
     connectOrCreate?: EmployeeCreateOrConnectWithoutCompanyInput | EmployeeCreateOrConnectWithoutCompanyInput[]
@@ -38552,6 +38803,20 @@ export namespace Prisma {
     update?: EmployeeUpdateWithWhereUniqueWithoutCompanyInput | EmployeeUpdateWithWhereUniqueWithoutCompanyInput[]
     updateMany?: EmployeeUpdateManyWithWhereWithoutCompanyInput | EmployeeUpdateManyWithWhereWithoutCompanyInput[]
     deleteMany?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutCompanyInput, MaintenanceUncheckedCreateWithoutCompanyInput> | MaintenanceCreateWithoutCompanyInput[] | MaintenanceUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutCompanyInput | MaintenanceCreateOrConnectWithoutCompanyInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutCompanyInput | MaintenanceUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: MaintenanceCreateManyCompanyInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutCompanyInput | MaintenanceUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutCompanyInput | MaintenanceUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutEmployeesInput = {
@@ -39180,6 +39445,12 @@ export namespace Prisma {
     connect?: ComplexWhereUniqueInput
   }
 
+  export type CompanyCreateNestedOneWithoutMaintenancesInput = {
+    create?: XOR<CompanyCreateWithoutMaintenancesInput, CompanyUncheckedCreateWithoutMaintenancesInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutMaintenancesInput
+    connect?: CompanyWhereUniqueInput
+  }
+
   export type TeamCreateNestedOneWithoutMaintenancesInput = {
     create?: XOR<TeamCreateWithoutMaintenancesInput, TeamUncheckedCreateWithoutMaintenancesInput>
     connectOrCreate?: TeamCreateOrConnectWithoutMaintenancesInput
@@ -39268,6 +39539,16 @@ export namespace Prisma {
     update?: XOR<XOR<ComplexUpdateToOneWithWhereWithoutMaintenancesInput, ComplexUpdateWithoutMaintenancesInput>, ComplexUncheckedUpdateWithoutMaintenancesInput>
   }
 
+  export type CompanyUpdateOneWithoutMaintenancesNestedInput = {
+    create?: XOR<CompanyCreateWithoutMaintenancesInput, CompanyUncheckedCreateWithoutMaintenancesInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutMaintenancesInput
+    upsert?: CompanyUpsertWithoutMaintenancesInput
+    disconnect?: CompanyWhereInput | boolean
+    delete?: CompanyWhereInput | boolean
+    connect?: CompanyWhereUniqueInput
+    update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutMaintenancesInput, CompanyUpdateWithoutMaintenancesInput>, CompanyUncheckedUpdateWithoutMaintenancesInput>
+  }
+
   export type TeamUpdateOneWithoutMaintenancesNestedInput = {
     create?: XOR<TeamCreateWithoutMaintenancesInput, TeamUncheckedCreateWithoutMaintenancesInput>
     connectOrCreate?: TeamCreateOrConnectWithoutMaintenancesInput
@@ -39352,6 +39633,12 @@ export namespace Prisma {
     connect?: ComplexWhereUniqueInput
   }
 
+  export type AssetCreateNestedOneWithoutPreventivesInput = {
+    create?: XOR<AssetCreateWithoutPreventivesInput, AssetUncheckedCreateWithoutPreventivesInput>
+    connectOrCreate?: AssetCreateOrConnectWithoutPreventivesInput
+    connect?: AssetWhereUniqueInput
+  }
+
   export type BuildingCreateNestedOneWithoutPreventivesInput = {
     create?: XOR<BuildingCreateWithoutPreventivesInput, BuildingUncheckedCreateWithoutPreventivesInput>
     connectOrCreate?: BuildingCreateOrConnectWithoutPreventivesInput
@@ -39386,6 +39673,16 @@ export namespace Prisma {
     upsert?: ComplexUpsertWithoutPreventivesInput
     connect?: ComplexWhereUniqueInput
     update?: XOR<XOR<ComplexUpdateToOneWithWhereWithoutPreventivesInput, ComplexUpdateWithoutPreventivesInput>, ComplexUncheckedUpdateWithoutPreventivesInput>
+  }
+
+  export type AssetUpdateOneWithoutPreventivesNestedInput = {
+    create?: XOR<AssetCreateWithoutPreventivesInput, AssetUncheckedCreateWithoutPreventivesInput>
+    connectOrCreate?: AssetCreateOrConnectWithoutPreventivesInput
+    upsert?: AssetUpsertWithoutPreventivesInput
+    disconnect?: AssetWhereInput | boolean
+    delete?: AssetWhereInput | boolean
+    connect?: AssetWhereUniqueInput
+    update?: XOR<XOR<AssetUpdateToOneWithWhereWithoutPreventivesInput, AssetUpdateWithoutPreventivesInput>, AssetUncheckedUpdateWithoutPreventivesInput>
   }
 
   export type BuildingUpdateOneWithoutPreventivesNestedInput = {
@@ -40691,7 +40988,6 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -40711,6 +41007,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
     requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
+    company?: CompanyCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
     room?: RoomCreateNestedOneWithoutMaintenancesInput
@@ -40754,7 +41051,7 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
+    companyId?: string | null
     teamId?: string | null
     floorId?: string | null
     roomId?: string | null
@@ -40803,6 +41100,7 @@ export namespace Prisma {
     duration?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    asset?: AssetCreateNestedOneWithoutPreventivesInput
     building?: BuildingCreateNestedOneWithoutPreventivesInput
     floor?: FloorCreateNestedOneWithoutPreventivesInput
     room?: RoomCreateNestedOneWithoutPreventivesInput
@@ -40820,6 +41118,7 @@ export namespace Prisma {
     nextRun: Date | string
     priority?: $Enums.Priority
     duration?: number | null
+    assetId?: string | null
     buildingId?: string | null
     floorId?: string | null
     roomId?: string | null
@@ -41137,7 +41436,7 @@ export namespace Prisma {
     suspensionReason?: StringNullableFilter<"Maintenance"> | string | null
     category?: StringNullableFilter<"Maintenance"> | string | null
     subCategory?: StringNullableFilter<"Maintenance"> | string | null
-    company?: StringNullableFilter<"Maintenance"> | string | null
+    companyId?: StringNullableFilter<"Maintenance"> | string | null
     teamId?: StringNullableFilter<"Maintenance"> | string | null
     floorId?: StringNullableFilter<"Maintenance"> | string | null
     roomId?: StringNullableFilter<"Maintenance"> | string | null
@@ -41193,6 +41492,7 @@ export namespace Prisma {
     priority?: EnumPriorityFilter<"Preventive"> | $Enums.Priority
     duration?: IntNullableFilter<"Preventive"> | number | null
     siteId?: StringFilter<"Preventive"> | string
+    assetId?: StringNullableFilter<"Preventive"> | string | null
     buildingId?: StringNullableFilter<"Preventive"> | string | null
     floorId?: StringNullableFilter<"Preventive"> | string | null
     roomId?: StringNullableFilter<"Preventive"> | string | null
@@ -41569,6 +41869,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     site: ComplexCreateNestedOneWithoutPreventivesInput
+    asset?: AssetCreateNestedOneWithoutPreventivesInput
     floor?: FloorCreateNestedOneWithoutPreventivesInput
     room?: RoomCreateNestedOneWithoutPreventivesInput
     team?: TeamCreateNestedOneWithoutPreventivesInput
@@ -41586,6 +41887,7 @@ export namespace Prisma {
     priority?: $Enums.Priority
     duration?: number | null
     siteId: string
+    assetId?: string | null
     floorId?: string | null
     roomId?: string | null
     teamId?: string | null
@@ -42139,7 +42441,6 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -42160,6 +42461,7 @@ export namespace Prisma {
     performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
     requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
+    company?: CompanyCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     room?: RoomCreateNestedOneWithoutMaintenancesInput
     assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
@@ -42203,7 +42505,7 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
+    companyId?: string | null
     teamId?: string | null
     roomId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
@@ -42252,6 +42554,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     site: ComplexCreateNestedOneWithoutPreventivesInput
+    asset?: AssetCreateNestedOneWithoutPreventivesInput
     building?: BuildingCreateNestedOneWithoutPreventivesInput
     room?: RoomCreateNestedOneWithoutPreventivesInput
     team?: TeamCreateNestedOneWithoutPreventivesInput
@@ -42269,6 +42572,7 @@ export namespace Prisma {
     priority?: $Enums.Priority
     duration?: number | null
     siteId: string
+    assetId?: string | null
     buildingId?: string | null
     roomId?: string | null
     teamId?: string | null
@@ -43436,7 +43740,6 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -43457,6 +43760,7 @@ export namespace Prisma {
     performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
     requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
+    company?: CompanyCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
     assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
@@ -43500,7 +43804,7 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
+    companyId?: string | null
     teamId?: string | null
     floorId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
@@ -43549,6 +43853,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     site: ComplexCreateNestedOneWithoutPreventivesInput
+    asset?: AssetCreateNestedOneWithoutPreventivesInput
     building?: BuildingCreateNestedOneWithoutPreventivesInput
     floor?: FloorCreateNestedOneWithoutPreventivesInput
     team?: TeamCreateNestedOneWithoutPreventivesInput
@@ -43566,6 +43871,7 @@ export namespace Prisma {
     priority?: $Enums.Priority
     duration?: number | null
     siteId: string
+    assetId?: string | null
     buildingId?: string | null
     floorId?: string | null
     teamId?: string | null
@@ -43967,6 +44273,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     maintenances?: MaintenanceCreateNestedManyWithoutAssetInput
+    preventives?: PreventiveCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateWithoutCategoryInput = {
@@ -43976,6 +44283,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetCreateOrConnectWithoutCategoryInput = {
@@ -44072,7 +44380,6 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -44093,6 +44400,7 @@ export namespace Prisma {
     performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
     requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
+    company?: CompanyCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
     room?: RoomCreateNestedOneWithoutMaintenancesInput
@@ -44136,7 +44444,7 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
+    companyId?: string | null
     teamId?: string | null
     floorId?: string | null
     roomId?: string | null
@@ -44168,6 +44476,56 @@ export namespace Prisma {
 
   export type MaintenanceCreateManyAssetInputEnvelope = {
     data: MaintenanceCreateManyAssetInput | MaintenanceCreateManyAssetInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PreventiveCreateWithoutAssetInput = {
+    id?: string
+    code: string
+    name: string
+    description: string
+    frequency?: $Enums.Frequency
+    cronExpression?: string | null
+    lastRun?: Date | string | null
+    nextRun: Date | string
+    priority?: $Enums.Priority
+    duration?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    site: ComplexCreateNestedOneWithoutPreventivesInput
+    building?: BuildingCreateNestedOneWithoutPreventivesInput
+    floor?: FloorCreateNestedOneWithoutPreventivesInput
+    room?: RoomCreateNestedOneWithoutPreventivesInput
+    team?: TeamCreateNestedOneWithoutPreventivesInput
+  }
+
+  export type PreventiveUncheckedCreateWithoutAssetInput = {
+    id?: string
+    code: string
+    name: string
+    description: string
+    frequency?: $Enums.Frequency
+    cronExpression?: string | null
+    lastRun?: Date | string | null
+    nextRun: Date | string
+    priority?: $Enums.Priority
+    duration?: number | null
+    siteId: string
+    buildingId?: string | null
+    floorId?: string | null
+    roomId?: string | null
+    teamId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PreventiveCreateOrConnectWithoutAssetInput = {
+    where: PreventiveWhereUniqueInput
+    create: XOR<PreventiveCreateWithoutAssetInput, PreventiveUncheckedCreateWithoutAssetInput>
+  }
+
+  export type PreventiveCreateManyAssetInputEnvelope = {
+    data: PreventiveCreateManyAssetInput | PreventiveCreateManyAssetInput[]
     skipDuplicates?: boolean
   }
 
@@ -44214,6 +44572,22 @@ export namespace Prisma {
   export type MaintenanceUpdateManyWithWhereWithoutAssetInput = {
     where: MaintenanceScalarWhereInput
     data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutAssetInput>
+  }
+
+  export type PreventiveUpsertWithWhereUniqueWithoutAssetInput = {
+    where: PreventiveWhereUniqueInput
+    update: XOR<PreventiveUpdateWithoutAssetInput, PreventiveUncheckedUpdateWithoutAssetInput>
+    create: XOR<PreventiveCreateWithoutAssetInput, PreventiveUncheckedCreateWithoutAssetInput>
+  }
+
+  export type PreventiveUpdateWithWhereUniqueWithoutAssetInput = {
+    where: PreventiveWhereUniqueInput
+    data: XOR<PreventiveUpdateWithoutAssetInput, PreventiveUncheckedUpdateWithoutAssetInput>
+  }
+
+  export type PreventiveUpdateManyWithWhereWithoutAssetInput = {
+    where: PreventiveScalarWhereInput
+    data: XOR<PreventiveUpdateManyMutationInput, PreventiveUncheckedUpdateManyWithoutAssetInput>
   }
 
   export type RoomCreateWithoutPhotosInput = {
@@ -44523,7 +44897,6 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -44544,6 +44917,7 @@ export namespace Prisma {
     performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
     requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
+    company?: CompanyCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
     room?: RoomCreateNestedOneWithoutMaintenancesInput
@@ -44587,7 +44961,7 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
+    companyId?: string | null
     teamId?: string | null
     floorId?: string | null
     roomId?: string | null
@@ -44755,7 +45129,6 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -44776,6 +45149,7 @@ export namespace Prisma {
     performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
     requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
     room?: RoomUpdateOneWithoutMaintenancesNestedInput
@@ -44819,7 +45193,7 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -44903,6 +45277,138 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type MaintenanceCreateWithoutCompanyInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    priority?: $Enums.Priority
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
+    requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
+    site: ComplexCreateNestedOneWithoutMaintenancesInput
+    team?: TeamCreateNestedOneWithoutMaintenancesInput
+    floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    room?: RoomCreateNestedOneWithoutMaintenancesInput
+    assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
+    asset?: AssetCreateNestedOneWithoutMaintenancesInput
+    photos?: FileCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceUncheckedCreateWithoutCompanyInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    performerId?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    roomId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceCreateOrConnectWithoutCompanyInput = {
+    where: MaintenanceWhereUniqueInput
+    create: XOR<MaintenanceCreateWithoutCompanyInput, MaintenanceUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type MaintenanceCreateManyCompanyInputEnvelope = {
+    data: MaintenanceCreateManyCompanyInput | MaintenanceCreateManyCompanyInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AddressUpsertWithoutCompaniesInput = {
     update: XOR<AddressUpdateWithoutCompaniesInput, AddressUncheckedUpdateWithoutCompaniesInput>
     create: XOR<AddressCreateWithoutCompaniesInput, AddressUncheckedCreateWithoutCompaniesInput>
@@ -44946,6 +45452,22 @@ export namespace Prisma {
   export type EmployeeUpdateManyWithWhereWithoutCompanyInput = {
     where: EmployeeScalarWhereInput
     data: XOR<EmployeeUpdateManyMutationInput, EmployeeUncheckedUpdateManyWithoutCompanyInput>
+  }
+
+  export type MaintenanceUpsertWithWhereUniqueWithoutCompanyInput = {
+    where: MaintenanceWhereUniqueInput
+    update: XOR<MaintenanceUpdateWithoutCompanyInput, MaintenanceUncheckedUpdateWithoutCompanyInput>
+    create: XOR<MaintenanceCreateWithoutCompanyInput, MaintenanceUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type MaintenanceUpdateWithWhereUniqueWithoutCompanyInput = {
+    where: MaintenanceWhereUniqueInput
+    data: XOR<MaintenanceUpdateWithoutCompanyInput, MaintenanceUncheckedUpdateWithoutCompanyInput>
+  }
+
+  export type MaintenanceUpdateManyWithWhereWithoutCompanyInput = {
+    where: MaintenanceScalarWhereInput
+    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutCompanyInput>
   }
 
   export type UserCreateWithoutEmployeesInput = {
@@ -44998,6 +45520,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     address: AddressCreateNestedOneWithoutCompaniesInput
+    maintenances?: MaintenanceCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyUncheckedCreateWithoutEmployeesInput = {
@@ -45013,6 +45536,7 @@ export namespace Prisma {
     website?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyCreateOrConnectWithoutEmployeesInput = {
@@ -45114,7 +45638,6 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -45134,6 +45657,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
+    company?: CompanyCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
     room?: RoomCreateNestedOneWithoutMaintenancesInput
@@ -45177,7 +45701,7 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
+    companyId?: string | null
     teamId?: string | null
     floorId?: string | null
     roomId?: string | null
@@ -45246,7 +45770,6 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -45266,6 +45789,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
+    company?: CompanyCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
     room?: RoomCreateNestedOneWithoutMaintenancesInput
@@ -45309,7 +45833,7 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
+    companyId?: string | null
     teamId?: string | null
     floorId?: string | null
     roomId?: string | null
@@ -45378,7 +45902,6 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -45399,6 +45922,7 @@ export namespace Prisma {
     performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
     requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
+    company?: CompanyCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
     room?: RoomCreateNestedOneWithoutMaintenancesInput
@@ -45442,7 +45966,7 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
+    companyId?: string | null
     teamId?: string | null
     floorId?: string | null
     roomId?: string | null
@@ -45544,6 +46068,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: AddressUpdateOneRequiredWithoutCompaniesNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutCompanyNestedInput
   }
 
   export type CompanyUncheckedUpdateWithoutEmployeesInput = {
@@ -45559,6 +46084,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
   export type CalenderEntityUpsertWithoutEmployeesInput = {
@@ -45736,7 +46262,6 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -45757,6 +46282,7 @@ export namespace Prisma {
     performer?: EmployeeCreateNestedOneWithoutPerformedMaintenancesInput
     requester?: EmployeeCreateNestedOneWithoutRequestedMaintenancesInput
     site: ComplexCreateNestedOneWithoutMaintenancesInput
+    company?: CompanyCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
     room?: RoomCreateNestedOneWithoutMaintenancesInput
     assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
@@ -45800,7 +46326,7 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
+    companyId?: string | null
     floorId?: string | null
     roomId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
@@ -45849,6 +46375,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     site: ComplexCreateNestedOneWithoutPreventivesInput
+    asset?: AssetCreateNestedOneWithoutPreventivesInput
     building?: BuildingCreateNestedOneWithoutPreventivesInput
     floor?: FloorCreateNestedOneWithoutPreventivesInput
     room?: RoomCreateNestedOneWithoutPreventivesInput
@@ -45866,6 +46393,7 @@ export namespace Prisma {
     priority?: $Enums.Priority
     duration?: number | null
     siteId: string
+    assetId?: string | null
     buildingId?: string | null
     floorId?: string | null
     roomId?: string | null
@@ -45965,6 +46493,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: EmployeeCreateNestedManyWithoutCompanyInput
+    maintenances?: MaintenanceCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyUncheckedCreateWithoutAddressInput = {
@@ -45980,6 +46509,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: EmployeeUncheckedCreateNestedManyWithoutCompanyInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyCreateOrConnectWithoutAddressInput = {
@@ -46655,6 +47185,43 @@ export namespace Prisma {
     create: XOR<ComplexCreateWithoutMaintenancesInput, ComplexUncheckedCreateWithoutMaintenancesInput>
   }
 
+  export type CompanyCreateWithoutMaintenancesInput = {
+    id?: string
+    code: string
+    type?: $Enums.CompanyType
+    name: string
+    description: string
+    phone?: string | null
+    alternativePhone?: string | null
+    email?: string | null
+    website?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    address: AddressCreateNestedOneWithoutCompaniesInput
+    employees?: EmployeeCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyUncheckedCreateWithoutMaintenancesInput = {
+    id?: string
+    code: string
+    type?: $Enums.CompanyType
+    name: string
+    description: string
+    addressId: string
+    phone?: string | null
+    alternativePhone?: string | null
+    email?: string | null
+    website?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    employees?: EmployeeUncheckedCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyCreateOrConnectWithoutMaintenancesInput = {
+    where: CompanyWhereUniqueInput
+    create: XOR<CompanyCreateWithoutMaintenancesInput, CompanyUncheckedCreateWithoutMaintenancesInput>
+  }
+
   export type TeamCreateWithoutMaintenancesInput = {
     id?: string
     code: string
@@ -46838,6 +47405,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     category: AssetCategoryCreateNestedOneWithoutAssetsInput
+    preventives?: PreventiveCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateWithoutMaintenancesInput = {
@@ -46847,6 +47415,7 @@ export namespace Prisma {
     categoryId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetCreateOrConnectWithoutMaintenancesInput = {
@@ -47031,6 +47600,49 @@ export namespace Prisma {
     units?: UnitUncheckedUpdateManyWithoutComplexNestedInput
     rooms?: RoomUncheckedUpdateManyWithoutComplexNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutSiteNestedInput
+  }
+
+  export type CompanyUpsertWithoutMaintenancesInput = {
+    update: XOR<CompanyUpdateWithoutMaintenancesInput, CompanyUncheckedUpdateWithoutMaintenancesInput>
+    create: XOR<CompanyCreateWithoutMaintenancesInput, CompanyUncheckedCreateWithoutMaintenancesInput>
+    where?: CompanyWhereInput
+  }
+
+  export type CompanyUpdateToOneWithWhereWithoutMaintenancesInput = {
+    where?: CompanyWhereInput
+    data: XOR<CompanyUpdateWithoutMaintenancesInput, CompanyUncheckedUpdateWithoutMaintenancesInput>
+  }
+
+  export type CompanyUpdateWithoutMaintenancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    type?: EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    alternativePhone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    address?: AddressUpdateOneRequiredWithoutCompaniesNestedInput
+    employees?: EmployeeUpdateManyWithoutCompanyNestedInput
+  }
+
+  export type CompanyUncheckedUpdateWithoutMaintenancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    type?: EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    addressId?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    alternativePhone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    employees?: EmployeeUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
   export type TeamUpsertWithoutMaintenancesInput = {
@@ -47251,6 +47863,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: AssetCategoryUpdateOneRequiredWithoutAssetsNestedInput
+    preventives?: PreventiveUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateWithoutMaintenancesInput = {
@@ -47260,6 +47873,7 @@ export namespace Prisma {
     categoryId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    preventives?: PreventiveUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type FileUpsertWithWhereUniqueWithoutMaintenanceInput = {
@@ -47347,6 +47961,31 @@ export namespace Prisma {
   export type ComplexCreateOrConnectWithoutPreventivesInput = {
     where: ComplexWhereUniqueInput
     create: XOR<ComplexCreateWithoutPreventivesInput, ComplexUncheckedCreateWithoutPreventivesInput>
+  }
+
+  export type AssetCreateWithoutPreventivesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    category: AssetCategoryCreateNestedOneWithoutAssetsInput
+    maintenances?: MaintenanceCreateNestedManyWithoutAssetInput
+  }
+
+  export type AssetUncheckedCreateWithoutPreventivesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    categoryId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
+  }
+
+  export type AssetCreateOrConnectWithoutPreventivesInput = {
+    where: AssetWhereUniqueInput
+    create: XOR<AssetCreateWithoutPreventivesInput, AssetUncheckedCreateWithoutPreventivesInput>
   }
 
   export type BuildingCreateWithoutPreventivesInput = {
@@ -47634,6 +48273,37 @@ export namespace Prisma {
     units?: UnitUncheckedUpdateManyWithoutComplexNestedInput
     rooms?: RoomUncheckedUpdateManyWithoutComplexNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutSiteNestedInput
+  }
+
+  export type AssetUpsertWithoutPreventivesInput = {
+    update: XOR<AssetUpdateWithoutPreventivesInput, AssetUncheckedUpdateWithoutPreventivesInput>
+    create: XOR<AssetCreateWithoutPreventivesInput, AssetUncheckedCreateWithoutPreventivesInput>
+    where?: AssetWhereInput
+  }
+
+  export type AssetUpdateToOneWithWhereWithoutPreventivesInput = {
+    where?: AssetWhereInput
+    data: XOR<AssetUpdateWithoutPreventivesInput, AssetUncheckedUpdateWithoutPreventivesInput>
+  }
+
+  export type AssetUpdateWithoutPreventivesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: AssetCategoryUpdateOneRequiredWithoutAssetsNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutAssetNestedInput
+  }
+
+  export type AssetUncheckedUpdateWithoutPreventivesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type BuildingUpsertWithoutPreventivesInput = {
@@ -48259,7 +48929,7 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
+    companyId?: string | null
     teamId?: string | null
     floorId?: string | null
     roomId?: string | null
@@ -48295,6 +48965,7 @@ export namespace Prisma {
     nextRun: Date | string
     priority?: $Enums.Priority
     duration?: number | null
+    assetId?: string | null
     buildingId?: string | null
     floorId?: string | null
     roomId?: string | null
@@ -48706,7 +49377,6 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -48726,6 +49396,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
     requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
+    company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
     room?: RoomUpdateOneWithoutMaintenancesNestedInput
@@ -48769,7 +49440,7 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -48830,7 +49501,7 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -48868,6 +49539,7 @@ export namespace Prisma {
     duration?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    asset?: AssetUpdateOneWithoutPreventivesNestedInput
     building?: BuildingUpdateOneWithoutPreventivesNestedInput
     floor?: FloorUpdateOneWithoutPreventivesNestedInput
     room?: RoomUpdateOneWithoutPreventivesNestedInput
@@ -48885,6 +49557,7 @@ export namespace Prisma {
     nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
     priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
     duration?: NullableIntFieldUpdateOperationsInput | number | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -48904,6 +49577,7 @@ export namespace Prisma {
     nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
     priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
     duration?: NullableIntFieldUpdateOperationsInput | number | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49005,6 +49679,7 @@ export namespace Prisma {
     priority?: $Enums.Priority
     duration?: number | null
     siteId: string
+    assetId?: string | null
     floorId?: string | null
     roomId?: string | null
     teamId?: string | null
@@ -49311,6 +49986,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     site?: ComplexUpdateOneRequiredWithoutPreventivesNestedInput
+    asset?: AssetUpdateOneWithoutPreventivesNestedInput
     floor?: FloorUpdateOneWithoutPreventivesNestedInput
     room?: RoomUpdateOneWithoutPreventivesNestedInput
     team?: TeamUpdateOneWithoutPreventivesNestedInput
@@ -49328,6 +50004,7 @@ export namespace Prisma {
     priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
     duration?: NullableIntFieldUpdateOperationsInput | number | null
     siteId?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49347,6 +50024,7 @@ export namespace Prisma {
     priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
     duration?: NullableIntFieldUpdateOperationsInput | number | null
     siteId?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49449,7 +50127,7 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
+    companyId?: string | null
     teamId?: string | null
     roomId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
@@ -49485,6 +50163,7 @@ export namespace Prisma {
     priority?: $Enums.Priority
     duration?: number | null
     siteId: string
+    assetId?: string | null
     buildingId?: string | null
     roomId?: string | null
     teamId?: string | null
@@ -49712,7 +50391,6 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -49733,6 +50411,7 @@ export namespace Prisma {
     performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
     requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     room?: RoomUpdateOneWithoutMaintenancesNestedInput
     assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
@@ -49776,7 +50455,7 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -49837,7 +50516,7 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -49875,6 +50554,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     site?: ComplexUpdateOneRequiredWithoutPreventivesNestedInput
+    asset?: AssetUpdateOneWithoutPreventivesNestedInput
     building?: BuildingUpdateOneWithoutPreventivesNestedInput
     room?: RoomUpdateOneWithoutPreventivesNestedInput
     team?: TeamUpdateOneWithoutPreventivesNestedInput
@@ -49892,6 +50572,7 @@ export namespace Prisma {
     priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
     duration?: NullableIntFieldUpdateOperationsInput | number | null
     siteId?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49911,6 +50592,7 @@ export namespace Prisma {
     priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
     duration?: NullableIntFieldUpdateOperationsInput | number | null
     siteId?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50080,7 +50762,7 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
+    companyId?: string | null
     teamId?: string | null
     floorId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
@@ -50116,6 +50798,7 @@ export namespace Prisma {
     priority?: $Enums.Priority
     duration?: number | null
     siteId: string
+    assetId?: string | null
     buildingId?: string | null
     floorId?: string | null
     teamId?: string | null
@@ -50180,7 +50863,6 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -50201,6 +50883,7 @@ export namespace Prisma {
     performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
     requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
     assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
@@ -50244,7 +50927,7 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -50305,7 +50988,7 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -50343,6 +51026,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     site?: ComplexUpdateOneRequiredWithoutPreventivesNestedInput
+    asset?: AssetUpdateOneWithoutPreventivesNestedInput
     building?: BuildingUpdateOneWithoutPreventivesNestedInput
     floor?: FloorUpdateOneWithoutPreventivesNestedInput
     team?: TeamUpdateOneWithoutPreventivesNestedInput
@@ -50360,6 +51044,7 @@ export namespace Prisma {
     priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
     duration?: NullableIntFieldUpdateOperationsInput | number | null
     siteId?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50379,6 +51064,7 @@ export namespace Prisma {
     priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
     duration?: NullableIntFieldUpdateOperationsInput | number | null
     siteId?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50401,6 +51087,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenances?: MaintenanceUpdateManyWithoutAssetNestedInput
+    preventives?: PreventiveUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateWithoutCategoryInput = {
@@ -50410,6 +51097,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenances?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateManyWithoutCategoryInput = {
@@ -50456,7 +51144,7 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
+    companyId?: string | null
     teamId?: string | null
     floorId?: string | null
     roomId?: string | null
@@ -50476,6 +51164,26 @@ export namespace Prisma {
     estimateStatus?: $Enums.Status
     delayNotification?: boolean
     assigneeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PreventiveCreateManyAssetInput = {
+    id?: string
+    code: string
+    name: string
+    description: string
+    frequency?: $Enums.Frequency
+    cronExpression?: string | null
+    lastRun?: Date | string | null
+    nextRun: Date | string
+    priority?: $Enums.Priority
+    duration?: number | null
+    siteId: string
+    buildingId?: string | null
+    floorId?: string | null
+    roomId?: string | null
+    teamId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -50513,7 +51221,6 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -50534,6 +51241,7 @@ export namespace Prisma {
     performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
     requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
     room?: RoomUpdateOneWithoutMaintenancesNestedInput
@@ -50577,7 +51285,7 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50638,7 +51346,7 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50658,6 +51366,66 @@ export namespace Prisma {
     estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     delayNotification?: BoolFieldUpdateOperationsInput | boolean
     assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PreventiveUpdateWithoutAssetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    frequency?: EnumFrequencyFieldUpdateOperationsInput | $Enums.Frequency
+    cronExpression?: NullableStringFieldUpdateOperationsInput | string | null
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    site?: ComplexUpdateOneRequiredWithoutPreventivesNestedInput
+    building?: BuildingUpdateOneWithoutPreventivesNestedInput
+    floor?: FloorUpdateOneWithoutPreventivesNestedInput
+    room?: RoomUpdateOneWithoutPreventivesNestedInput
+    team?: TeamUpdateOneWithoutPreventivesNestedInput
+  }
+
+  export type PreventiveUncheckedUpdateWithoutAssetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    frequency?: EnumFrequencyFieldUpdateOperationsInput | $Enums.Frequency
+    cronExpression?: NullableStringFieldUpdateOperationsInput | string | null
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    siteId?: StringFieldUpdateOperationsInput | string
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PreventiveUncheckedUpdateManyWithoutAssetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    frequency?: EnumFrequencyFieldUpdateOperationsInput | $Enums.Frequency
+    cronExpression?: NullableStringFieldUpdateOperationsInput | string | null
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextRun?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    siteId?: StringFieldUpdateOperationsInput | string
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -51039,6 +51807,66 @@ export namespace Prisma {
     calenderEntityId?: string | null
   }
 
+  export type MaintenanceCreateManyCompanyInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    performerId?: string | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosuerDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    roomId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type EmployeeUpdateWithoutCompanyInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
@@ -51072,6 +51900,188 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MaintenanceUpdateWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
+    requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
+    site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    team?: TeamUpdateOneWithoutMaintenancesNestedInput
+    floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    room?: RoomUpdateOneWithoutMaintenancesNestedInput
+    assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
+    asset?: AssetUpdateOneWithoutMaintenancesNestedInput
+    photos?: FileUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosuerDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TeamCreateManySupervisorInput = {
@@ -51119,7 +52129,7 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
+    companyId?: string | null
     teamId?: string | null
     floorId?: string | null
     roomId?: string | null
@@ -51179,7 +52189,7 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
+    companyId?: string | null
     teamId?: string | null
     floorId?: string | null
     roomId?: string | null
@@ -51240,7 +52250,7 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
+    companyId?: string | null
     teamId?: string | null
     floorId?: string | null
     roomId?: string | null
@@ -51331,7 +52341,6 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -51351,6 +52360,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
     room?: RoomUpdateOneWithoutMaintenancesNestedInput
@@ -51394,7 +52404,7 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51455,7 +52465,7 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51513,7 +52523,6 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -51533,6 +52542,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
     room?: RoomUpdateOneWithoutMaintenancesNestedInput
@@ -51576,7 +52586,7 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51637,7 +52647,7 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51695,7 +52705,6 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -51716,6 +52725,7 @@ export namespace Prisma {
     performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
     requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
     room?: RoomUpdateOneWithoutMaintenancesNestedInput
@@ -51759,7 +52769,7 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51820,7 +52830,7 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51880,7 +52890,7 @@ export namespace Prisma {
     suspensionReason?: string | null
     category?: string | null
     subCategory?: string | null
-    company?: string | null
+    companyId?: string | null
     floorId?: string | null
     roomId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
@@ -51916,6 +52926,7 @@ export namespace Prisma {
     priority?: $Enums.Priority
     duration?: number | null
     siteId: string
+    assetId?: string | null
     buildingId?: string | null
     floorId?: string | null
     roomId?: string | null
@@ -51956,7 +52967,6 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -51977,6 +52987,7 @@ export namespace Prisma {
     performer?: EmployeeUpdateOneWithoutPerformedMaintenancesNestedInput
     requester?: EmployeeUpdateOneWithoutRequestedMaintenancesNestedInput
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
     room?: RoomUpdateOneWithoutMaintenancesNestedInput
     assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
@@ -52020,7 +53031,7 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -52081,7 +53092,7 @@ export namespace Prisma {
     suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
-    company?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -52119,6 +53130,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     site?: ComplexUpdateOneRequiredWithoutPreventivesNestedInput
+    asset?: AssetUpdateOneWithoutPreventivesNestedInput
     building?: BuildingUpdateOneWithoutPreventivesNestedInput
     floor?: FloorUpdateOneWithoutPreventivesNestedInput
     room?: RoomUpdateOneWithoutPreventivesNestedInput
@@ -52136,6 +53148,7 @@ export namespace Prisma {
     priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
     duration?: NullableIntFieldUpdateOperationsInput | number | null
     siteId?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52155,6 +53168,7 @@ export namespace Prisma {
     priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
     duration?: NullableIntFieldUpdateOperationsInput | number | null
     siteId?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     roomId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52214,6 +53228,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: EmployeeUpdateManyWithoutCompanyNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutCompanyNestedInput
   }
 
   export type CompanyUncheckedUpdateWithoutAddressInput = {
@@ -52229,6 +53244,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: EmployeeUncheckedUpdateManyWithoutCompanyNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
   export type CompanyUncheckedUpdateManyWithoutAddressInput = {

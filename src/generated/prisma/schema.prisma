@@ -102,8 +102,9 @@ enum EmployeeType {
 }
 
 enum MaintenanceType {
-  PREVENTIVE
-  CORRECTIVE
+  PREVENTIVE // Routine, Scheduled Inspections
+  CORRECTIVE // Fix manually when it spoils aka REACTIVE
+  PREDICTIVE // AI/ML to predict when maintenance is needed
 }
 
 enum Status {
@@ -443,6 +444,7 @@ model Asset {
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   maintenances Maintenance[]
+  preventives  Preventive[]
 
   @@index([name])
   @@map("assets")
@@ -477,9 +479,10 @@ model Company {
   email            String?
   website          String?
 
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  employees Employee[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  employees    Employee[]
+  maintenances Maintenance[]
 
   @@map("companies")
 }
@@ -606,17 +609,19 @@ model Maintenance {
 
   suspensionReason String? // Lookup
 
-  category    String? //Reference
-  subCategory String? //Reference
-  company     String? //Reference
+  category    String? // Reference
+  subCategory String? // Reference
 
-  teamId String?
-  team   Team?   @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  companyId String? // Reference
+  company   Company? @relation(fields: [companyId], references: [id])
 
-  floorId            String?
-  floor              Floor?   @relation(fields: [floorId], references: [id], onDelete: Cascade)
-  roomId             String?
-  room               Room?    @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  teamId  String?
+  team    Team?   @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  floorId String?
+  floor   Floor?  @relation(fields: [floorId], references: [id], onDelete: Cascade)
+  roomId  String?
+  room    Room?   @relation(fields: [roomId], references: [id], onDelete: Cascade)
+
   ttSystemOpening    Decimal?
   ttWorkOpening      Decimal?
   ttSystemAssignment Decimal?
@@ -675,6 +680,9 @@ model Preventive {
   // Relations (Template targets)
   siteId String
   site   Complex @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  assetId String?
+  asset   Asset?  @relation(fields: [assetId], references: [id])
 
   buildingId String?
   building   Building? @relation(fields: [buildingId], references: [id])

@@ -10,7 +10,7 @@ import {
 export const initPreventiveScheduler = () => {
   console.log("Initializing Preventive Maintenance Scheduler...");
 
-  // Run every minute to check for due preventive maintenances
+  // Run every minute to check for due preventive maintenances, maybe change to daily
   cron.schedule("* * * * *", async () => {
     try {
       const now = new Date();
@@ -39,25 +39,22 @@ export const initPreventiveScheduler = () => {
             processStatus: Status.PENDING,
 
             // Relations
-            site: { connect: { id: preventive.siteId } },
+            siteId: preventive.siteId,
+            ...(preventive.assetId && { assetId: preventive.assetId }),
+            ...(preventive.buildingId && { buildingId: preventive.buildingId }),
+            ...(preventive.floorId && { floorId: preventive.floorId }),
+            ...(preventive.roomId && { roomId: preventive.roomId }),
+
             startDate: now,
             endDate: new Date(
               now.getTime() + (preventive.duration || 60) * 60000
             ),
-            // Requester is tricky for auto-generated. Maybe use a system user or leave null if optional?
-            // Schema says `requesterId String` (Required).
-            // We need a specific SYSTEM user or similar.
-            // For now, let's assume there is a seed user or we need to fetch one.
-            // OR we update schema to make requester optional for Preventive?
+            // requesterId: Maybe use system default ID or the role of the requester eg SYSTEM, ADMIN, TECHNICIAN etc?
             // "The fields `performer`, `requester` and `assignee` in model `Maintenance` both refer to `Employee`."
             // Requester is Employee.
-            // I'll skip requester for now and catch the error, or query a default admin employee.
-            // Strategy: Find ANY admin employee to be the requester.
+            // Add a default admin employee to the database, ie a default Max MiGold admin account.
           },
         });
-
-        // This will fail because requesterId is required.
-        // I need to fix this.
       }
     } catch (error) {
       console.error("Error in preventive scheduler:", error);
