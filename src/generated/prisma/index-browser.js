@@ -127,7 +127,6 @@ exports.Prisma.UserScalarFieldEnum = {
   firstName: 'firstName',
   lastName: 'lastName',
   status: 'status',
-  roleId: 'roleId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   passwordResetToken: 'passwordResetToken',
@@ -138,6 +137,7 @@ exports.Prisma.UserScalarFieldEnum = {
 exports.Prisma.RoleScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  isSystem: 'isSystem',
   description: 'description',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -148,6 +148,16 @@ exports.Prisma.PermissionScalarFieldEnum = {
   roleId: 'roleId',
   resource: 'resource',
   accessLevel: 'accessLevel',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SiteScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  address: 'address',
+  climateZone: 'climateZone',
+  description: 'description',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -176,7 +186,8 @@ exports.Prisma.ComplexScalarFieldEnum = {
   totalHeatedVolume: 'totalHeatedVolume',
   totalVolume: 'totalVolume',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  siteId: 'siteId'
 };
 
 exports.Prisma.BuildingScalarFieldEnum = {
@@ -210,6 +221,7 @@ exports.Prisma.FloorScalarFieldEnum = {
   code: 'code',
   name: 'name',
   level: 'level',
+  type: 'type',
   status: 'status',
   condition: 'condition',
   criticality: 'criticality',
@@ -228,10 +240,11 @@ exports.Prisma.FloorScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.UnitScalarFieldEnum = {
+exports.Prisma.ZoneScalarFieldEnum = {
   id: 'id',
   code: 'code',
   name: 'name',
+  type: 'type',
   availability: 'availability',
   status: 'status',
   calenderEntityId: 'calenderEntityId',
@@ -264,7 +277,7 @@ exports.Prisma.UnitScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.RoomScalarFieldEnum = {
+exports.Prisma.SpaceScalarFieldEnum = {
   id: 'id',
   name: 'name',
   code: 'code',
@@ -274,7 +287,7 @@ exports.Prisma.RoomScalarFieldEnum = {
   complexId: 'complexId',
   buildingId: 'buildingId',
   floorId: 'floorId',
-  unitId: 'unitId',
+  zoneId: 'zoneId',
   condition: 'condition',
   criticality: 'criticality',
   glazedArea: 'glazedArea',
@@ -303,6 +316,9 @@ exports.Prisma.AssetScalarFieldEnum = {
   name: 'name',
   description: 'description',
   categoryId: 'categoryId',
+  tag: 'tag',
+  parentSystemId: 'parentSystemId',
+  spaceId: 'spaceId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -381,6 +397,7 @@ exports.Prisma.MaintenanceScalarFieldEnum = {
   action: 'action',
   message: 'message',
   processNotes: 'processNotes',
+  metadata: 'metadata',
   performerId: 'performerId',
   processStatus: 'processStatus',
   register: 'register',
@@ -409,7 +426,7 @@ exports.Prisma.MaintenanceScalarFieldEnum = {
   companyId: 'companyId',
   teamId: 'teamId',
   floorId: 'floorId',
-  roomId: 'roomId',
+  spaceId: 'spaceId',
   ttSystemOpening: 'ttSystemOpening',
   ttWorkOpening: 'ttWorkOpening',
   ttSystemAssignment: 'ttSystemAssignment',
@@ -446,7 +463,7 @@ exports.Prisma.PreventiveScalarFieldEnum = {
   assetId: 'assetId',
   buildingId: 'buildingId',
   floorId: 'floorId',
-  roomId: 'roomId',
+  spaceId: 'spaceId',
   teamId: 'teamId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -466,6 +483,11 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -475,16 +497,16 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
 exports.UserStatus = exports.$Enums.UserStatus = {
   ACTIVE: 'ACTIVE',
   INACTIVE: 'INACTIVE',
   SUSPENDED: 'SUSPENDED'
-};
-
-exports.RoleName = exports.$Enums.RoleName = {
-  ADMIN: 'ADMIN',
-  TECHNICIAN: 'TECHNICIAN',
-  USER: 'USER'
 };
 
 exports.AccessLevel = exports.$Enums.AccessLevel = {
@@ -562,7 +584,12 @@ exports.EmployeeType = exports.$Enums.EmployeeType = {
 exports.MaintenanceType = exports.$Enums.MaintenanceType = {
   PREVENTIVE: 'PREVENTIVE',
   CORRECTIVE: 'CORRECTIVE',
-  PREDICTIVE: 'PREDICTIVE'
+  PREDICTIVE: 'PREDICTIVE',
+  EMERGENCY: 'EMERGENCY',
+  INSPECTION: 'INSPECTION',
+  CALIBRATION: 'CALIBRATION',
+  SMALL_PROJECT: 'SMALL_PROJECT',
+  SOFT_SERVICE: 'SOFT_SERVICE'
 };
 
 exports.Status = exports.$Enums.Status = {
@@ -594,11 +621,12 @@ exports.Prisma.ModelName = {
   User: 'User',
   Role: 'Role',
   Permission: 'Permission',
+  Site: 'Site',
   Complex: 'Complex',
   Building: 'Building',
   Floor: 'Floor',
-  Unit: 'Unit',
-  Room: 'Room',
+  Zone: 'Zone',
+  Space: 'Space',
   AssetCategory: 'AssetCategory',
   Asset: 'Asset',
   File: 'File',

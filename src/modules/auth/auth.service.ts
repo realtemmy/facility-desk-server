@@ -41,25 +41,26 @@ export class AuthService {
         password: hashedPassword,
         firstName: data.firstName,
         lastName: data.lastName,
-        roleId: role.id,
+        roles: {
+          connect: [{ id: role.id }],
+        },
       },
       include: {
-        role: true,
+        roles: true,
       },
     });
 
     // Generate tokens
     const { accessToken, refreshToken } = await this.generateTokens(
       user.id,
-      user.email,
-      role.id
+      user.email
     );
 
     // Remove password from response
     const { password: _, ...userWithoutPassword } = user;
 
     return {
-      user: userWithoutPassword as UserResponse,
+      user: userWithoutPassword as unknown as UserResponse,
       accessToken,
       refreshToken,
     };
@@ -71,7 +72,7 @@ export class AuthService {
     // Find user
     const user = await prisma.user.findUnique({
       where: { email: data.email },
-      include: { role: true },
+      include: { roles: true },
     });
 
     if (!user) {
@@ -93,15 +94,14 @@ export class AuthService {
     // Generate tokens
     const { accessToken, refreshToken } = await this.generateTokens(
       user.id,
-      user.email,
-      user.roleId
+      user.email
     );
 
     // Remove password
     const { password: _, ...userWithoutPassword } = user;
 
     return {
-      user: userWithoutPassword as UserResponse,
+      user: userWithoutPassword as unknown as UserResponse,
       accessToken,
       refreshToken,
     };
@@ -115,7 +115,7 @@ export class AuthService {
       where: { token: refreshToken },
       include: {
         user: {
-          include: { role: true },
+          include: { roles: true },
         },
       },
     });
@@ -137,11 +137,7 @@ export class AuthService {
 
     // Generate new tokens
     const { accessToken, refreshToken: newRefreshToken } =
-      await this.generateTokens(
-        storedToken.userId,
-        storedToken.user.email,
-        storedToken.user.roleId
-      );
+      await this.generateTokens(storedToken.userId, storedToken.user.email);
 
     // Delete old token
     await prisma.refreshToken.delete({ where: { id: storedToken.id } });
@@ -155,7 +151,7 @@ export class AuthService {
   async me(userId: string): Promise<AuthResponse & { refreshToken: string }> {
     const user = await prisma.user.findUnique({
       where: { id: userId },
-      include: { role: true },
+      include: { roles: true },
     });
 
     if (!user) {
@@ -166,12 +162,11 @@ export class AuthService {
 
     const { accessToken, refreshToken } = await this.generateTokens(
       user.id,
-      user.email,
-      user.roleId
+      user.email
     );
 
     return {
-      user: userWithoutPassword as UserResponse,
+      user: userWithoutPassword as unknown as UserResponse,
       accessToken,
       refreshToken,
     };
@@ -184,12 +179,11 @@ export class AuthService {
     });
   }
 
-  private async generateTokens(userId: string, email: string, roleId: string) {
+  private async generateTokens(userId: string, email: string) {
     // Generate access token
     const accessToken = generateAccessToken({
       userId,
       email,
-      roleId,
     });
 
     // Generate refresh token

@@ -7,11 +7,11 @@ datasource db {
   provider = "postgresql"
 }
 
-enum RoleName {
-  ADMIN
-  TECHNICIAN
-  USER
-}
+// enum RoleName {
+//   ADMIN
+//   TECHNICIAN
+//   USER
+// }
 
 enum AccessLevel {
   NONE
@@ -101,10 +101,23 @@ enum EmployeeType {
   SUPPLIER_EMPLOYEE
 }
 
+enum Frequency {
+  DAILY
+  WEEKLY
+  MONTHLY
+  YEARLY
+  CUSTOM
+}
+
 enum MaintenanceType {
   PREVENTIVE // Routine, Scheduled Inspections
-  CORRECTIVE // Fix manually when it spoils aka REACTIVE
-  PREDICTIVE // AI/ML to predict when maintenance is needed
+  CORRECTIVE // Breakdown repairs
+  PREDICTIVE // Condition monitoring
+  EMERGENCY // Life safety, rapid response
+  INSPECTION // Periodic compliance checks
+  CALIBRATION // Instrument recalibration
+  SMALL_PROJECT // Renovations, MAC
+  SOFT_SERVICE // Cleaning, landscaping, etc.
 }
 
 enum Status {
@@ -116,6 +129,13 @@ enum Status {
 enum ProcessType {
   MAINTENANCE
   CORRECTIVE
+}
+
+enum AssetCategoryType {
+  DEVICES
+  FINISHINGS
+  ITEMS
+  MACHINERIES
 }
 
 enum Priority {
@@ -132,12 +152,13 @@ model User {
   password      String
   firstName     String
   lastName      String
+  // roleId        String // Removed for M:N
   status        UserStatus     @default(ACTIVE)
-  roleId        String
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   refreshTokens RefreshToken[]
-  role          Role           @relation(fields: [roleId], references: [id])
+  // role          Role           @relation(fields: [roleId], references: [id])
+  roles         Role[]
 
   passwordResetToken String?
   passwordExpiresAt  DateTime?
@@ -145,20 +166,14 @@ model User {
   employees          Employee[]
 
   @@index([email])
-  @@index([roleId])
+  // @@index([roleId])
   @@map("users")
-}
-
-enum AssetCategoryType {
-  DEVICES
-  FINISHINGS
-  ITEMS
-  MACHINERIES
 }
 
 model Role {
   id          String       @id @default(uuid())
-  name        RoleName     @unique
+  name        String       @unique // Was RoleName
+  isSystem    Boolean      @default(false) // Protects core roles
   description String?
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
@@ -181,6 +196,21 @@ model Permission {
   @@unique([roleId, resource])
   @@index([roleId])
   @@map("permissions")
+}
+
+model Site {
+  id          String  @id @default(uuid())
+  name        String
+  address     String?
+  climateZone String?
+  description String?
+
+  complexes Complex[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("sites")
 }
 
 model Complex {
@@ -221,10 +251,13 @@ model Complex {
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   floors       Floor[]
-  units        Unit[]
-  rooms        Room[]
+  spaces       Space[]
+  zones        Zone[]
   maintenances Maintenance[]
   preventives  Preventive[]
+
+  siteId String?
+  site   Site?   @relation(fields: [siteId], references: [id])
 
   @@map("complexes")
 }
@@ -269,8 +302,8 @@ model Building {
 
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
-  units       Unit[]
-  rooms       Room[]
+  spaces      Space[]
+  zones       Zone[]
   preventives Preventive[]
 
   @@unique([complexId, code])
@@ -282,6 +315,7 @@ model Floor {
   code   String
   name   String
   level  Int
+  type   String? // "office", "retail", "technical"
   status ServiceStatus @default(ACTIVE)
 
   condition   Condition   @default(GOOD)
@@ -304,8 +338,8 @@ model Floor {
   totalHeatedVolume Float?
   totalVolume       Float?
 
-  rooms Room[]
-  units Unit[]
+  spaces Space[]
+  zones  Zone[]
 
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
@@ -316,10 +350,11 @@ model Floor {
   @@map("floors")
 }
 
-model Unit {
+model Zone {
   id           String        @id @default(uuid())
   code         String
   name         String
+  type         String? // "fire compartment", "wing", "tenant demarcation"
   availability Availability  @default(IN_USE)
   status       ServiceStatus @default(ACTIVE)
 
@@ -361,17 +396,17 @@ model Unit {
   censusArea              String?
   subArea                 String?
 
-  rooms  Room[]
+  rooms  Space[]
   photos File[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@unique([floorId, code])
-  @@map("units")
+  @@map("zones")
 }
 
-model Room {
+model Space {
   id     String        @id @default(uuid())
   name   String
   code   String
@@ -388,8 +423,8 @@ model Room {
   building   Building? @relation(fields: [buildingId], references: [id])
   floorId    String
   floor      Floor     @relation(fields: [floorId], references: [id], onDelete: Cascade)
-  unitId     String?
-  unit       Unit?     @relation(fields: [unitId], references: [id])
+  zoneId     String?
+  zone       Zone?     @relation(fields: [zoneId], references: [id])
 
   // Maintenance Data
   condition   Condition   @default(GOOD)
@@ -412,8 +447,10 @@ model Room {
   maintenances Maintenance[]
   preventives  Preventive[]
 
+  assets Asset[]
+
   @@unique([floorId, buildingId, code])
-  @@map("rooms")
+  @@map("spaces")
 }
 
 // Assets
@@ -425,9 +462,10 @@ model AssetCategory {
   name        String            @unique
   type        AssetCategoryType @default(DEVICES)
   description String?
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
   assets      Asset[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([type])
   @@index([name])
@@ -440,6 +478,14 @@ model Asset {
   description String?
   categoryId  String
   category    AssetCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  tag            String? @unique
+  parentSystemId String?
+  parentSystem   Asset?  @relation("AssetHierarchy", fields: [parentSystemId], references: [id])
+  childAssets    Asset[] @relation("AssetHierarchy")
+
+  spaceId String?
+  space   Space?  @relation(fields: [spaceId], references: [id])
 
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
@@ -454,8 +500,8 @@ model File {
   id  String @id @default(uuid())
   url String @unique
 
-  rooms         Room[]
-  units         Unit[]
+  spaces        Space[]
+  zones         Zone[]
   buildings     Building[]
   complexes     Complex[]
   maintenance   Maintenance? @relation(fields: [maintenanceId], references: [id])
@@ -555,8 +601,8 @@ model CalenderEntity {
 
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
-  units     Unit[]
-  rooms     Room[]
+  spaces    Space[]
+  zones     Zone[]
   employees Employee[]
 
   @@map("calender_entities")
@@ -573,10 +619,10 @@ model Maintenance {
   action           String? // Lookup
   message          String?
   processNotes     String?
+  metadata         Json? // Use Zod schema to validate based on type
 
-  performerId String? // Team or employee
+  performerId String?
   performer   Employee? @relation("MaintenancePerformer", fields: [performerId], references: [id], onDelete: Cascade)
-  // parentProcessId String?
 
   processStatus     Status      @default(PENDING)
   register          String?
@@ -619,8 +665,8 @@ model Maintenance {
   team    Team?   @relation(fields: [teamId], references: [id], onDelete: Cascade)
   floorId String?
   floor   Floor?  @relation(fields: [floorId], references: [id], onDelete: Cascade)
-  roomId  String?
-  room    Room?   @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  spaceId String?
+  space   Space?  @relation(fields: [spaceId], references: [id], onDelete: Cascade)
 
   ttSystemOpening    Decimal?
   ttWorkOpening      Decimal?
@@ -653,14 +699,6 @@ model Maintenance {
   updatedAt DateTime @updatedAt
 }
 
-enum Frequency {
-  DAILY
-  WEEKLY
-  MONTHLY
-  YEARLY
-  CUSTOM
-}
-
 model Preventive {
   id             String    @id @default(uuid())
   code           String    @unique
@@ -690,8 +728,8 @@ model Preventive {
   floorId String?
   floor   Floor?  @relation(fields: [floorId], references: [id])
 
-  roomId String?
-  room   Room?   @relation(fields: [roomId], references: [id])
+  spaceId String?
+  space   Space?  @relation(fields: [spaceId], references: [id])
 
   teamId String?
   team   Team?   @relation(fields: [teamId], references: [id])

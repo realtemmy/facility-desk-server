@@ -12,6 +12,8 @@ export class AssetService {
   async findAll(query: QueryAssetDto): Promise<PaginatedAssetResponseDto> {
     const {
       categoryId,
+      spaceId,
+      parentSystemId,
       search,
       page = 1,
       limit = 10,
@@ -21,6 +23,8 @@ export class AssetService {
 
     const whereClause: any = {
       ...(categoryId && { categoryId }),
+      ...(spaceId && { spaceId }),
+      ...(parentSystemId && { parentSystemId }),
     };
 
     if (search) {
@@ -37,6 +41,22 @@ export class AssetService {
         take: limit,
         skip: (page - 1) * limit,
         orderBy: { [sortBy]: sortOrder },
+        include: {
+          category: {
+            select: {
+              id: true,
+              name: true,
+              type: true,
+            },
+          },
+          space: {
+            select: {
+              id: true,
+              code: true,
+              name: true,
+            },
+          },
+        },
       }),
     ]);
 
@@ -54,6 +74,47 @@ export class AssetService {
   async findById(id: string): Promise<AssetResponseDto> {
     const asset = await prisma.asset.findUnique({
       where: { id },
+      include: {
+        category: {
+          select: {
+            id: true,
+            name: true,
+            type: true,
+            category: {
+          select: {
+            id: true,
+            name: true,
+            type: true,
+          },
+        },
+        space: {
+          select: {
+            id: true,
+            code: true,
+            name: true,
+          },
+        },
+        },
+        space: {
+          select: {
+            id: true,
+            code: true,
+            name: true,
+          },
+        },
+        parentSystem: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        childAssets: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
     });
 
     if (!asset) throw new NotFoundError("Asset");

@@ -7,7 +7,7 @@ const maintenanceService = new MaintenanceService();
 export class MaintenanceController {
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const maintenance = await maintenanceService.createCorrective(req.body);
+      const maintenance = await maintenanceService.create(req.body);
       res.status(201).json({
         success: true,
         data: { maintenance },

@@ -1,4 +1,4 @@
-import { RoleName } from '../../generated/prisma';
+// import { RoleName } from '../../generated/prisma'; // Removed enum
 
 declare global {
   namespace Express {
@@ -9,12 +9,12 @@ declare global {
         firstName: string;
         lastName: string;
         status: string;
-        role: {
+        roles: {
           id: string;
-          name: RoleName;
+          name: string;
+          isSystem: boolean;
           description: string | null;
-        };
-        roleId: string;
+        }[];
       };
     }
   }

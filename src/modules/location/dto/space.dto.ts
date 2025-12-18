@@ -1,9 +1,14 @@
-import { Condition, Criticality, RoomUse, ServiceStatus } from "../../../generated/prisma";
+import {
+  Condition,
+  Criticality,
+  RoomUse,
+  ServiceStatus,
+} from "../../../generated/prisma";
 
 /**
- * DTO for creating a new room
+ * DTO for creating a new space
  */
-export interface CreateRoomDto {
+export interface CreateSpaceDto {
   name: string;
   code: string;
   use?: RoomUse;
@@ -16,7 +21,8 @@ export interface CreateRoomDto {
   complexId?: string;
   buildingId?: string;
   floorId: string;
-  unitId?: string;
+  zoneId?: string;
+
   photoIds?: string[];
 
   glazedArea?: number;
@@ -29,15 +35,15 @@ export interface CreateRoomDto {
 }
 
 /**
- * DTO for updating an existing room
+ * DTO for updating an existing space
  */
 
-export type UpdateRoomDto = Omit<CreateRoomDto, "code">;
+export type UpdateSpaceDto = Omit<CreateSpaceDto, "code">;
 
 /**
- * DTO for room response
+ * DTO for space response
  */
-export interface RoomResponseDto extends CreateRoomDto {
+export interface SpaceResponseDto extends CreateSpaceDto {
   id: string;
   // Related data (optional for expanded responses)
   floor?: {
@@ -46,13 +52,13 @@ export interface RoomResponseDto extends CreateRoomDto {
     name: string;
     level: number;
   };
-  
-  unit?: {
+
+  zone?: {
     id: string;
     code: string;
     name: string;
   };
-  
+
   photos?: {
     id: string;
     url: string;
@@ -60,24 +66,26 @@ export interface RoomResponseDto extends CreateRoomDto {
 }
 
 /**
- * DTO for querying rooms
+ * DTO for querying spaces
  */
-export interface QueryRoomDto {
+export interface QuerySpaceDto {
   page?: number;
   limit?: number;
-  sortBy?: 'name' | 'code' | 'createdAt' | 'use';
-  sortOrder?: 'asc' | 'desc';
+  sortBy?: "name" | "code" | "createdAt" | "use";
+  sortOrder?: "asc" | "desc";
   floorId?: string;
-  unitId?: string;
+
+  zoneId?: string;
+
   use?: RoomUse;
   search?: string;
 }
 
 /**
- * DTO for paginated room list response
+ * DTO for paginated space list response
  */
-export interface PaginatedRoomResponseDto {
-  data: RoomResponseDto[];
+export interface PaginatedSpaceResponseDto {
+  data: SpaceResponseDto[];
   pagination: {
     page: number;
     limit: number;

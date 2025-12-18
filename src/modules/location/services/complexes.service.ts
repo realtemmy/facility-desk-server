@@ -13,6 +13,7 @@ export class ComplexesService {
     const {
       condition,
       criticality,
+      siteId,
       status,
       search,
       page = 1,
@@ -25,6 +26,7 @@ export class ComplexesService {
       ...(condition && { condition }),
       ...(criticality && { criticality }),
       ...(status && { status }),
+      ...(siteId && { siteId }),
     };
 
     if (search) {
@@ -137,7 +139,7 @@ export class ComplexesService {
     id: string,
     data: UpdateComplexDto
   ): Promise<ComplexResponseDto> {
-    const { } = data
+    const {} = data;
     const complex = await prisma.complex.findUnique({ where: { id } });
     if (!complex) throw new NotFoundError("Complex");
 

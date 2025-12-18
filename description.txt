@@ -1,0 +1,111 @@
+WORK ORDER
+1.	Title
+2.	Status
+3.	Priority
+4.	Description
+5.	Procedure
+6.	Due Date
+7.	Due Time
+8.	Estimated Time
+9.	Creation date
+10.	Start Date
+11.	Completion date
+12.	Created by
+13.	Completed by
+14.	Users
+15.	Responsible Team
+16.	Asset Name
+17.	Location
+18.	Categories
+19.	Vendors
+20.	Type
+21.	Cost
+22.	Work done
+
+Work Order Types
+1.	Preventive Maintenance (PM): calendar/usage-based servicing, checklists, parts planning
+2.	Corrective Maintenance (CM): breakdown repairs, root cause analysis, closure reports
+3.	Predictive Maintenance (PdM): condition monitoring, trend analysis, alerts
+4.	Emergency Work Orders: life safety-critical tasks, rapid response, escalation
+5.	Inspection Work Orders: periodic compliance checks, statutory inspections
+6.	Calibration Work Orders: instruments recalibration with certificates
+7.	Small Projects/Minor Works: renovations, fit-outs, moves/adds/changes (MAC)
+8.	Soft Services: cleaning, landscaping, pest control, waste management
+
+
+LOCATION
+
+Recommended hierarchy: Site → Complex → Building → Floor → Zone → Room → Asset
+
+•	Site: geographic site name, address, climate zone
+•	Campus: multi-building grouping (e.g., Business Park)
+•	Building: tower/block, gross area, occupancy type
+•	Floor: floor index, use type (office, retail, technical)
+•	Zone: fire compartment, wing, tenant demarcation
+•	Room/Space: space ID, function (e.g., server room, lobby)
+•	Asset: unique asset tag, parent system, location reference
+
+
+ASSET
+1.	Parent Asset
+2.	Manufacturer
+3.	Model
+4.	Description
+5.	Asset Type
+6.	Serial Number
+7.	Barcode
+8.	Location
+9.	Responsible Team
+10.	Responsible User	
+11.	Type
+
+Asset Types & Categories
+
+•	Building Systems
+o	HVAC -Heating, Ventilation, Air Conditioning, Chillers, AHUs, FCUs, Boilers, Cooling Towers, Ductwork, VAV Boxes, Thermostats
+o	Electrical Systems- Power Generation- (Generators, Solar Panels, ATS, fuel systems, solar PV, inverters), Transmission (High Tension and Low Voltage Transformers and Panels, Distribution (Meters, Wiring, Distribution Boards and Fuses), Fittings- (Lighting, Fans, Sockets and Switches)
+o	Plumbing -Water Production and Distribution Systems (Water Treatment Plant, Borehole, Pumps, Piping, Tanks), Sewage Systems (Sewage Treatment Plant, Pumps, Septic Tanks, Piping), Fittings (Toilets, Sinks, Water Heaters, Filters, Baths, Taps, etc)
+o	Fire Safety Systems- Sprinklers, Hydrants, Fire pumps, Extinguishers, Detectors, alarms, suppression
+o	Transportation System- Elevators & Escalators
+•	Structural Components
+ 
+o	Envelope: Walls, Floors, Roofs, Façades, Cladding, Waterproofing, Insulation, Curtain walls, Glazing
+o	Interiors: partitions, ceilings, flooring, finishes	
+o	Openings: Windows, Doors
+•	Furniture and Fixtures
+o	Furniture: desks, chairs, storage units, workstations, sofa, settee, wardrobes, dining sets
+•	Fixtures: Signage, Blinds, Shelving
+•	IT & Communication
+o	Servers, Network Equipment
+o	Access Control Systems Network: switches, routers, firewalls, cabling, Wi‑Fi APs
+o	Servers & Storage: servers, racks, NAS/SAN, power rails
+o	Security & Access: CCTV, NVR/DVR, access control panels, card readers, turnstiles
+o	Building IoT: sensors (temperature, humidity, occupancy), gateways, BAS/BMS controllers
+
+•	Specialized Equipment
+
+
+
+
+USERS
+1.	Super Admin
+2.	Admin 
+3.	User 
+4.	Requester 
+
+ROLES
+who can be assigned any combination of the following roles
+1.	Facility Manager: operations oversight, budgeting, compliance, KPIs
+2.	Assistant Facility Manager / Coordinator: scheduling, vendor coordination, reporting
+3.	Maintenance Supervisor: team leadership, shift planning, QA
+4.	Maintenance Technician (Mechanical/Electrical/Civil): PM/CM execution, diagnostics
+5.	Asset Manager: asset registry, lifecycle, depreciation, capitalization
+6.	HSE Officer: risk assessments, incident management, training, audits
+7.	Energy Manager: monitoring, efficiency projects, sustainability reporting
+8.	Security Manager: access control, incident response, patrols
+9.	Cleaning/Soft Services Manager: housekeeping standards, hygiene compliance
+10.	Front Desk/Helpdesk Agent: requests intake, work order dispatch, SLA tracking
+11.	Procurement/Contracts Officer: sourcing, tendering, SLAs, compliance
+12.	Vendor/Contractor: specialized service delivery, documentation
+13.	Request for services and supplies
+

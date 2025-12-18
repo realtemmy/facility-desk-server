@@ -14,4 +14,7 @@ export interface CreateMaintenanceDto {
   // Dates
   startDate?: string; // ISO string
   endDate?: string; // ISO string
+
+  // Dynamic data
+  metadata?: Record<string, any>;
 }

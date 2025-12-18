@@ -28,7 +28,7 @@ export interface AssetResponseDto {
   categoryId: string;
   createdAt: Date;
   updatedAt: Date;
-  
+
   // Related data (optional for expanded responses)
   category?: {
     id: string;
@@ -36,6 +36,22 @@ export interface AssetResponseDto {
     description?: string | null;
     type: AssetCategoryType;
   };
+
+  space?: {
+    id: string;
+    code: string;
+    name: string;
+  };
+
+  parentSystem?: {
+    id: string;
+    name: string;
+  };
+
+  childAssets?: {
+    id: string;
+    name: string;
+  }[];
 }
 
 /**
@@ -44,9 +60,12 @@ export interface AssetResponseDto {
 export interface QueryAssetDto {
   page?: number;
   limit?: number;
-  sortBy?: 'name' | 'createdAt';
-  sortOrder?: 'asc' | 'desc';
+  sortBy?: "name" | "createdAt";
+  sortOrder?: "asc" | "desc";
   categoryId?: string;
+
+  spaceId?: string;
+  parentSystemId?: string;
   search?: string;
 }
 
@@ -62,6 +81,3 @@ export interface PaginatedAssetResponseDto {
     totalPages: number;
   };
 }
-
-
-

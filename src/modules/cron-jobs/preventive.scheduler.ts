@@ -27,32 +27,29 @@ export const initPreventiveScheduler = () => {
           `Generating maintenance for Preventive: ${preventive.code}`
         );
 
-        // Create Maintenance Task
         const code = `PREV-${Date.now()}-${preventive.code}`;
 
         await prisma.maintenance.create({
           data: {
             type: MaintenanceType.PREVENTIVE,
             code,
-            description: preventive.description, // Or `Preventive: ${preventive.name}`
+            description: preventive.description,
             priority: preventive.priority || Priority.MEDIUM,
             processStatus: Status.PENDING,
 
-            // Relations
             siteId: preventive.siteId,
             ...(preventive.assetId && { assetId: preventive.assetId }),
             ...(preventive.buildingId && { buildingId: preventive.buildingId }),
             ...(preventive.floorId && { floorId: preventive.floorId }),
-            ...(preventive.roomId && { roomId: preventive.roomId }),
+            ...(preventive.spaceId && { roomId: preventive.spaceId }),
 
             startDate: now,
             endDate: new Date(
               now.getTime() + (preventive.duration || 60) * 60000
             ),
             // requesterId: Maybe use system default ID or the role of the requester eg SYSTEM, ADMIN, TECHNICIAN etc?
-            // "The fields `performer`, `requester` and `assignee` in model `Maintenance` both refer to `Employee`."
-            // Requester is Employee.
-            // Add a default admin employee to the database, ie a default Max MiGold admin account.
+            // Performer, Requester and Assignee in model Maintenance both refer to Employee, maybe convert to user and remove employee?
+            // Add a default admin employee/user to the database, ie a default Max MiGold admin account.
           },
         });
       }

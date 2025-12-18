@@ -13,6 +13,7 @@ export interface CreateComplexDto {
   name: string;
   availability?: Availability;
   status?: ServiceStatus;
+  siteId?: string;
   calenderEntityId?: string;
   address?: string;
   city?: string;
@@ -43,6 +44,7 @@ export interface UpdateComplexDto {
   status?: ServiceStatus;
   condition?: Condition;
   criticality?: Criticality;
+  siteId?: string;
   calenderEntityId?: string;
   totalBuildings?: number;
   totalFloors?: number;
@@ -83,6 +85,7 @@ export interface ComplexResponseDto {
   totalHeatedVolume: number;
   totalVolume: number;
 
+  siteId?: string;
   calenderEntityId?: string;
   calenderEntity?: {
     id: string;
@@ -109,6 +112,7 @@ export interface ComplexResponseDto {
  * DTO for querying complexes
  */
 export interface QueryComplexDto {
+  siteId?: string;
   page?: number;
   limit?: number;
   sortBy?: "name" | "code" | "createdAt" | "condition" | "criticality";

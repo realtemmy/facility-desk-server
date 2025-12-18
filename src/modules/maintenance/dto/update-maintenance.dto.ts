@@ -6,4 +6,5 @@ export interface UpdateMaintenanceDto {
   teamId?: string;
   assigneeId?: string;
   outcome?: string;
+  metadata?: Record<string, any>;
 }

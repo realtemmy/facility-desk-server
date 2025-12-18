@@ -1,15 +1,15 @@
 import { Request, Response, NextFunction } from "express";
-import { RoomsService } from "../services/rooms.service";
+import { SpacesService } from "../services/spaces.service";
 
-const roomsService = new RoomsService();
+const spacesService = new SpacesService();
 
-export class RoomsController {
+export class SpacesController {
   async getAll(req: Request, res: Response, next: NextFunction) {
     try {
-      const rooms = await roomsService.findAll(req.query);
+      const spaces = await spacesService.findAll(req.query);
       res.status(200).json({
         success: true,
-        data: rooms,
+        data: spaces,
       });
     } catch (error) {
       next(error);
@@ -18,10 +18,10 @@ export class RoomsController {
 
   async getById(req: Request, res: Response, next: NextFunction) {
     try {
-      const room = await roomsService.findById(req.params.id);
+      const space = await spacesService.findById(req.params.id);
       res.status(200).json({
         success: true,
-        data: room,
+        data: space,
       });
     } catch (error) {
       next(error);
@@ -30,10 +30,10 @@ export class RoomsController {
 
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const room = await roomsService.create(req.body);
+      const space = await spacesService.create(req.body);
       res.status(201).json({
         success: true,
-        data: room,
+        data: space,
       });
     } catch (error) {
       next(error);
@@ -42,11 +42,11 @@ export class RoomsController {
 
   async update(req: Request, res: Response, next: NextFunction) {
     try {
-      const room = await roomsService.update(req.params.id, {
+      const space = await spacesService.update(req.params.id, {
         name: req.body.name,
         use: req.body.use,
         floorId: req.body.floorId,
-        unitId: req.body.unitId,
+        zoneId: req.body.zoneId,
         glazedArea: req.body.glazedArea,
         cleanableArea: req.body.cleanableArea,
         coveredArea: req.body.coveredArea,
@@ -64,7 +64,7 @@ export class RoomsController {
       });
       res.status(200).json({
         success: true,
-        data: room,
+        data: space,
       });
     } catch (error) {
       next(error);
@@ -73,7 +73,7 @@ export class RoomsController {
 
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
-      await roomsService.delete(req.params.id);
+      await spacesService.delete(req.params.id);
       res.status(200).json({
         success: true,
         data: null,

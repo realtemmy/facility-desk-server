@@ -1,18 +1,18 @@
 import { NotFoundError } from "../../../errors";
 import prisma from "../../../lib/prisma";
 import {
-  CreateRoomDto,
-  QueryRoomDto,
-  PaginatedRoomResponseDto,
-  RoomResponseDto,
-  UpdateRoomDto,
-} from "../dto/room.dto";
+  CreateSpaceDto,
+  QuerySpaceDto,
+  PaginatedSpaceResponseDto,
+  SpaceResponseDto,
+  UpdateSpaceDto,
+} from "../dto/space.dto";
 
-export class RoomsService {
-  async findAll(query: QueryRoomDto): Promise<PaginatedRoomResponseDto> {
+export class SpacesService {
+  async findAll(query: QuerySpaceDto): Promise<PaginatedSpaceResponseDto> {
     const {
       floorId,
-      unitId,
+      zoneId,
       use,
       search,
       page = 1,
@@ -23,7 +23,8 @@ export class RoomsService {
 
     const whereClause: any = {
       ...(floorId && { floorId }),
-      ...(unitId && { unitId }),
+
+      ...(zoneId && { zoneId }),
       ...(use && { use }),
     };
 
@@ -35,8 +36,8 @@ export class RoomsService {
     }
 
     const [count, rooms] = await prisma.$transaction([
-      prisma.room.count({ where: whereClause }),
-      prisma.room.findMany({
+      prisma.space.count({ where: whereClause }),
+      prisma.space.findMany({
         where: whereClause,
         take: limit,
         skip: (page - 1) * limit,
@@ -50,7 +51,7 @@ export class RoomsService {
               level: true,
             },
           },
-          unit: {
+          zone: {
             select: {
               id: true,
               code: true,
@@ -68,7 +69,7 @@ export class RoomsService {
     ]);
 
     return {
-      data: rooms as RoomResponseDto[],
+      data: rooms as SpaceResponseDto[],
       pagination: {
         page,
         limit,
@@ -78,8 +79,8 @@ export class RoomsService {
     };
   }
 
-  async findById(id: string): Promise<RoomResponseDto> {
-    const room = await prisma.room.findUnique({
+  async findById(id: string): Promise<SpaceResponseDto> {
+    const space = await prisma.space.findUnique({
       where: { id },
       include: {
         floor: {
@@ -90,7 +91,7 @@ export class RoomsService {
             level: true,
           },
         },
-        unit: {
+        zone: {
           select: {
             id: true,
             code: true,
@@ -106,17 +107,17 @@ export class RoomsService {
       },
     });
 
-    if (!room) throw new NotFoundError("Room");
+    if (!space) throw new NotFoundError("Space");
 
-    return room as RoomResponseDto;
+    return space as SpaceResponseDto;
   }
 
-  async create(data: CreateRoomDto): Promise<RoomResponseDto> {
-    const { photoIds, ...roomData } = data;
+  async create(data: CreateSpaceDto): Promise<SpaceResponseDto> {
+    const { photoIds, ...spaceData } = data;
 
-    const room = await prisma.room.create({
+    const space = await prisma.space.create({
       data: {
-        ...roomData,
+        ...spaceData,
         ...(photoIds && {
           photos: {
             connect: photoIds.map((id) => ({ id })),
@@ -132,7 +133,7 @@ export class RoomsService {
             level: true,
           },
         },
-        unit: {
+        zone: {
           select: {
             id: true,
             code: true,
@@ -148,14 +149,14 @@ export class RoomsService {
       },
     });
 
-    return room as RoomResponseDto;
+    return space as SpaceResponseDto;
   }
 
-  async update(id: string, data: UpdateRoomDto): Promise<RoomResponseDto> {
-    const room = await prisma.room.findUnique({ where: { id } });
-    if (!room) throw new NotFoundError("Room");
+  async update(id: string, data: UpdateSpaceDto): Promise<SpaceResponseDto> {
+    const space = await prisma.space.findUnique({ where: { id } });
+    if (!space) throw new NotFoundError("Space");
 
-    const updated = await prisma.room.update({
+    const updated = await prisma.space.update({
       where: { id },
       data,
       include: {
@@ -167,7 +168,7 @@ export class RoomsService {
             level: true,
           },
         },
-        unit: {
+        zone: {
           select: {
             id: true,
             code: true,
@@ -183,13 +184,13 @@ export class RoomsService {
       },
     });
 
-    return updated as RoomResponseDto;
+    return updated as SpaceResponseDto;
   }
 
   async delete(id: string): Promise<void> {
-    const room = await prisma.room.findUnique({ where: { id } });
-    if (!room) throw new NotFoundError("Room");
+    const space = await prisma.space.findUnique({ where: { id } });
+    if (!space) throw new NotFoundError("Space");
 
-    await prisma.room.delete({ where: { id } });
+    await prisma.space.delete({ where: { id } });
   }
 }

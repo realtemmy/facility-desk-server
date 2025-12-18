@@ -1,16 +1,16 @@
 import { Router } from "express";
-import { RoomsController } from "../controllers/rooms.controller";
+import { SpacesController } from "../controllers/spaces.controller";
 
 const router = Router();
-const roomsController = new RoomsController();
+const spacesController = new SpacesController();
 
 /**
  * @swagger
- * /api/v1/rooms:
+ * /api/v1/spaces:
  *   get:
- *     summary: Get all rooms
- *     description: Retrieve a paginated list of all rooms with optional filtering
- *     tags: [Rooms]
+ *     summary: Get all spaces
+ *     description: Retrieve a paginated list of all spaces with optional filtering
+ *     tags: [Spaces]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -37,10 +37,10 @@ const roomsController = new RoomsController();
  *           type: string
  *         description: Filter by floor ID
  *       - in: query
- *         name: unitId
+ *         name: zoneId
  *         schema:
  *           type: string
- *         description: Filter by unit ID
+ *         description: Filter by zone ID
  *       - in: query
  *         name: use
  *         schema:
@@ -162,18 +162,15 @@ const roomsController = new RoomsController();
  *       401:
  *         description: Not authenticated
  */
-router
-  .route("/")
-  .get(roomsController.getAll)
-  .post(roomsController.create);
+router.route("/").get(spacesController.getAll).post(spacesController.create);
 
 /**
  * @swagger
- * /api/v1/rooms/{id}:
+ * /api/v1/spaces/{id}:
  *   get:
- *     summary: Get room by ID
- *     description: Retrieve a specific room by its ID
- *     tags: [Rooms]
+ *     summary: Get space by ID
+ *     description: Retrieve a specific space by its ID
+ *     tags: [Spaces]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -207,7 +204,7 @@ router
  *                       type: string
  *                     floorId:
  *                       type: string
- *                     unitId:
+ *                     zoneId:
  *                       type: string
  *                     floor:
  *                       type: object
@@ -220,7 +217,7 @@ router
  *                           type: string
  *                         level:
  *                           type: number
- *                     unit:
+ *                     zone:
  *                       type: object
  *                       properties:
  *                         id:
@@ -322,8 +319,8 @@ router
  */
 router
   .route("/:id")
-  .get(roomsController.getById)
-  .patch(roomsController.update)
-  .delete(roomsController.delete);
+  .get(spacesController.getById)
+  .patch(spacesController.update)
+  .delete(spacesController.delete);
 
 export default router;

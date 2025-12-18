@@ -1,6 +1,29 @@
-import { RoleName, AccessLevel } from "../generated/prisma/client";
+import { AccessLevel } from "../generated/prisma/client";
 import { hashPassword } from "../utils/password.util";
 import prisma from "../lib/prisma";
+
+// Roles requested by User
+const ROLES = {
+  SUPER_ADMIN: "Super Admin",
+  ADMIN: "Admin",
+  USER: "User",
+  REQUESTER: "Requester",
+  // Functional Roles
+  FACILITY_MANAGER: "Facility Manager",
+  ASSISTANT_FM: "Assistant Facility Manager",
+  MAINTENANCE_SUPERVISOR: "Maintenance Supervisor",
+  MAINTENANCE_TECHNICIAN_MECH: "Maintenance Technician (Mechanical)",
+  MAINTENANCE_TECHNICIAN_ELEC: "Maintenance Technician (Electrical)",
+  MAINTENANCE_TECHNICIAN_CIVIL: "Maintenance Technician (Civil)",
+  ASSET_MANAGER: "Asset Manager",
+  HSE_OFFICER: "HSE Officer",
+  ENERGY_MANAGER: "Energy Manager",
+  SECURITY_MANAGER: "Security Manager",
+  CLEANING_MANAGER: "Cleaning Manager",
+  FRONT_DESK: "Front Desk Agent",
+  PROCUREMENT: "Procurement Officer",
+  VENDOR: "Vendor",
+};
 
 // Resource list for permissions
 const RESOURCES = [
@@ -27,193 +50,89 @@ const RESOURCES = [
 async function main() {
   console.log("🌱 Starting database seed...");
 
-  // 1. Create roles
+  // 1. Create all roles
   console.log("\n📋 Creating roles...");
 
-  const adminRole = await prisma.role.upsert({
-    where: { name: RoleName.ADMIN },
-    update: {},
-    create: {
-      name: RoleName.ADMIN,
-      description: "Administrator with full system access",
-    },
-  });
-  console.log("✓ Created ADMIN role");
+  const rolesMap = new Map<string, string>(); // Name -> Id
 
-  const technicianRole = await prisma.role.upsert({
-    where: { name: RoleName.TECHNICIAN },
-    update: {},
-    create: {
-      name: RoleName.TECHNICIAN,
-      description: "Technician with maintenance and repair access",
-    },
-  });
-  console.log("✓ Created TECHNICIAN role");
-
-  const userRole = await prisma.role.upsert({
-    where: { name: RoleName.USER },
-    update: {},
-    create: {
-      name: RoleName.USER,
-      description: "Regular user with limited access",
-    },
-  });
-  console.log("✓ Created USER role");
-
-  // 2. Create permissions for ADMIN (WRITE access to all)
-  console.log("\n🔐 Creating ADMIN permissions...");
-  for (const resource of RESOURCES) {
-    await prisma.permission.upsert({
-      where: {
-        roleId_resource: {
-          roleId: adminRole.id,
-          resource,
-        },
-      },
-      update: { accessLevel: AccessLevel.WRITE },
+  for (const [key, roleName] of Object.entries(ROLES)) {
+    const role = await prisma.role.upsert({
+      where: { name: roleName }, // Now referencing String name directly
+      update: {},
       create: {
-        roleId: adminRole.id,
-        resource,
-        accessLevel: AccessLevel.WRITE,
+        name: roleName,
+        description: `Role for ${roleName}`,
+        isSystem: ["SUPER_ADMIN", "ADMIN", "USER", "REQUESTER"].includes(key),
       },
     });
+    rolesMap.set(roleName, role.id);
+    console.log(`✓ Created ${roleName}`);
   }
-  console.log(`✓ Created ${RESOURCES.length} permissions for ADMIN`);
 
-  // 3. Create permissions for TECHNICIAN
-  console.log("\n🔧 Creating TECHNICIAN permissions...");
-  const technicianPermissions: { resource: string; level: AccessLevel }[] = [
-    { resource: "Access control device", level: AccessLevel.READ },
-    { resource: "Accessory", level: AccessLevel.WRITE },
-    { resource: "Article", level: AccessLevel.READ },
-    { resource: "Asset", level: AccessLevel.WRITE },
-    { resource: "Asset model", level: AccessLevel.READ },
-    { resource: "Consumable", level: AccessLevel.WRITE },
-    { resource: "Facility", level: AccessLevel.READ },
-    { resource: "Location", level: AccessLevel.READ },
-    { resource: "Maintenance", level: AccessLevel.WRITE },
-    { resource: "Manufacturer", level: AccessLevel.READ },
-    { resource: "Supplier", level: AccessLevel.READ },
+  // 2. Assign Permissions (Simplified Logic for now)
+  // Super Admin / Admin -> ALL WRITE
+  const adminRoleIds = [
+    rolesMap.get(ROLES.SUPER_ADMIN),
+    rolesMap.get(ROLES.ADMIN),
   ];
 
-  for (const { resource, level } of technicianPermissions) {
-    await prisma.permission.upsert({
-      where: {
-        roleId_resource: {
-          roleId: technicianRole.id,
-          resource,
-        },
-      },
-      update: { accessLevel: level },
-      create: {
-        roleId: technicianRole.id,
-        resource,
-        accessLevel: level,
-      },
-    });
+  for (const roleId of adminRoleIds) {
+    if (!roleId) continue;
+    for (const resource of RESOURCES) {
+      await prisma.permission.upsert({
+        where: { roleId_resource: { roleId, resource } },
+        update: { accessLevel: AccessLevel.WRITE },
+        create: { roleId, resource, accessLevel: AccessLevel.WRITE },
+      });
+    }
   }
+  console.log("✓ Assigned Full Access to Admins");
 
-  // All other resources default to NONE for technician
-  const technicianResourcesWithPerms = technicianPermissions.map(
-    (p) => p.resource
-  );
-  const remainingResources = RESOURCES.filter(
-    (r) => !technicianResourcesWithPerms.includes(r)
-  );
+  // Facility Manager -> ALL WRITE/READ
+  // Technician -> Maintenance WRITE, Asset READ
+  // Requester -> Maintenance READ/CREATE (handled by API logic mostly)
 
-  for (const resource of remainingResources) {
-    await prisma.permission.upsert({
-      where: {
-        roleId_resource: {
-          roleId: technicianRole.id,
-          resource,
-        },
-      },
-      update: { accessLevel: AccessLevel.NONE },
-      create: {
-        roleId: technicianRole.id,
-        resource,
-        accessLevel: AccessLevel.NONE,
-      },
-    });
-  }
-  console.log(`✓ Created ${RESOURCES.length} permissions for TECHNICIAN`);
-
-  // 4. Create permissions for USER (READ access to limited resources)
-  console.log("\n👤 Creating USER permissions...");
-  const userPermissions: { resource: string; level: AccessLevel }[] = [
-    { resource: "Article", level: AccessLevel.READ },
-    { resource: "Asset", level: AccessLevel.READ },
-    { resource: "Facility", level: AccessLevel.READ },
-    { resource: "Location", level: AccessLevel.READ },
-  ];
-
-  for (const { resource, level } of userPermissions) {
-    await prisma.permission.upsert({
-      where: {
-        roleId_resource: {
-          roleId: userRole.id,
-          resource,
-        },
-      },
-      update: { accessLevel: level },
-      create: {
-        roleId: userRole.id,
-        resource,
-        accessLevel: level,
-      },
-    });
-  }
-
-  // All other resources default to NONE for user
-  const userResourcesWithPerms = userPermissions.map((p) => p.resource);
-  const userRemainingResources = RESOURCES.filter(
-    (r) => !userResourcesWithPerms.includes(r)
-  );
-
-  for (const resource of userRemainingResources) {
-    await prisma.permission.upsert({
-      where: {
-        roleId_resource: {
-          roleId: userRole.id,
-          resource,
-        },
-      },
-      update: { accessLevel: AccessLevel.NONE },
-      create: {
-        roleId: userRole.id,
-        resource,
-        accessLevel: AccessLevel.NONE,
-      },
-    });
-  }
-  console.log(`✓ Created ${RESOURCES.length} permissions for USER`);
-
-  // 5. Create default admin user
+  // 3. Create default admin user with SUPER_ADMIN role
   console.log("\n👨‍💼 Creating default admin user...");
   const hashedPassword = await hashPassword("Admin@123");
 
-  await prisma.user.upsert({
+  // Check if Admin exists
+  const existingAdmin = await prisma.user.findUnique({
     where: { email: "admin@facilitydesk.com" },
-    update: {},
-    create: {
-      email: "admin@facilitydesk.com",
-      password: hashedPassword,
-      firstName: "System",
-      lastName: "Administrator",
-      status: "ACTIVE",
-      roleId: adminRole.id,
-    },
   });
-  console.log("✓ Created default admin user");
+
+  if (existingAdmin) {
+    // Ensure roles
+    // For M:N, we connect if not present.
+    // But upsert on m:n is tricky. simpler to update.
+    await prisma.user.update({
+      where: { id: existingAdmin.id },
+      data: {
+        roles: {
+          connect: [{ id: rolesMap.get(ROLES.SUPER_ADMIN) }],
+        },
+      },
+    });
+  } else {
+    await prisma.user.create({
+      data: {
+        email: "admin@facilitydesk.com",
+        password: hashedPassword,
+        firstName: "System",
+        lastName: "Administrator",
+        status: "ACTIVE",
+        roles: {
+          connect: [{ id: rolesMap.get(ROLES.SUPER_ADMIN) }],
+        },
+      },
+    });
+  }
+
+  console.log("✓ Created/Updated default admin user");
   console.log("  📧 Email: admin@facilitydesk.com");
   console.log("  🔑 Password: Admin@123");
 
   console.log("\n✅ Database seeding completed successfully!");
-  console.log("\n📊 Summary:");
-  console.log(`  • ${3} roles created`);
-  console.log(`  • ${RESOURCES.length * 3} permissions created`);
-  console.log(`  • ${1} admin user created`);
 }
 
 main()

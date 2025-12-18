@@ -11,15 +11,31 @@ import { UpdateMaintenanceDto } from "./dto/update-maintenance.dto";
 import { MaintenanceQueryDto } from "./dto/maintenance-query.dto";
 
 export class MaintenanceService {
-  async createCorrective(data: CreateMaintenanceDto) {
-    // Generate a code
-    const code = `COR-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+  private generateCode(type: MaintenanceType): string {
+    const prefixMap: Record<MaintenanceType, string> = {
+      [MaintenanceType.PREVENTIVE]: "PM",
+      [MaintenanceType.CORRECTIVE]: "COR",
+      [MaintenanceType.PREDICTIVE]: "PDM",
+      [MaintenanceType.EMERGENCY]: "EMG",
+      [MaintenanceType.INSPECTION]: "INS",
+      [MaintenanceType.CALIBRATION]: "CAL",
+      [MaintenanceType.SMALL_PROJECT]: "PRJ",
+      [MaintenanceType.SOFT_SERVICE]: "SFT",
+    };
+
+    const prefix = prefixMap[type] || "WO";
+    return `${prefix}-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+  }
+
+  async create(data: CreateMaintenanceDto) {
+    const type = data.type || MaintenanceType.CORRECTIVE; // Default if not specified, though DTO might require it
+    const code = this.generateCode(type);
 
     const maintenance = await prisma.maintenance.create({
       data: {
-        type: MaintenanceType.CORRECTIVE,
+        type,
         code,
-        description: data.description as string,
+        description: data.description,
         priority: (data.priority as Priority) || Priority.LOW,
         site: { connect: { id: data.siteId } },
         requester: { connect: { id: data.requesterId } },
@@ -29,9 +45,13 @@ export class MaintenanceService {
         }),
         ...(data.assetId && { asset: { connect: { id: data.assetId } } }),
         ...(data.floorId && { floor: { connect: { id: data.floorId } } }),
-        ...(data.roomId && { room: { connect: { id: data.roomId } } }),
+        ...(data.roomId && { space: { connect: { id: data.roomId } } }), // Mapped to Space
         ...(data.startDate && { startDate: new Date(data.startDate) }),
         ...(data.endDate && { endDate: new Date(data.endDate) }),
+
+        // Metadata
+        ...(data.metadata && { metadata: data.metadata }),
+
         // Default performer to requester or assignee if provided
         performer: { connect: { id: data.assigneeId || data.requesterId } }, // Fallback
         ...(data.assigneeId && {
@@ -56,10 +76,6 @@ export class MaintenanceService {
     const skip = (page - 1) * limit;
 
     const where: Prisma.MaintenanceWhereInput = {};
-
-    if (page < 1 || limit < 1) {
-      throw new Error("Invalid pagination parameters");
-    }
 
     if (options.type) where.type = options.type;
 
@@ -123,7 +139,7 @@ export class MaintenanceService {
       include: {
         site: true,
         floor: true,
-        room: true,
+        space: true,
         requester: { include: { user: true } },
         assignee: { include: { user: true } },
         performer: { include: { user: true } },
@@ -146,6 +162,7 @@ export class MaintenanceService {
     if (data.description) updateData.description = data.description as string;
     if (data.processStatus) updateData.processStatus = data.processStatus;
     if (data.outcome) updateData.outcome = data.outcome;
+    if (data.metadata) updateData.metadata = data.metadata;
 
     if (data.teamId) updateData.team = { connect: { id: data.teamId } };
     if (data.assigneeId)

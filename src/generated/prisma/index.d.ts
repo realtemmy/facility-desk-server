@@ -29,6 +29,11 @@ export type Role = $Result.DefaultSelection<Prisma.$RolePayload>
  */
 export type Permission = $Result.DefaultSelection<Prisma.$PermissionPayload>
 /**
+ * Model Site
+ * 
+ */
+export type Site = $Result.DefaultSelection<Prisma.$SitePayload>
+/**
  * Model Complex
  * 
  */
@@ -44,15 +49,15 @@ export type Building = $Result.DefaultSelection<Prisma.$BuildingPayload>
  */
 export type Floor = $Result.DefaultSelection<Prisma.$FloorPayload>
 /**
- * Model Unit
+ * Model Zone
  * 
  */
-export type Unit = $Result.DefaultSelection<Prisma.$UnitPayload>
+export type Zone = $Result.DefaultSelection<Prisma.$ZonePayload>
 /**
- * Model Room
+ * Model Space
  * 
  */
-export type Room = $Result.DefaultSelection<Prisma.$RoomPayload>
+export type Space = $Result.DefaultSelection<Prisma.$SpacePayload>
 /**
  * Model AssetCategory
  * 
@@ -118,16 +123,7 @@ export type RefreshToken = $Result.DefaultSelection<Prisma.$RefreshTokenPayload>
  * Enums
  */
 export namespace $Enums {
-  export const RoleName: {
-  ADMIN: 'ADMIN',
-  TECHNICIAN: 'TECHNICIAN',
-  USER: 'USER'
-};
-
-export type RoleName = (typeof RoleName)[keyof typeof RoleName]
-
-
-export const AccessLevel: {
+  export const AccessLevel: {
   NONE: 'NONE',
   READ: 'READ',
   WRITE: 'WRITE'
@@ -251,10 +247,26 @@ export const EmployeeType: {
 export type EmployeeType = (typeof EmployeeType)[keyof typeof EmployeeType]
 
 
+export const Frequency: {
+  DAILY: 'DAILY',
+  WEEKLY: 'WEEKLY',
+  MONTHLY: 'MONTHLY',
+  YEARLY: 'YEARLY',
+  CUSTOM: 'CUSTOM'
+};
+
+export type Frequency = (typeof Frequency)[keyof typeof Frequency]
+
+
 export const MaintenanceType: {
   PREVENTIVE: 'PREVENTIVE',
   CORRECTIVE: 'CORRECTIVE',
-  PREDICTIVE: 'PREDICTIVE'
+  PREDICTIVE: 'PREDICTIVE',
+  EMERGENCY: 'EMERGENCY',
+  INSPECTION: 'INSPECTION',
+  CALIBRATION: 'CALIBRATION',
+  SMALL_PROJECT: 'SMALL_PROJECT',
+  SOFT_SERVICE: 'SOFT_SERVICE'
 };
 
 export type MaintenanceType = (typeof MaintenanceType)[keyof typeof MaintenanceType]
@@ -277,15 +289,6 @@ export const ProcessType: {
 export type ProcessType = (typeof ProcessType)[keyof typeof ProcessType]
 
 
-export const Priority: {
-  LOW: 'LOW',
-  MEDIUM: 'MEDIUM',
-  HIGH: 'HIGH'
-};
-
-export type Priority = (typeof Priority)[keyof typeof Priority]
-
-
 export const AssetCategoryType: {
   DEVICES: 'DEVICES',
   FINISHINGS: 'FINISHINGS',
@@ -296,21 +299,15 @@ export const AssetCategoryType: {
 export type AssetCategoryType = (typeof AssetCategoryType)[keyof typeof AssetCategoryType]
 
 
-export const Frequency: {
-  DAILY: 'DAILY',
-  WEEKLY: 'WEEKLY',
-  MONTHLY: 'MONTHLY',
-  YEARLY: 'YEARLY',
-  CUSTOM: 'CUSTOM'
+export const Priority: {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH'
 };
 
-export type Frequency = (typeof Frequency)[keyof typeof Frequency]
+export type Priority = (typeof Priority)[keyof typeof Priority]
 
 }
-
-export type RoleName = $Enums.RoleName
-
-export const RoleName: typeof $Enums.RoleName
 
 export type AccessLevel = $Enums.AccessLevel
 
@@ -360,6 +357,10 @@ export type EmployeeType = $Enums.EmployeeType
 
 export const EmployeeType: typeof $Enums.EmployeeType
 
+export type Frequency = $Enums.Frequency
+
+export const Frequency: typeof $Enums.Frequency
+
 export type MaintenanceType = $Enums.MaintenanceType
 
 export const MaintenanceType: typeof $Enums.MaintenanceType
@@ -372,17 +373,13 @@ export type ProcessType = $Enums.ProcessType
 
 export const ProcessType: typeof $Enums.ProcessType
 
-export type Priority = $Enums.Priority
-
-export const Priority: typeof $Enums.Priority
-
 export type AssetCategoryType = $Enums.AssetCategoryType
 
 export const AssetCategoryType: typeof $Enums.AssetCategoryType
 
-export type Frequency = $Enums.Frequency
+export type Priority = $Enums.Priority
 
-export const Frequency: typeof $Enums.Frequency
+export const Priority: typeof $Enums.Priority
 
 /**
  * ##  Prisma Client ʲˢ
@@ -532,6 +529,16 @@ export class PrismaClient<
   get permission(): Prisma.PermissionDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.site`: Exposes CRUD operations for the **Site** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Sites
+    * const sites = await prisma.site.findMany()
+    * ```
+    */
+  get site(): Prisma.SiteDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.complex`: Exposes CRUD operations for the **Complex** model.
     * Example usage:
     * ```ts
@@ -562,24 +569,24 @@ export class PrismaClient<
   get floor(): Prisma.FloorDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.unit`: Exposes CRUD operations for the **Unit** model.
+   * `prisma.zone`: Exposes CRUD operations for the **Zone** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Units
-    * const units = await prisma.unit.findMany()
+    * // Fetch zero or more Zones
+    * const zones = await prisma.zone.findMany()
     * ```
     */
-  get unit(): Prisma.UnitDelegate<ExtArgs, ClientOptions>;
+  get zone(): Prisma.ZoneDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.room`: Exposes CRUD operations for the **Room** model.
+   * `prisma.space`: Exposes CRUD operations for the **Space** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Rooms
-    * const rooms = await prisma.room.findMany()
+    * // Fetch zero or more Spaces
+    * const spaces = await prisma.space.findMany()
     * ```
     */
-  get room(): Prisma.RoomDelegate<ExtArgs, ClientOptions>;
+  get space(): Prisma.SpaceDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.assetCategory`: Exposes CRUD operations for the **AssetCategory** model.
@@ -1137,11 +1144,12 @@ export namespace Prisma {
     User: 'User',
     Role: 'Role',
     Permission: 'Permission',
+    Site: 'Site',
     Complex: 'Complex',
     Building: 'Building',
     Floor: 'Floor',
-    Unit: 'Unit',
-    Room: 'Room',
+    Zone: 'Zone',
+    Space: 'Space',
     AssetCategory: 'AssetCategory',
     Asset: 'Asset',
     File: 'File',
@@ -1169,7 +1177,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "role" | "permission" | "complex" | "building" | "floor" | "unit" | "room" | "assetCategory" | "asset" | "file" | "company" | "employee" | "team" | "address" | "contract" | "calenderEntity" | "maintenance" | "preventive" | "refreshToken"
+      modelProps: "user" | "role" | "permission" | "site" | "complex" | "building" | "floor" | "zone" | "space" | "assetCategory" | "asset" | "file" | "company" | "employee" | "team" | "address" | "contract" | "calenderEntity" | "maintenance" | "preventive" | "refreshToken"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1395,6 +1403,80 @@ export namespace Prisma {
           }
         }
       }
+      Site: {
+        payload: Prisma.$SitePayload<ExtArgs>
+        fields: Prisma.SiteFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SiteFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SitePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SiteFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SitePayload>
+          }
+          findFirst: {
+            args: Prisma.SiteFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SitePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SiteFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SitePayload>
+          }
+          findMany: {
+            args: Prisma.SiteFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SitePayload>[]
+          }
+          create: {
+            args: Prisma.SiteCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SitePayload>
+          }
+          createMany: {
+            args: Prisma.SiteCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SiteCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SitePayload>[]
+          }
+          delete: {
+            args: Prisma.SiteDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SitePayload>
+          }
+          update: {
+            args: Prisma.SiteUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SitePayload>
+          }
+          deleteMany: {
+            args: Prisma.SiteDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SiteUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SiteUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SitePayload>[]
+          }
+          upsert: {
+            args: Prisma.SiteUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SitePayload>
+          }
+          aggregate: {
+            args: Prisma.SiteAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSite>
+          }
+          groupBy: {
+            args: Prisma.SiteGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SiteGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SiteCountArgs<ExtArgs>
+            result: $Utils.Optional<SiteCountAggregateOutputType> | number
+          }
+        }
+      }
       Complex: {
         payload: Prisma.$ComplexPayload<ExtArgs>
         fields: Prisma.ComplexFieldRefs
@@ -1617,151 +1699,151 @@ export namespace Prisma {
           }
         }
       }
-      Unit: {
-        payload: Prisma.$UnitPayload<ExtArgs>
-        fields: Prisma.UnitFieldRefs
+      Zone: {
+        payload: Prisma.$ZonePayload<ExtArgs>
+        fields: Prisma.ZoneFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.UnitFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitPayload> | null
+            args: Prisma.ZoneFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZonePayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.UnitFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitPayload>
+            args: Prisma.ZoneFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZonePayload>
           }
           findFirst: {
-            args: Prisma.UnitFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitPayload> | null
+            args: Prisma.ZoneFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZonePayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.UnitFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitPayload>
+            args: Prisma.ZoneFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZonePayload>
           }
           findMany: {
-            args: Prisma.UnitFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitPayload>[]
+            args: Prisma.ZoneFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZonePayload>[]
           }
           create: {
-            args: Prisma.UnitCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitPayload>
+            args: Prisma.ZoneCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZonePayload>
           }
           createMany: {
-            args: Prisma.UnitCreateManyArgs<ExtArgs>
+            args: Prisma.ZoneCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.UnitCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitPayload>[]
+            args: Prisma.ZoneCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZonePayload>[]
           }
           delete: {
-            args: Prisma.UnitDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitPayload>
+            args: Prisma.ZoneDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZonePayload>
           }
           update: {
-            args: Prisma.UnitUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitPayload>
+            args: Prisma.ZoneUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZonePayload>
           }
           deleteMany: {
-            args: Prisma.UnitDeleteManyArgs<ExtArgs>
+            args: Prisma.ZoneDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.UnitUpdateManyArgs<ExtArgs>
+            args: Prisma.ZoneUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.UnitUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitPayload>[]
+            args: Prisma.ZoneUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZonePayload>[]
           }
           upsert: {
-            args: Prisma.UnitUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitPayload>
+            args: Prisma.ZoneUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZonePayload>
           }
           aggregate: {
-            args: Prisma.UnitAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateUnit>
+            args: Prisma.ZoneAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateZone>
           }
           groupBy: {
-            args: Prisma.UnitGroupByArgs<ExtArgs>
-            result: $Utils.Optional<UnitGroupByOutputType>[]
+            args: Prisma.ZoneGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ZoneGroupByOutputType>[]
           }
           count: {
-            args: Prisma.UnitCountArgs<ExtArgs>
-            result: $Utils.Optional<UnitCountAggregateOutputType> | number
+            args: Prisma.ZoneCountArgs<ExtArgs>
+            result: $Utils.Optional<ZoneCountAggregateOutputType> | number
           }
         }
       }
-      Room: {
-        payload: Prisma.$RoomPayload<ExtArgs>
-        fields: Prisma.RoomFieldRefs
+      Space: {
+        payload: Prisma.$SpacePayload<ExtArgs>
+        fields: Prisma.SpaceFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.RoomFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RoomPayload> | null
+            args: Prisma.SpaceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpacePayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.RoomFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RoomPayload>
+            args: Prisma.SpaceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpacePayload>
           }
           findFirst: {
-            args: Prisma.RoomFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RoomPayload> | null
+            args: Prisma.SpaceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpacePayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.RoomFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RoomPayload>
+            args: Prisma.SpaceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpacePayload>
           }
           findMany: {
-            args: Prisma.RoomFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RoomPayload>[]
+            args: Prisma.SpaceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpacePayload>[]
           }
           create: {
-            args: Prisma.RoomCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RoomPayload>
+            args: Prisma.SpaceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpacePayload>
           }
           createMany: {
-            args: Prisma.RoomCreateManyArgs<ExtArgs>
+            args: Prisma.SpaceCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.RoomCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RoomPayload>[]
+            args: Prisma.SpaceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpacePayload>[]
           }
           delete: {
-            args: Prisma.RoomDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RoomPayload>
+            args: Prisma.SpaceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpacePayload>
           }
           update: {
-            args: Prisma.RoomUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RoomPayload>
+            args: Prisma.SpaceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpacePayload>
           }
           deleteMany: {
-            args: Prisma.RoomDeleteManyArgs<ExtArgs>
+            args: Prisma.SpaceDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.RoomUpdateManyArgs<ExtArgs>
+            args: Prisma.SpaceUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.RoomUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RoomPayload>[]
+            args: Prisma.SpaceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpacePayload>[]
           }
           upsert: {
-            args: Prisma.RoomUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RoomPayload>
+            args: Prisma.SpaceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpacePayload>
           }
           aggregate: {
-            args: Prisma.RoomAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateRoom>
+            args: Prisma.SpaceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSpace>
           }
           groupBy: {
-            args: Prisma.RoomGroupByArgs<ExtArgs>
-            result: $Utils.Optional<RoomGroupByOutputType>[]
+            args: Prisma.SpaceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SpaceGroupByOutputType>[]
           }
           count: {
-            args: Prisma.RoomCountArgs<ExtArgs>
-            result: $Utils.Optional<RoomCountAggregateOutputType> | number
+            args: Prisma.SpaceCountArgs<ExtArgs>
+            result: $Utils.Optional<SpaceCountAggregateOutputType> | number
           }
         }
       }
@@ -2748,11 +2830,12 @@ export namespace Prisma {
     user?: UserOmit
     role?: RoleOmit
     permission?: PermissionOmit
+    site?: SiteOmit
     complex?: ComplexOmit
     building?: BuildingOmit
     floor?: FloorOmit
-    unit?: UnitOmit
-    room?: RoomOmit
+    zone?: ZoneOmit
+    space?: SpaceOmit
     assetCategory?: AssetCategoryOmit
     asset?: AssetOmit
     file?: FileOmit
@@ -2846,11 +2929,13 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     refreshTokens: number
+    roles: number
     employees: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
+    roles?: boolean | UserCountOutputTypeCountRolesArgs
     employees?: boolean | UserCountOutputTypeCountEmployeesArgs
   }
 
@@ -2870,6 +2955,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountRefreshTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: RefreshTokenWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountRolesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RoleWhereInput
   }
 
   /**
@@ -2921,6 +3013,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type SiteCountOutputType
+   */
+
+  export type SiteCountOutputType = {
+    complexes: number
+  }
+
+  export type SiteCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    complexes?: boolean | SiteCountOutputTypeCountComplexesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SiteCountOutputType without action
+   */
+  export type SiteCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SiteCountOutputType
+     */
+    select?: SiteCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SiteCountOutputType without action
+   */
+  export type SiteCountOutputTypeCountComplexesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ComplexWhereInput
+  }
+
+
+  /**
    * Count Type ComplexCountOutputType
    */
 
@@ -2928,8 +3051,8 @@ export namespace Prisma {
     buildings: number
     photos: number
     floors: number
-    units: number
-    rooms: number
+    spaces: number
+    zones: number
     maintenances: number
     preventives: number
   }
@@ -2938,8 +3061,8 @@ export namespace Prisma {
     buildings?: boolean | ComplexCountOutputTypeCountBuildingsArgs
     photos?: boolean | ComplexCountOutputTypeCountPhotosArgs
     floors?: boolean | ComplexCountOutputTypeCountFloorsArgs
-    units?: boolean | ComplexCountOutputTypeCountUnitsArgs
-    rooms?: boolean | ComplexCountOutputTypeCountRoomsArgs
+    spaces?: boolean | ComplexCountOutputTypeCountSpacesArgs
+    zones?: boolean | ComplexCountOutputTypeCountZonesArgs
     maintenances?: boolean | ComplexCountOutputTypeCountMaintenancesArgs
     preventives?: boolean | ComplexCountOutputTypeCountPreventivesArgs
   }
@@ -2979,15 +3102,15 @@ export namespace Prisma {
   /**
    * ComplexCountOutputType without action
    */
-  export type ComplexCountOutputTypeCountUnitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UnitWhereInput
+  export type ComplexCountOutputTypeCountSpacesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SpaceWhereInput
   }
 
   /**
    * ComplexCountOutputType without action
    */
-  export type ComplexCountOutputTypeCountRoomsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RoomWhereInput
+  export type ComplexCountOutputTypeCountZonesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ZoneWhereInput
   }
 
   /**
@@ -3012,16 +3135,16 @@ export namespace Prisma {
   export type BuildingCountOutputType = {
     photos: number
     floors: number
-    units: number
-    rooms: number
+    spaces: number
+    zones: number
     preventives: number
   }
 
   export type BuildingCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     photos?: boolean | BuildingCountOutputTypeCountPhotosArgs
     floors?: boolean | BuildingCountOutputTypeCountFloorsArgs
-    units?: boolean | BuildingCountOutputTypeCountUnitsArgs
-    rooms?: boolean | BuildingCountOutputTypeCountRoomsArgs
+    spaces?: boolean | BuildingCountOutputTypeCountSpacesArgs
+    zones?: boolean | BuildingCountOutputTypeCountZonesArgs
     preventives?: boolean | BuildingCountOutputTypeCountPreventivesArgs
   }
 
@@ -3053,15 +3176,15 @@ export namespace Prisma {
   /**
    * BuildingCountOutputType without action
    */
-  export type BuildingCountOutputTypeCountUnitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UnitWhereInput
+  export type BuildingCountOutputTypeCountSpacesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SpaceWhereInput
   }
 
   /**
    * BuildingCountOutputType without action
    */
-  export type BuildingCountOutputTypeCountRoomsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RoomWhereInput
+  export type BuildingCountOutputTypeCountZonesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ZoneWhereInput
   }
 
   /**
@@ -3077,15 +3200,15 @@ export namespace Prisma {
    */
 
   export type FloorCountOutputType = {
-    rooms: number
-    units: number
+    spaces: number
+    zones: number
     maintenances: number
     preventives: number
   }
 
   export type FloorCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    rooms?: boolean | FloorCountOutputTypeCountRoomsArgs
-    units?: boolean | FloorCountOutputTypeCountUnitsArgs
+    spaces?: boolean | FloorCountOutputTypeCountSpacesArgs
+    zones?: boolean | FloorCountOutputTypeCountZonesArgs
     maintenances?: boolean | FloorCountOutputTypeCountMaintenancesArgs
     preventives?: boolean | FloorCountOutputTypeCountPreventivesArgs
   }
@@ -3104,15 +3227,15 @@ export namespace Prisma {
   /**
    * FloorCountOutputType without action
    */
-  export type FloorCountOutputTypeCountRoomsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RoomWhereInput
+  export type FloorCountOutputTypeCountSpacesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SpaceWhereInput
   }
 
   /**
    * FloorCountOutputType without action
    */
-  export type FloorCountOutputTypeCountUnitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UnitWhereInput
+  export type FloorCountOutputTypeCountZonesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ZoneWhereInput
   }
 
   /**
@@ -3131,91 +3254,100 @@ export namespace Prisma {
 
 
   /**
-   * Count Type UnitCountOutputType
+   * Count Type ZoneCountOutputType
    */
 
-  export type UnitCountOutputType = {
+  export type ZoneCountOutputType = {
     rooms: number
     photos: number
   }
 
-  export type UnitCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    rooms?: boolean | UnitCountOutputTypeCountRoomsArgs
-    photos?: boolean | UnitCountOutputTypeCountPhotosArgs
+  export type ZoneCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    rooms?: boolean | ZoneCountOutputTypeCountRoomsArgs
+    photos?: boolean | ZoneCountOutputTypeCountPhotosArgs
   }
 
   // Custom InputTypes
   /**
-   * UnitCountOutputType without action
+   * ZoneCountOutputType without action
    */
-  export type UnitCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ZoneCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UnitCountOutputType
+     * Select specific fields to fetch from the ZoneCountOutputType
      */
-    select?: UnitCountOutputTypeSelect<ExtArgs> | null
+    select?: ZoneCountOutputTypeSelect<ExtArgs> | null
   }
 
   /**
-   * UnitCountOutputType without action
+   * ZoneCountOutputType without action
    */
-  export type UnitCountOutputTypeCountRoomsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RoomWhereInput
+  export type ZoneCountOutputTypeCountRoomsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SpaceWhereInput
   }
 
   /**
-   * UnitCountOutputType without action
+   * ZoneCountOutputType without action
    */
-  export type UnitCountOutputTypeCountPhotosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ZoneCountOutputTypeCountPhotosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: FileWhereInput
   }
 
 
   /**
-   * Count Type RoomCountOutputType
+   * Count Type SpaceCountOutputType
    */
 
-  export type RoomCountOutputType = {
+  export type SpaceCountOutputType = {
     photos: number
     maintenances: number
     preventives: number
+    assets: number
   }
 
-  export type RoomCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    photos?: boolean | RoomCountOutputTypeCountPhotosArgs
-    maintenances?: boolean | RoomCountOutputTypeCountMaintenancesArgs
-    preventives?: boolean | RoomCountOutputTypeCountPreventivesArgs
+  export type SpaceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    photos?: boolean | SpaceCountOutputTypeCountPhotosArgs
+    maintenances?: boolean | SpaceCountOutputTypeCountMaintenancesArgs
+    preventives?: boolean | SpaceCountOutputTypeCountPreventivesArgs
+    assets?: boolean | SpaceCountOutputTypeCountAssetsArgs
   }
 
   // Custom InputTypes
   /**
-   * RoomCountOutputType without action
+   * SpaceCountOutputType without action
    */
-  export type RoomCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SpaceCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the RoomCountOutputType
+     * Select specific fields to fetch from the SpaceCountOutputType
      */
-    select?: RoomCountOutputTypeSelect<ExtArgs> | null
+    select?: SpaceCountOutputTypeSelect<ExtArgs> | null
   }
 
   /**
-   * RoomCountOutputType without action
+   * SpaceCountOutputType without action
    */
-  export type RoomCountOutputTypeCountPhotosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SpaceCountOutputTypeCountPhotosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: FileWhereInput
   }
 
   /**
-   * RoomCountOutputType without action
+   * SpaceCountOutputType without action
    */
-  export type RoomCountOutputTypeCountMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SpaceCountOutputTypeCountMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MaintenanceWhereInput
   }
 
   /**
-   * RoomCountOutputType without action
+   * SpaceCountOutputType without action
    */
-  export type RoomCountOutputTypeCountPreventivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SpaceCountOutputTypeCountPreventivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PreventiveWhereInput
+  }
+
+  /**
+   * SpaceCountOutputType without action
+   */
+  export type SpaceCountOutputTypeCountAssetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AssetWhereInput
   }
 
 
@@ -3255,11 +3387,13 @@ export namespace Prisma {
    */
 
   export type AssetCountOutputType = {
+    childAssets: number
     maintenances: number
     preventives: number
   }
 
   export type AssetCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    childAssets?: boolean | AssetCountOutputTypeCountChildAssetsArgs
     maintenances?: boolean | AssetCountOutputTypeCountMaintenancesArgs
     preventives?: boolean | AssetCountOutputTypeCountPreventivesArgs
   }
@@ -3273,6 +3407,13 @@ export namespace Prisma {
      * Select specific fields to fetch from the AssetCountOutputType
      */
     select?: AssetCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AssetCountOutputType without action
+   */
+  export type AssetCountOutputTypeCountChildAssetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AssetWhereInput
   }
 
   /**
@@ -3295,15 +3436,15 @@ export namespace Prisma {
    */
 
   export type FileCountOutputType = {
-    rooms: number
-    units: number
+    spaces: number
+    zones: number
     buildings: number
     complexes: number
   }
 
   export type FileCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    rooms?: boolean | FileCountOutputTypeCountRoomsArgs
-    units?: boolean | FileCountOutputTypeCountUnitsArgs
+    spaces?: boolean | FileCountOutputTypeCountSpacesArgs
+    zones?: boolean | FileCountOutputTypeCountZonesArgs
     buildings?: boolean | FileCountOutputTypeCountBuildingsArgs
     complexes?: boolean | FileCountOutputTypeCountComplexesArgs
   }
@@ -3322,15 +3463,15 @@ export namespace Prisma {
   /**
    * FileCountOutputType without action
    */
-  export type FileCountOutputTypeCountRoomsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RoomWhereInput
+  export type FileCountOutputTypeCountSpacesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SpaceWhereInput
   }
 
   /**
    * FileCountOutputType without action
    */
-  export type FileCountOutputTypeCountUnitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UnitWhereInput
+  export type FileCountOutputTypeCountZonesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ZoneWhereInput
   }
 
   /**
@@ -3533,16 +3674,16 @@ export namespace Prisma {
   export type CalenderEntityCountOutputType = {
     buildings: number
     complexes: number
-    units: number
-    rooms: number
+    spaces: number
+    zones: number
     employees: number
   }
 
   export type CalenderEntityCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     buildings?: boolean | CalenderEntityCountOutputTypeCountBuildingsArgs
     complexes?: boolean | CalenderEntityCountOutputTypeCountComplexesArgs
-    units?: boolean | CalenderEntityCountOutputTypeCountUnitsArgs
-    rooms?: boolean | CalenderEntityCountOutputTypeCountRoomsArgs
+    spaces?: boolean | CalenderEntityCountOutputTypeCountSpacesArgs
+    zones?: boolean | CalenderEntityCountOutputTypeCountZonesArgs
     employees?: boolean | CalenderEntityCountOutputTypeCountEmployeesArgs
   }
 
@@ -3574,15 +3715,15 @@ export namespace Prisma {
   /**
    * CalenderEntityCountOutputType without action
    */
-  export type CalenderEntityCountOutputTypeCountUnitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UnitWhereInput
+  export type CalenderEntityCountOutputTypeCountSpacesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SpaceWhereInput
   }
 
   /**
    * CalenderEntityCountOutputType without action
    */
-  export type CalenderEntityCountOutputTypeCountRoomsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RoomWhereInput
+  export type CalenderEntityCountOutputTypeCountZonesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ZoneWhereInput
   }
 
   /**
@@ -3645,7 +3786,6 @@ export namespace Prisma {
     firstName: string | null
     lastName: string | null
     status: $Enums.UserStatus | null
-    roleId: string | null
     createdAt: Date | null
     updatedAt: Date | null
     passwordResetToken: string | null
@@ -3660,7 +3800,6 @@ export namespace Prisma {
     firstName: string | null
     lastName: string | null
     status: $Enums.UserStatus | null
-    roleId: string | null
     createdAt: Date | null
     updatedAt: Date | null
     passwordResetToken: string | null
@@ -3675,7 +3814,6 @@ export namespace Prisma {
     firstName: number
     lastName: number
     status: number
-    roleId: number
     createdAt: number
     updatedAt: number
     passwordResetToken: number
@@ -3692,7 +3830,6 @@ export namespace Prisma {
     firstName?: true
     lastName?: true
     status?: true
-    roleId?: true
     createdAt?: true
     updatedAt?: true
     passwordResetToken?: true
@@ -3707,7 +3844,6 @@ export namespace Prisma {
     firstName?: true
     lastName?: true
     status?: true
-    roleId?: true
     createdAt?: true
     updatedAt?: true
     passwordResetToken?: true
@@ -3722,7 +3858,6 @@ export namespace Prisma {
     firstName?: true
     lastName?: true
     status?: true
-    roleId?: true
     createdAt?: true
     updatedAt?: true
     passwordResetToken?: true
@@ -3810,7 +3945,6 @@ export namespace Prisma {
     firstName: string
     lastName: string
     status: $Enums.UserStatus
-    roleId: string
     createdAt: Date
     updatedAt: Date
     passwordResetToken: string | null
@@ -3842,14 +3976,13 @@ export namespace Prisma {
     firstName?: boolean
     lastName?: boolean
     status?: boolean
-    roleId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     passwordResetToken?: boolean
     passwordExpiresAt?: boolean
     passwordResetAt?: boolean
     refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
-    role?: boolean | RoleDefaultArgs<ExtArgs>
+    roles?: boolean | User$rolesArgs<ExtArgs>
     employees?: boolean | User$employeesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -3861,13 +3994,11 @@ export namespace Prisma {
     firstName?: boolean
     lastName?: boolean
     status?: boolean
-    roleId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     passwordResetToken?: boolean
     passwordExpiresAt?: boolean
     passwordResetAt?: boolean
-    role?: boolean | RoleDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3877,13 +4008,11 @@ export namespace Prisma {
     firstName?: boolean
     lastName?: boolean
     status?: boolean
-    roleId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     passwordResetToken?: boolean
     passwordExpiresAt?: boolean
     passwordResetAt?: boolean
-    role?: boolean | RoleDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -3893,7 +4022,6 @@ export namespace Prisma {
     firstName?: boolean
     lastName?: boolean
     status?: boolean
-    roleId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     passwordResetToken?: boolean
@@ -3901,25 +4029,21 @@ export namespace Prisma {
     passwordResetAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "firstName" | "lastName" | "status" | "roleId" | "createdAt" | "updatedAt" | "passwordResetToken" | "passwordExpiresAt" | "passwordResetAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "firstName" | "lastName" | "status" | "createdAt" | "updatedAt" | "passwordResetToken" | "passwordExpiresAt" | "passwordResetAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
-    role?: boolean | RoleDefaultArgs<ExtArgs>
+    roles?: boolean | User$rolesArgs<ExtArgs>
     employees?: boolean | User$employeesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    role?: boolean | RoleDefaultArgs<ExtArgs>
-  }
-  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    role?: boolean | RoleDefaultArgs<ExtArgs>
-  }
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
       refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
-      role: Prisma.$RolePayload<ExtArgs>
+      roles: Prisma.$RolePayload<ExtArgs>[]
       employees: Prisma.$EmployeePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -3929,7 +4053,6 @@ export namespace Prisma {
       firstName: string
       lastName: string
       status: $Enums.UserStatus
-      roleId: string
       createdAt: Date
       updatedAt: Date
       passwordResetToken: string | null
@@ -4330,7 +4453,7 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     refreshTokens<T extends User$refreshTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    role<T extends RoleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RoleDefaultArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    roles<T extends User$rolesArgs<ExtArgs> = {}>(args?: Subset<T, User$rolesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     employees<T extends User$employeesArgs<ExtArgs> = {}>(args?: Subset<T, User$employeesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -4367,7 +4490,6 @@ export namespace Prisma {
     readonly firstName: FieldRef<"User", 'String'>
     readonly lastName: FieldRef<"User", 'String'>
     readonly status: FieldRef<"User", 'UserStatus'>
-    readonly roleId: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly passwordResetToken: FieldRef<"User", 'String'>
@@ -4622,10 +4744,6 @@ export namespace Prisma {
      */
     data: UserCreateManyInput | UserCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -4696,10 +4814,6 @@ export namespace Prisma {
      * Limit how many Users to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -4793,6 +4907,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.roles
+   */
+  export type User$rolesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    where?: RoleWhereInput
+    orderBy?: RoleOrderByWithRelationInput | RoleOrderByWithRelationInput[]
+    cursor?: RoleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RoleScalarFieldEnum | RoleScalarFieldEnum[]
+  }
+
+  /**
    * User.employees
    */
   export type User$employeesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4847,7 +4985,8 @@ export namespace Prisma {
 
   export type RoleMinAggregateOutputType = {
     id: string | null
-    name: $Enums.RoleName | null
+    name: string | null
+    isSystem: boolean | null
     description: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4855,7 +4994,8 @@ export namespace Prisma {
 
   export type RoleMaxAggregateOutputType = {
     id: string | null
-    name: $Enums.RoleName | null
+    name: string | null
+    isSystem: boolean | null
     description: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4864,6 +5004,7 @@ export namespace Prisma {
   export type RoleCountAggregateOutputType = {
     id: number
     name: number
+    isSystem: number
     description: number
     createdAt: number
     updatedAt: number
@@ -4874,6 +5015,7 @@ export namespace Prisma {
   export type RoleMinAggregateInputType = {
     id?: true
     name?: true
+    isSystem?: true
     description?: true
     createdAt?: true
     updatedAt?: true
@@ -4882,6 +5024,7 @@ export namespace Prisma {
   export type RoleMaxAggregateInputType = {
     id?: true
     name?: true
+    isSystem?: true
     description?: true
     createdAt?: true
     updatedAt?: true
@@ -4890,6 +5033,7 @@ export namespace Prisma {
   export type RoleCountAggregateInputType = {
     id?: true
     name?: true
+    isSystem?: true
     description?: true
     createdAt?: true
     updatedAt?: true
@@ -4970,7 +5114,8 @@ export namespace Prisma {
 
   export type RoleGroupByOutputType = {
     id: string
-    name: $Enums.RoleName
+    name: string
+    isSystem: boolean
     description: string | null
     createdAt: Date
     updatedAt: Date
@@ -4996,6 +5141,7 @@ export namespace Prisma {
   export type RoleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    isSystem?: boolean
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -5007,6 +5153,7 @@ export namespace Prisma {
   export type RoleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    isSystem?: boolean
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -5015,6 +5162,7 @@ export namespace Prisma {
   export type RoleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    isSystem?: boolean
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -5023,12 +5171,13 @@ export namespace Prisma {
   export type RoleSelectScalar = {
     id?: boolean
     name?: boolean
+    isSystem?: boolean
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type RoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["role"]>
+  export type RoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "isSystem" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["role"]>
   export type RoleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     permissions?: boolean | Role$permissionsArgs<ExtArgs>
     users?: boolean | Role$usersArgs<ExtArgs>
@@ -5045,7 +5194,8 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      name: $Enums.RoleName
+      name: string
+      isSystem: boolean
       description: string | null
       createdAt: Date
       updatedAt: Date
@@ -5475,7 +5625,8 @@ export namespace Prisma {
    */
   interface RoleFieldRefs {
     readonly id: FieldRef<"Role", 'String'>
-    readonly name: FieldRef<"Role", 'RoleName'>
+    readonly name: FieldRef<"Role", 'String'>
+    readonly isSystem: FieldRef<"Role", 'Boolean'>
     readonly description: FieldRef<"Role", 'String'>
     readonly createdAt: FieldRef<"Role", 'DateTime'>
     readonly updatedAt: FieldRef<"Role", 'DateTime'>
@@ -7005,6 +7156,1102 @@ export namespace Prisma {
 
 
   /**
+   * Model Site
+   */
+
+  export type AggregateSite = {
+    _count: SiteCountAggregateOutputType | null
+    _min: SiteMinAggregateOutputType | null
+    _max: SiteMaxAggregateOutputType | null
+  }
+
+  export type SiteMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    address: string | null
+    climateZone: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SiteMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    address: string | null
+    climateZone: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SiteCountAggregateOutputType = {
+    id: number
+    name: number
+    address: number
+    climateZone: number
+    description: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SiteMinAggregateInputType = {
+    id?: true
+    name?: true
+    address?: true
+    climateZone?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SiteMaxAggregateInputType = {
+    id?: true
+    name?: true
+    address?: true
+    climateZone?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SiteCountAggregateInputType = {
+    id?: true
+    name?: true
+    address?: true
+    climateZone?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SiteAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Site to aggregate.
+     */
+    where?: SiteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Sites to fetch.
+     */
+    orderBy?: SiteOrderByWithRelationInput | SiteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SiteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Sites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Sites.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Sites
+    **/
+    _count?: true | SiteCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SiteMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SiteMaxAggregateInputType
+  }
+
+  export type GetSiteAggregateType<T extends SiteAggregateArgs> = {
+        [P in keyof T & keyof AggregateSite]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSite[P]>
+      : GetScalarType<T[P], AggregateSite[P]>
+  }
+
+
+
+
+  export type SiteGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SiteWhereInput
+    orderBy?: SiteOrderByWithAggregationInput | SiteOrderByWithAggregationInput[]
+    by: SiteScalarFieldEnum[] | SiteScalarFieldEnum
+    having?: SiteScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SiteCountAggregateInputType | true
+    _min?: SiteMinAggregateInputType
+    _max?: SiteMaxAggregateInputType
+  }
+
+  export type SiteGroupByOutputType = {
+    id: string
+    name: string
+    address: string | null
+    climateZone: string | null
+    description: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: SiteCountAggregateOutputType | null
+    _min: SiteMinAggregateOutputType | null
+    _max: SiteMaxAggregateOutputType | null
+  }
+
+  type GetSiteGroupByPayload<T extends SiteGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SiteGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SiteGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SiteGroupByOutputType[P]>
+            : GetScalarType<T[P], SiteGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SiteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    address?: boolean
+    climateZone?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    complexes?: boolean | Site$complexesArgs<ExtArgs>
+    _count?: boolean | SiteCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["site"]>
+
+  export type SiteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    address?: boolean
+    climateZone?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["site"]>
+
+  export type SiteSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    address?: boolean
+    climateZone?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["site"]>
+
+  export type SiteSelectScalar = {
+    id?: boolean
+    name?: boolean
+    address?: boolean
+    climateZone?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SiteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "address" | "climateZone" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["site"]>
+  export type SiteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    complexes?: boolean | Site$complexesArgs<ExtArgs>
+    _count?: boolean | SiteCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SiteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type SiteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $SitePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Site"
+    objects: {
+      complexes: Prisma.$ComplexPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      address: string | null
+      climateZone: string | null
+      description: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["site"]>
+    composites: {}
+  }
+
+  type SiteGetPayload<S extends boolean | null | undefined | SiteDefaultArgs> = $Result.GetResult<Prisma.$SitePayload, S>
+
+  type SiteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SiteFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SiteCountAggregateInputType | true
+    }
+
+  export interface SiteDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Site'], meta: { name: 'Site' } }
+    /**
+     * Find zero or one Site that matches the filter.
+     * @param {SiteFindUniqueArgs} args - Arguments to find a Site
+     * @example
+     * // Get one Site
+     * const site = await prisma.site.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SiteFindUniqueArgs>(args: SelectSubset<T, SiteFindUniqueArgs<ExtArgs>>): Prisma__SiteClient<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Site that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SiteFindUniqueOrThrowArgs} args - Arguments to find a Site
+     * @example
+     * // Get one Site
+     * const site = await prisma.site.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SiteFindUniqueOrThrowArgs>(args: SelectSubset<T, SiteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SiteClient<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Site that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SiteFindFirstArgs} args - Arguments to find a Site
+     * @example
+     * // Get one Site
+     * const site = await prisma.site.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SiteFindFirstArgs>(args?: SelectSubset<T, SiteFindFirstArgs<ExtArgs>>): Prisma__SiteClient<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Site that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SiteFindFirstOrThrowArgs} args - Arguments to find a Site
+     * @example
+     * // Get one Site
+     * const site = await prisma.site.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SiteFindFirstOrThrowArgs>(args?: SelectSubset<T, SiteFindFirstOrThrowArgs<ExtArgs>>): Prisma__SiteClient<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Sites that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SiteFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Sites
+     * const sites = await prisma.site.findMany()
+     * 
+     * // Get first 10 Sites
+     * const sites = await prisma.site.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const siteWithIdOnly = await prisma.site.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SiteFindManyArgs>(args?: SelectSubset<T, SiteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Site.
+     * @param {SiteCreateArgs} args - Arguments to create a Site.
+     * @example
+     * // Create one Site
+     * const Site = await prisma.site.create({
+     *   data: {
+     *     // ... data to create a Site
+     *   }
+     * })
+     * 
+     */
+    create<T extends SiteCreateArgs>(args: SelectSubset<T, SiteCreateArgs<ExtArgs>>): Prisma__SiteClient<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Sites.
+     * @param {SiteCreateManyArgs} args - Arguments to create many Sites.
+     * @example
+     * // Create many Sites
+     * const site = await prisma.site.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SiteCreateManyArgs>(args?: SelectSubset<T, SiteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Sites and returns the data saved in the database.
+     * @param {SiteCreateManyAndReturnArgs} args - Arguments to create many Sites.
+     * @example
+     * // Create many Sites
+     * const site = await prisma.site.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Sites and only return the `id`
+     * const siteWithIdOnly = await prisma.site.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SiteCreateManyAndReturnArgs>(args?: SelectSubset<T, SiteCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Site.
+     * @param {SiteDeleteArgs} args - Arguments to delete one Site.
+     * @example
+     * // Delete one Site
+     * const Site = await prisma.site.delete({
+     *   where: {
+     *     // ... filter to delete one Site
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SiteDeleteArgs>(args: SelectSubset<T, SiteDeleteArgs<ExtArgs>>): Prisma__SiteClient<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Site.
+     * @param {SiteUpdateArgs} args - Arguments to update one Site.
+     * @example
+     * // Update one Site
+     * const site = await prisma.site.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SiteUpdateArgs>(args: SelectSubset<T, SiteUpdateArgs<ExtArgs>>): Prisma__SiteClient<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Sites.
+     * @param {SiteDeleteManyArgs} args - Arguments to filter Sites to delete.
+     * @example
+     * // Delete a few Sites
+     * const { count } = await prisma.site.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SiteDeleteManyArgs>(args?: SelectSubset<T, SiteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Sites.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SiteUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Sites
+     * const site = await prisma.site.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SiteUpdateManyArgs>(args: SelectSubset<T, SiteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Sites and returns the data updated in the database.
+     * @param {SiteUpdateManyAndReturnArgs} args - Arguments to update many Sites.
+     * @example
+     * // Update many Sites
+     * const site = await prisma.site.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Sites and only return the `id`
+     * const siteWithIdOnly = await prisma.site.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SiteUpdateManyAndReturnArgs>(args: SelectSubset<T, SiteUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Site.
+     * @param {SiteUpsertArgs} args - Arguments to update or create a Site.
+     * @example
+     * // Update or create a Site
+     * const site = await prisma.site.upsert({
+     *   create: {
+     *     // ... data to create a Site
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Site we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SiteUpsertArgs>(args: SelectSubset<T, SiteUpsertArgs<ExtArgs>>): Prisma__SiteClient<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Sites.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SiteCountArgs} args - Arguments to filter Sites to count.
+     * @example
+     * // Count the number of Sites
+     * const count = await prisma.site.count({
+     *   where: {
+     *     // ... the filter for the Sites we want to count
+     *   }
+     * })
+    **/
+    count<T extends SiteCountArgs>(
+      args?: Subset<T, SiteCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SiteCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Site.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SiteAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SiteAggregateArgs>(args: Subset<T, SiteAggregateArgs>): Prisma.PrismaPromise<GetSiteAggregateType<T>>
+
+    /**
+     * Group by Site.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SiteGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SiteGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SiteGroupByArgs['orderBy'] }
+        : { orderBy?: SiteGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SiteGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSiteGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Site model
+   */
+  readonly fields: SiteFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Site.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SiteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    complexes<T extends Site$complexesArgs<ExtArgs> = {}>(args?: Subset<T, Site$complexesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComplexPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Site model
+   */
+  interface SiteFieldRefs {
+    readonly id: FieldRef<"Site", 'String'>
+    readonly name: FieldRef<"Site", 'String'>
+    readonly address: FieldRef<"Site", 'String'>
+    readonly climateZone: FieldRef<"Site", 'String'>
+    readonly description: FieldRef<"Site", 'String'>
+    readonly createdAt: FieldRef<"Site", 'DateTime'>
+    readonly updatedAt: FieldRef<"Site", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Site findUnique
+   */
+  export type SiteFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteInclude<ExtArgs> | null
+    /**
+     * Filter, which Site to fetch.
+     */
+    where: SiteWhereUniqueInput
+  }
+
+  /**
+   * Site findUniqueOrThrow
+   */
+  export type SiteFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteInclude<ExtArgs> | null
+    /**
+     * Filter, which Site to fetch.
+     */
+    where: SiteWhereUniqueInput
+  }
+
+  /**
+   * Site findFirst
+   */
+  export type SiteFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteInclude<ExtArgs> | null
+    /**
+     * Filter, which Site to fetch.
+     */
+    where?: SiteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Sites to fetch.
+     */
+    orderBy?: SiteOrderByWithRelationInput | SiteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Sites.
+     */
+    cursor?: SiteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Sites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Sites.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Sites.
+     */
+    distinct?: SiteScalarFieldEnum | SiteScalarFieldEnum[]
+  }
+
+  /**
+   * Site findFirstOrThrow
+   */
+  export type SiteFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteInclude<ExtArgs> | null
+    /**
+     * Filter, which Site to fetch.
+     */
+    where?: SiteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Sites to fetch.
+     */
+    orderBy?: SiteOrderByWithRelationInput | SiteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Sites.
+     */
+    cursor?: SiteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Sites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Sites.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Sites.
+     */
+    distinct?: SiteScalarFieldEnum | SiteScalarFieldEnum[]
+  }
+
+  /**
+   * Site findMany
+   */
+  export type SiteFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteInclude<ExtArgs> | null
+    /**
+     * Filter, which Sites to fetch.
+     */
+    where?: SiteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Sites to fetch.
+     */
+    orderBy?: SiteOrderByWithRelationInput | SiteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Sites.
+     */
+    cursor?: SiteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Sites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Sites.
+     */
+    skip?: number
+    distinct?: SiteScalarFieldEnum | SiteScalarFieldEnum[]
+  }
+
+  /**
+   * Site create
+   */
+  export type SiteCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Site.
+     */
+    data: XOR<SiteCreateInput, SiteUncheckedCreateInput>
+  }
+
+  /**
+   * Site createMany
+   */
+  export type SiteCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Sites.
+     */
+    data: SiteCreateManyInput | SiteCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Site createManyAndReturn
+   */
+  export type SiteCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * The data used to create many Sites.
+     */
+    data: SiteCreateManyInput | SiteCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Site update
+   */
+  export type SiteUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Site.
+     */
+    data: XOR<SiteUpdateInput, SiteUncheckedUpdateInput>
+    /**
+     * Choose, which Site to update.
+     */
+    where: SiteWhereUniqueInput
+  }
+
+  /**
+   * Site updateMany
+   */
+  export type SiteUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Sites.
+     */
+    data: XOR<SiteUpdateManyMutationInput, SiteUncheckedUpdateManyInput>
+    /**
+     * Filter which Sites to update
+     */
+    where?: SiteWhereInput
+    /**
+     * Limit how many Sites to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Site updateManyAndReturn
+   */
+  export type SiteUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * The data used to update Sites.
+     */
+    data: XOR<SiteUpdateManyMutationInput, SiteUncheckedUpdateManyInput>
+    /**
+     * Filter which Sites to update
+     */
+    where?: SiteWhereInput
+    /**
+     * Limit how many Sites to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Site upsert
+   */
+  export type SiteUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Site to update in case it exists.
+     */
+    where: SiteWhereUniqueInput
+    /**
+     * In case the Site found by the `where` argument doesn't exist, create a new Site with this data.
+     */
+    create: XOR<SiteCreateInput, SiteUncheckedCreateInput>
+    /**
+     * In case the Site was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SiteUpdateInput, SiteUncheckedUpdateInput>
+  }
+
+  /**
+   * Site delete
+   */
+  export type SiteDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteInclude<ExtArgs> | null
+    /**
+     * Filter which Site to delete.
+     */
+    where: SiteWhereUniqueInput
+  }
+
+  /**
+   * Site deleteMany
+   */
+  export type SiteDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Sites to delete
+     */
+    where?: SiteWhereInput
+    /**
+     * Limit how many Sites to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Site.complexes
+   */
+  export type Site$complexesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Complex
+     */
+    select?: ComplexSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Complex
+     */
+    omit?: ComplexOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComplexInclude<ExtArgs> | null
+    where?: ComplexWhereInput
+    orderBy?: ComplexOrderByWithRelationInput | ComplexOrderByWithRelationInput[]
+    cursor?: ComplexWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ComplexScalarFieldEnum | ComplexScalarFieldEnum[]
+  }
+
+  /**
+   * Site without action
+   */
+  export type SiteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Complex
    */
 
@@ -7069,6 +8316,7 @@ export namespace Prisma {
     totalVolume: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    siteId: string | null
   }
 
   export type ComplexMaxAggregateOutputType = {
@@ -7096,6 +8344,7 @@ export namespace Prisma {
     totalVolume: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    siteId: string | null
   }
 
   export type ComplexCountAggregateOutputType = {
@@ -7123,6 +8372,7 @@ export namespace Prisma {
     totalVolume: number
     createdAt: number
     updatedAt: number
+    siteId: number
     _all: number
   }
 
@@ -7180,6 +8430,7 @@ export namespace Prisma {
     totalVolume?: true
     createdAt?: true
     updatedAt?: true
+    siteId?: true
   }
 
   export type ComplexMaxAggregateInputType = {
@@ -7207,6 +8458,7 @@ export namespace Prisma {
     totalVolume?: true
     createdAt?: true
     updatedAt?: true
+    siteId?: true
   }
 
   export type ComplexCountAggregateInputType = {
@@ -7234,6 +8486,7 @@ export namespace Prisma {
     totalVolume?: true
     createdAt?: true
     updatedAt?: true
+    siteId?: true
     _all?: true
   }
 
@@ -7348,6 +8601,7 @@ export namespace Prisma {
     totalVolume: number | null
     createdAt: Date
     updatedAt: Date
+    siteId: string | null
     _count: ComplexCountAggregateOutputType | null
     _avg: ComplexAvgAggregateOutputType | null
     _sum: ComplexSumAggregateOutputType | null
@@ -7394,14 +8648,16 @@ export namespace Prisma {
     totalVolume?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    siteId?: boolean
     calenderEntity?: boolean | Complex$calenderEntityArgs<ExtArgs>
     buildings?: boolean | Complex$buildingsArgs<ExtArgs>
     photos?: boolean | Complex$photosArgs<ExtArgs>
     floors?: boolean | Complex$floorsArgs<ExtArgs>
-    units?: boolean | Complex$unitsArgs<ExtArgs>
-    rooms?: boolean | Complex$roomsArgs<ExtArgs>
+    spaces?: boolean | Complex$spacesArgs<ExtArgs>
+    zones?: boolean | Complex$zonesArgs<ExtArgs>
     maintenances?: boolean | Complex$maintenancesArgs<ExtArgs>
     preventives?: boolean | Complex$preventivesArgs<ExtArgs>
+    site?: boolean | Complex$siteArgs<ExtArgs>
     _count?: boolean | ComplexCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["complex"]>
 
@@ -7430,7 +8686,9 @@ export namespace Prisma {
     totalVolume?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    siteId?: boolean
     calenderEntity?: boolean | Complex$calenderEntityArgs<ExtArgs>
+    site?: boolean | Complex$siteArgs<ExtArgs>
   }, ExtArgs["result"]["complex"]>
 
   export type ComplexSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7458,7 +8716,9 @@ export namespace Prisma {
     totalVolume?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    siteId?: boolean
     calenderEntity?: boolean | Complex$calenderEntityArgs<ExtArgs>
+    site?: boolean | Complex$siteArgs<ExtArgs>
   }, ExtArgs["result"]["complex"]>
 
   export type ComplexSelectScalar = {
@@ -7486,25 +8746,29 @@ export namespace Prisma {
     totalVolume?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    siteId?: boolean
   }
 
-  export type ComplexOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "availability" | "status" | "calenderEntityId" | "address" | "city" | "zipCode" | "condition" | "criticality" | "totalBuildings" | "totalFloors" | "totalUnits" | "totalRooms" | "glazedArea" | "cleanableArea" | "coveredArea" | "totalNetArea" | "totalGrossArea" | "totalHeatedVolume" | "totalVolume" | "createdAt" | "updatedAt", ExtArgs["result"]["complex"]>
+  export type ComplexOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "availability" | "status" | "calenderEntityId" | "address" | "city" | "zipCode" | "condition" | "criticality" | "totalBuildings" | "totalFloors" | "totalUnits" | "totalRooms" | "glazedArea" | "cleanableArea" | "coveredArea" | "totalNetArea" | "totalGrossArea" | "totalHeatedVolume" | "totalVolume" | "createdAt" | "updatedAt" | "siteId", ExtArgs["result"]["complex"]>
   export type ComplexInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     calenderEntity?: boolean | Complex$calenderEntityArgs<ExtArgs>
     buildings?: boolean | Complex$buildingsArgs<ExtArgs>
     photos?: boolean | Complex$photosArgs<ExtArgs>
     floors?: boolean | Complex$floorsArgs<ExtArgs>
-    units?: boolean | Complex$unitsArgs<ExtArgs>
-    rooms?: boolean | Complex$roomsArgs<ExtArgs>
+    spaces?: boolean | Complex$spacesArgs<ExtArgs>
+    zones?: boolean | Complex$zonesArgs<ExtArgs>
     maintenances?: boolean | Complex$maintenancesArgs<ExtArgs>
     preventives?: boolean | Complex$preventivesArgs<ExtArgs>
+    site?: boolean | Complex$siteArgs<ExtArgs>
     _count?: boolean | ComplexCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ComplexIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     calenderEntity?: boolean | Complex$calenderEntityArgs<ExtArgs>
+    site?: boolean | Complex$siteArgs<ExtArgs>
   }
   export type ComplexIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     calenderEntity?: boolean | Complex$calenderEntityArgs<ExtArgs>
+    site?: boolean | Complex$siteArgs<ExtArgs>
   }
 
   export type $ComplexPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7514,10 +8778,11 @@ export namespace Prisma {
       buildings: Prisma.$BuildingPayload<ExtArgs>[]
       photos: Prisma.$FilePayload<ExtArgs>[]
       floors: Prisma.$FloorPayload<ExtArgs>[]
-      units: Prisma.$UnitPayload<ExtArgs>[]
-      rooms: Prisma.$RoomPayload<ExtArgs>[]
+      spaces: Prisma.$SpacePayload<ExtArgs>[]
+      zones: Prisma.$ZonePayload<ExtArgs>[]
       maintenances: Prisma.$MaintenancePayload<ExtArgs>[]
       preventives: Prisma.$PreventivePayload<ExtArgs>[]
+      site: Prisma.$SitePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7544,6 +8809,7 @@ export namespace Prisma {
       totalVolume: number | null
       createdAt: Date
       updatedAt: Date
+      siteId: string | null
     }, ExtArgs["result"]["complex"]>
     composites: {}
   }
@@ -7942,10 +9208,11 @@ export namespace Prisma {
     buildings<T extends Complex$buildingsArgs<ExtArgs> = {}>(args?: Subset<T, Complex$buildingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BuildingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     photos<T extends Complex$photosArgs<ExtArgs> = {}>(args?: Subset<T, Complex$photosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     floors<T extends Complex$floorsArgs<ExtArgs> = {}>(args?: Subset<T, Complex$floorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FloorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    units<T extends Complex$unitsArgs<ExtArgs> = {}>(args?: Subset<T, Complex$unitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    rooms<T extends Complex$roomsArgs<ExtArgs> = {}>(args?: Subset<T, Complex$roomsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    spaces<T extends Complex$spacesArgs<ExtArgs> = {}>(args?: Subset<T, Complex$spacesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    zones<T extends Complex$zonesArgs<ExtArgs> = {}>(args?: Subset<T, Complex$zonesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     maintenances<T extends Complex$maintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Complex$maintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     preventives<T extends Complex$preventivesArgs<ExtArgs> = {}>(args?: Subset<T, Complex$preventivesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    site<T extends Complex$siteArgs<ExtArgs> = {}>(args?: Subset<T, Complex$siteArgs<ExtArgs>>): Prisma__SiteClient<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7999,6 +9266,7 @@ export namespace Prisma {
     readonly totalVolume: FieldRef<"Complex", 'Float'>
     readonly createdAt: FieldRef<"Complex", 'DateTime'>
     readonly updatedAt: FieldRef<"Complex", 'DateTime'>
+    readonly siteId: FieldRef<"Complex", 'String'>
   }
     
 
@@ -8486,51 +9754,51 @@ export namespace Prisma {
   }
 
   /**
-   * Complex.units
+   * Complex.spaces
    */
-  export type Complex$unitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Complex$spacesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Unit
+     * Select specific fields to fetch from the Space
      */
-    select?: UnitSelect<ExtArgs> | null
+    select?: SpaceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Unit
+     * Omit specific fields from the Space
      */
-    omit?: UnitOmit<ExtArgs> | null
+    omit?: SpaceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitInclude<ExtArgs> | null
-    where?: UnitWhereInput
-    orderBy?: UnitOrderByWithRelationInput | UnitOrderByWithRelationInput[]
-    cursor?: UnitWhereUniqueInput
+    include?: SpaceInclude<ExtArgs> | null
+    where?: SpaceWhereInput
+    orderBy?: SpaceOrderByWithRelationInput | SpaceOrderByWithRelationInput[]
+    cursor?: SpaceWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: UnitScalarFieldEnum | UnitScalarFieldEnum[]
+    distinct?: SpaceScalarFieldEnum | SpaceScalarFieldEnum[]
   }
 
   /**
-   * Complex.rooms
+   * Complex.zones
    */
-  export type Complex$roomsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Complex$zonesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Room
+     * Select specific fields to fetch from the Zone
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: ZoneSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Room
+     * Omit specific fields from the Zone
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: ZoneOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
-    where?: RoomWhereInput
-    orderBy?: RoomOrderByWithRelationInput | RoomOrderByWithRelationInput[]
-    cursor?: RoomWhereUniqueInput
+    include?: ZoneInclude<ExtArgs> | null
+    where?: ZoneWhereInput
+    orderBy?: ZoneOrderByWithRelationInput | ZoneOrderByWithRelationInput[]
+    cursor?: ZoneWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: RoomScalarFieldEnum | RoomScalarFieldEnum[]
+    distinct?: ZoneScalarFieldEnum | ZoneScalarFieldEnum[]
   }
 
   /**
@@ -8579,6 +9847,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PreventiveScalarFieldEnum | PreventiveScalarFieldEnum[]
+  }
+
+  /**
+   * Complex.site
+   */
+  export type Complex$siteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteInclude<ExtArgs> | null
+    where?: SiteWhereInput
   }
 
   /**
@@ -8983,8 +10270,8 @@ export namespace Prisma {
     calenderEntity?: boolean | Building$calenderEntityArgs<ExtArgs>
     photos?: boolean | Building$photosArgs<ExtArgs>
     floors?: boolean | Building$floorsArgs<ExtArgs>
-    units?: boolean | Building$unitsArgs<ExtArgs>
-    rooms?: boolean | Building$roomsArgs<ExtArgs>
+    spaces?: boolean | Building$spacesArgs<ExtArgs>
+    zones?: boolean | Building$zonesArgs<ExtArgs>
     preventives?: boolean | Building$preventivesArgs<ExtArgs>
     _count?: boolean | BuildingCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["building"]>
@@ -9080,8 +10367,8 @@ export namespace Prisma {
     calenderEntity?: boolean | Building$calenderEntityArgs<ExtArgs>
     photos?: boolean | Building$photosArgs<ExtArgs>
     floors?: boolean | Building$floorsArgs<ExtArgs>
-    units?: boolean | Building$unitsArgs<ExtArgs>
-    rooms?: boolean | Building$roomsArgs<ExtArgs>
+    spaces?: boolean | Building$spacesArgs<ExtArgs>
+    zones?: boolean | Building$zonesArgs<ExtArgs>
     preventives?: boolean | Building$preventivesArgs<ExtArgs>
     _count?: boolean | BuildingCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -9104,8 +10391,8 @@ export namespace Prisma {
       calenderEntity: Prisma.$CalenderEntityPayload<ExtArgs> | null
       photos: Prisma.$FilePayload<ExtArgs>[]
       floors: Prisma.$FloorPayload<ExtArgs>[]
-      units: Prisma.$UnitPayload<ExtArgs>[]
-      rooms: Prisma.$RoomPayload<ExtArgs>[]
+      spaces: Prisma.$SpacePayload<ExtArgs>[]
+      zones: Prisma.$ZonePayload<ExtArgs>[]
       preventives: Prisma.$PreventivePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -9531,8 +10818,8 @@ export namespace Prisma {
     calenderEntity<T extends Building$calenderEntityArgs<ExtArgs> = {}>(args?: Subset<T, Building$calenderEntityArgs<ExtArgs>>): Prisma__CalenderEntityClient<$Result.GetResult<Prisma.$CalenderEntityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     photos<T extends Building$photosArgs<ExtArgs> = {}>(args?: Subset<T, Building$photosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     floors<T extends Building$floorsArgs<ExtArgs> = {}>(args?: Subset<T, Building$floorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FloorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    units<T extends Building$unitsArgs<ExtArgs> = {}>(args?: Subset<T, Building$unitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    rooms<T extends Building$roomsArgs<ExtArgs> = {}>(args?: Subset<T, Building$roomsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    spaces<T extends Building$spacesArgs<ExtArgs> = {}>(args?: Subset<T, Building$spacesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    zones<T extends Building$zonesArgs<ExtArgs> = {}>(args?: Subset<T, Building$zonesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     preventives<T extends Building$preventivesArgs<ExtArgs> = {}>(args?: Subset<T, Building$preventivesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -10049,51 +11336,51 @@ export namespace Prisma {
   }
 
   /**
-   * Building.units
+   * Building.spaces
    */
-  export type Building$unitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Building$spacesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Unit
+     * Select specific fields to fetch from the Space
      */
-    select?: UnitSelect<ExtArgs> | null
+    select?: SpaceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Unit
+     * Omit specific fields from the Space
      */
-    omit?: UnitOmit<ExtArgs> | null
+    omit?: SpaceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitInclude<ExtArgs> | null
-    where?: UnitWhereInput
-    orderBy?: UnitOrderByWithRelationInput | UnitOrderByWithRelationInput[]
-    cursor?: UnitWhereUniqueInput
+    include?: SpaceInclude<ExtArgs> | null
+    where?: SpaceWhereInput
+    orderBy?: SpaceOrderByWithRelationInput | SpaceOrderByWithRelationInput[]
+    cursor?: SpaceWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: UnitScalarFieldEnum | UnitScalarFieldEnum[]
+    distinct?: SpaceScalarFieldEnum | SpaceScalarFieldEnum[]
   }
 
   /**
-   * Building.rooms
+   * Building.zones
    */
-  export type Building$roomsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Building$zonesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Room
+     * Select specific fields to fetch from the Zone
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: ZoneSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Room
+     * Omit specific fields from the Zone
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: ZoneOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
-    where?: RoomWhereInput
-    orderBy?: RoomOrderByWithRelationInput | RoomOrderByWithRelationInput[]
-    cursor?: RoomWhereUniqueInput
+    include?: ZoneInclude<ExtArgs> | null
+    where?: ZoneWhereInput
+    orderBy?: ZoneOrderByWithRelationInput | ZoneOrderByWithRelationInput[]
+    cursor?: ZoneWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: RoomScalarFieldEnum | RoomScalarFieldEnum[]
+    distinct?: ZoneScalarFieldEnum | ZoneScalarFieldEnum[]
   }
 
   /**
@@ -10182,6 +11469,7 @@ export namespace Prisma {
     code: string | null
     name: string | null
     level: number | null
+    type: string | null
     status: $Enums.ServiceStatus | null
     condition: $Enums.Condition | null
     criticality: $Enums.Criticality | null
@@ -10205,6 +11493,7 @@ export namespace Prisma {
     code: string | null
     name: string | null
     level: number | null
+    type: string | null
     status: $Enums.ServiceStatus | null
     condition: $Enums.Condition | null
     criticality: $Enums.Criticality | null
@@ -10228,6 +11517,7 @@ export namespace Prisma {
     code: number
     name: number
     level: number
+    type: number
     status: number
     condition: number
     criticality: number
@@ -10279,6 +11569,7 @@ export namespace Prisma {
     code?: true
     name?: true
     level?: true
+    type?: true
     status?: true
     condition?: true
     criticality?: true
@@ -10302,6 +11593,7 @@ export namespace Prisma {
     code?: true
     name?: true
     level?: true
+    type?: true
     status?: true
     condition?: true
     criticality?: true
@@ -10325,6 +11617,7 @@ export namespace Prisma {
     code?: true
     name?: true
     level?: true
+    type?: true
     status?: true
     condition?: true
     criticality?: true
@@ -10435,6 +11728,7 @@ export namespace Prisma {
     code: string
     name: string
     level: number
+    type: string | null
     status: $Enums.ServiceStatus
     condition: $Enums.Condition
     criticality: $Enums.Criticality
@@ -10477,6 +11771,7 @@ export namespace Prisma {
     code?: boolean
     name?: boolean
     level?: boolean
+    type?: boolean
     status?: boolean
     condition?: boolean
     criticality?: boolean
@@ -10495,8 +11790,8 @@ export namespace Prisma {
     updatedAt?: boolean
     complex?: boolean | ComplexDefaultArgs<ExtArgs>
     building?: boolean | BuildingDefaultArgs<ExtArgs>
-    rooms?: boolean | Floor$roomsArgs<ExtArgs>
-    units?: boolean | Floor$unitsArgs<ExtArgs>
+    spaces?: boolean | Floor$spacesArgs<ExtArgs>
+    zones?: boolean | Floor$zonesArgs<ExtArgs>
     maintenances?: boolean | Floor$maintenancesArgs<ExtArgs>
     preventives?: boolean | Floor$preventivesArgs<ExtArgs>
     _count?: boolean | FloorCountOutputTypeDefaultArgs<ExtArgs>
@@ -10507,6 +11802,7 @@ export namespace Prisma {
     code?: boolean
     name?: boolean
     level?: boolean
+    type?: boolean
     status?: boolean
     condition?: boolean
     criticality?: boolean
@@ -10532,6 +11828,7 @@ export namespace Prisma {
     code?: boolean
     name?: boolean
     level?: boolean
+    type?: boolean
     status?: boolean
     condition?: boolean
     criticality?: boolean
@@ -10557,6 +11854,7 @@ export namespace Prisma {
     code?: boolean
     name?: boolean
     level?: boolean
+    type?: boolean
     status?: boolean
     condition?: boolean
     criticality?: boolean
@@ -10575,12 +11873,12 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type FloorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "level" | "status" | "condition" | "criticality" | "complexId" | "buildingId" | "totalUnits" | "totalRooms" | "glazedArea" | "cleanableArea" | "coveredArea" | "totalNetArea" | "totalGrossArea" | "totalHeatedVolume" | "totalVolume" | "createdAt" | "updatedAt", ExtArgs["result"]["floor"]>
+  export type FloorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "level" | "type" | "status" | "condition" | "criticality" | "complexId" | "buildingId" | "totalUnits" | "totalRooms" | "glazedArea" | "cleanableArea" | "coveredArea" | "totalNetArea" | "totalGrossArea" | "totalHeatedVolume" | "totalVolume" | "createdAt" | "updatedAt", ExtArgs["result"]["floor"]>
   export type FloorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     complex?: boolean | ComplexDefaultArgs<ExtArgs>
     building?: boolean | BuildingDefaultArgs<ExtArgs>
-    rooms?: boolean | Floor$roomsArgs<ExtArgs>
-    units?: boolean | Floor$unitsArgs<ExtArgs>
+    spaces?: boolean | Floor$spacesArgs<ExtArgs>
+    zones?: boolean | Floor$zonesArgs<ExtArgs>
     maintenances?: boolean | Floor$maintenancesArgs<ExtArgs>
     preventives?: boolean | Floor$preventivesArgs<ExtArgs>
     _count?: boolean | FloorCountOutputTypeDefaultArgs<ExtArgs>
@@ -10599,8 +11897,8 @@ export namespace Prisma {
     objects: {
       complex: Prisma.$ComplexPayload<ExtArgs>
       building: Prisma.$BuildingPayload<ExtArgs>
-      rooms: Prisma.$RoomPayload<ExtArgs>[]
-      units: Prisma.$UnitPayload<ExtArgs>[]
+      spaces: Prisma.$SpacePayload<ExtArgs>[]
+      zones: Prisma.$ZonePayload<ExtArgs>[]
       maintenances: Prisma.$MaintenancePayload<ExtArgs>[]
       preventives: Prisma.$PreventivePayload<ExtArgs>[]
     }
@@ -10609,6 +11907,7 @@ export namespace Prisma {
       code: string
       name: string
       level: number
+      type: string | null
       status: $Enums.ServiceStatus
       condition: $Enums.Condition
       criticality: $Enums.Criticality
@@ -11021,8 +12320,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     complex<T extends ComplexDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ComplexDefaultArgs<ExtArgs>>): Prisma__ComplexClient<$Result.GetResult<Prisma.$ComplexPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     building<T extends BuildingDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BuildingDefaultArgs<ExtArgs>>): Prisma__BuildingClient<$Result.GetResult<Prisma.$BuildingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    rooms<T extends Floor$roomsArgs<ExtArgs> = {}>(args?: Subset<T, Floor$roomsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    units<T extends Floor$unitsArgs<ExtArgs> = {}>(args?: Subset<T, Floor$unitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    spaces<T extends Floor$spacesArgs<ExtArgs> = {}>(args?: Subset<T, Floor$spacesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    zones<T extends Floor$zonesArgs<ExtArgs> = {}>(args?: Subset<T, Floor$zonesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     maintenances<T extends Floor$maintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Floor$maintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     preventives<T extends Floor$preventivesArgs<ExtArgs> = {}>(args?: Subset<T, Floor$preventivesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -11058,6 +12357,7 @@ export namespace Prisma {
     readonly code: FieldRef<"Floor", 'String'>
     readonly name: FieldRef<"Floor", 'String'>
     readonly level: FieldRef<"Floor", 'Int'>
+    readonly type: FieldRef<"Floor", 'String'>
     readonly status: FieldRef<"Floor", 'ServiceStatus'>
     readonly condition: FieldRef<"Floor", 'Condition'>
     readonly criticality: FieldRef<"Floor", 'Criticality'>
@@ -11470,51 +12770,51 @@ export namespace Prisma {
   }
 
   /**
-   * Floor.rooms
+   * Floor.spaces
    */
-  export type Floor$roomsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Floor$spacesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Room
+     * Select specific fields to fetch from the Space
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: SpaceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Room
+     * Omit specific fields from the Space
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: SpaceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
-    where?: RoomWhereInput
-    orderBy?: RoomOrderByWithRelationInput | RoomOrderByWithRelationInput[]
-    cursor?: RoomWhereUniqueInput
+    include?: SpaceInclude<ExtArgs> | null
+    where?: SpaceWhereInput
+    orderBy?: SpaceOrderByWithRelationInput | SpaceOrderByWithRelationInput[]
+    cursor?: SpaceWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: RoomScalarFieldEnum | RoomScalarFieldEnum[]
+    distinct?: SpaceScalarFieldEnum | SpaceScalarFieldEnum[]
   }
 
   /**
-   * Floor.units
+   * Floor.zones
    */
-  export type Floor$unitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Floor$zonesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Unit
+     * Select specific fields to fetch from the Zone
      */
-    select?: UnitSelect<ExtArgs> | null
+    select?: ZoneSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Unit
+     * Omit specific fields from the Zone
      */
-    omit?: UnitOmit<ExtArgs> | null
+    omit?: ZoneOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitInclude<ExtArgs> | null
-    where?: UnitWhereInput
-    orderBy?: UnitOrderByWithRelationInput | UnitOrderByWithRelationInput[]
-    cursor?: UnitWhereUniqueInput
+    include?: ZoneInclude<ExtArgs> | null
+    where?: ZoneWhereInput
+    orderBy?: ZoneOrderByWithRelationInput | ZoneOrderByWithRelationInput[]
+    cursor?: ZoneWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: UnitScalarFieldEnum | UnitScalarFieldEnum[]
+    distinct?: ZoneScalarFieldEnum | ZoneScalarFieldEnum[]
   }
 
   /**
@@ -11585,18 +12885,18 @@ export namespace Prisma {
 
 
   /**
-   * Model Unit
+   * Model Zone
    */
 
-  export type AggregateUnit = {
-    _count: UnitCountAggregateOutputType | null
-    _avg: UnitAvgAggregateOutputType | null
-    _sum: UnitSumAggregateOutputType | null
-    _min: UnitMinAggregateOutputType | null
-    _max: UnitMaxAggregateOutputType | null
+  export type AggregateZone = {
+    _count: ZoneCountAggregateOutputType | null
+    _avg: ZoneAvgAggregateOutputType | null
+    _sum: ZoneSumAggregateOutputType | null
+    _min: ZoneMinAggregateOutputType | null
+    _max: ZoneMaxAggregateOutputType | null
   }
 
-  export type UnitAvgAggregateOutputType = {
+  export type ZoneAvgAggregateOutputType = {
     totalRooms: number | null
     glazedArea: number | null
     cleanableArea: number | null
@@ -11611,7 +12911,7 @@ export namespace Prisma {
     cadastralIncome: Decimal | null
   }
 
-  export type UnitSumAggregateOutputType = {
+  export type ZoneSumAggregateOutputType = {
     totalRooms: number | null
     glazedArea: number | null
     cleanableArea: number | null
@@ -11626,10 +12926,11 @@ export namespace Prisma {
     cadastralIncome: Decimal | null
   }
 
-  export type UnitMinAggregateOutputType = {
+  export type ZoneMinAggregateOutputType = {
     id: string | null
     code: string | null
     name: string | null
+    type: string | null
     availability: $Enums.Availability | null
     status: $Enums.ServiceStatus | null
     calenderEntityId: string | null
@@ -11662,10 +12963,11 @@ export namespace Prisma {
     updatedAt: Date | null
   }
 
-  export type UnitMaxAggregateOutputType = {
+  export type ZoneMaxAggregateOutputType = {
     id: string | null
     code: string | null
     name: string | null
+    type: string | null
     availability: $Enums.Availability | null
     status: $Enums.ServiceStatus | null
     calenderEntityId: string | null
@@ -11698,10 +13000,11 @@ export namespace Prisma {
     updatedAt: Date | null
   }
 
-  export type UnitCountAggregateOutputType = {
+  export type ZoneCountAggregateOutputType = {
     id: number
     code: number
     name: number
+    type: number
     availability: number
     status: number
     calenderEntityId: number
@@ -11736,7 +13039,7 @@ export namespace Prisma {
   }
 
 
-  export type UnitAvgAggregateInputType = {
+  export type ZoneAvgAggregateInputType = {
     totalRooms?: true
     glazedArea?: true
     cleanableArea?: true
@@ -11751,7 +13054,7 @@ export namespace Prisma {
     cadastralIncome?: true
   }
 
-  export type UnitSumAggregateInputType = {
+  export type ZoneSumAggregateInputType = {
     totalRooms?: true
     glazedArea?: true
     cleanableArea?: true
@@ -11766,10 +13069,11 @@ export namespace Prisma {
     cadastralIncome?: true
   }
 
-  export type UnitMinAggregateInputType = {
+  export type ZoneMinAggregateInputType = {
     id?: true
     code?: true
     name?: true
+    type?: true
     availability?: true
     status?: true
     calenderEntityId?: true
@@ -11802,10 +13106,11 @@ export namespace Prisma {
     updatedAt?: true
   }
 
-  export type UnitMaxAggregateInputType = {
+  export type ZoneMaxAggregateInputType = {
     id?: true
     code?: true
     name?: true
+    type?: true
     availability?: true
     status?: true
     calenderEntityId?: true
@@ -11838,10 +13143,11 @@ export namespace Prisma {
     updatedAt?: true
   }
 
-  export type UnitCountAggregateInputType = {
+  export type ZoneCountAggregateInputType = {
     id?: true
     code?: true
     name?: true
+    type?: true
     availability?: true
     status?: true
     calenderEntityId?: true
@@ -11875,96 +13181,97 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type UnitAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ZoneAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Unit to aggregate.
+     * Filter which Zone to aggregate.
      */
-    where?: UnitWhereInput
+    where?: ZoneWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Units to fetch.
+     * Determine the order of Zones to fetch.
      */
-    orderBy?: UnitOrderByWithRelationInput | UnitOrderByWithRelationInput[]
+    orderBy?: ZoneOrderByWithRelationInput | ZoneOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: UnitWhereUniqueInput
+    cursor?: ZoneWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Units from the position of the cursor.
+     * Take `±n` Zones from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Units.
+     * Skip the first `n` Zones.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Units
+     * Count returned Zones
     **/
-    _count?: true | UnitCountAggregateInputType
+    _count?: true | ZoneCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: UnitAvgAggregateInputType
+    _avg?: ZoneAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: UnitSumAggregateInputType
+    _sum?: ZoneSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: UnitMinAggregateInputType
+    _min?: ZoneMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: UnitMaxAggregateInputType
+    _max?: ZoneMaxAggregateInputType
   }
 
-  export type GetUnitAggregateType<T extends UnitAggregateArgs> = {
-        [P in keyof T & keyof AggregateUnit]: P extends '_count' | 'count'
+  export type GetZoneAggregateType<T extends ZoneAggregateArgs> = {
+        [P in keyof T & keyof AggregateZone]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateUnit[P]>
-      : GetScalarType<T[P], AggregateUnit[P]>
+        : GetScalarType<T[P], AggregateZone[P]>
+      : GetScalarType<T[P], AggregateZone[P]>
   }
 
 
 
 
-  export type UnitGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UnitWhereInput
-    orderBy?: UnitOrderByWithAggregationInput | UnitOrderByWithAggregationInput[]
-    by: UnitScalarFieldEnum[] | UnitScalarFieldEnum
-    having?: UnitScalarWhereWithAggregatesInput
+  export type ZoneGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ZoneWhereInput
+    orderBy?: ZoneOrderByWithAggregationInput | ZoneOrderByWithAggregationInput[]
+    by: ZoneScalarFieldEnum[] | ZoneScalarFieldEnum
+    having?: ZoneScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: UnitCountAggregateInputType | true
-    _avg?: UnitAvgAggregateInputType
-    _sum?: UnitSumAggregateInputType
-    _min?: UnitMinAggregateInputType
-    _max?: UnitMaxAggregateInputType
+    _count?: ZoneCountAggregateInputType | true
+    _avg?: ZoneAvgAggregateInputType
+    _sum?: ZoneSumAggregateInputType
+    _min?: ZoneMinAggregateInputType
+    _max?: ZoneMaxAggregateInputType
   }
 
-  export type UnitGroupByOutputType = {
+  export type ZoneGroupByOutputType = {
     id: string
     code: string
     name: string
+    type: string | null
     availability: $Enums.Availability
     status: $Enums.ServiceStatus
     calenderEntityId: string | null
@@ -11995,31 +13302,32 @@ export namespace Prisma {
     subArea: string | null
     createdAt: Date
     updatedAt: Date
-    _count: UnitCountAggregateOutputType | null
-    _avg: UnitAvgAggregateOutputType | null
-    _sum: UnitSumAggregateOutputType | null
-    _min: UnitMinAggregateOutputType | null
-    _max: UnitMaxAggregateOutputType | null
+    _count: ZoneCountAggregateOutputType | null
+    _avg: ZoneAvgAggregateOutputType | null
+    _sum: ZoneSumAggregateOutputType | null
+    _min: ZoneMinAggregateOutputType | null
+    _max: ZoneMaxAggregateOutputType | null
   }
 
-  type GetUnitGroupByPayload<T extends UnitGroupByArgs> = Prisma.PrismaPromise<
+  type GetZoneGroupByPayload<T extends ZoneGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<UnitGroupByOutputType, T['by']> &
+      PickEnumerable<ZoneGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof UnitGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof ZoneGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], UnitGroupByOutputType[P]>
-            : GetScalarType<T[P], UnitGroupByOutputType[P]>
+              : GetScalarType<T[P], ZoneGroupByOutputType[P]>
+            : GetScalarType<T[P], ZoneGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type UnitSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type ZoneSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     code?: boolean
     name?: boolean
+    type?: boolean
     availability?: boolean
     status?: boolean
     calenderEntityId?: boolean
@@ -12050,19 +13358,20 @@ export namespace Prisma {
     subArea?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    calenderEntity?: boolean | Unit$calenderEntityArgs<ExtArgs>
-    complex?: boolean | Unit$complexArgs<ExtArgs>
-    building?: boolean | Unit$buildingArgs<ExtArgs>
+    calenderEntity?: boolean | Zone$calenderEntityArgs<ExtArgs>
+    complex?: boolean | Zone$complexArgs<ExtArgs>
+    building?: boolean | Zone$buildingArgs<ExtArgs>
     floor?: boolean | FloorDefaultArgs<ExtArgs>
-    rooms?: boolean | Unit$roomsArgs<ExtArgs>
-    photos?: boolean | Unit$photosArgs<ExtArgs>
-    _count?: boolean | UnitCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["unit"]>
+    rooms?: boolean | Zone$roomsArgs<ExtArgs>
+    photos?: boolean | Zone$photosArgs<ExtArgs>
+    _count?: boolean | ZoneCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["zone"]>
 
-  export type UnitSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type ZoneSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     code?: boolean
     name?: boolean
+    type?: boolean
     availability?: boolean
     status?: boolean
     calenderEntityId?: boolean
@@ -12093,16 +13402,17 @@ export namespace Prisma {
     subArea?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    calenderEntity?: boolean | Unit$calenderEntityArgs<ExtArgs>
-    complex?: boolean | Unit$complexArgs<ExtArgs>
-    building?: boolean | Unit$buildingArgs<ExtArgs>
+    calenderEntity?: boolean | Zone$calenderEntityArgs<ExtArgs>
+    complex?: boolean | Zone$complexArgs<ExtArgs>
+    building?: boolean | Zone$buildingArgs<ExtArgs>
     floor?: boolean | FloorDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["unit"]>
+  }, ExtArgs["result"]["zone"]>
 
-  export type UnitSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type ZoneSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     code?: boolean
     name?: boolean
+    type?: boolean
     availability?: boolean
     status?: boolean
     calenderEntityId?: boolean
@@ -12133,16 +13443,17 @@ export namespace Prisma {
     subArea?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    calenderEntity?: boolean | Unit$calenderEntityArgs<ExtArgs>
-    complex?: boolean | Unit$complexArgs<ExtArgs>
-    building?: boolean | Unit$buildingArgs<ExtArgs>
+    calenderEntity?: boolean | Zone$calenderEntityArgs<ExtArgs>
+    complex?: boolean | Zone$complexArgs<ExtArgs>
+    building?: boolean | Zone$buildingArgs<ExtArgs>
     floor?: boolean | FloorDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["unit"]>
+  }, ExtArgs["result"]["zone"]>
 
-  export type UnitSelectScalar = {
+  export type ZoneSelectScalar = {
     id?: boolean
     code?: boolean
     name?: boolean
+    type?: boolean
     availability?: boolean
     status?: boolean
     calenderEntityId?: boolean
@@ -12175,43 +13486,44 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type UnitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "availability" | "status" | "calenderEntityId" | "complexId" | "buildingId" | "floorId" | "address" | "city" | "zipCode" | "totalRooms" | "glazedArea" | "cleanableArea" | "coveredArea" | "totalNetArea" | "totalGrossArea" | "totalHeatedVolume" | "totalVolume" | "cadastralArea" | "urbanSection" | "sheet" | "plot" | "subordinate" | "class" | "size" | "propertyRightsAndDuties" | "cadastralIncome" | "censusArea" | "subArea" | "createdAt" | "updatedAt", ExtArgs["result"]["unit"]>
-  export type UnitInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    calenderEntity?: boolean | Unit$calenderEntityArgs<ExtArgs>
-    complex?: boolean | Unit$complexArgs<ExtArgs>
-    building?: boolean | Unit$buildingArgs<ExtArgs>
+  export type ZoneOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "type" | "availability" | "status" | "calenderEntityId" | "complexId" | "buildingId" | "floorId" | "address" | "city" | "zipCode" | "totalRooms" | "glazedArea" | "cleanableArea" | "coveredArea" | "totalNetArea" | "totalGrossArea" | "totalHeatedVolume" | "totalVolume" | "cadastralArea" | "urbanSection" | "sheet" | "plot" | "subordinate" | "class" | "size" | "propertyRightsAndDuties" | "cadastralIncome" | "censusArea" | "subArea" | "createdAt" | "updatedAt", ExtArgs["result"]["zone"]>
+  export type ZoneInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    calenderEntity?: boolean | Zone$calenderEntityArgs<ExtArgs>
+    complex?: boolean | Zone$complexArgs<ExtArgs>
+    building?: boolean | Zone$buildingArgs<ExtArgs>
     floor?: boolean | FloorDefaultArgs<ExtArgs>
-    rooms?: boolean | Unit$roomsArgs<ExtArgs>
-    photos?: boolean | Unit$photosArgs<ExtArgs>
-    _count?: boolean | UnitCountOutputTypeDefaultArgs<ExtArgs>
+    rooms?: boolean | Zone$roomsArgs<ExtArgs>
+    photos?: boolean | Zone$photosArgs<ExtArgs>
+    _count?: boolean | ZoneCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type UnitIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    calenderEntity?: boolean | Unit$calenderEntityArgs<ExtArgs>
-    complex?: boolean | Unit$complexArgs<ExtArgs>
-    building?: boolean | Unit$buildingArgs<ExtArgs>
+  export type ZoneIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    calenderEntity?: boolean | Zone$calenderEntityArgs<ExtArgs>
+    complex?: boolean | Zone$complexArgs<ExtArgs>
+    building?: boolean | Zone$buildingArgs<ExtArgs>
     floor?: boolean | FloorDefaultArgs<ExtArgs>
   }
-  export type UnitIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    calenderEntity?: boolean | Unit$calenderEntityArgs<ExtArgs>
-    complex?: boolean | Unit$complexArgs<ExtArgs>
-    building?: boolean | Unit$buildingArgs<ExtArgs>
+  export type ZoneIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    calenderEntity?: boolean | Zone$calenderEntityArgs<ExtArgs>
+    complex?: boolean | Zone$complexArgs<ExtArgs>
+    building?: boolean | Zone$buildingArgs<ExtArgs>
     floor?: boolean | FloorDefaultArgs<ExtArgs>
   }
 
-  export type $UnitPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Unit"
+  export type $ZonePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Zone"
     objects: {
       calenderEntity: Prisma.$CalenderEntityPayload<ExtArgs> | null
       complex: Prisma.$ComplexPayload<ExtArgs> | null
       building: Prisma.$BuildingPayload<ExtArgs> | null
       floor: Prisma.$FloorPayload<ExtArgs>
-      rooms: Prisma.$RoomPayload<ExtArgs>[]
+      rooms: Prisma.$SpacePayload<ExtArgs>[]
       photos: Prisma.$FilePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       code: string
       name: string
+      type: string | null
       availability: $Enums.Availability
       status: $Enums.ServiceStatus
       calenderEntityId: string | null
@@ -12242,136 +13554,136 @@ export namespace Prisma {
       subArea: string | null
       createdAt: Date
       updatedAt: Date
-    }, ExtArgs["result"]["unit"]>
+    }, ExtArgs["result"]["zone"]>
     composites: {}
   }
 
-  type UnitGetPayload<S extends boolean | null | undefined | UnitDefaultArgs> = $Result.GetResult<Prisma.$UnitPayload, S>
+  type ZoneGetPayload<S extends boolean | null | undefined | ZoneDefaultArgs> = $Result.GetResult<Prisma.$ZonePayload, S>
 
-  type UnitCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<UnitFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: UnitCountAggregateInputType | true
+  type ZoneCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ZoneFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ZoneCountAggregateInputType | true
     }
 
-  export interface UnitDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Unit'], meta: { name: 'Unit' } }
+  export interface ZoneDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Zone'], meta: { name: 'Zone' } }
     /**
-     * Find zero or one Unit that matches the filter.
-     * @param {UnitFindUniqueArgs} args - Arguments to find a Unit
+     * Find zero or one Zone that matches the filter.
+     * @param {ZoneFindUniqueArgs} args - Arguments to find a Zone
      * @example
-     * // Get one Unit
-     * const unit = await prisma.unit.findUnique({
+     * // Get one Zone
+     * const zone = await prisma.zone.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends UnitFindUniqueArgs>(args: SelectSubset<T, UnitFindUniqueArgs<ExtArgs>>): Prisma__UnitClient<$Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends ZoneFindUniqueArgs>(args: SelectSubset<T, ZoneFindUniqueArgs<ExtArgs>>): Prisma__ZoneClient<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one Unit that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Zone that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {UnitFindUniqueOrThrowArgs} args - Arguments to find a Unit
+     * @param {ZoneFindUniqueOrThrowArgs} args - Arguments to find a Zone
      * @example
-     * // Get one Unit
-     * const unit = await prisma.unit.findUniqueOrThrow({
+     * // Get one Zone
+     * const zone = await prisma.zone.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends UnitFindUniqueOrThrowArgs>(args: SelectSubset<T, UnitFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UnitClient<$Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends ZoneFindUniqueOrThrowArgs>(args: SelectSubset<T, ZoneFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ZoneClient<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Unit that matches the filter.
+     * Find the first Zone that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UnitFindFirstArgs} args - Arguments to find a Unit
+     * @param {ZoneFindFirstArgs} args - Arguments to find a Zone
      * @example
-     * // Get one Unit
-     * const unit = await prisma.unit.findFirst({
+     * // Get one Zone
+     * const zone = await prisma.zone.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends UnitFindFirstArgs>(args?: SelectSubset<T, UnitFindFirstArgs<ExtArgs>>): Prisma__UnitClient<$Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends ZoneFindFirstArgs>(args?: SelectSubset<T, ZoneFindFirstArgs<ExtArgs>>): Prisma__ZoneClient<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Unit that matches the filter or
+     * Find the first Zone that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UnitFindFirstOrThrowArgs} args - Arguments to find a Unit
+     * @param {ZoneFindFirstOrThrowArgs} args - Arguments to find a Zone
      * @example
-     * // Get one Unit
-     * const unit = await prisma.unit.findFirstOrThrow({
+     * // Get one Zone
+     * const zone = await prisma.zone.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends UnitFindFirstOrThrowArgs>(args?: SelectSubset<T, UnitFindFirstOrThrowArgs<ExtArgs>>): Prisma__UnitClient<$Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends ZoneFindFirstOrThrowArgs>(args?: SelectSubset<T, ZoneFindFirstOrThrowArgs<ExtArgs>>): Prisma__ZoneClient<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more Units that matches the filter.
+     * Find zero or more Zones that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UnitFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {ZoneFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Units
-     * const units = await prisma.unit.findMany()
+     * // Get all Zones
+     * const zones = await prisma.zone.findMany()
      * 
-     * // Get first 10 Units
-     * const units = await prisma.unit.findMany({ take: 10 })
+     * // Get first 10 Zones
+     * const zones = await prisma.zone.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const unitWithIdOnly = await prisma.unit.findMany({ select: { id: true } })
+     * const zoneWithIdOnly = await prisma.zone.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends UnitFindManyArgs>(args?: SelectSubset<T, UnitFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends ZoneFindManyArgs>(args?: SelectSubset<T, ZoneFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a Unit.
-     * @param {UnitCreateArgs} args - Arguments to create a Unit.
+     * Create a Zone.
+     * @param {ZoneCreateArgs} args - Arguments to create a Zone.
      * @example
-     * // Create one Unit
-     * const Unit = await prisma.unit.create({
+     * // Create one Zone
+     * const Zone = await prisma.zone.create({
      *   data: {
-     *     // ... data to create a Unit
+     *     // ... data to create a Zone
      *   }
      * })
      * 
      */
-    create<T extends UnitCreateArgs>(args: SelectSubset<T, UnitCreateArgs<ExtArgs>>): Prisma__UnitClient<$Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends ZoneCreateArgs>(args: SelectSubset<T, ZoneCreateArgs<ExtArgs>>): Prisma__ZoneClient<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many Units.
-     * @param {UnitCreateManyArgs} args - Arguments to create many Units.
+     * Create many Zones.
+     * @param {ZoneCreateManyArgs} args - Arguments to create many Zones.
      * @example
-     * // Create many Units
-     * const unit = await prisma.unit.createMany({
+     * // Create many Zones
+     * const zone = await prisma.zone.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends UnitCreateManyArgs>(args?: SelectSubset<T, UnitCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends ZoneCreateManyArgs>(args?: SelectSubset<T, ZoneCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Units and returns the data saved in the database.
-     * @param {UnitCreateManyAndReturnArgs} args - Arguments to create many Units.
+     * Create many Zones and returns the data saved in the database.
+     * @param {ZoneCreateManyAndReturnArgs} args - Arguments to create many Zones.
      * @example
-     * // Create many Units
-     * const unit = await prisma.unit.createManyAndReturn({
+     * // Create many Zones
+     * const zone = await prisma.zone.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many Units and only return the `id`
-     * const unitWithIdOnly = await prisma.unit.createManyAndReturn({
+     * // Create many Zones and only return the `id`
+     * const zoneWithIdOnly = await prisma.zone.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -12381,28 +13693,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends UnitCreateManyAndReturnArgs>(args?: SelectSubset<T, UnitCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends ZoneCreateManyAndReturnArgs>(args?: SelectSubset<T, ZoneCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a Unit.
-     * @param {UnitDeleteArgs} args - Arguments to delete one Unit.
+     * Delete a Zone.
+     * @param {ZoneDeleteArgs} args - Arguments to delete one Zone.
      * @example
-     * // Delete one Unit
-     * const Unit = await prisma.unit.delete({
+     * // Delete one Zone
+     * const Zone = await prisma.zone.delete({
      *   where: {
-     *     // ... filter to delete one Unit
+     *     // ... filter to delete one Zone
      *   }
      * })
      * 
      */
-    delete<T extends UnitDeleteArgs>(args: SelectSubset<T, UnitDeleteArgs<ExtArgs>>): Prisma__UnitClient<$Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends ZoneDeleteArgs>(args: SelectSubset<T, ZoneDeleteArgs<ExtArgs>>): Prisma__ZoneClient<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one Unit.
-     * @param {UnitUpdateArgs} args - Arguments to update one Unit.
+     * Update one Zone.
+     * @param {ZoneUpdateArgs} args - Arguments to update one Zone.
      * @example
-     * // Update one Unit
-     * const unit = await prisma.unit.update({
+     * // Update one Zone
+     * const zone = await prisma.zone.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -12412,30 +13724,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends UnitUpdateArgs>(args: SelectSubset<T, UnitUpdateArgs<ExtArgs>>): Prisma__UnitClient<$Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends ZoneUpdateArgs>(args: SelectSubset<T, ZoneUpdateArgs<ExtArgs>>): Prisma__ZoneClient<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more Units.
-     * @param {UnitDeleteManyArgs} args - Arguments to filter Units to delete.
+     * Delete zero or more Zones.
+     * @param {ZoneDeleteManyArgs} args - Arguments to filter Zones to delete.
      * @example
-     * // Delete a few Units
-     * const { count } = await prisma.unit.deleteMany({
+     * // Delete a few Zones
+     * const { count } = await prisma.zone.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends UnitDeleteManyArgs>(args?: SelectSubset<T, UnitDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends ZoneDeleteManyArgs>(args?: SelectSubset<T, ZoneDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Units.
+     * Update zero or more Zones.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UnitUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {ZoneUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Units
-     * const unit = await prisma.unit.updateMany({
+     * // Update many Zones
+     * const zone = await prisma.zone.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -12445,14 +13757,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends UnitUpdateManyArgs>(args: SelectSubset<T, UnitUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends ZoneUpdateManyArgs>(args: SelectSubset<T, ZoneUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Units and returns the data updated in the database.
-     * @param {UnitUpdateManyAndReturnArgs} args - Arguments to update many Units.
+     * Update zero or more Zones and returns the data updated in the database.
+     * @param {ZoneUpdateManyAndReturnArgs} args - Arguments to update many Zones.
      * @example
-     * // Update many Units
-     * const unit = await prisma.unit.updateManyAndReturn({
+     * // Update many Zones
+     * const zone = await prisma.zone.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -12461,8 +13773,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Units and only return the `id`
-     * const unitWithIdOnly = await prisma.unit.updateManyAndReturn({
+     * // Update zero or more Zones and only return the `id`
+     * const zoneWithIdOnly = await prisma.zone.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -12475,56 +13787,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends UnitUpdateManyAndReturnArgs>(args: SelectSubset<T, UnitUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends ZoneUpdateManyAndReturnArgs>(args: SelectSubset<T, ZoneUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one Unit.
-     * @param {UnitUpsertArgs} args - Arguments to update or create a Unit.
+     * Create or update one Zone.
+     * @param {ZoneUpsertArgs} args - Arguments to update or create a Zone.
      * @example
-     * // Update or create a Unit
-     * const unit = await prisma.unit.upsert({
+     * // Update or create a Zone
+     * const zone = await prisma.zone.upsert({
      *   create: {
-     *     // ... data to create a Unit
+     *     // ... data to create a Zone
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Unit we want to update
+     *     // ... the filter for the Zone we want to update
      *   }
      * })
      */
-    upsert<T extends UnitUpsertArgs>(args: SelectSubset<T, UnitUpsertArgs<ExtArgs>>): Prisma__UnitClient<$Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends ZoneUpsertArgs>(args: SelectSubset<T, ZoneUpsertArgs<ExtArgs>>): Prisma__ZoneClient<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of Units.
+     * Count the number of Zones.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UnitCountArgs} args - Arguments to filter Units to count.
+     * @param {ZoneCountArgs} args - Arguments to filter Zones to count.
      * @example
-     * // Count the number of Units
-     * const count = await prisma.unit.count({
+     * // Count the number of Zones
+     * const count = await prisma.zone.count({
      *   where: {
-     *     // ... the filter for the Units we want to count
+     *     // ... the filter for the Zones we want to count
      *   }
      * })
     **/
-    count<T extends UnitCountArgs>(
-      args?: Subset<T, UnitCountArgs>,
+    count<T extends ZoneCountArgs>(
+      args?: Subset<T, ZoneCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], UnitCountAggregateOutputType>
+          : GetScalarType<T['select'], ZoneCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Unit.
+     * Allows you to perform aggregations operations on a Zone.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UnitAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {ZoneAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -12544,13 +13856,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends UnitAggregateArgs>(args: Subset<T, UnitAggregateArgs>): Prisma.PrismaPromise<GetUnitAggregateType<T>>
+    aggregate<T extends ZoneAggregateArgs>(args: Subset<T, ZoneAggregateArgs>): Prisma.PrismaPromise<GetZoneAggregateType<T>>
 
     /**
-     * Group by Unit.
+     * Group by Zone.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UnitGroupByArgs} args - Group by arguments.
+     * @param {ZoneGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -12565,14 +13877,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends UnitGroupByArgs,
+      T extends ZoneGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: UnitGroupByArgs['orderBy'] }
-        : { orderBy?: UnitGroupByArgs['orderBy'] },
+        ? { orderBy: ZoneGroupByArgs['orderBy'] }
+        : { orderBy?: ZoneGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -12621,27 +13933,27 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, UnitGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUnitGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, ZoneGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetZoneGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Unit model
+   * Fields of the Zone model
    */
-  readonly fields: UnitFieldRefs;
+  readonly fields: ZoneFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Unit.
+   * The delegate class that acts as a "Promise-like" for Zone.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__UnitClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__ZoneClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    calenderEntity<T extends Unit$calenderEntityArgs<ExtArgs> = {}>(args?: Subset<T, Unit$calenderEntityArgs<ExtArgs>>): Prisma__CalenderEntityClient<$Result.GetResult<Prisma.$CalenderEntityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    complex<T extends Unit$complexArgs<ExtArgs> = {}>(args?: Subset<T, Unit$complexArgs<ExtArgs>>): Prisma__ComplexClient<$Result.GetResult<Prisma.$ComplexPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    building<T extends Unit$buildingArgs<ExtArgs> = {}>(args?: Subset<T, Unit$buildingArgs<ExtArgs>>): Prisma__BuildingClient<$Result.GetResult<Prisma.$BuildingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    calenderEntity<T extends Zone$calenderEntityArgs<ExtArgs> = {}>(args?: Subset<T, Zone$calenderEntityArgs<ExtArgs>>): Prisma__CalenderEntityClient<$Result.GetResult<Prisma.$CalenderEntityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    complex<T extends Zone$complexArgs<ExtArgs> = {}>(args?: Subset<T, Zone$complexArgs<ExtArgs>>): Prisma__ComplexClient<$Result.GetResult<Prisma.$ComplexPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    building<T extends Zone$buildingArgs<ExtArgs> = {}>(args?: Subset<T, Zone$buildingArgs<ExtArgs>>): Prisma__BuildingClient<$Result.GetResult<Prisma.$BuildingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     floor<T extends FloorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FloorDefaultArgs<ExtArgs>>): Prisma__FloorClient<$Result.GetResult<Prisma.$FloorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    rooms<T extends Unit$roomsArgs<ExtArgs> = {}>(args?: Subset<T, Unit$roomsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    photos<T extends Unit$photosArgs<ExtArgs> = {}>(args?: Subset<T, Unit$photosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    rooms<T extends Zone$roomsArgs<ExtArgs> = {}>(args?: Subset<T, Zone$roomsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    photos<T extends Zone$photosArgs<ExtArgs> = {}>(args?: Subset<T, Zone$photosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12668,441 +13980,442 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Unit model
+   * Fields of the Zone model
    */
-  interface UnitFieldRefs {
-    readonly id: FieldRef<"Unit", 'String'>
-    readonly code: FieldRef<"Unit", 'String'>
-    readonly name: FieldRef<"Unit", 'String'>
-    readonly availability: FieldRef<"Unit", 'Availability'>
-    readonly status: FieldRef<"Unit", 'ServiceStatus'>
-    readonly calenderEntityId: FieldRef<"Unit", 'String'>
-    readonly complexId: FieldRef<"Unit", 'String'>
-    readonly buildingId: FieldRef<"Unit", 'String'>
-    readonly floorId: FieldRef<"Unit", 'String'>
-    readonly address: FieldRef<"Unit", 'String'>
-    readonly city: FieldRef<"Unit", 'String'>
-    readonly zipCode: FieldRef<"Unit", 'String'>
-    readonly totalRooms: FieldRef<"Unit", 'Int'>
-    readonly glazedArea: FieldRef<"Unit", 'Float'>
-    readonly cleanableArea: FieldRef<"Unit", 'Float'>
-    readonly coveredArea: FieldRef<"Unit", 'Float'>
-    readonly totalNetArea: FieldRef<"Unit", 'Float'>
-    readonly totalGrossArea: FieldRef<"Unit", 'Float'>
-    readonly totalHeatedVolume: FieldRef<"Unit", 'Float'>
-    readonly totalVolume: FieldRef<"Unit", 'Float'>
-    readonly cadastralArea: FieldRef<"Unit", 'Float'>
-    readonly urbanSection: FieldRef<"Unit", 'String'>
-    readonly sheet: FieldRef<"Unit", 'String'>
-    readonly plot: FieldRef<"Unit", 'String'>
-    readonly subordinate: FieldRef<"Unit", 'String'>
-    readonly class: FieldRef<"Unit", 'Int'>
-    readonly size: FieldRef<"Unit", 'Float'>
-    readonly propertyRightsAndDuties: FieldRef<"Unit", 'String'>
-    readonly cadastralIncome: FieldRef<"Unit", 'Decimal'>
-    readonly censusArea: FieldRef<"Unit", 'String'>
-    readonly subArea: FieldRef<"Unit", 'String'>
-    readonly createdAt: FieldRef<"Unit", 'DateTime'>
-    readonly updatedAt: FieldRef<"Unit", 'DateTime'>
+  interface ZoneFieldRefs {
+    readonly id: FieldRef<"Zone", 'String'>
+    readonly code: FieldRef<"Zone", 'String'>
+    readonly name: FieldRef<"Zone", 'String'>
+    readonly type: FieldRef<"Zone", 'String'>
+    readonly availability: FieldRef<"Zone", 'Availability'>
+    readonly status: FieldRef<"Zone", 'ServiceStatus'>
+    readonly calenderEntityId: FieldRef<"Zone", 'String'>
+    readonly complexId: FieldRef<"Zone", 'String'>
+    readonly buildingId: FieldRef<"Zone", 'String'>
+    readonly floorId: FieldRef<"Zone", 'String'>
+    readonly address: FieldRef<"Zone", 'String'>
+    readonly city: FieldRef<"Zone", 'String'>
+    readonly zipCode: FieldRef<"Zone", 'String'>
+    readonly totalRooms: FieldRef<"Zone", 'Int'>
+    readonly glazedArea: FieldRef<"Zone", 'Float'>
+    readonly cleanableArea: FieldRef<"Zone", 'Float'>
+    readonly coveredArea: FieldRef<"Zone", 'Float'>
+    readonly totalNetArea: FieldRef<"Zone", 'Float'>
+    readonly totalGrossArea: FieldRef<"Zone", 'Float'>
+    readonly totalHeatedVolume: FieldRef<"Zone", 'Float'>
+    readonly totalVolume: FieldRef<"Zone", 'Float'>
+    readonly cadastralArea: FieldRef<"Zone", 'Float'>
+    readonly urbanSection: FieldRef<"Zone", 'String'>
+    readonly sheet: FieldRef<"Zone", 'String'>
+    readonly plot: FieldRef<"Zone", 'String'>
+    readonly subordinate: FieldRef<"Zone", 'String'>
+    readonly class: FieldRef<"Zone", 'Int'>
+    readonly size: FieldRef<"Zone", 'Float'>
+    readonly propertyRightsAndDuties: FieldRef<"Zone", 'String'>
+    readonly cadastralIncome: FieldRef<"Zone", 'Decimal'>
+    readonly censusArea: FieldRef<"Zone", 'String'>
+    readonly subArea: FieldRef<"Zone", 'String'>
+    readonly createdAt: FieldRef<"Zone", 'DateTime'>
+    readonly updatedAt: FieldRef<"Zone", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * Unit findUnique
+   * Zone findUnique
    */
-  export type UnitFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ZoneFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Unit
+     * Select specific fields to fetch from the Zone
      */
-    select?: UnitSelect<ExtArgs> | null
+    select?: ZoneSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Unit
+     * Omit specific fields from the Zone
      */
-    omit?: UnitOmit<ExtArgs> | null
+    omit?: ZoneOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitInclude<ExtArgs> | null
+    include?: ZoneInclude<ExtArgs> | null
     /**
-     * Filter, which Unit to fetch.
+     * Filter, which Zone to fetch.
      */
-    where: UnitWhereUniqueInput
+    where: ZoneWhereUniqueInput
   }
 
   /**
-   * Unit findUniqueOrThrow
+   * Zone findUniqueOrThrow
    */
-  export type UnitFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ZoneFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Unit
+     * Select specific fields to fetch from the Zone
      */
-    select?: UnitSelect<ExtArgs> | null
+    select?: ZoneSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Unit
+     * Omit specific fields from the Zone
      */
-    omit?: UnitOmit<ExtArgs> | null
+    omit?: ZoneOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitInclude<ExtArgs> | null
+    include?: ZoneInclude<ExtArgs> | null
     /**
-     * Filter, which Unit to fetch.
+     * Filter, which Zone to fetch.
      */
-    where: UnitWhereUniqueInput
+    where: ZoneWhereUniqueInput
   }
 
   /**
-   * Unit findFirst
+   * Zone findFirst
    */
-  export type UnitFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ZoneFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Unit
+     * Select specific fields to fetch from the Zone
      */
-    select?: UnitSelect<ExtArgs> | null
+    select?: ZoneSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Unit
+     * Omit specific fields from the Zone
      */
-    omit?: UnitOmit<ExtArgs> | null
+    omit?: ZoneOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitInclude<ExtArgs> | null
+    include?: ZoneInclude<ExtArgs> | null
     /**
-     * Filter, which Unit to fetch.
+     * Filter, which Zone to fetch.
      */
-    where?: UnitWhereInput
+    where?: ZoneWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Units to fetch.
+     * Determine the order of Zones to fetch.
      */
-    orderBy?: UnitOrderByWithRelationInput | UnitOrderByWithRelationInput[]
+    orderBy?: ZoneOrderByWithRelationInput | ZoneOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Units.
+     * Sets the position for searching for Zones.
      */
-    cursor?: UnitWhereUniqueInput
+    cursor?: ZoneWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Units from the position of the cursor.
+     * Take `±n` Zones from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Units.
+     * Skip the first `n` Zones.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Units.
+     * Filter by unique combinations of Zones.
      */
-    distinct?: UnitScalarFieldEnum | UnitScalarFieldEnum[]
+    distinct?: ZoneScalarFieldEnum | ZoneScalarFieldEnum[]
   }
 
   /**
-   * Unit findFirstOrThrow
+   * Zone findFirstOrThrow
    */
-  export type UnitFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ZoneFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Unit
+     * Select specific fields to fetch from the Zone
      */
-    select?: UnitSelect<ExtArgs> | null
+    select?: ZoneSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Unit
+     * Omit specific fields from the Zone
      */
-    omit?: UnitOmit<ExtArgs> | null
+    omit?: ZoneOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitInclude<ExtArgs> | null
+    include?: ZoneInclude<ExtArgs> | null
     /**
-     * Filter, which Unit to fetch.
+     * Filter, which Zone to fetch.
      */
-    where?: UnitWhereInput
+    where?: ZoneWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Units to fetch.
+     * Determine the order of Zones to fetch.
      */
-    orderBy?: UnitOrderByWithRelationInput | UnitOrderByWithRelationInput[]
+    orderBy?: ZoneOrderByWithRelationInput | ZoneOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Units.
+     * Sets the position for searching for Zones.
      */
-    cursor?: UnitWhereUniqueInput
+    cursor?: ZoneWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Units from the position of the cursor.
+     * Take `±n` Zones from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Units.
+     * Skip the first `n` Zones.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Units.
+     * Filter by unique combinations of Zones.
      */
-    distinct?: UnitScalarFieldEnum | UnitScalarFieldEnum[]
+    distinct?: ZoneScalarFieldEnum | ZoneScalarFieldEnum[]
   }
 
   /**
-   * Unit findMany
+   * Zone findMany
    */
-  export type UnitFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ZoneFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Unit
+     * Select specific fields to fetch from the Zone
      */
-    select?: UnitSelect<ExtArgs> | null
+    select?: ZoneSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Unit
+     * Omit specific fields from the Zone
      */
-    omit?: UnitOmit<ExtArgs> | null
+    omit?: ZoneOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitInclude<ExtArgs> | null
+    include?: ZoneInclude<ExtArgs> | null
     /**
-     * Filter, which Units to fetch.
+     * Filter, which Zones to fetch.
      */
-    where?: UnitWhereInput
+    where?: ZoneWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Units to fetch.
+     * Determine the order of Zones to fetch.
      */
-    orderBy?: UnitOrderByWithRelationInput | UnitOrderByWithRelationInput[]
+    orderBy?: ZoneOrderByWithRelationInput | ZoneOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Units.
+     * Sets the position for listing Zones.
      */
-    cursor?: UnitWhereUniqueInput
+    cursor?: ZoneWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Units from the position of the cursor.
+     * Take `±n` Zones from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Units.
+     * Skip the first `n` Zones.
      */
     skip?: number
-    distinct?: UnitScalarFieldEnum | UnitScalarFieldEnum[]
+    distinct?: ZoneScalarFieldEnum | ZoneScalarFieldEnum[]
   }
 
   /**
-   * Unit create
+   * Zone create
    */
-  export type UnitCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ZoneCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Unit
+     * Select specific fields to fetch from the Zone
      */
-    select?: UnitSelect<ExtArgs> | null
+    select?: ZoneSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Unit
+     * Omit specific fields from the Zone
      */
-    omit?: UnitOmit<ExtArgs> | null
+    omit?: ZoneOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitInclude<ExtArgs> | null
+    include?: ZoneInclude<ExtArgs> | null
     /**
-     * The data needed to create a Unit.
+     * The data needed to create a Zone.
      */
-    data: XOR<UnitCreateInput, UnitUncheckedCreateInput>
+    data: XOR<ZoneCreateInput, ZoneUncheckedCreateInput>
   }
 
   /**
-   * Unit createMany
+   * Zone createMany
    */
-  export type UnitCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ZoneCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many Units.
+     * The data used to create many Zones.
      */
-    data: UnitCreateManyInput | UnitCreateManyInput[]
+    data: ZoneCreateManyInput | ZoneCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * Unit createManyAndReturn
+   * Zone createManyAndReturn
    */
-  export type UnitCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ZoneCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Unit
+     * Select specific fields to fetch from the Zone
      */
-    select?: UnitSelectCreateManyAndReturn<ExtArgs> | null
+    select?: ZoneSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Unit
+     * Omit specific fields from the Zone
      */
-    omit?: UnitOmit<ExtArgs> | null
+    omit?: ZoneOmit<ExtArgs> | null
     /**
-     * The data used to create many Units.
+     * The data used to create many Zones.
      */
-    data: UnitCreateManyInput | UnitCreateManyInput[]
+    data: ZoneCreateManyInput | ZoneCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: ZoneIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Unit update
+   * Zone update
    */
-  export type UnitUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ZoneUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Unit
+     * Select specific fields to fetch from the Zone
      */
-    select?: UnitSelect<ExtArgs> | null
+    select?: ZoneSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Unit
+     * Omit specific fields from the Zone
      */
-    omit?: UnitOmit<ExtArgs> | null
+    omit?: ZoneOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitInclude<ExtArgs> | null
+    include?: ZoneInclude<ExtArgs> | null
     /**
-     * The data needed to update a Unit.
+     * The data needed to update a Zone.
      */
-    data: XOR<UnitUpdateInput, UnitUncheckedUpdateInput>
+    data: XOR<ZoneUpdateInput, ZoneUncheckedUpdateInput>
     /**
-     * Choose, which Unit to update.
+     * Choose, which Zone to update.
      */
-    where: UnitWhereUniqueInput
+    where: ZoneWhereUniqueInput
   }
 
   /**
-   * Unit updateMany
+   * Zone updateMany
    */
-  export type UnitUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ZoneUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update Units.
+     * The data used to update Zones.
      */
-    data: XOR<UnitUpdateManyMutationInput, UnitUncheckedUpdateManyInput>
+    data: XOR<ZoneUpdateManyMutationInput, ZoneUncheckedUpdateManyInput>
     /**
-     * Filter which Units to update
+     * Filter which Zones to update
      */
-    where?: UnitWhereInput
+    where?: ZoneWhereInput
     /**
-     * Limit how many Units to update.
+     * Limit how many Zones to update.
      */
     limit?: number
   }
 
   /**
-   * Unit updateManyAndReturn
+   * Zone updateManyAndReturn
    */
-  export type UnitUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ZoneUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Unit
+     * Select specific fields to fetch from the Zone
      */
-    select?: UnitSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: ZoneSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Unit
+     * Omit specific fields from the Zone
      */
-    omit?: UnitOmit<ExtArgs> | null
+    omit?: ZoneOmit<ExtArgs> | null
     /**
-     * The data used to update Units.
+     * The data used to update Zones.
      */
-    data: XOR<UnitUpdateManyMutationInput, UnitUncheckedUpdateManyInput>
+    data: XOR<ZoneUpdateManyMutationInput, ZoneUncheckedUpdateManyInput>
     /**
-     * Filter which Units to update
+     * Filter which Zones to update
      */
-    where?: UnitWhereInput
+    where?: ZoneWhereInput
     /**
-     * Limit how many Units to update.
+     * Limit how many Zones to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: ZoneIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Unit upsert
+   * Zone upsert
    */
-  export type UnitUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ZoneUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Unit
+     * Select specific fields to fetch from the Zone
      */
-    select?: UnitSelect<ExtArgs> | null
+    select?: ZoneSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Unit
+     * Omit specific fields from the Zone
      */
-    omit?: UnitOmit<ExtArgs> | null
+    omit?: ZoneOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitInclude<ExtArgs> | null
+    include?: ZoneInclude<ExtArgs> | null
     /**
-     * The filter to search for the Unit to update in case it exists.
+     * The filter to search for the Zone to update in case it exists.
      */
-    where: UnitWhereUniqueInput
+    where: ZoneWhereUniqueInput
     /**
-     * In case the Unit found by the `where` argument doesn't exist, create a new Unit with this data.
+     * In case the Zone found by the `where` argument doesn't exist, create a new Zone with this data.
      */
-    create: XOR<UnitCreateInput, UnitUncheckedCreateInput>
+    create: XOR<ZoneCreateInput, ZoneUncheckedCreateInput>
     /**
-     * In case the Unit was found with the provided `where` argument, update it with this data.
+     * In case the Zone was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<UnitUpdateInput, UnitUncheckedUpdateInput>
+    update: XOR<ZoneUpdateInput, ZoneUncheckedUpdateInput>
   }
 
   /**
-   * Unit delete
+   * Zone delete
    */
-  export type UnitDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ZoneDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Unit
+     * Select specific fields to fetch from the Zone
      */
-    select?: UnitSelect<ExtArgs> | null
+    select?: ZoneSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Unit
+     * Omit specific fields from the Zone
      */
-    omit?: UnitOmit<ExtArgs> | null
+    omit?: ZoneOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitInclude<ExtArgs> | null
+    include?: ZoneInclude<ExtArgs> | null
     /**
-     * Filter which Unit to delete.
+     * Filter which Zone to delete.
      */
-    where: UnitWhereUniqueInput
+    where: ZoneWhereUniqueInput
   }
 
   /**
-   * Unit deleteMany
+   * Zone deleteMany
    */
-  export type UnitDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ZoneDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Units to delete
+     * Filter which Zones to delete
      */
-    where?: UnitWhereInput
+    where?: ZoneWhereInput
     /**
-     * Limit how many Units to delete.
+     * Limit how many Zones to delete.
      */
     limit?: number
   }
 
   /**
-   * Unit.calenderEntity
+   * Zone.calenderEntity
    */
-  export type Unit$calenderEntityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Zone$calenderEntityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the CalenderEntity
      */
@@ -13119,9 +14432,9 @@ export namespace Prisma {
   }
 
   /**
-   * Unit.complex
+   * Zone.complex
    */
-  export type Unit$complexArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Zone$complexArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Complex
      */
@@ -13138,9 +14451,9 @@ export namespace Prisma {
   }
 
   /**
-   * Unit.building
+   * Zone.building
    */
-  export type Unit$buildingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Zone$buildingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Building
      */
@@ -13157,33 +14470,33 @@ export namespace Prisma {
   }
 
   /**
-   * Unit.rooms
+   * Zone.rooms
    */
-  export type Unit$roomsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Zone$roomsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Room
+     * Select specific fields to fetch from the Space
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: SpaceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Room
+     * Omit specific fields from the Space
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: SpaceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
-    where?: RoomWhereInput
-    orderBy?: RoomOrderByWithRelationInput | RoomOrderByWithRelationInput[]
-    cursor?: RoomWhereUniqueInput
+    include?: SpaceInclude<ExtArgs> | null
+    where?: SpaceWhereInput
+    orderBy?: SpaceOrderByWithRelationInput | SpaceOrderByWithRelationInput[]
+    cursor?: SpaceWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: RoomScalarFieldEnum | RoomScalarFieldEnum[]
+    distinct?: SpaceScalarFieldEnum | SpaceScalarFieldEnum[]
   }
 
   /**
-   * Unit.photos
+   * Zone.photos
    */
-  export type Unit$photosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Zone$photosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the File
      */
@@ -13205,37 +14518,37 @@ export namespace Prisma {
   }
 
   /**
-   * Unit without action
+   * Zone without action
    */
-  export type UnitDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ZoneDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Unit
+     * Select specific fields to fetch from the Zone
      */
-    select?: UnitSelect<ExtArgs> | null
+    select?: ZoneSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Unit
+     * Omit specific fields from the Zone
      */
-    omit?: UnitOmit<ExtArgs> | null
+    omit?: ZoneOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitInclude<ExtArgs> | null
+    include?: ZoneInclude<ExtArgs> | null
   }
 
 
   /**
-   * Model Room
+   * Model Space
    */
 
-  export type AggregateRoom = {
-    _count: RoomCountAggregateOutputType | null
-    _avg: RoomAvgAggregateOutputType | null
-    _sum: RoomSumAggregateOutputType | null
-    _min: RoomMinAggregateOutputType | null
-    _max: RoomMaxAggregateOutputType | null
+  export type AggregateSpace = {
+    _count: SpaceCountAggregateOutputType | null
+    _avg: SpaceAvgAggregateOutputType | null
+    _sum: SpaceSumAggregateOutputType | null
+    _min: SpaceMinAggregateOutputType | null
+    _max: SpaceMaxAggregateOutputType | null
   }
 
-  export type RoomAvgAggregateOutputType = {
+  export type SpaceAvgAggregateOutputType = {
     glazedArea: number | null
     cleanableArea: number | null
     coveredArea: number | null
@@ -13245,7 +14558,7 @@ export namespace Prisma {
     totalVolume: number | null
   }
 
-  export type RoomSumAggregateOutputType = {
+  export type SpaceSumAggregateOutputType = {
     glazedArea: number | null
     cleanableArea: number | null
     coveredArea: number | null
@@ -13255,7 +14568,7 @@ export namespace Prisma {
     totalVolume: number | null
   }
 
-  export type RoomMinAggregateOutputType = {
+  export type SpaceMinAggregateOutputType = {
     id: string | null
     name: string | null
     code: string | null
@@ -13265,7 +14578,7 @@ export namespace Prisma {
     complexId: string | null
     buildingId: string | null
     floorId: string | null
-    unitId: string | null
+    zoneId: string | null
     condition: $Enums.Condition | null
     criticality: $Enums.Criticality | null
     glazedArea: number | null
@@ -13280,7 +14593,7 @@ export namespace Prisma {
     updatedAt: Date | null
   }
 
-  export type RoomMaxAggregateOutputType = {
+  export type SpaceMaxAggregateOutputType = {
     id: string | null
     name: string | null
     code: string | null
@@ -13290,7 +14603,7 @@ export namespace Prisma {
     complexId: string | null
     buildingId: string | null
     floorId: string | null
-    unitId: string | null
+    zoneId: string | null
     condition: $Enums.Condition | null
     criticality: $Enums.Criticality | null
     glazedArea: number | null
@@ -13305,7 +14618,7 @@ export namespace Prisma {
     updatedAt: Date | null
   }
 
-  export type RoomCountAggregateOutputType = {
+  export type SpaceCountAggregateOutputType = {
     id: number
     name: number
     code: number
@@ -13315,7 +14628,7 @@ export namespace Prisma {
     complexId: number
     buildingId: number
     floorId: number
-    unitId: number
+    zoneId: number
     condition: number
     criticality: number
     glazedArea: number
@@ -13332,7 +14645,7 @@ export namespace Prisma {
   }
 
 
-  export type RoomAvgAggregateInputType = {
+  export type SpaceAvgAggregateInputType = {
     glazedArea?: true
     cleanableArea?: true
     coveredArea?: true
@@ -13342,7 +14655,7 @@ export namespace Prisma {
     totalVolume?: true
   }
 
-  export type RoomSumAggregateInputType = {
+  export type SpaceSumAggregateInputType = {
     glazedArea?: true
     cleanableArea?: true
     coveredArea?: true
@@ -13352,7 +14665,7 @@ export namespace Prisma {
     totalVolume?: true
   }
 
-  export type RoomMinAggregateInputType = {
+  export type SpaceMinAggregateInputType = {
     id?: true
     name?: true
     code?: true
@@ -13362,7 +14675,7 @@ export namespace Prisma {
     complexId?: true
     buildingId?: true
     floorId?: true
-    unitId?: true
+    zoneId?: true
     condition?: true
     criticality?: true
     glazedArea?: true
@@ -13377,7 +14690,7 @@ export namespace Prisma {
     updatedAt?: true
   }
 
-  export type RoomMaxAggregateInputType = {
+  export type SpaceMaxAggregateInputType = {
     id?: true
     name?: true
     code?: true
@@ -13387,7 +14700,7 @@ export namespace Prisma {
     complexId?: true
     buildingId?: true
     floorId?: true
-    unitId?: true
+    zoneId?: true
     condition?: true
     criticality?: true
     glazedArea?: true
@@ -13402,7 +14715,7 @@ export namespace Prisma {
     updatedAt?: true
   }
 
-  export type RoomCountAggregateInputType = {
+  export type SpaceCountAggregateInputType = {
     id?: true
     name?: true
     code?: true
@@ -13412,7 +14725,7 @@ export namespace Prisma {
     complexId?: true
     buildingId?: true
     floorId?: true
-    unitId?: true
+    zoneId?: true
     condition?: true
     criticality?: true
     glazedArea?: true
@@ -13428,93 +14741,93 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type RoomAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SpaceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Room to aggregate.
+     * Filter which Space to aggregate.
      */
-    where?: RoomWhereInput
+    where?: SpaceWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Rooms to fetch.
+     * Determine the order of Spaces to fetch.
      */
-    orderBy?: RoomOrderByWithRelationInput | RoomOrderByWithRelationInput[]
+    orderBy?: SpaceOrderByWithRelationInput | SpaceOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: RoomWhereUniqueInput
+    cursor?: SpaceWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Rooms from the position of the cursor.
+     * Take `±n` Spaces from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Rooms.
+     * Skip the first `n` Spaces.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Rooms
+     * Count returned Spaces
     **/
-    _count?: true | RoomCountAggregateInputType
+    _count?: true | SpaceCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: RoomAvgAggregateInputType
+    _avg?: SpaceAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: RoomSumAggregateInputType
+    _sum?: SpaceSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: RoomMinAggregateInputType
+    _min?: SpaceMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: RoomMaxAggregateInputType
+    _max?: SpaceMaxAggregateInputType
   }
 
-  export type GetRoomAggregateType<T extends RoomAggregateArgs> = {
-        [P in keyof T & keyof AggregateRoom]: P extends '_count' | 'count'
+  export type GetSpaceAggregateType<T extends SpaceAggregateArgs> = {
+        [P in keyof T & keyof AggregateSpace]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateRoom[P]>
-      : GetScalarType<T[P], AggregateRoom[P]>
+        : GetScalarType<T[P], AggregateSpace[P]>
+      : GetScalarType<T[P], AggregateSpace[P]>
   }
 
 
 
 
-  export type RoomGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RoomWhereInput
-    orderBy?: RoomOrderByWithAggregationInput | RoomOrderByWithAggregationInput[]
-    by: RoomScalarFieldEnum[] | RoomScalarFieldEnum
-    having?: RoomScalarWhereWithAggregatesInput
+  export type SpaceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SpaceWhereInput
+    orderBy?: SpaceOrderByWithAggregationInput | SpaceOrderByWithAggregationInput[]
+    by: SpaceScalarFieldEnum[] | SpaceScalarFieldEnum
+    having?: SpaceScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: RoomCountAggregateInputType | true
-    _avg?: RoomAvgAggregateInputType
-    _sum?: RoomSumAggregateInputType
-    _min?: RoomMinAggregateInputType
-    _max?: RoomMaxAggregateInputType
+    _count?: SpaceCountAggregateInputType | true
+    _avg?: SpaceAvgAggregateInputType
+    _sum?: SpaceSumAggregateInputType
+    _min?: SpaceMinAggregateInputType
+    _max?: SpaceMaxAggregateInputType
   }
 
-  export type RoomGroupByOutputType = {
+  export type SpaceGroupByOutputType = {
     id: string
     name: string
     code: string
@@ -13524,7 +14837,7 @@ export namespace Prisma {
     complexId: string | null
     buildingId: string | null
     floorId: string
-    unitId: string | null
+    zoneId: string | null
     condition: $Enums.Condition
     criticality: $Enums.Criticality
     glazedArea: number | null
@@ -13537,28 +14850,28 @@ export namespace Prisma {
     totalVolume: number | null
     createdAt: Date
     updatedAt: Date
-    _count: RoomCountAggregateOutputType | null
-    _avg: RoomAvgAggregateOutputType | null
-    _sum: RoomSumAggregateOutputType | null
-    _min: RoomMinAggregateOutputType | null
-    _max: RoomMaxAggregateOutputType | null
+    _count: SpaceCountAggregateOutputType | null
+    _avg: SpaceAvgAggregateOutputType | null
+    _sum: SpaceSumAggregateOutputType | null
+    _min: SpaceMinAggregateOutputType | null
+    _max: SpaceMaxAggregateOutputType | null
   }
 
-  type GetRoomGroupByPayload<T extends RoomGroupByArgs> = Prisma.PrismaPromise<
+  type GetSpaceGroupByPayload<T extends SpaceGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<RoomGroupByOutputType, T['by']> &
+      PickEnumerable<SpaceGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof RoomGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof SpaceGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], RoomGroupByOutputType[P]>
-            : GetScalarType<T[P], RoomGroupByOutputType[P]>
+              : GetScalarType<T[P], SpaceGroupByOutputType[P]>
+            : GetScalarType<T[P], SpaceGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type RoomSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type SpaceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     code?: boolean
@@ -13568,7 +14881,7 @@ export namespace Prisma {
     complexId?: boolean
     buildingId?: boolean
     floorId?: boolean
-    unitId?: boolean
+    zoneId?: boolean
     condition?: boolean
     criticality?: boolean
     glazedArea?: boolean
@@ -13581,18 +14894,19 @@ export namespace Prisma {
     totalVolume?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    calenderEntity?: boolean | Room$calenderEntityArgs<ExtArgs>
-    complex?: boolean | Room$complexArgs<ExtArgs>
-    building?: boolean | Room$buildingArgs<ExtArgs>
+    calenderEntity?: boolean | Space$calenderEntityArgs<ExtArgs>
+    complex?: boolean | Space$complexArgs<ExtArgs>
+    building?: boolean | Space$buildingArgs<ExtArgs>
     floor?: boolean | FloorDefaultArgs<ExtArgs>
-    unit?: boolean | Room$unitArgs<ExtArgs>
-    photos?: boolean | Room$photosArgs<ExtArgs>
-    maintenances?: boolean | Room$maintenancesArgs<ExtArgs>
-    preventives?: boolean | Room$preventivesArgs<ExtArgs>
-    _count?: boolean | RoomCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["room"]>
+    zone?: boolean | Space$zoneArgs<ExtArgs>
+    photos?: boolean | Space$photosArgs<ExtArgs>
+    maintenances?: boolean | Space$maintenancesArgs<ExtArgs>
+    preventives?: boolean | Space$preventivesArgs<ExtArgs>
+    assets?: boolean | Space$assetsArgs<ExtArgs>
+    _count?: boolean | SpaceCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["space"]>
 
-  export type RoomSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type SpaceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     code?: boolean
@@ -13602,7 +14916,7 @@ export namespace Prisma {
     complexId?: boolean
     buildingId?: boolean
     floorId?: boolean
-    unitId?: boolean
+    zoneId?: boolean
     condition?: boolean
     criticality?: boolean
     glazedArea?: boolean
@@ -13615,14 +14929,14 @@ export namespace Prisma {
     totalVolume?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    calenderEntity?: boolean | Room$calenderEntityArgs<ExtArgs>
-    complex?: boolean | Room$complexArgs<ExtArgs>
-    building?: boolean | Room$buildingArgs<ExtArgs>
+    calenderEntity?: boolean | Space$calenderEntityArgs<ExtArgs>
+    complex?: boolean | Space$complexArgs<ExtArgs>
+    building?: boolean | Space$buildingArgs<ExtArgs>
     floor?: boolean | FloorDefaultArgs<ExtArgs>
-    unit?: boolean | Room$unitArgs<ExtArgs>
-  }, ExtArgs["result"]["room"]>
+    zone?: boolean | Space$zoneArgs<ExtArgs>
+  }, ExtArgs["result"]["space"]>
 
-  export type RoomSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type SpaceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     code?: boolean
@@ -13632,7 +14946,7 @@ export namespace Prisma {
     complexId?: boolean
     buildingId?: boolean
     floorId?: boolean
-    unitId?: boolean
+    zoneId?: boolean
     condition?: boolean
     criticality?: boolean
     glazedArea?: boolean
@@ -13645,14 +14959,14 @@ export namespace Prisma {
     totalVolume?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    calenderEntity?: boolean | Room$calenderEntityArgs<ExtArgs>
-    complex?: boolean | Room$complexArgs<ExtArgs>
-    building?: boolean | Room$buildingArgs<ExtArgs>
+    calenderEntity?: boolean | Space$calenderEntityArgs<ExtArgs>
+    complex?: boolean | Space$complexArgs<ExtArgs>
+    building?: boolean | Space$buildingArgs<ExtArgs>
     floor?: boolean | FloorDefaultArgs<ExtArgs>
-    unit?: boolean | Room$unitArgs<ExtArgs>
-  }, ExtArgs["result"]["room"]>
+    zone?: boolean | Space$zoneArgs<ExtArgs>
+  }, ExtArgs["result"]["space"]>
 
-  export type RoomSelectScalar = {
+  export type SpaceSelectScalar = {
     id?: boolean
     name?: boolean
     code?: boolean
@@ -13662,7 +14976,7 @@ export namespace Prisma {
     complexId?: boolean
     buildingId?: boolean
     floorId?: boolean
-    unitId?: boolean
+    zoneId?: boolean
     condition?: boolean
     criticality?: boolean
     glazedArea?: boolean
@@ -13677,44 +14991,46 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type RoomOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "code" | "use" | "status" | "calenderEntityId" | "complexId" | "buildingId" | "floorId" | "unitId" | "condition" | "criticality" | "glazedArea" | "cleanableArea" | "coveredArea" | "totalNetArea" | "totalGrossArea" | "height" | "heated" | "totalVolume" | "createdAt" | "updatedAt", ExtArgs["result"]["room"]>
-  export type RoomInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    calenderEntity?: boolean | Room$calenderEntityArgs<ExtArgs>
-    complex?: boolean | Room$complexArgs<ExtArgs>
-    building?: boolean | Room$buildingArgs<ExtArgs>
+  export type SpaceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "code" | "use" | "status" | "calenderEntityId" | "complexId" | "buildingId" | "floorId" | "zoneId" | "condition" | "criticality" | "glazedArea" | "cleanableArea" | "coveredArea" | "totalNetArea" | "totalGrossArea" | "height" | "heated" | "totalVolume" | "createdAt" | "updatedAt", ExtArgs["result"]["space"]>
+  export type SpaceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    calenderEntity?: boolean | Space$calenderEntityArgs<ExtArgs>
+    complex?: boolean | Space$complexArgs<ExtArgs>
+    building?: boolean | Space$buildingArgs<ExtArgs>
     floor?: boolean | FloorDefaultArgs<ExtArgs>
-    unit?: boolean | Room$unitArgs<ExtArgs>
-    photos?: boolean | Room$photosArgs<ExtArgs>
-    maintenances?: boolean | Room$maintenancesArgs<ExtArgs>
-    preventives?: boolean | Room$preventivesArgs<ExtArgs>
-    _count?: boolean | RoomCountOutputTypeDefaultArgs<ExtArgs>
+    zone?: boolean | Space$zoneArgs<ExtArgs>
+    photos?: boolean | Space$photosArgs<ExtArgs>
+    maintenances?: boolean | Space$maintenancesArgs<ExtArgs>
+    preventives?: boolean | Space$preventivesArgs<ExtArgs>
+    assets?: boolean | Space$assetsArgs<ExtArgs>
+    _count?: boolean | SpaceCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type RoomIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    calenderEntity?: boolean | Room$calenderEntityArgs<ExtArgs>
-    complex?: boolean | Room$complexArgs<ExtArgs>
-    building?: boolean | Room$buildingArgs<ExtArgs>
+  export type SpaceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    calenderEntity?: boolean | Space$calenderEntityArgs<ExtArgs>
+    complex?: boolean | Space$complexArgs<ExtArgs>
+    building?: boolean | Space$buildingArgs<ExtArgs>
     floor?: boolean | FloorDefaultArgs<ExtArgs>
-    unit?: boolean | Room$unitArgs<ExtArgs>
+    zone?: boolean | Space$zoneArgs<ExtArgs>
   }
-  export type RoomIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    calenderEntity?: boolean | Room$calenderEntityArgs<ExtArgs>
-    complex?: boolean | Room$complexArgs<ExtArgs>
-    building?: boolean | Room$buildingArgs<ExtArgs>
+  export type SpaceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    calenderEntity?: boolean | Space$calenderEntityArgs<ExtArgs>
+    complex?: boolean | Space$complexArgs<ExtArgs>
+    building?: boolean | Space$buildingArgs<ExtArgs>
     floor?: boolean | FloorDefaultArgs<ExtArgs>
-    unit?: boolean | Room$unitArgs<ExtArgs>
+    zone?: boolean | Space$zoneArgs<ExtArgs>
   }
 
-  export type $RoomPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Room"
+  export type $SpacePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Space"
     objects: {
       calenderEntity: Prisma.$CalenderEntityPayload<ExtArgs> | null
       complex: Prisma.$ComplexPayload<ExtArgs> | null
       building: Prisma.$BuildingPayload<ExtArgs> | null
       floor: Prisma.$FloorPayload<ExtArgs>
-      unit: Prisma.$UnitPayload<ExtArgs> | null
+      zone: Prisma.$ZonePayload<ExtArgs> | null
       photos: Prisma.$FilePayload<ExtArgs>[]
       maintenances: Prisma.$MaintenancePayload<ExtArgs>[]
       preventives: Prisma.$PreventivePayload<ExtArgs>[]
+      assets: Prisma.$AssetPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -13726,7 +15042,7 @@ export namespace Prisma {
       complexId: string | null
       buildingId: string | null
       floorId: string
-      unitId: string | null
+      zoneId: string | null
       condition: $Enums.Condition
       criticality: $Enums.Criticality
       glazedArea: number | null
@@ -13739,136 +15055,136 @@ export namespace Prisma {
       totalVolume: number | null
       createdAt: Date
       updatedAt: Date
-    }, ExtArgs["result"]["room"]>
+    }, ExtArgs["result"]["space"]>
     composites: {}
   }
 
-  type RoomGetPayload<S extends boolean | null | undefined | RoomDefaultArgs> = $Result.GetResult<Prisma.$RoomPayload, S>
+  type SpaceGetPayload<S extends boolean | null | undefined | SpaceDefaultArgs> = $Result.GetResult<Prisma.$SpacePayload, S>
 
-  type RoomCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<RoomFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: RoomCountAggregateInputType | true
+  type SpaceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SpaceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SpaceCountAggregateInputType | true
     }
 
-  export interface RoomDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Room'], meta: { name: 'Room' } }
+  export interface SpaceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Space'], meta: { name: 'Space' } }
     /**
-     * Find zero or one Room that matches the filter.
-     * @param {RoomFindUniqueArgs} args - Arguments to find a Room
+     * Find zero or one Space that matches the filter.
+     * @param {SpaceFindUniqueArgs} args - Arguments to find a Space
      * @example
-     * // Get one Room
-     * const room = await prisma.room.findUnique({
+     * // Get one Space
+     * const space = await prisma.space.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends RoomFindUniqueArgs>(args: SelectSubset<T, RoomFindUniqueArgs<ExtArgs>>): Prisma__RoomClient<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends SpaceFindUniqueArgs>(args: SelectSubset<T, SpaceFindUniqueArgs<ExtArgs>>): Prisma__SpaceClient<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one Room that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Space that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {RoomFindUniqueOrThrowArgs} args - Arguments to find a Room
+     * @param {SpaceFindUniqueOrThrowArgs} args - Arguments to find a Space
      * @example
-     * // Get one Room
-     * const room = await prisma.room.findUniqueOrThrow({
+     * // Get one Space
+     * const space = await prisma.space.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends RoomFindUniqueOrThrowArgs>(args: SelectSubset<T, RoomFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RoomClient<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends SpaceFindUniqueOrThrowArgs>(args: SelectSubset<T, SpaceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SpaceClient<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Room that matches the filter.
+     * Find the first Space that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {RoomFindFirstArgs} args - Arguments to find a Room
+     * @param {SpaceFindFirstArgs} args - Arguments to find a Space
      * @example
-     * // Get one Room
-     * const room = await prisma.room.findFirst({
+     * // Get one Space
+     * const space = await prisma.space.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends RoomFindFirstArgs>(args?: SelectSubset<T, RoomFindFirstArgs<ExtArgs>>): Prisma__RoomClient<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends SpaceFindFirstArgs>(args?: SelectSubset<T, SpaceFindFirstArgs<ExtArgs>>): Prisma__SpaceClient<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Room that matches the filter or
+     * Find the first Space that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {RoomFindFirstOrThrowArgs} args - Arguments to find a Room
+     * @param {SpaceFindFirstOrThrowArgs} args - Arguments to find a Space
      * @example
-     * // Get one Room
-     * const room = await prisma.room.findFirstOrThrow({
+     * // Get one Space
+     * const space = await prisma.space.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends RoomFindFirstOrThrowArgs>(args?: SelectSubset<T, RoomFindFirstOrThrowArgs<ExtArgs>>): Prisma__RoomClient<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends SpaceFindFirstOrThrowArgs>(args?: SelectSubset<T, SpaceFindFirstOrThrowArgs<ExtArgs>>): Prisma__SpaceClient<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more Rooms that matches the filter.
+     * Find zero or more Spaces that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {RoomFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {SpaceFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Rooms
-     * const rooms = await prisma.room.findMany()
+     * // Get all Spaces
+     * const spaces = await prisma.space.findMany()
      * 
-     * // Get first 10 Rooms
-     * const rooms = await prisma.room.findMany({ take: 10 })
+     * // Get first 10 Spaces
+     * const spaces = await prisma.space.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const roomWithIdOnly = await prisma.room.findMany({ select: { id: true } })
+     * const spaceWithIdOnly = await prisma.space.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends RoomFindManyArgs>(args?: SelectSubset<T, RoomFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends SpaceFindManyArgs>(args?: SelectSubset<T, SpaceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a Room.
-     * @param {RoomCreateArgs} args - Arguments to create a Room.
+     * Create a Space.
+     * @param {SpaceCreateArgs} args - Arguments to create a Space.
      * @example
-     * // Create one Room
-     * const Room = await prisma.room.create({
+     * // Create one Space
+     * const Space = await prisma.space.create({
      *   data: {
-     *     // ... data to create a Room
+     *     // ... data to create a Space
      *   }
      * })
      * 
      */
-    create<T extends RoomCreateArgs>(args: SelectSubset<T, RoomCreateArgs<ExtArgs>>): Prisma__RoomClient<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends SpaceCreateArgs>(args: SelectSubset<T, SpaceCreateArgs<ExtArgs>>): Prisma__SpaceClient<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many Rooms.
-     * @param {RoomCreateManyArgs} args - Arguments to create many Rooms.
+     * Create many Spaces.
+     * @param {SpaceCreateManyArgs} args - Arguments to create many Spaces.
      * @example
-     * // Create many Rooms
-     * const room = await prisma.room.createMany({
+     * // Create many Spaces
+     * const space = await prisma.space.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends RoomCreateManyArgs>(args?: SelectSubset<T, RoomCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends SpaceCreateManyArgs>(args?: SelectSubset<T, SpaceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Rooms and returns the data saved in the database.
-     * @param {RoomCreateManyAndReturnArgs} args - Arguments to create many Rooms.
+     * Create many Spaces and returns the data saved in the database.
+     * @param {SpaceCreateManyAndReturnArgs} args - Arguments to create many Spaces.
      * @example
-     * // Create many Rooms
-     * const room = await prisma.room.createManyAndReturn({
+     * // Create many Spaces
+     * const space = await prisma.space.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many Rooms and only return the `id`
-     * const roomWithIdOnly = await prisma.room.createManyAndReturn({
+     * // Create many Spaces and only return the `id`
+     * const spaceWithIdOnly = await prisma.space.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -13878,28 +15194,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends RoomCreateManyAndReturnArgs>(args?: SelectSubset<T, RoomCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends SpaceCreateManyAndReturnArgs>(args?: SelectSubset<T, SpaceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a Room.
-     * @param {RoomDeleteArgs} args - Arguments to delete one Room.
+     * Delete a Space.
+     * @param {SpaceDeleteArgs} args - Arguments to delete one Space.
      * @example
-     * // Delete one Room
-     * const Room = await prisma.room.delete({
+     * // Delete one Space
+     * const Space = await prisma.space.delete({
      *   where: {
-     *     // ... filter to delete one Room
+     *     // ... filter to delete one Space
      *   }
      * })
      * 
      */
-    delete<T extends RoomDeleteArgs>(args: SelectSubset<T, RoomDeleteArgs<ExtArgs>>): Prisma__RoomClient<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends SpaceDeleteArgs>(args: SelectSubset<T, SpaceDeleteArgs<ExtArgs>>): Prisma__SpaceClient<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one Room.
-     * @param {RoomUpdateArgs} args - Arguments to update one Room.
+     * Update one Space.
+     * @param {SpaceUpdateArgs} args - Arguments to update one Space.
      * @example
-     * // Update one Room
-     * const room = await prisma.room.update({
+     * // Update one Space
+     * const space = await prisma.space.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -13909,30 +15225,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends RoomUpdateArgs>(args: SelectSubset<T, RoomUpdateArgs<ExtArgs>>): Prisma__RoomClient<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends SpaceUpdateArgs>(args: SelectSubset<T, SpaceUpdateArgs<ExtArgs>>): Prisma__SpaceClient<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more Rooms.
-     * @param {RoomDeleteManyArgs} args - Arguments to filter Rooms to delete.
+     * Delete zero or more Spaces.
+     * @param {SpaceDeleteManyArgs} args - Arguments to filter Spaces to delete.
      * @example
-     * // Delete a few Rooms
-     * const { count } = await prisma.room.deleteMany({
+     * // Delete a few Spaces
+     * const { count } = await prisma.space.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends RoomDeleteManyArgs>(args?: SelectSubset<T, RoomDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends SpaceDeleteManyArgs>(args?: SelectSubset<T, SpaceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Rooms.
+     * Update zero or more Spaces.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {RoomUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {SpaceUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Rooms
-     * const room = await prisma.room.updateMany({
+     * // Update many Spaces
+     * const space = await prisma.space.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -13942,14 +15258,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends RoomUpdateManyArgs>(args: SelectSubset<T, RoomUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends SpaceUpdateManyArgs>(args: SelectSubset<T, SpaceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Rooms and returns the data updated in the database.
-     * @param {RoomUpdateManyAndReturnArgs} args - Arguments to update many Rooms.
+     * Update zero or more Spaces and returns the data updated in the database.
+     * @param {SpaceUpdateManyAndReturnArgs} args - Arguments to update many Spaces.
      * @example
-     * // Update many Rooms
-     * const room = await prisma.room.updateManyAndReturn({
+     * // Update many Spaces
+     * const space = await prisma.space.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -13958,8 +15274,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Rooms and only return the `id`
-     * const roomWithIdOnly = await prisma.room.updateManyAndReturn({
+     * // Update zero or more Spaces and only return the `id`
+     * const spaceWithIdOnly = await prisma.space.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -13972,56 +15288,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends RoomUpdateManyAndReturnArgs>(args: SelectSubset<T, RoomUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends SpaceUpdateManyAndReturnArgs>(args: SelectSubset<T, SpaceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one Room.
-     * @param {RoomUpsertArgs} args - Arguments to update or create a Room.
+     * Create or update one Space.
+     * @param {SpaceUpsertArgs} args - Arguments to update or create a Space.
      * @example
-     * // Update or create a Room
-     * const room = await prisma.room.upsert({
+     * // Update or create a Space
+     * const space = await prisma.space.upsert({
      *   create: {
-     *     // ... data to create a Room
+     *     // ... data to create a Space
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Room we want to update
+     *     // ... the filter for the Space we want to update
      *   }
      * })
      */
-    upsert<T extends RoomUpsertArgs>(args: SelectSubset<T, RoomUpsertArgs<ExtArgs>>): Prisma__RoomClient<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends SpaceUpsertArgs>(args: SelectSubset<T, SpaceUpsertArgs<ExtArgs>>): Prisma__SpaceClient<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of Rooms.
+     * Count the number of Spaces.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {RoomCountArgs} args - Arguments to filter Rooms to count.
+     * @param {SpaceCountArgs} args - Arguments to filter Spaces to count.
      * @example
-     * // Count the number of Rooms
-     * const count = await prisma.room.count({
+     * // Count the number of Spaces
+     * const count = await prisma.space.count({
      *   where: {
-     *     // ... the filter for the Rooms we want to count
+     *     // ... the filter for the Spaces we want to count
      *   }
      * })
     **/
-    count<T extends RoomCountArgs>(
-      args?: Subset<T, RoomCountArgs>,
+    count<T extends SpaceCountArgs>(
+      args?: Subset<T, SpaceCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], RoomCountAggregateOutputType>
+          : GetScalarType<T['select'], SpaceCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Room.
+     * Allows you to perform aggregations operations on a Space.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {RoomAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {SpaceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -14041,13 +15357,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends RoomAggregateArgs>(args: Subset<T, RoomAggregateArgs>): Prisma.PrismaPromise<GetRoomAggregateType<T>>
+    aggregate<T extends SpaceAggregateArgs>(args: Subset<T, SpaceAggregateArgs>): Prisma.PrismaPromise<GetSpaceAggregateType<T>>
 
     /**
-     * Group by Room.
+     * Group by Space.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {RoomGroupByArgs} args - Group by arguments.
+     * @param {SpaceGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -14062,14 +15378,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends RoomGroupByArgs,
+      T extends SpaceGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: RoomGroupByArgs['orderBy'] }
-        : { orderBy?: RoomGroupByArgs['orderBy'] },
+        ? { orderBy: SpaceGroupByArgs['orderBy'] }
+        : { orderBy?: SpaceGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -14118,29 +15434,30 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, RoomGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRoomGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, SpaceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSpaceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Room model
+   * Fields of the Space model
    */
-  readonly fields: RoomFieldRefs;
+  readonly fields: SpaceFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Room.
+   * The delegate class that acts as a "Promise-like" for Space.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__RoomClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__SpaceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    calenderEntity<T extends Room$calenderEntityArgs<ExtArgs> = {}>(args?: Subset<T, Room$calenderEntityArgs<ExtArgs>>): Prisma__CalenderEntityClient<$Result.GetResult<Prisma.$CalenderEntityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    complex<T extends Room$complexArgs<ExtArgs> = {}>(args?: Subset<T, Room$complexArgs<ExtArgs>>): Prisma__ComplexClient<$Result.GetResult<Prisma.$ComplexPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    building<T extends Room$buildingArgs<ExtArgs> = {}>(args?: Subset<T, Room$buildingArgs<ExtArgs>>): Prisma__BuildingClient<$Result.GetResult<Prisma.$BuildingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    calenderEntity<T extends Space$calenderEntityArgs<ExtArgs> = {}>(args?: Subset<T, Space$calenderEntityArgs<ExtArgs>>): Prisma__CalenderEntityClient<$Result.GetResult<Prisma.$CalenderEntityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    complex<T extends Space$complexArgs<ExtArgs> = {}>(args?: Subset<T, Space$complexArgs<ExtArgs>>): Prisma__ComplexClient<$Result.GetResult<Prisma.$ComplexPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    building<T extends Space$buildingArgs<ExtArgs> = {}>(args?: Subset<T, Space$buildingArgs<ExtArgs>>): Prisma__BuildingClient<$Result.GetResult<Prisma.$BuildingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     floor<T extends FloorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FloorDefaultArgs<ExtArgs>>): Prisma__FloorClient<$Result.GetResult<Prisma.$FloorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    unit<T extends Room$unitArgs<ExtArgs> = {}>(args?: Subset<T, Room$unitArgs<ExtArgs>>): Prisma__UnitClient<$Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    photos<T extends Room$photosArgs<ExtArgs> = {}>(args?: Subset<T, Room$photosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    maintenances<T extends Room$maintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Room$maintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    preventives<T extends Room$preventivesArgs<ExtArgs> = {}>(args?: Subset<T, Room$preventivesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    zone<T extends Space$zoneArgs<ExtArgs> = {}>(args?: Subset<T, Space$zoneArgs<ExtArgs>>): Prisma__ZoneClient<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    photos<T extends Space$photosArgs<ExtArgs> = {}>(args?: Subset<T, Space$photosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    maintenances<T extends Space$maintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Space$maintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    preventives<T extends Space$preventivesArgs<ExtArgs> = {}>(args?: Subset<T, Space$preventivesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    assets<T extends Space$assetsArgs<ExtArgs> = {}>(args?: Subset<T, Space$assetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -14167,430 +15484,430 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Room model
+   * Fields of the Space model
    */
-  interface RoomFieldRefs {
-    readonly id: FieldRef<"Room", 'String'>
-    readonly name: FieldRef<"Room", 'String'>
-    readonly code: FieldRef<"Room", 'String'>
-    readonly use: FieldRef<"Room", 'RoomUse'>
-    readonly status: FieldRef<"Room", 'ServiceStatus'>
-    readonly calenderEntityId: FieldRef<"Room", 'String'>
-    readonly complexId: FieldRef<"Room", 'String'>
-    readonly buildingId: FieldRef<"Room", 'String'>
-    readonly floorId: FieldRef<"Room", 'String'>
-    readonly unitId: FieldRef<"Room", 'String'>
-    readonly condition: FieldRef<"Room", 'Condition'>
-    readonly criticality: FieldRef<"Room", 'Criticality'>
-    readonly glazedArea: FieldRef<"Room", 'Float'>
-    readonly cleanableArea: FieldRef<"Room", 'Float'>
-    readonly coveredArea: FieldRef<"Room", 'Float'>
-    readonly totalNetArea: FieldRef<"Room", 'Float'>
-    readonly totalGrossArea: FieldRef<"Room", 'Float'>
-    readonly height: FieldRef<"Room", 'Int'>
-    readonly heated: FieldRef<"Room", 'Boolean'>
-    readonly totalVolume: FieldRef<"Room", 'Float'>
-    readonly createdAt: FieldRef<"Room", 'DateTime'>
-    readonly updatedAt: FieldRef<"Room", 'DateTime'>
+  interface SpaceFieldRefs {
+    readonly id: FieldRef<"Space", 'String'>
+    readonly name: FieldRef<"Space", 'String'>
+    readonly code: FieldRef<"Space", 'String'>
+    readonly use: FieldRef<"Space", 'RoomUse'>
+    readonly status: FieldRef<"Space", 'ServiceStatus'>
+    readonly calenderEntityId: FieldRef<"Space", 'String'>
+    readonly complexId: FieldRef<"Space", 'String'>
+    readonly buildingId: FieldRef<"Space", 'String'>
+    readonly floorId: FieldRef<"Space", 'String'>
+    readonly zoneId: FieldRef<"Space", 'String'>
+    readonly condition: FieldRef<"Space", 'Condition'>
+    readonly criticality: FieldRef<"Space", 'Criticality'>
+    readonly glazedArea: FieldRef<"Space", 'Float'>
+    readonly cleanableArea: FieldRef<"Space", 'Float'>
+    readonly coveredArea: FieldRef<"Space", 'Float'>
+    readonly totalNetArea: FieldRef<"Space", 'Float'>
+    readonly totalGrossArea: FieldRef<"Space", 'Float'>
+    readonly height: FieldRef<"Space", 'Int'>
+    readonly heated: FieldRef<"Space", 'Boolean'>
+    readonly totalVolume: FieldRef<"Space", 'Float'>
+    readonly createdAt: FieldRef<"Space", 'DateTime'>
+    readonly updatedAt: FieldRef<"Space", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * Room findUnique
+   * Space findUnique
    */
-  export type RoomFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SpaceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Room
+     * Select specific fields to fetch from the Space
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: SpaceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Room
+     * Omit specific fields from the Space
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: SpaceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
+    include?: SpaceInclude<ExtArgs> | null
     /**
-     * Filter, which Room to fetch.
+     * Filter, which Space to fetch.
      */
-    where: RoomWhereUniqueInput
+    where: SpaceWhereUniqueInput
   }
 
   /**
-   * Room findUniqueOrThrow
+   * Space findUniqueOrThrow
    */
-  export type RoomFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SpaceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Room
+     * Select specific fields to fetch from the Space
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: SpaceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Room
+     * Omit specific fields from the Space
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: SpaceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
+    include?: SpaceInclude<ExtArgs> | null
     /**
-     * Filter, which Room to fetch.
+     * Filter, which Space to fetch.
      */
-    where: RoomWhereUniqueInput
+    where: SpaceWhereUniqueInput
   }
 
   /**
-   * Room findFirst
+   * Space findFirst
    */
-  export type RoomFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SpaceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Room
+     * Select specific fields to fetch from the Space
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: SpaceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Room
+     * Omit specific fields from the Space
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: SpaceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
+    include?: SpaceInclude<ExtArgs> | null
     /**
-     * Filter, which Room to fetch.
+     * Filter, which Space to fetch.
      */
-    where?: RoomWhereInput
+    where?: SpaceWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Rooms to fetch.
+     * Determine the order of Spaces to fetch.
      */
-    orderBy?: RoomOrderByWithRelationInput | RoomOrderByWithRelationInput[]
+    orderBy?: SpaceOrderByWithRelationInput | SpaceOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Rooms.
+     * Sets the position for searching for Spaces.
      */
-    cursor?: RoomWhereUniqueInput
+    cursor?: SpaceWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Rooms from the position of the cursor.
+     * Take `±n` Spaces from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Rooms.
+     * Skip the first `n` Spaces.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Rooms.
+     * Filter by unique combinations of Spaces.
      */
-    distinct?: RoomScalarFieldEnum | RoomScalarFieldEnum[]
+    distinct?: SpaceScalarFieldEnum | SpaceScalarFieldEnum[]
   }
 
   /**
-   * Room findFirstOrThrow
+   * Space findFirstOrThrow
    */
-  export type RoomFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SpaceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Room
+     * Select specific fields to fetch from the Space
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: SpaceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Room
+     * Omit specific fields from the Space
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: SpaceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
+    include?: SpaceInclude<ExtArgs> | null
     /**
-     * Filter, which Room to fetch.
+     * Filter, which Space to fetch.
      */
-    where?: RoomWhereInput
+    where?: SpaceWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Rooms to fetch.
+     * Determine the order of Spaces to fetch.
      */
-    orderBy?: RoomOrderByWithRelationInput | RoomOrderByWithRelationInput[]
+    orderBy?: SpaceOrderByWithRelationInput | SpaceOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Rooms.
+     * Sets the position for searching for Spaces.
      */
-    cursor?: RoomWhereUniqueInput
+    cursor?: SpaceWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Rooms from the position of the cursor.
+     * Take `±n` Spaces from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Rooms.
+     * Skip the first `n` Spaces.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Rooms.
+     * Filter by unique combinations of Spaces.
      */
-    distinct?: RoomScalarFieldEnum | RoomScalarFieldEnum[]
+    distinct?: SpaceScalarFieldEnum | SpaceScalarFieldEnum[]
   }
 
   /**
-   * Room findMany
+   * Space findMany
    */
-  export type RoomFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SpaceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Room
+     * Select specific fields to fetch from the Space
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: SpaceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Room
+     * Omit specific fields from the Space
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: SpaceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
+    include?: SpaceInclude<ExtArgs> | null
     /**
-     * Filter, which Rooms to fetch.
+     * Filter, which Spaces to fetch.
      */
-    where?: RoomWhereInput
+    where?: SpaceWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Rooms to fetch.
+     * Determine the order of Spaces to fetch.
      */
-    orderBy?: RoomOrderByWithRelationInput | RoomOrderByWithRelationInput[]
+    orderBy?: SpaceOrderByWithRelationInput | SpaceOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Rooms.
+     * Sets the position for listing Spaces.
      */
-    cursor?: RoomWhereUniqueInput
+    cursor?: SpaceWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Rooms from the position of the cursor.
+     * Take `±n` Spaces from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Rooms.
+     * Skip the first `n` Spaces.
      */
     skip?: number
-    distinct?: RoomScalarFieldEnum | RoomScalarFieldEnum[]
+    distinct?: SpaceScalarFieldEnum | SpaceScalarFieldEnum[]
   }
 
   /**
-   * Room create
+   * Space create
    */
-  export type RoomCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SpaceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Room
+     * Select specific fields to fetch from the Space
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: SpaceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Room
+     * Omit specific fields from the Space
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: SpaceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
+    include?: SpaceInclude<ExtArgs> | null
     /**
-     * The data needed to create a Room.
+     * The data needed to create a Space.
      */
-    data: XOR<RoomCreateInput, RoomUncheckedCreateInput>
+    data: XOR<SpaceCreateInput, SpaceUncheckedCreateInput>
   }
 
   /**
-   * Room createMany
+   * Space createMany
    */
-  export type RoomCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SpaceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many Rooms.
+     * The data used to create many Spaces.
      */
-    data: RoomCreateManyInput | RoomCreateManyInput[]
+    data: SpaceCreateManyInput | SpaceCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * Room createManyAndReturn
+   * Space createManyAndReturn
    */
-  export type RoomCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SpaceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Room
+     * Select specific fields to fetch from the Space
      */
-    select?: RoomSelectCreateManyAndReturn<ExtArgs> | null
+    select?: SpaceSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Room
+     * Omit specific fields from the Space
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: SpaceOmit<ExtArgs> | null
     /**
-     * The data used to create many Rooms.
+     * The data used to create many Spaces.
      */
-    data: RoomCreateManyInput | RoomCreateManyInput[]
+    data: SpaceCreateManyInput | SpaceCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: SpaceIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Room update
+   * Space update
    */
-  export type RoomUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SpaceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Room
+     * Select specific fields to fetch from the Space
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: SpaceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Room
+     * Omit specific fields from the Space
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: SpaceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
+    include?: SpaceInclude<ExtArgs> | null
     /**
-     * The data needed to update a Room.
+     * The data needed to update a Space.
      */
-    data: XOR<RoomUpdateInput, RoomUncheckedUpdateInput>
+    data: XOR<SpaceUpdateInput, SpaceUncheckedUpdateInput>
     /**
-     * Choose, which Room to update.
+     * Choose, which Space to update.
      */
-    where: RoomWhereUniqueInput
+    where: SpaceWhereUniqueInput
   }
 
   /**
-   * Room updateMany
+   * Space updateMany
    */
-  export type RoomUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SpaceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update Rooms.
+     * The data used to update Spaces.
      */
-    data: XOR<RoomUpdateManyMutationInput, RoomUncheckedUpdateManyInput>
+    data: XOR<SpaceUpdateManyMutationInput, SpaceUncheckedUpdateManyInput>
     /**
-     * Filter which Rooms to update
+     * Filter which Spaces to update
      */
-    where?: RoomWhereInput
+    where?: SpaceWhereInput
     /**
-     * Limit how many Rooms to update.
+     * Limit how many Spaces to update.
      */
     limit?: number
   }
 
   /**
-   * Room updateManyAndReturn
+   * Space updateManyAndReturn
    */
-  export type RoomUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SpaceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Room
+     * Select specific fields to fetch from the Space
      */
-    select?: RoomSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: SpaceSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Room
+     * Omit specific fields from the Space
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: SpaceOmit<ExtArgs> | null
     /**
-     * The data used to update Rooms.
+     * The data used to update Spaces.
      */
-    data: XOR<RoomUpdateManyMutationInput, RoomUncheckedUpdateManyInput>
+    data: XOR<SpaceUpdateManyMutationInput, SpaceUncheckedUpdateManyInput>
     /**
-     * Filter which Rooms to update
+     * Filter which Spaces to update
      */
-    where?: RoomWhereInput
+    where?: SpaceWhereInput
     /**
-     * Limit how many Rooms to update.
+     * Limit how many Spaces to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: SpaceIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Room upsert
+   * Space upsert
    */
-  export type RoomUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SpaceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Room
+     * Select specific fields to fetch from the Space
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: SpaceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Room
+     * Omit specific fields from the Space
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: SpaceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
+    include?: SpaceInclude<ExtArgs> | null
     /**
-     * The filter to search for the Room to update in case it exists.
+     * The filter to search for the Space to update in case it exists.
      */
-    where: RoomWhereUniqueInput
+    where: SpaceWhereUniqueInput
     /**
-     * In case the Room found by the `where` argument doesn't exist, create a new Room with this data.
+     * In case the Space found by the `where` argument doesn't exist, create a new Space with this data.
      */
-    create: XOR<RoomCreateInput, RoomUncheckedCreateInput>
+    create: XOR<SpaceCreateInput, SpaceUncheckedCreateInput>
     /**
-     * In case the Room was found with the provided `where` argument, update it with this data.
+     * In case the Space was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<RoomUpdateInput, RoomUncheckedUpdateInput>
+    update: XOR<SpaceUpdateInput, SpaceUncheckedUpdateInput>
   }
 
   /**
-   * Room delete
+   * Space delete
    */
-  export type RoomDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SpaceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Room
+     * Select specific fields to fetch from the Space
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: SpaceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Room
+     * Omit specific fields from the Space
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: SpaceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
+    include?: SpaceInclude<ExtArgs> | null
     /**
-     * Filter which Room to delete.
+     * Filter which Space to delete.
      */
-    where: RoomWhereUniqueInput
+    where: SpaceWhereUniqueInput
   }
 
   /**
-   * Room deleteMany
+   * Space deleteMany
    */
-  export type RoomDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SpaceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Rooms to delete
+     * Filter which Spaces to delete
      */
-    where?: RoomWhereInput
+    where?: SpaceWhereInput
     /**
-     * Limit how many Rooms to delete.
+     * Limit how many Spaces to delete.
      */
     limit?: number
   }
 
   /**
-   * Room.calenderEntity
+   * Space.calenderEntity
    */
-  export type Room$calenderEntityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Space$calenderEntityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the CalenderEntity
      */
@@ -14607,9 +15924,9 @@ export namespace Prisma {
   }
 
   /**
-   * Room.complex
+   * Space.complex
    */
-  export type Room$complexArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Space$complexArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Complex
      */
@@ -14626,9 +15943,9 @@ export namespace Prisma {
   }
 
   /**
-   * Room.building
+   * Space.building
    */
-  export type Room$buildingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Space$buildingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Building
      */
@@ -14645,28 +15962,28 @@ export namespace Prisma {
   }
 
   /**
-   * Room.unit
+   * Space.zone
    */
-  export type Room$unitArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Space$zoneArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Unit
+     * Select specific fields to fetch from the Zone
      */
-    select?: UnitSelect<ExtArgs> | null
+    select?: ZoneSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Unit
+     * Omit specific fields from the Zone
      */
-    omit?: UnitOmit<ExtArgs> | null
+    omit?: ZoneOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitInclude<ExtArgs> | null
-    where?: UnitWhereInput
+    include?: ZoneInclude<ExtArgs> | null
+    where?: ZoneWhereInput
   }
 
   /**
-   * Room.photos
+   * Space.photos
    */
-  export type Room$photosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Space$photosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the File
      */
@@ -14688,9 +16005,9 @@ export namespace Prisma {
   }
 
   /**
-   * Room.maintenances
+   * Space.maintenances
    */
-  export type Room$maintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Space$maintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Maintenance
      */
@@ -14712,9 +16029,9 @@ export namespace Prisma {
   }
 
   /**
-   * Room.preventives
+   * Space.preventives
    */
-  export type Room$preventivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Space$preventivesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Preventive
      */
@@ -14736,21 +16053,45 @@ export namespace Prisma {
   }
 
   /**
-   * Room without action
+   * Space.assets
    */
-  export type RoomDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Space$assetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Room
+     * Select specific fields to fetch from the Asset
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: AssetSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Room
+     * Omit specific fields from the Asset
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: AssetOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
+    include?: AssetInclude<ExtArgs> | null
+    where?: AssetWhereInput
+    orderBy?: AssetOrderByWithRelationInput | AssetOrderByWithRelationInput[]
+    cursor?: AssetWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AssetScalarFieldEnum | AssetScalarFieldEnum[]
+  }
+
+  /**
+   * Space without action
+   */
+  export type SpaceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Space
+     */
+    select?: SpaceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Space
+     */
+    omit?: SpaceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpaceInclude<ExtArgs> | null
   }
 
 
@@ -15852,6 +17193,9 @@ export namespace Prisma {
     name: string | null
     description: string | null
     categoryId: string | null
+    tag: string | null
+    parentSystemId: string | null
+    spaceId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -15861,6 +17205,9 @@ export namespace Prisma {
     name: string | null
     description: string | null
     categoryId: string | null
+    tag: string | null
+    parentSystemId: string | null
+    spaceId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -15870,6 +17217,9 @@ export namespace Prisma {
     name: number
     description: number
     categoryId: number
+    tag: number
+    parentSystemId: number
+    spaceId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -15881,6 +17231,9 @@ export namespace Prisma {
     name?: true
     description?: true
     categoryId?: true
+    tag?: true
+    parentSystemId?: true
+    spaceId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -15890,6 +17243,9 @@ export namespace Prisma {
     name?: true
     description?: true
     categoryId?: true
+    tag?: true
+    parentSystemId?: true
+    spaceId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -15899,6 +17255,9 @@ export namespace Prisma {
     name?: true
     description?: true
     categoryId?: true
+    tag?: true
+    parentSystemId?: true
+    spaceId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -15981,6 +17340,9 @@ export namespace Prisma {
     name: string
     description: string | null
     categoryId: string
+    tag: string | null
+    parentSystemId: string | null
+    spaceId: string | null
     createdAt: Date
     updatedAt: Date
     _count: AssetCountAggregateOutputType | null
@@ -16007,9 +17369,15 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     categoryId?: boolean
+    tag?: boolean
+    parentSystemId?: boolean
+    spaceId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     category?: boolean | AssetCategoryDefaultArgs<ExtArgs>
+    parentSystem?: boolean | Asset$parentSystemArgs<ExtArgs>
+    childAssets?: boolean | Asset$childAssetsArgs<ExtArgs>
+    space?: boolean | Asset$spaceArgs<ExtArgs>
     maintenances?: boolean | Asset$maintenancesArgs<ExtArgs>
     preventives?: boolean | Asset$preventivesArgs<ExtArgs>
     _count?: boolean | AssetCountOutputTypeDefaultArgs<ExtArgs>
@@ -16020,9 +17388,14 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     categoryId?: boolean
+    tag?: boolean
+    parentSystemId?: boolean
+    spaceId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     category?: boolean | AssetCategoryDefaultArgs<ExtArgs>
+    parentSystem?: boolean | Asset$parentSystemArgs<ExtArgs>
+    space?: boolean | Asset$spaceArgs<ExtArgs>
   }, ExtArgs["result"]["asset"]>
 
   export type AssetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -16030,9 +17403,14 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     categoryId?: boolean
+    tag?: boolean
+    parentSystemId?: boolean
+    spaceId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     category?: boolean | AssetCategoryDefaultArgs<ExtArgs>
+    parentSystem?: boolean | Asset$parentSystemArgs<ExtArgs>
+    space?: boolean | Asset$spaceArgs<ExtArgs>
   }, ExtArgs["result"]["asset"]>
 
   export type AssetSelectScalar = {
@@ -16040,28 +17418,41 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     categoryId?: boolean
+    tag?: boolean
+    parentSystemId?: boolean
+    spaceId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type AssetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "categoryId" | "createdAt" | "updatedAt", ExtArgs["result"]["asset"]>
+  export type AssetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "categoryId" | "tag" | "parentSystemId" | "spaceId" | "createdAt" | "updatedAt", ExtArgs["result"]["asset"]>
   export type AssetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | AssetCategoryDefaultArgs<ExtArgs>
+    parentSystem?: boolean | Asset$parentSystemArgs<ExtArgs>
+    childAssets?: boolean | Asset$childAssetsArgs<ExtArgs>
+    space?: boolean | Asset$spaceArgs<ExtArgs>
     maintenances?: boolean | Asset$maintenancesArgs<ExtArgs>
     preventives?: boolean | Asset$preventivesArgs<ExtArgs>
     _count?: boolean | AssetCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AssetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | AssetCategoryDefaultArgs<ExtArgs>
+    parentSystem?: boolean | Asset$parentSystemArgs<ExtArgs>
+    space?: boolean | Asset$spaceArgs<ExtArgs>
   }
   export type AssetIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | AssetCategoryDefaultArgs<ExtArgs>
+    parentSystem?: boolean | Asset$parentSystemArgs<ExtArgs>
+    space?: boolean | Asset$spaceArgs<ExtArgs>
   }
 
   export type $AssetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Asset"
     objects: {
       category: Prisma.$AssetCategoryPayload<ExtArgs>
+      parentSystem: Prisma.$AssetPayload<ExtArgs> | null
+      childAssets: Prisma.$AssetPayload<ExtArgs>[]
+      space: Prisma.$SpacePayload<ExtArgs> | null
       maintenances: Prisma.$MaintenancePayload<ExtArgs>[]
       preventives: Prisma.$PreventivePayload<ExtArgs>[]
     }
@@ -16070,6 +17461,9 @@ export namespace Prisma {
       name: string
       description: string | null
       categoryId: string
+      tag: string | null
+      parentSystemId: string | null
+      spaceId: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["asset"]>
@@ -16467,6 +17861,9 @@ export namespace Prisma {
   export interface Prisma__AssetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     category<T extends AssetCategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AssetCategoryDefaultArgs<ExtArgs>>): Prisma__AssetCategoryClient<$Result.GetResult<Prisma.$AssetCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    parentSystem<T extends Asset$parentSystemArgs<ExtArgs> = {}>(args?: Subset<T, Asset$parentSystemArgs<ExtArgs>>): Prisma__AssetClient<$Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    childAssets<T extends Asset$childAssetsArgs<ExtArgs> = {}>(args?: Subset<T, Asset$childAssetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    space<T extends Asset$spaceArgs<ExtArgs> = {}>(args?: Subset<T, Asset$spaceArgs<ExtArgs>>): Prisma__SpaceClient<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     maintenances<T extends Asset$maintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Asset$maintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     preventives<T extends Asset$preventivesArgs<ExtArgs> = {}>(args?: Subset<T, Asset$preventivesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -16502,6 +17899,9 @@ export namespace Prisma {
     readonly name: FieldRef<"Asset", 'String'>
     readonly description: FieldRef<"Asset", 'String'>
     readonly categoryId: FieldRef<"Asset", 'String'>
+    readonly tag: FieldRef<"Asset", 'String'>
+    readonly parentSystemId: FieldRef<"Asset", 'String'>
+    readonly spaceId: FieldRef<"Asset", 'String'>
     readonly createdAt: FieldRef<"Asset", 'DateTime'>
     readonly updatedAt: FieldRef<"Asset", 'DateTime'>
   }
@@ -16900,6 +18300,68 @@ export namespace Prisma {
   }
 
   /**
+   * Asset.parentSystem
+   */
+  export type Asset$parentSystemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Asset
+     */
+    select?: AssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Asset
+     */
+    omit?: AssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetInclude<ExtArgs> | null
+    where?: AssetWhereInput
+  }
+
+  /**
+   * Asset.childAssets
+   */
+  export type Asset$childAssetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Asset
+     */
+    select?: AssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Asset
+     */
+    omit?: AssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetInclude<ExtArgs> | null
+    where?: AssetWhereInput
+    orderBy?: AssetOrderByWithRelationInput | AssetOrderByWithRelationInput[]
+    cursor?: AssetWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AssetScalarFieldEnum | AssetScalarFieldEnum[]
+  }
+
+  /**
+   * Asset.space
+   */
+  export type Asset$spaceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Space
+     */
+    select?: SpaceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Space
+     */
+    omit?: SpaceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpaceInclude<ExtArgs> | null
+    where?: SpaceWhereInput
+  }
+
+  /**
    * Asset.maintenances
    */
   export type Asset$maintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -17114,8 +18576,8 @@ export namespace Prisma {
     id?: boolean
     url?: boolean
     maintenanceId?: boolean
-    rooms?: boolean | File$roomsArgs<ExtArgs>
-    units?: boolean | File$unitsArgs<ExtArgs>
+    spaces?: boolean | File$spacesArgs<ExtArgs>
+    zones?: boolean | File$zonesArgs<ExtArgs>
     buildings?: boolean | File$buildingsArgs<ExtArgs>
     complexes?: boolean | File$complexesArgs<ExtArgs>
     maintenance?: boolean | File$maintenanceArgs<ExtArgs>
@@ -17144,8 +18606,8 @@ export namespace Prisma {
 
   export type FileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "maintenanceId", ExtArgs["result"]["file"]>
   export type FileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    rooms?: boolean | File$roomsArgs<ExtArgs>
-    units?: boolean | File$unitsArgs<ExtArgs>
+    spaces?: boolean | File$spacesArgs<ExtArgs>
+    zones?: boolean | File$zonesArgs<ExtArgs>
     buildings?: boolean | File$buildingsArgs<ExtArgs>
     complexes?: boolean | File$complexesArgs<ExtArgs>
     maintenance?: boolean | File$maintenanceArgs<ExtArgs>
@@ -17161,8 +18623,8 @@ export namespace Prisma {
   export type $FilePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "File"
     objects: {
-      rooms: Prisma.$RoomPayload<ExtArgs>[]
-      units: Prisma.$UnitPayload<ExtArgs>[]
+      spaces: Prisma.$SpacePayload<ExtArgs>[]
+      zones: Prisma.$ZonePayload<ExtArgs>[]
       buildings: Prisma.$BuildingPayload<ExtArgs>[]
       complexes: Prisma.$ComplexPayload<ExtArgs>[]
       maintenance: Prisma.$MaintenancePayload<ExtArgs> | null
@@ -17565,8 +19027,8 @@ export namespace Prisma {
    */
   export interface Prisma__FileClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    rooms<T extends File$roomsArgs<ExtArgs> = {}>(args?: Subset<T, File$roomsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    units<T extends File$unitsArgs<ExtArgs> = {}>(args?: Subset<T, File$unitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    spaces<T extends File$spacesArgs<ExtArgs> = {}>(args?: Subset<T, File$spacesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    zones<T extends File$zonesArgs<ExtArgs> = {}>(args?: Subset<T, File$zonesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     buildings<T extends File$buildingsArgs<ExtArgs> = {}>(args?: Subset<T, File$buildingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BuildingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     complexes<T extends File$complexesArgs<ExtArgs> = {}>(args?: Subset<T, File$complexesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComplexPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     maintenance<T extends File$maintenanceArgs<ExtArgs> = {}>(args?: Subset<T, File$maintenanceArgs<ExtArgs>>): Prisma__MaintenanceClient<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -17998,51 +19460,51 @@ export namespace Prisma {
   }
 
   /**
-   * File.rooms
+   * File.spaces
    */
-  export type File$roomsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type File$spacesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Room
+     * Select specific fields to fetch from the Space
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: SpaceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Room
+     * Omit specific fields from the Space
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: SpaceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
-    where?: RoomWhereInput
-    orderBy?: RoomOrderByWithRelationInput | RoomOrderByWithRelationInput[]
-    cursor?: RoomWhereUniqueInput
+    include?: SpaceInclude<ExtArgs> | null
+    where?: SpaceWhereInput
+    orderBy?: SpaceOrderByWithRelationInput | SpaceOrderByWithRelationInput[]
+    cursor?: SpaceWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: RoomScalarFieldEnum | RoomScalarFieldEnum[]
+    distinct?: SpaceScalarFieldEnum | SpaceScalarFieldEnum[]
   }
 
   /**
-   * File.units
+   * File.zones
    */
-  export type File$unitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type File$zonesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Unit
+     * Select specific fields to fetch from the Zone
      */
-    select?: UnitSelect<ExtArgs> | null
+    select?: ZoneSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Unit
+     * Omit specific fields from the Zone
      */
-    omit?: UnitOmit<ExtArgs> | null
+    omit?: ZoneOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitInclude<ExtArgs> | null
-    where?: UnitWhereInput
-    orderBy?: UnitOrderByWithRelationInput | UnitOrderByWithRelationInput[]
-    cursor?: UnitWhereUniqueInput
+    include?: ZoneInclude<ExtArgs> | null
+    where?: ZoneWhereInput
+    orderBy?: ZoneOrderByWithRelationInput | ZoneOrderByWithRelationInput[]
+    cursor?: ZoneWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: UnitScalarFieldEnum | UnitScalarFieldEnum[]
+    distinct?: ZoneScalarFieldEnum | ZoneScalarFieldEnum[]
   }
 
   /**
@@ -23951,8 +25413,8 @@ export namespace Prisma {
     updatedAt?: boolean
     buildings?: boolean | CalenderEntity$buildingsArgs<ExtArgs>
     complexes?: boolean | CalenderEntity$complexesArgs<ExtArgs>
-    units?: boolean | CalenderEntity$unitsArgs<ExtArgs>
-    rooms?: boolean | CalenderEntity$roomsArgs<ExtArgs>
+    spaces?: boolean | CalenderEntity$spacesArgs<ExtArgs>
+    zones?: boolean | CalenderEntity$zonesArgs<ExtArgs>
     employees?: boolean | CalenderEntity$employeesArgs<ExtArgs>
     _count?: boolean | CalenderEntityCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["calenderEntity"]>
@@ -23982,8 +25444,8 @@ export namespace Prisma {
   export type CalenderEntityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     buildings?: boolean | CalenderEntity$buildingsArgs<ExtArgs>
     complexes?: boolean | CalenderEntity$complexesArgs<ExtArgs>
-    units?: boolean | CalenderEntity$unitsArgs<ExtArgs>
-    rooms?: boolean | CalenderEntity$roomsArgs<ExtArgs>
+    spaces?: boolean | CalenderEntity$spacesArgs<ExtArgs>
+    zones?: boolean | CalenderEntity$zonesArgs<ExtArgs>
     employees?: boolean | CalenderEntity$employeesArgs<ExtArgs>
     _count?: boolean | CalenderEntityCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -23995,8 +25457,8 @@ export namespace Prisma {
     objects: {
       buildings: Prisma.$BuildingPayload<ExtArgs>[]
       complexes: Prisma.$ComplexPayload<ExtArgs>[]
-      units: Prisma.$UnitPayload<ExtArgs>[]
-      rooms: Prisma.$RoomPayload<ExtArgs>[]
+      spaces: Prisma.$SpacePayload<ExtArgs>[]
+      zones: Prisma.$ZonePayload<ExtArgs>[]
       employees: Prisma.$EmployeePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -24400,8 +25862,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     buildings<T extends CalenderEntity$buildingsArgs<ExtArgs> = {}>(args?: Subset<T, CalenderEntity$buildingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BuildingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     complexes<T extends CalenderEntity$complexesArgs<ExtArgs> = {}>(args?: Subset<T, CalenderEntity$complexesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComplexPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    units<T extends CalenderEntity$unitsArgs<ExtArgs> = {}>(args?: Subset<T, CalenderEntity$unitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    rooms<T extends CalenderEntity$roomsArgs<ExtArgs> = {}>(args?: Subset<T, CalenderEntity$roomsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    spaces<T extends CalenderEntity$spacesArgs<ExtArgs> = {}>(args?: Subset<T, CalenderEntity$spacesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    zones<T extends CalenderEntity$zonesArgs<ExtArgs> = {}>(args?: Subset<T, CalenderEntity$zonesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     employees<T extends CalenderEntity$employeesArgs<ExtArgs> = {}>(args?: Subset<T, CalenderEntity$employeesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -24872,51 +26334,51 @@ export namespace Prisma {
   }
 
   /**
-   * CalenderEntity.units
+   * CalenderEntity.spaces
    */
-  export type CalenderEntity$unitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CalenderEntity$spacesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Unit
+     * Select specific fields to fetch from the Space
      */
-    select?: UnitSelect<ExtArgs> | null
+    select?: SpaceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Unit
+     * Omit specific fields from the Space
      */
-    omit?: UnitOmit<ExtArgs> | null
+    omit?: SpaceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitInclude<ExtArgs> | null
-    where?: UnitWhereInput
-    orderBy?: UnitOrderByWithRelationInput | UnitOrderByWithRelationInput[]
-    cursor?: UnitWhereUniqueInput
+    include?: SpaceInclude<ExtArgs> | null
+    where?: SpaceWhereInput
+    orderBy?: SpaceOrderByWithRelationInput | SpaceOrderByWithRelationInput[]
+    cursor?: SpaceWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: UnitScalarFieldEnum | UnitScalarFieldEnum[]
+    distinct?: SpaceScalarFieldEnum | SpaceScalarFieldEnum[]
   }
 
   /**
-   * CalenderEntity.rooms
+   * CalenderEntity.zones
    */
-  export type CalenderEntity$roomsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CalenderEntity$zonesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Room
+     * Select specific fields to fetch from the Zone
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: ZoneSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Room
+     * Omit specific fields from the Zone
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: ZoneOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
-    where?: RoomWhereInput
-    orderBy?: RoomOrderByWithRelationInput | RoomOrderByWithRelationInput[]
-    cursor?: RoomWhereUniqueInput
+    include?: ZoneInclude<ExtArgs> | null
+    where?: ZoneWhereInput
+    orderBy?: ZoneOrderByWithRelationInput | ZoneOrderByWithRelationInput[]
+    cursor?: ZoneWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: RoomScalarFieldEnum | RoomScalarFieldEnum[]
+    distinct?: ZoneScalarFieldEnum | ZoneScalarFieldEnum[]
   }
 
   /**
@@ -25043,7 +26505,7 @@ export namespace Prisma {
     companyId: string | null
     teamId: string | null
     floorId: string | null
-    roomId: string | null
+    spaceId: string | null
     ttSystemOpening: Decimal | null
     ttWorkOpening: Decimal | null
     ttSystemAssignment: Decimal | null
@@ -25104,7 +26566,7 @@ export namespace Prisma {
     companyId: string | null
     teamId: string | null
     floorId: string | null
-    roomId: string | null
+    spaceId: string | null
     ttSystemOpening: Decimal | null
     ttWorkOpening: Decimal | null
     ttSystemAssignment: Decimal | null
@@ -25137,6 +26599,7 @@ export namespace Prisma {
     action: number
     message: number
     processNotes: number
+    metadata: number
     performerId: number
     processStatus: number
     register: number
@@ -25165,7 +26628,7 @@ export namespace Prisma {
     companyId: number
     teamId: number
     floorId: number
-    roomId: number
+    spaceId: number
     ttSystemOpening: number
     ttWorkOpening: number
     ttSystemAssignment: number
@@ -25258,7 +26721,7 @@ export namespace Prisma {
     companyId?: true
     teamId?: true
     floorId?: true
-    roomId?: true
+    spaceId?: true
     ttSystemOpening?: true
     ttWorkOpening?: true
     ttSystemAssignment?: true
@@ -25319,7 +26782,7 @@ export namespace Prisma {
     companyId?: true
     teamId?: true
     floorId?: true
-    roomId?: true
+    spaceId?: true
     ttSystemOpening?: true
     ttWorkOpening?: true
     ttSystemAssignment?: true
@@ -25352,6 +26815,7 @@ export namespace Prisma {
     action?: true
     message?: true
     processNotes?: true
+    metadata?: true
     performerId?: true
     processStatus?: true
     register?: true
@@ -25380,7 +26844,7 @@ export namespace Prisma {
     companyId?: true
     teamId?: true
     floorId?: true
-    roomId?: true
+    spaceId?: true
     ttSystemOpening?: true
     ttWorkOpening?: true
     ttSystemAssignment?: true
@@ -25500,6 +26964,7 @@ export namespace Prisma {
     action: string | null
     message: string | null
     processNotes: string | null
+    metadata: JsonValue | null
     performerId: string | null
     processStatus: $Enums.Status
     register: string | null
@@ -25528,7 +26993,7 @@ export namespace Prisma {
     companyId: string | null
     teamId: string | null
     floorId: string | null
-    roomId: string | null
+    spaceId: string | null
     ttSystemOpening: Decimal | null
     ttWorkOpening: Decimal | null
     ttSystemAssignment: Decimal | null
@@ -25580,6 +27045,7 @@ export namespace Prisma {
     action?: boolean
     message?: boolean
     processNotes?: boolean
+    metadata?: boolean
     performerId?: boolean
     processStatus?: boolean
     register?: boolean
@@ -25608,7 +27074,7 @@ export namespace Prisma {
     companyId?: boolean
     teamId?: boolean
     floorId?: boolean
-    roomId?: boolean
+    spaceId?: boolean
     ttSystemOpening?: boolean
     ttWorkOpening?: boolean
     ttSystemAssignment?: boolean
@@ -25634,7 +27100,7 @@ export namespace Prisma {
     company?: boolean | Maintenance$companyArgs<ExtArgs>
     team?: boolean | Maintenance$teamArgs<ExtArgs>
     floor?: boolean | Maintenance$floorArgs<ExtArgs>
-    room?: boolean | Maintenance$roomArgs<ExtArgs>
+    space?: boolean | Maintenance$spaceArgs<ExtArgs>
     assignee?: boolean | Maintenance$assigneeArgs<ExtArgs>
     asset?: boolean | Maintenance$assetArgs<ExtArgs>
     photos?: boolean | Maintenance$photosArgs<ExtArgs>
@@ -25652,6 +27118,7 @@ export namespace Prisma {
     action?: boolean
     message?: boolean
     processNotes?: boolean
+    metadata?: boolean
     performerId?: boolean
     processStatus?: boolean
     register?: boolean
@@ -25680,7 +27147,7 @@ export namespace Prisma {
     companyId?: boolean
     teamId?: boolean
     floorId?: boolean
-    roomId?: boolean
+    spaceId?: boolean
     ttSystemOpening?: boolean
     ttWorkOpening?: boolean
     ttSystemAssignment?: boolean
@@ -25706,7 +27173,7 @@ export namespace Prisma {
     company?: boolean | Maintenance$companyArgs<ExtArgs>
     team?: boolean | Maintenance$teamArgs<ExtArgs>
     floor?: boolean | Maintenance$floorArgs<ExtArgs>
-    room?: boolean | Maintenance$roomArgs<ExtArgs>
+    space?: boolean | Maintenance$spaceArgs<ExtArgs>
     assignee?: boolean | Maintenance$assigneeArgs<ExtArgs>
     asset?: boolean | Maintenance$assetArgs<ExtArgs>
   }, ExtArgs["result"]["maintenance"]>
@@ -25722,6 +27189,7 @@ export namespace Prisma {
     action?: boolean
     message?: boolean
     processNotes?: boolean
+    metadata?: boolean
     performerId?: boolean
     processStatus?: boolean
     register?: boolean
@@ -25750,7 +27218,7 @@ export namespace Prisma {
     companyId?: boolean
     teamId?: boolean
     floorId?: boolean
-    roomId?: boolean
+    spaceId?: boolean
     ttSystemOpening?: boolean
     ttWorkOpening?: boolean
     ttSystemAssignment?: boolean
@@ -25776,7 +27244,7 @@ export namespace Prisma {
     company?: boolean | Maintenance$companyArgs<ExtArgs>
     team?: boolean | Maintenance$teamArgs<ExtArgs>
     floor?: boolean | Maintenance$floorArgs<ExtArgs>
-    room?: boolean | Maintenance$roomArgs<ExtArgs>
+    space?: boolean | Maintenance$spaceArgs<ExtArgs>
     assignee?: boolean | Maintenance$assigneeArgs<ExtArgs>
     asset?: boolean | Maintenance$assetArgs<ExtArgs>
   }, ExtArgs["result"]["maintenance"]>
@@ -25792,6 +27260,7 @@ export namespace Prisma {
     action?: boolean
     message?: boolean
     processNotes?: boolean
+    metadata?: boolean
     performerId?: boolean
     processStatus?: boolean
     register?: boolean
@@ -25820,7 +27289,7 @@ export namespace Prisma {
     companyId?: boolean
     teamId?: boolean
     floorId?: boolean
-    roomId?: boolean
+    spaceId?: boolean
     ttSystemOpening?: boolean
     ttWorkOpening?: boolean
     ttSystemAssignment?: boolean
@@ -25842,7 +27311,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type MaintenanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "code" | "description" | "startDate" | "endDate" | "shortDescription" | "action" | "message" | "processNotes" | "performerId" | "processStatus" | "register" | "activityIdTimer" | "activityStartTime" | "activityEndTime" | "allDeadlines" | "processType" | "ttSysRunning" | "ttWorkRunning" | "sorting" | "requesterId" | "priority" | "siteId" | "outcome" | "dueAssignedEnd" | "execStart" | "dueExecEndDate" | "execEndDate" | "dueClosuerDate" | "totalExecTime" | "expStartDate" | "suspensionReason" | "category" | "subCategory" | "companyId" | "teamId" | "floorId" | "roomId" | "ttSystemOpening" | "ttWorkOpening" | "ttSystemAssignment" | "ttWorkAssignment" | "ttSystemExecution" | "ttWorkExecution" | "ttSysSuspension" | "ttWorkSuspension" | "ttEstimate" | "prevMaintenanceConfigId" | "automaticConfig" | "jointAccounting" | "hasTasks" | "estimateStatus" | "delayNotification" | "assigneeId" | "assetId" | "createdAt" | "updatedAt", ExtArgs["result"]["maintenance"]>
+  export type MaintenanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "code" | "description" | "startDate" | "endDate" | "shortDescription" | "action" | "message" | "processNotes" | "metadata" | "performerId" | "processStatus" | "register" | "activityIdTimer" | "activityStartTime" | "activityEndTime" | "allDeadlines" | "processType" | "ttSysRunning" | "ttWorkRunning" | "sorting" | "requesterId" | "priority" | "siteId" | "outcome" | "dueAssignedEnd" | "execStart" | "dueExecEndDate" | "execEndDate" | "dueClosuerDate" | "totalExecTime" | "expStartDate" | "suspensionReason" | "category" | "subCategory" | "companyId" | "teamId" | "floorId" | "spaceId" | "ttSystemOpening" | "ttWorkOpening" | "ttSystemAssignment" | "ttWorkAssignment" | "ttSystemExecution" | "ttWorkExecution" | "ttSysSuspension" | "ttWorkSuspension" | "ttEstimate" | "prevMaintenanceConfigId" | "automaticConfig" | "jointAccounting" | "hasTasks" | "estimateStatus" | "delayNotification" | "assigneeId" | "assetId" | "createdAt" | "updatedAt", ExtArgs["result"]["maintenance"]>
   export type MaintenanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     performer?: boolean | Maintenance$performerArgs<ExtArgs>
     requester?: boolean | Maintenance$requesterArgs<ExtArgs>
@@ -25850,7 +27319,7 @@ export namespace Prisma {
     company?: boolean | Maintenance$companyArgs<ExtArgs>
     team?: boolean | Maintenance$teamArgs<ExtArgs>
     floor?: boolean | Maintenance$floorArgs<ExtArgs>
-    room?: boolean | Maintenance$roomArgs<ExtArgs>
+    space?: boolean | Maintenance$spaceArgs<ExtArgs>
     assignee?: boolean | Maintenance$assigneeArgs<ExtArgs>
     asset?: boolean | Maintenance$assetArgs<ExtArgs>
     photos?: boolean | Maintenance$photosArgs<ExtArgs>
@@ -25863,7 +27332,7 @@ export namespace Prisma {
     company?: boolean | Maintenance$companyArgs<ExtArgs>
     team?: boolean | Maintenance$teamArgs<ExtArgs>
     floor?: boolean | Maintenance$floorArgs<ExtArgs>
-    room?: boolean | Maintenance$roomArgs<ExtArgs>
+    space?: boolean | Maintenance$spaceArgs<ExtArgs>
     assignee?: boolean | Maintenance$assigneeArgs<ExtArgs>
     asset?: boolean | Maintenance$assetArgs<ExtArgs>
   }
@@ -25874,7 +27343,7 @@ export namespace Prisma {
     company?: boolean | Maintenance$companyArgs<ExtArgs>
     team?: boolean | Maintenance$teamArgs<ExtArgs>
     floor?: boolean | Maintenance$floorArgs<ExtArgs>
-    room?: boolean | Maintenance$roomArgs<ExtArgs>
+    space?: boolean | Maintenance$spaceArgs<ExtArgs>
     assignee?: boolean | Maintenance$assigneeArgs<ExtArgs>
     asset?: boolean | Maintenance$assetArgs<ExtArgs>
   }
@@ -25888,7 +27357,7 @@ export namespace Prisma {
       company: Prisma.$CompanyPayload<ExtArgs> | null
       team: Prisma.$TeamPayload<ExtArgs> | null
       floor: Prisma.$FloorPayload<ExtArgs> | null
-      room: Prisma.$RoomPayload<ExtArgs> | null
+      space: Prisma.$SpacePayload<ExtArgs> | null
       assignee: Prisma.$EmployeePayload<ExtArgs> | null
       asset: Prisma.$AssetPayload<ExtArgs> | null
       photos: Prisma.$FilePayload<ExtArgs>[]
@@ -25904,6 +27373,7 @@ export namespace Prisma {
       action: string | null
       message: string | null
       processNotes: string | null
+      metadata: Prisma.JsonValue | null
       performerId: string | null
       processStatus: $Enums.Status
       register: string | null
@@ -25932,7 +27402,7 @@ export namespace Prisma {
       companyId: string | null
       teamId: string | null
       floorId: string | null
-      roomId: string | null
+      spaceId: string | null
       ttSystemOpening: Prisma.Decimal | null
       ttWorkOpening: Prisma.Decimal | null
       ttSystemAssignment: Prisma.Decimal | null
@@ -26352,7 +27822,7 @@ export namespace Prisma {
     company<T extends Maintenance$companyArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$companyArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     team<T extends Maintenance$teamArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$teamArgs<ExtArgs>>): Prisma__TeamClient<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     floor<T extends Maintenance$floorArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$floorArgs<ExtArgs>>): Prisma__FloorClient<$Result.GetResult<Prisma.$FloorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    room<T extends Maintenance$roomArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$roomArgs<ExtArgs>>): Prisma__RoomClient<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    space<T extends Maintenance$spaceArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$spaceArgs<ExtArgs>>): Prisma__SpaceClient<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     assignee<T extends Maintenance$assigneeArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$assigneeArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     asset<T extends Maintenance$assetArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$assetArgs<ExtArgs>>): Prisma__AssetClient<$Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     photos<T extends Maintenance$photosArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$photosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -26395,6 +27865,7 @@ export namespace Prisma {
     readonly action: FieldRef<"Maintenance", 'String'>
     readonly message: FieldRef<"Maintenance", 'String'>
     readonly processNotes: FieldRef<"Maintenance", 'String'>
+    readonly metadata: FieldRef<"Maintenance", 'Json'>
     readonly performerId: FieldRef<"Maintenance", 'String'>
     readonly processStatus: FieldRef<"Maintenance", 'Status'>
     readonly register: FieldRef<"Maintenance", 'String'>
@@ -26423,7 +27894,7 @@ export namespace Prisma {
     readonly companyId: FieldRef<"Maintenance", 'String'>
     readonly teamId: FieldRef<"Maintenance", 'String'>
     readonly floorId: FieldRef<"Maintenance", 'String'>
-    readonly roomId: FieldRef<"Maintenance", 'String'>
+    readonly spaceId: FieldRef<"Maintenance", 'String'>
     readonly ttSystemOpening: FieldRef<"Maintenance", 'Decimal'>
     readonly ttWorkOpening: FieldRef<"Maintenance", 'Decimal'>
     readonly ttSystemAssignment: FieldRef<"Maintenance", 'Decimal'>
@@ -26934,22 +28405,22 @@ export namespace Prisma {
   }
 
   /**
-   * Maintenance.room
+   * Maintenance.space
    */
-  export type Maintenance$roomArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Maintenance$spaceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Room
+     * Select specific fields to fetch from the Space
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: SpaceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Room
+     * Omit specific fields from the Space
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: SpaceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
-    where?: RoomWhereInput
+    include?: SpaceInclude<ExtArgs> | null
+    where?: SpaceWhereInput
   }
 
   /**
@@ -27068,7 +28539,7 @@ export namespace Prisma {
     assetId: string | null
     buildingId: string | null
     floorId: string | null
-    roomId: string | null
+    spaceId: string | null
     teamId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -27089,7 +28560,7 @@ export namespace Prisma {
     assetId: string | null
     buildingId: string | null
     floorId: string | null
-    roomId: string | null
+    spaceId: string | null
     teamId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -27110,7 +28581,7 @@ export namespace Prisma {
     assetId: number
     buildingId: number
     floorId: number
-    roomId: number
+    spaceId: number
     teamId: number
     createdAt: number
     updatedAt: number
@@ -27141,7 +28612,7 @@ export namespace Prisma {
     assetId?: true
     buildingId?: true
     floorId?: true
-    roomId?: true
+    spaceId?: true
     teamId?: true
     createdAt?: true
     updatedAt?: true
@@ -27162,7 +28633,7 @@ export namespace Prisma {
     assetId?: true
     buildingId?: true
     floorId?: true
-    roomId?: true
+    spaceId?: true
     teamId?: true
     createdAt?: true
     updatedAt?: true
@@ -27183,7 +28654,7 @@ export namespace Prisma {
     assetId?: true
     buildingId?: true
     floorId?: true
-    roomId?: true
+    spaceId?: true
     teamId?: true
     createdAt?: true
     updatedAt?: true
@@ -27291,7 +28762,7 @@ export namespace Prisma {
     assetId: string | null
     buildingId: string | null
     floorId: string | null
-    roomId: string | null
+    spaceId: string | null
     teamId: string | null
     createdAt: Date
     updatedAt: Date
@@ -27331,7 +28802,7 @@ export namespace Prisma {
     assetId?: boolean
     buildingId?: boolean
     floorId?: boolean
-    roomId?: boolean
+    spaceId?: boolean
     teamId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -27339,7 +28810,7 @@ export namespace Prisma {
     asset?: boolean | Preventive$assetArgs<ExtArgs>
     building?: boolean | Preventive$buildingArgs<ExtArgs>
     floor?: boolean | Preventive$floorArgs<ExtArgs>
-    room?: boolean | Preventive$roomArgs<ExtArgs>
+    space?: boolean | Preventive$spaceArgs<ExtArgs>
     team?: boolean | Preventive$teamArgs<ExtArgs>
   }, ExtArgs["result"]["preventive"]>
 
@@ -27358,7 +28829,7 @@ export namespace Prisma {
     assetId?: boolean
     buildingId?: boolean
     floorId?: boolean
-    roomId?: boolean
+    spaceId?: boolean
     teamId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -27366,7 +28837,7 @@ export namespace Prisma {
     asset?: boolean | Preventive$assetArgs<ExtArgs>
     building?: boolean | Preventive$buildingArgs<ExtArgs>
     floor?: boolean | Preventive$floorArgs<ExtArgs>
-    room?: boolean | Preventive$roomArgs<ExtArgs>
+    space?: boolean | Preventive$spaceArgs<ExtArgs>
     team?: boolean | Preventive$teamArgs<ExtArgs>
   }, ExtArgs["result"]["preventive"]>
 
@@ -27385,7 +28856,7 @@ export namespace Prisma {
     assetId?: boolean
     buildingId?: boolean
     floorId?: boolean
-    roomId?: boolean
+    spaceId?: boolean
     teamId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -27393,7 +28864,7 @@ export namespace Prisma {
     asset?: boolean | Preventive$assetArgs<ExtArgs>
     building?: boolean | Preventive$buildingArgs<ExtArgs>
     floor?: boolean | Preventive$floorArgs<ExtArgs>
-    room?: boolean | Preventive$roomArgs<ExtArgs>
+    space?: boolean | Preventive$spaceArgs<ExtArgs>
     team?: boolean | Preventive$teamArgs<ExtArgs>
   }, ExtArgs["result"]["preventive"]>
 
@@ -27412,19 +28883,19 @@ export namespace Prisma {
     assetId?: boolean
     buildingId?: boolean
     floorId?: boolean
-    roomId?: boolean
+    spaceId?: boolean
     teamId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type PreventiveOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "description" | "frequency" | "cronExpression" | "lastRun" | "nextRun" | "priority" | "duration" | "siteId" | "assetId" | "buildingId" | "floorId" | "roomId" | "teamId" | "createdAt" | "updatedAt", ExtArgs["result"]["preventive"]>
+  export type PreventiveOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "description" | "frequency" | "cronExpression" | "lastRun" | "nextRun" | "priority" | "duration" | "siteId" | "assetId" | "buildingId" | "floorId" | "spaceId" | "teamId" | "createdAt" | "updatedAt", ExtArgs["result"]["preventive"]>
   export type PreventiveInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     site?: boolean | ComplexDefaultArgs<ExtArgs>
     asset?: boolean | Preventive$assetArgs<ExtArgs>
     building?: boolean | Preventive$buildingArgs<ExtArgs>
     floor?: boolean | Preventive$floorArgs<ExtArgs>
-    room?: boolean | Preventive$roomArgs<ExtArgs>
+    space?: boolean | Preventive$spaceArgs<ExtArgs>
     team?: boolean | Preventive$teamArgs<ExtArgs>
   }
   export type PreventiveIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -27432,7 +28903,7 @@ export namespace Prisma {
     asset?: boolean | Preventive$assetArgs<ExtArgs>
     building?: boolean | Preventive$buildingArgs<ExtArgs>
     floor?: boolean | Preventive$floorArgs<ExtArgs>
-    room?: boolean | Preventive$roomArgs<ExtArgs>
+    space?: boolean | Preventive$spaceArgs<ExtArgs>
     team?: boolean | Preventive$teamArgs<ExtArgs>
   }
   export type PreventiveIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -27440,7 +28911,7 @@ export namespace Prisma {
     asset?: boolean | Preventive$assetArgs<ExtArgs>
     building?: boolean | Preventive$buildingArgs<ExtArgs>
     floor?: boolean | Preventive$floorArgs<ExtArgs>
-    room?: boolean | Preventive$roomArgs<ExtArgs>
+    space?: boolean | Preventive$spaceArgs<ExtArgs>
     team?: boolean | Preventive$teamArgs<ExtArgs>
   }
 
@@ -27451,7 +28922,7 @@ export namespace Prisma {
       asset: Prisma.$AssetPayload<ExtArgs> | null
       building: Prisma.$BuildingPayload<ExtArgs> | null
       floor: Prisma.$FloorPayload<ExtArgs> | null
-      room: Prisma.$RoomPayload<ExtArgs> | null
+      space: Prisma.$SpacePayload<ExtArgs> | null
       team: Prisma.$TeamPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -27469,7 +28940,7 @@ export namespace Prisma {
       assetId: string | null
       buildingId: string | null
       floorId: string | null
-      roomId: string | null
+      spaceId: string | null
       teamId: string | null
       createdAt: Date
       updatedAt: Date
@@ -27871,7 +29342,7 @@ export namespace Prisma {
     asset<T extends Preventive$assetArgs<ExtArgs> = {}>(args?: Subset<T, Preventive$assetArgs<ExtArgs>>): Prisma__AssetClient<$Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     building<T extends Preventive$buildingArgs<ExtArgs> = {}>(args?: Subset<T, Preventive$buildingArgs<ExtArgs>>): Prisma__BuildingClient<$Result.GetResult<Prisma.$BuildingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     floor<T extends Preventive$floorArgs<ExtArgs> = {}>(args?: Subset<T, Preventive$floorArgs<ExtArgs>>): Prisma__FloorClient<$Result.GetResult<Prisma.$FloorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    room<T extends Preventive$roomArgs<ExtArgs> = {}>(args?: Subset<T, Preventive$roomArgs<ExtArgs>>): Prisma__RoomClient<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    space<T extends Preventive$spaceArgs<ExtArgs> = {}>(args?: Subset<T, Preventive$spaceArgs<ExtArgs>>): Prisma__SpaceClient<$Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     team<T extends Preventive$teamArgs<ExtArgs> = {}>(args?: Subset<T, Preventive$teamArgs<ExtArgs>>): Prisma__TeamClient<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -27916,7 +29387,7 @@ export namespace Prisma {
     readonly assetId: FieldRef<"Preventive", 'String'>
     readonly buildingId: FieldRef<"Preventive", 'String'>
     readonly floorId: FieldRef<"Preventive", 'String'>
-    readonly roomId: FieldRef<"Preventive", 'String'>
+    readonly spaceId: FieldRef<"Preventive", 'String'>
     readonly teamId: FieldRef<"Preventive", 'String'>
     readonly createdAt: FieldRef<"Preventive", 'DateTime'>
     readonly updatedAt: FieldRef<"Preventive", 'DateTime'>
@@ -28373,22 +29844,22 @@ export namespace Prisma {
   }
 
   /**
-   * Preventive.room
+   * Preventive.space
    */
-  export type Preventive$roomArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Preventive$spaceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Room
+     * Select specific fields to fetch from the Space
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: SpaceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Room
+     * Omit specific fields from the Space
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: SpaceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
-    where?: RoomWhereInput
+    include?: SpaceInclude<ExtArgs> | null
+    where?: SpaceWhereInput
   }
 
   /**
@@ -29521,7 +30992,6 @@ export namespace Prisma {
     firstName: 'firstName',
     lastName: 'lastName',
     status: 'status',
-    roleId: 'roleId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     passwordResetToken: 'passwordResetToken',
@@ -29535,6 +31005,7 @@ export namespace Prisma {
   export const RoleScalarFieldEnum: {
     id: 'id',
     name: 'name',
+    isSystem: 'isSystem',
     description: 'description',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -29553,6 +31024,19 @@ export namespace Prisma {
   };
 
   export type PermissionScalarFieldEnum = (typeof PermissionScalarFieldEnum)[keyof typeof PermissionScalarFieldEnum]
+
+
+  export const SiteScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    address: 'address',
+    climateZone: 'climateZone',
+    description: 'description',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SiteScalarFieldEnum = (typeof SiteScalarFieldEnum)[keyof typeof SiteScalarFieldEnum]
 
 
   export const ComplexScalarFieldEnum: {
@@ -29579,7 +31063,8 @@ export namespace Prisma {
     totalHeatedVolume: 'totalHeatedVolume',
     totalVolume: 'totalVolume',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    siteId: 'siteId'
   };
 
   export type ComplexScalarFieldEnum = (typeof ComplexScalarFieldEnum)[keyof typeof ComplexScalarFieldEnum]
@@ -29619,6 +31104,7 @@ export namespace Prisma {
     code: 'code',
     name: 'name',
     level: 'level',
+    type: 'type',
     status: 'status',
     condition: 'condition',
     criticality: 'criticality',
@@ -29640,10 +31126,11 @@ export namespace Prisma {
   export type FloorScalarFieldEnum = (typeof FloorScalarFieldEnum)[keyof typeof FloorScalarFieldEnum]
 
 
-  export const UnitScalarFieldEnum: {
+  export const ZoneScalarFieldEnum: {
     id: 'id',
     code: 'code',
     name: 'name',
+    type: 'type',
     availability: 'availability',
     status: 'status',
     calenderEntityId: 'calenderEntityId',
@@ -29676,10 +31163,10 @@ export namespace Prisma {
     updatedAt: 'updatedAt'
   };
 
-  export type UnitScalarFieldEnum = (typeof UnitScalarFieldEnum)[keyof typeof UnitScalarFieldEnum]
+  export type ZoneScalarFieldEnum = (typeof ZoneScalarFieldEnum)[keyof typeof ZoneScalarFieldEnum]
 
 
-  export const RoomScalarFieldEnum: {
+  export const SpaceScalarFieldEnum: {
     id: 'id',
     name: 'name',
     code: 'code',
@@ -29689,7 +31176,7 @@ export namespace Prisma {
     complexId: 'complexId',
     buildingId: 'buildingId',
     floorId: 'floorId',
-    unitId: 'unitId',
+    zoneId: 'zoneId',
     condition: 'condition',
     criticality: 'criticality',
     glazedArea: 'glazedArea',
@@ -29704,7 +31191,7 @@ export namespace Prisma {
     updatedAt: 'updatedAt'
   };
 
-  export type RoomScalarFieldEnum = (typeof RoomScalarFieldEnum)[keyof typeof RoomScalarFieldEnum]
+  export type SpaceScalarFieldEnum = (typeof SpaceScalarFieldEnum)[keyof typeof SpaceScalarFieldEnum]
 
 
   export const AssetCategoryScalarFieldEnum: {
@@ -29724,6 +31211,9 @@ export namespace Prisma {
     name: 'name',
     description: 'description',
     categoryId: 'categoryId',
+    tag: 'tag',
+    parentSystemId: 'parentSystemId',
+    spaceId: 'spaceId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -29826,6 +31316,7 @@ export namespace Prisma {
     action: 'action',
     message: 'message',
     processNotes: 'processNotes',
+    metadata: 'metadata',
     performerId: 'performerId',
     processStatus: 'processStatus',
     register: 'register',
@@ -29854,7 +31345,7 @@ export namespace Prisma {
     companyId: 'companyId',
     teamId: 'teamId',
     floorId: 'floorId',
-    roomId: 'roomId',
+    spaceId: 'spaceId',
     ttSystemOpening: 'ttSystemOpening',
     ttWorkOpening: 'ttWorkOpening',
     ttSystemAssignment: 'ttSystemAssignment',
@@ -29894,7 +31385,7 @@ export namespace Prisma {
     assetId: 'assetId',
     buildingId: 'buildingId',
     floorId: 'floorId',
-    roomId: 'roomId',
+    spaceId: 'spaceId',
     teamId: 'teamId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -29923,6 +31414,14 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
@@ -29937,6 +31436,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -29987,16 +31495,9 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'RoleName'
+   * Reference to a field of type 'Boolean'
    */
-  export type EnumRoleNameFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RoleName'>
-    
-
-
-  /**
-   * Reference to a field of type 'RoleName[]'
-   */
-  export type ListEnumRoleNameFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RoleName[]'>
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -30141,13 +31642,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-  /**
    * Reference to a field of type 'AssetCategoryType'
    */
   export type EnumAssetCategoryTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AssetCategoryType'>
@@ -30200,6 +31694,20 @@ export namespace Prisma {
    * Reference to a field of type 'MaintenanceType[]'
    */
   export type ListEnumMaintenanceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MaintenanceType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -30272,14 +31780,13 @@ export namespace Prisma {
     firstName?: StringFilter<"User"> | string
     lastName?: StringFilter<"User"> | string
     status?: EnumUserStatusFilter<"User"> | $Enums.UserStatus
-    roleId?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     passwordResetToken?: StringNullableFilter<"User"> | string | null
     passwordExpiresAt?: DateTimeNullableFilter<"User"> | Date | string | null
     passwordResetAt?: DateTimeNullableFilter<"User"> | Date | string | null
     refreshTokens?: RefreshTokenListRelationFilter
-    role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
+    roles?: RoleListRelationFilter
     employees?: EmployeeListRelationFilter
   }
 
@@ -30290,14 +31797,13 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     status?: SortOrder
-    roleId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     passwordResetToken?: SortOrderInput | SortOrder
     passwordExpiresAt?: SortOrderInput | SortOrder
     passwordResetAt?: SortOrderInput | SortOrder
     refreshTokens?: RefreshTokenOrderByRelationAggregateInput
-    role?: RoleOrderByWithRelationInput
+    roles?: RoleOrderByRelationAggregateInput
     employees?: EmployeeOrderByRelationAggregateInput
   }
 
@@ -30311,14 +31817,13 @@ export namespace Prisma {
     firstName?: StringFilter<"User"> | string
     lastName?: StringFilter<"User"> | string
     status?: EnumUserStatusFilter<"User"> | $Enums.UserStatus
-    roleId?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     passwordResetToken?: StringNullableFilter<"User"> | string | null
     passwordExpiresAt?: DateTimeNullableFilter<"User"> | Date | string | null
     passwordResetAt?: DateTimeNullableFilter<"User"> | Date | string | null
     refreshTokens?: RefreshTokenListRelationFilter
-    role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
+    roles?: RoleListRelationFilter
     employees?: EmployeeListRelationFilter
   }, "id" | "email">
 
@@ -30329,7 +31834,6 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     status?: SortOrder
-    roleId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     passwordResetToken?: SortOrderInput | SortOrder
@@ -30350,7 +31854,6 @@ export namespace Prisma {
     firstName?: StringWithAggregatesFilter<"User"> | string
     lastName?: StringWithAggregatesFilter<"User"> | string
     status?: EnumUserStatusWithAggregatesFilter<"User"> | $Enums.UserStatus
-    roleId?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     passwordResetToken?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -30363,7 +31866,8 @@ export namespace Prisma {
     OR?: RoleWhereInput[]
     NOT?: RoleWhereInput | RoleWhereInput[]
     id?: StringFilter<"Role"> | string
-    name?: EnumRoleNameFilter<"Role"> | $Enums.RoleName
+    name?: StringFilter<"Role"> | string
+    isSystem?: BoolFilter<"Role"> | boolean
     description?: StringNullableFilter<"Role"> | string | null
     createdAt?: DateTimeFilter<"Role"> | Date | string
     updatedAt?: DateTimeFilter<"Role"> | Date | string
@@ -30374,6 +31878,7 @@ export namespace Prisma {
   export type RoleOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    isSystem?: SortOrder
     description?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -30383,10 +31888,11 @@ export namespace Prisma {
 
   export type RoleWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    name?: $Enums.RoleName
+    name?: string
     AND?: RoleWhereInput | RoleWhereInput[]
     OR?: RoleWhereInput[]
     NOT?: RoleWhereInput | RoleWhereInput[]
+    isSystem?: BoolFilter<"Role"> | boolean
     description?: StringNullableFilter<"Role"> | string | null
     createdAt?: DateTimeFilter<"Role"> | Date | string
     updatedAt?: DateTimeFilter<"Role"> | Date | string
@@ -30397,6 +31903,7 @@ export namespace Prisma {
   export type RoleOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    isSystem?: SortOrder
     description?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -30410,7 +31917,8 @@ export namespace Prisma {
     OR?: RoleScalarWhereWithAggregatesInput[]
     NOT?: RoleScalarWhereWithAggregatesInput | RoleScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Role"> | string
-    name?: EnumRoleNameWithAggregatesFilter<"Role"> | $Enums.RoleName
+    name?: StringWithAggregatesFilter<"Role"> | string
+    isSystem?: BoolWithAggregatesFilter<"Role"> | boolean
     description?: StringNullableWithAggregatesFilter<"Role"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Role"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Role"> | Date | string
@@ -30477,6 +31985,71 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Permission"> | Date | string
   }
 
+  export type SiteWhereInput = {
+    AND?: SiteWhereInput | SiteWhereInput[]
+    OR?: SiteWhereInput[]
+    NOT?: SiteWhereInput | SiteWhereInput[]
+    id?: StringFilter<"Site"> | string
+    name?: StringFilter<"Site"> | string
+    address?: StringNullableFilter<"Site"> | string | null
+    climateZone?: StringNullableFilter<"Site"> | string | null
+    description?: StringNullableFilter<"Site"> | string | null
+    createdAt?: DateTimeFilter<"Site"> | Date | string
+    updatedAt?: DateTimeFilter<"Site"> | Date | string
+    complexes?: ComplexListRelationFilter
+  }
+
+  export type SiteOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    address?: SortOrderInput | SortOrder
+    climateZone?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    complexes?: ComplexOrderByRelationAggregateInput
+  }
+
+  export type SiteWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SiteWhereInput | SiteWhereInput[]
+    OR?: SiteWhereInput[]
+    NOT?: SiteWhereInput | SiteWhereInput[]
+    name?: StringFilter<"Site"> | string
+    address?: StringNullableFilter<"Site"> | string | null
+    climateZone?: StringNullableFilter<"Site"> | string | null
+    description?: StringNullableFilter<"Site"> | string | null
+    createdAt?: DateTimeFilter<"Site"> | Date | string
+    updatedAt?: DateTimeFilter<"Site"> | Date | string
+    complexes?: ComplexListRelationFilter
+  }, "id">
+
+  export type SiteOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    address?: SortOrderInput | SortOrder
+    climateZone?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SiteCountOrderByAggregateInput
+    _max?: SiteMaxOrderByAggregateInput
+    _min?: SiteMinOrderByAggregateInput
+  }
+
+  export type SiteScalarWhereWithAggregatesInput = {
+    AND?: SiteScalarWhereWithAggregatesInput | SiteScalarWhereWithAggregatesInput[]
+    OR?: SiteScalarWhereWithAggregatesInput[]
+    NOT?: SiteScalarWhereWithAggregatesInput | SiteScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Site"> | string
+    name?: StringWithAggregatesFilter<"Site"> | string
+    address?: StringNullableWithAggregatesFilter<"Site"> | string | null
+    climateZone?: StringNullableWithAggregatesFilter<"Site"> | string | null
+    description?: StringNullableWithAggregatesFilter<"Site"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Site"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Site"> | Date | string
+  }
+
   export type ComplexWhereInput = {
     AND?: ComplexWhereInput | ComplexWhereInput[]
     OR?: ComplexWhereInput[]
@@ -30505,14 +32078,16 @@ export namespace Prisma {
     totalVolume?: FloatNullableFilter<"Complex"> | number | null
     createdAt?: DateTimeFilter<"Complex"> | Date | string
     updatedAt?: DateTimeFilter<"Complex"> | Date | string
+    siteId?: StringNullableFilter<"Complex"> | string | null
     calenderEntity?: XOR<CalenderEntityNullableScalarRelationFilter, CalenderEntityWhereInput> | null
     buildings?: BuildingListRelationFilter
     photos?: FileListRelationFilter
     floors?: FloorListRelationFilter
-    units?: UnitListRelationFilter
-    rooms?: RoomListRelationFilter
+    spaces?: SpaceListRelationFilter
+    zones?: ZoneListRelationFilter
     maintenances?: MaintenanceListRelationFilter
     preventives?: PreventiveListRelationFilter
+    site?: XOR<SiteNullableScalarRelationFilter, SiteWhereInput> | null
   }
 
   export type ComplexOrderByWithRelationInput = {
@@ -30540,14 +32115,16 @@ export namespace Prisma {
     totalVolume?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    siteId?: SortOrderInput | SortOrder
     calenderEntity?: CalenderEntityOrderByWithRelationInput
     buildings?: BuildingOrderByRelationAggregateInput
     photos?: FileOrderByRelationAggregateInput
     floors?: FloorOrderByRelationAggregateInput
-    units?: UnitOrderByRelationAggregateInput
-    rooms?: RoomOrderByRelationAggregateInput
+    spaces?: SpaceOrderByRelationAggregateInput
+    zones?: ZoneOrderByRelationAggregateInput
     maintenances?: MaintenanceOrderByRelationAggregateInput
     preventives?: PreventiveOrderByRelationAggregateInput
+    site?: SiteOrderByWithRelationInput
   }
 
   export type ComplexWhereUniqueInput = Prisma.AtLeast<{
@@ -30578,14 +32155,16 @@ export namespace Prisma {
     totalVolume?: FloatNullableFilter<"Complex"> | number | null
     createdAt?: DateTimeFilter<"Complex"> | Date | string
     updatedAt?: DateTimeFilter<"Complex"> | Date | string
+    siteId?: StringNullableFilter<"Complex"> | string | null
     calenderEntity?: XOR<CalenderEntityNullableScalarRelationFilter, CalenderEntityWhereInput> | null
     buildings?: BuildingListRelationFilter
     photos?: FileListRelationFilter
     floors?: FloorListRelationFilter
-    units?: UnitListRelationFilter
-    rooms?: RoomListRelationFilter
+    spaces?: SpaceListRelationFilter
+    zones?: ZoneListRelationFilter
     maintenances?: MaintenanceListRelationFilter
     preventives?: PreventiveListRelationFilter
+    site?: XOR<SiteNullableScalarRelationFilter, SiteWhereInput> | null
   }, "id" | "code">
 
   export type ComplexOrderByWithAggregationInput = {
@@ -30613,6 +32192,7 @@ export namespace Prisma {
     totalVolume?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    siteId?: SortOrderInput | SortOrder
     _count?: ComplexCountOrderByAggregateInput
     _avg?: ComplexAvgOrderByAggregateInput
     _max?: ComplexMaxOrderByAggregateInput
@@ -30648,6 +32228,7 @@ export namespace Prisma {
     totalVolume?: FloatNullableWithAggregatesFilter<"Complex"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"Complex"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Complex"> | Date | string
+    siteId?: StringNullableWithAggregatesFilter<"Complex"> | string | null
   }
 
   export type BuildingWhereInput = {
@@ -30682,8 +32263,8 @@ export namespace Prisma {
     calenderEntity?: XOR<CalenderEntityNullableScalarRelationFilter, CalenderEntityWhereInput> | null
     photos?: FileListRelationFilter
     floors?: FloorListRelationFilter
-    units?: UnitListRelationFilter
-    rooms?: RoomListRelationFilter
+    spaces?: SpaceListRelationFilter
+    zones?: ZoneListRelationFilter
     preventives?: PreventiveListRelationFilter
   }
 
@@ -30716,8 +32297,8 @@ export namespace Prisma {
     calenderEntity?: CalenderEntityOrderByWithRelationInput
     photos?: FileOrderByRelationAggregateInput
     floors?: FloorOrderByRelationAggregateInput
-    units?: UnitOrderByRelationAggregateInput
-    rooms?: RoomOrderByRelationAggregateInput
+    spaces?: SpaceOrderByRelationAggregateInput
+    zones?: ZoneOrderByRelationAggregateInput
     preventives?: PreventiveOrderByRelationAggregateInput
   }
 
@@ -30754,8 +32335,8 @@ export namespace Prisma {
     calenderEntity?: XOR<CalenderEntityNullableScalarRelationFilter, CalenderEntityWhereInput> | null
     photos?: FileListRelationFilter
     floors?: FloorListRelationFilter
-    units?: UnitListRelationFilter
-    rooms?: RoomListRelationFilter
+    spaces?: SpaceListRelationFilter
+    zones?: ZoneListRelationFilter
     preventives?: PreventiveListRelationFilter
   }, "id" | "complexId_code">
 
@@ -30827,6 +32408,7 @@ export namespace Prisma {
     code?: StringFilter<"Floor"> | string
     name?: StringFilter<"Floor"> | string
     level?: IntFilter<"Floor"> | number
+    type?: StringNullableFilter<"Floor"> | string | null
     status?: EnumServiceStatusFilter<"Floor"> | $Enums.ServiceStatus
     condition?: EnumConditionFilter<"Floor"> | $Enums.Condition
     criticality?: EnumCriticalityFilter<"Floor"> | $Enums.Criticality
@@ -30845,8 +32427,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Floor"> | Date | string
     complex?: XOR<ComplexScalarRelationFilter, ComplexWhereInput>
     building?: XOR<BuildingScalarRelationFilter, BuildingWhereInput>
-    rooms?: RoomListRelationFilter
-    units?: UnitListRelationFilter
+    spaces?: SpaceListRelationFilter
+    zones?: ZoneListRelationFilter
     maintenances?: MaintenanceListRelationFilter
     preventives?: PreventiveListRelationFilter
   }
@@ -30856,6 +32438,7 @@ export namespace Prisma {
     code?: SortOrder
     name?: SortOrder
     level?: SortOrder
+    type?: SortOrderInput | SortOrder
     status?: SortOrder
     condition?: SortOrder
     criticality?: SortOrder
@@ -30874,8 +32457,8 @@ export namespace Prisma {
     updatedAt?: SortOrder
     complex?: ComplexOrderByWithRelationInput
     building?: BuildingOrderByWithRelationInput
-    rooms?: RoomOrderByRelationAggregateInput
-    units?: UnitOrderByRelationAggregateInput
+    spaces?: SpaceOrderByRelationAggregateInput
+    zones?: ZoneOrderByRelationAggregateInput
     maintenances?: MaintenanceOrderByRelationAggregateInput
     preventives?: PreventiveOrderByRelationAggregateInput
   }
@@ -30889,6 +32472,7 @@ export namespace Prisma {
     code?: StringFilter<"Floor"> | string
     name?: StringFilter<"Floor"> | string
     level?: IntFilter<"Floor"> | number
+    type?: StringNullableFilter<"Floor"> | string | null
     status?: EnumServiceStatusFilter<"Floor"> | $Enums.ServiceStatus
     condition?: EnumConditionFilter<"Floor"> | $Enums.Condition
     criticality?: EnumCriticalityFilter<"Floor"> | $Enums.Criticality
@@ -30907,8 +32491,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Floor"> | Date | string
     complex?: XOR<ComplexScalarRelationFilter, ComplexWhereInput>
     building?: XOR<BuildingScalarRelationFilter, BuildingWhereInput>
-    rooms?: RoomListRelationFilter
-    units?: UnitListRelationFilter
+    spaces?: SpaceListRelationFilter
+    zones?: ZoneListRelationFilter
     maintenances?: MaintenanceListRelationFilter
     preventives?: PreventiveListRelationFilter
   }, "id" | "buildingId_code">
@@ -30918,6 +32502,7 @@ export namespace Prisma {
     code?: SortOrder
     name?: SortOrder
     level?: SortOrder
+    type?: SortOrderInput | SortOrder
     status?: SortOrder
     condition?: SortOrder
     criticality?: SortOrder
@@ -30949,6 +32534,7 @@ export namespace Prisma {
     code?: StringWithAggregatesFilter<"Floor"> | string
     name?: StringWithAggregatesFilter<"Floor"> | string
     level?: IntWithAggregatesFilter<"Floor"> | number
+    type?: StringNullableWithAggregatesFilter<"Floor"> | string | null
     status?: EnumServiceStatusWithAggregatesFilter<"Floor"> | $Enums.ServiceStatus
     condition?: EnumConditionWithAggregatesFilter<"Floor"> | $Enums.Condition
     criticality?: EnumCriticalityWithAggregatesFilter<"Floor"> | $Enums.Criticality
@@ -30967,55 +32553,57 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Floor"> | Date | string
   }
 
-  export type UnitWhereInput = {
-    AND?: UnitWhereInput | UnitWhereInput[]
-    OR?: UnitWhereInput[]
-    NOT?: UnitWhereInput | UnitWhereInput[]
-    id?: StringFilter<"Unit"> | string
-    code?: StringFilter<"Unit"> | string
-    name?: StringFilter<"Unit"> | string
-    availability?: EnumAvailabilityFilter<"Unit"> | $Enums.Availability
-    status?: EnumServiceStatusFilter<"Unit"> | $Enums.ServiceStatus
-    calenderEntityId?: StringNullableFilter<"Unit"> | string | null
-    complexId?: StringNullableFilter<"Unit"> | string | null
-    buildingId?: StringNullableFilter<"Unit"> | string | null
-    floorId?: StringFilter<"Unit"> | string
-    address?: StringNullableFilter<"Unit"> | string | null
-    city?: StringNullableFilter<"Unit"> | string | null
-    zipCode?: StringNullableFilter<"Unit"> | string | null
-    totalRooms?: IntNullableFilter<"Unit"> | number | null
-    glazedArea?: FloatNullableFilter<"Unit"> | number | null
-    cleanableArea?: FloatNullableFilter<"Unit"> | number | null
-    coveredArea?: FloatNullableFilter<"Unit"> | number | null
-    totalNetArea?: FloatNullableFilter<"Unit"> | number | null
-    totalGrossArea?: FloatNullableFilter<"Unit"> | number | null
-    totalHeatedVolume?: FloatNullableFilter<"Unit"> | number | null
-    totalVolume?: FloatNullableFilter<"Unit"> | number | null
-    cadastralArea?: FloatNullableFilter<"Unit"> | number | null
-    urbanSection?: StringNullableFilter<"Unit"> | string | null
-    sheet?: StringNullableFilter<"Unit"> | string | null
-    plot?: StringNullableFilter<"Unit"> | string | null
-    subordinate?: StringNullableFilter<"Unit"> | string | null
-    class?: IntNullableFilter<"Unit"> | number | null
-    size?: FloatNullableFilter<"Unit"> | number | null
-    propertyRightsAndDuties?: StringNullableFilter<"Unit"> | string | null
-    cadastralIncome?: DecimalNullableFilter<"Unit"> | Decimal | DecimalJsLike | number | string | null
-    censusArea?: StringNullableFilter<"Unit"> | string | null
-    subArea?: StringNullableFilter<"Unit"> | string | null
-    createdAt?: DateTimeFilter<"Unit"> | Date | string
-    updatedAt?: DateTimeFilter<"Unit"> | Date | string
+  export type ZoneWhereInput = {
+    AND?: ZoneWhereInput | ZoneWhereInput[]
+    OR?: ZoneWhereInput[]
+    NOT?: ZoneWhereInput | ZoneWhereInput[]
+    id?: StringFilter<"Zone"> | string
+    code?: StringFilter<"Zone"> | string
+    name?: StringFilter<"Zone"> | string
+    type?: StringNullableFilter<"Zone"> | string | null
+    availability?: EnumAvailabilityFilter<"Zone"> | $Enums.Availability
+    status?: EnumServiceStatusFilter<"Zone"> | $Enums.ServiceStatus
+    calenderEntityId?: StringNullableFilter<"Zone"> | string | null
+    complexId?: StringNullableFilter<"Zone"> | string | null
+    buildingId?: StringNullableFilter<"Zone"> | string | null
+    floorId?: StringFilter<"Zone"> | string
+    address?: StringNullableFilter<"Zone"> | string | null
+    city?: StringNullableFilter<"Zone"> | string | null
+    zipCode?: StringNullableFilter<"Zone"> | string | null
+    totalRooms?: IntNullableFilter<"Zone"> | number | null
+    glazedArea?: FloatNullableFilter<"Zone"> | number | null
+    cleanableArea?: FloatNullableFilter<"Zone"> | number | null
+    coveredArea?: FloatNullableFilter<"Zone"> | number | null
+    totalNetArea?: FloatNullableFilter<"Zone"> | number | null
+    totalGrossArea?: FloatNullableFilter<"Zone"> | number | null
+    totalHeatedVolume?: FloatNullableFilter<"Zone"> | number | null
+    totalVolume?: FloatNullableFilter<"Zone"> | number | null
+    cadastralArea?: FloatNullableFilter<"Zone"> | number | null
+    urbanSection?: StringNullableFilter<"Zone"> | string | null
+    sheet?: StringNullableFilter<"Zone"> | string | null
+    plot?: StringNullableFilter<"Zone"> | string | null
+    subordinate?: StringNullableFilter<"Zone"> | string | null
+    class?: IntNullableFilter<"Zone"> | number | null
+    size?: FloatNullableFilter<"Zone"> | number | null
+    propertyRightsAndDuties?: StringNullableFilter<"Zone"> | string | null
+    cadastralIncome?: DecimalNullableFilter<"Zone"> | Decimal | DecimalJsLike | number | string | null
+    censusArea?: StringNullableFilter<"Zone"> | string | null
+    subArea?: StringNullableFilter<"Zone"> | string | null
+    createdAt?: DateTimeFilter<"Zone"> | Date | string
+    updatedAt?: DateTimeFilter<"Zone"> | Date | string
     calenderEntity?: XOR<CalenderEntityNullableScalarRelationFilter, CalenderEntityWhereInput> | null
     complex?: XOR<ComplexNullableScalarRelationFilter, ComplexWhereInput> | null
     building?: XOR<BuildingNullableScalarRelationFilter, BuildingWhereInput> | null
     floor?: XOR<FloorScalarRelationFilter, FloorWhereInput>
-    rooms?: RoomListRelationFilter
+    rooms?: SpaceListRelationFilter
     photos?: FileListRelationFilter
   }
 
-  export type UnitOrderByWithRelationInput = {
+  export type ZoneOrderByWithRelationInput = {
     id?: SortOrder
     code?: SortOrder
     name?: SortOrder
+    type?: SortOrderInput | SortOrder
     availability?: SortOrder
     status?: SortOrder
     calenderEntityId?: SortOrderInput | SortOrder
@@ -31050,60 +32638,62 @@ export namespace Prisma {
     complex?: ComplexOrderByWithRelationInput
     building?: BuildingOrderByWithRelationInput
     floor?: FloorOrderByWithRelationInput
-    rooms?: RoomOrderByRelationAggregateInput
+    rooms?: SpaceOrderByRelationAggregateInput
     photos?: FileOrderByRelationAggregateInput
   }
 
-  export type UnitWhereUniqueInput = Prisma.AtLeast<{
+  export type ZoneWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    floorId_code?: UnitFloorIdCodeCompoundUniqueInput
-    AND?: UnitWhereInput | UnitWhereInput[]
-    OR?: UnitWhereInput[]
-    NOT?: UnitWhereInput | UnitWhereInput[]
-    code?: StringFilter<"Unit"> | string
-    name?: StringFilter<"Unit"> | string
-    availability?: EnumAvailabilityFilter<"Unit"> | $Enums.Availability
-    status?: EnumServiceStatusFilter<"Unit"> | $Enums.ServiceStatus
-    calenderEntityId?: StringNullableFilter<"Unit"> | string | null
-    complexId?: StringNullableFilter<"Unit"> | string | null
-    buildingId?: StringNullableFilter<"Unit"> | string | null
-    floorId?: StringFilter<"Unit"> | string
-    address?: StringNullableFilter<"Unit"> | string | null
-    city?: StringNullableFilter<"Unit"> | string | null
-    zipCode?: StringNullableFilter<"Unit"> | string | null
-    totalRooms?: IntNullableFilter<"Unit"> | number | null
-    glazedArea?: FloatNullableFilter<"Unit"> | number | null
-    cleanableArea?: FloatNullableFilter<"Unit"> | number | null
-    coveredArea?: FloatNullableFilter<"Unit"> | number | null
-    totalNetArea?: FloatNullableFilter<"Unit"> | number | null
-    totalGrossArea?: FloatNullableFilter<"Unit"> | number | null
-    totalHeatedVolume?: FloatNullableFilter<"Unit"> | number | null
-    totalVolume?: FloatNullableFilter<"Unit"> | number | null
-    cadastralArea?: FloatNullableFilter<"Unit"> | number | null
-    urbanSection?: StringNullableFilter<"Unit"> | string | null
-    sheet?: StringNullableFilter<"Unit"> | string | null
-    plot?: StringNullableFilter<"Unit"> | string | null
-    subordinate?: StringNullableFilter<"Unit"> | string | null
-    class?: IntNullableFilter<"Unit"> | number | null
-    size?: FloatNullableFilter<"Unit"> | number | null
-    propertyRightsAndDuties?: StringNullableFilter<"Unit"> | string | null
-    cadastralIncome?: DecimalNullableFilter<"Unit"> | Decimal | DecimalJsLike | number | string | null
-    censusArea?: StringNullableFilter<"Unit"> | string | null
-    subArea?: StringNullableFilter<"Unit"> | string | null
-    createdAt?: DateTimeFilter<"Unit"> | Date | string
-    updatedAt?: DateTimeFilter<"Unit"> | Date | string
+    floorId_code?: ZoneFloorIdCodeCompoundUniqueInput
+    AND?: ZoneWhereInput | ZoneWhereInput[]
+    OR?: ZoneWhereInput[]
+    NOT?: ZoneWhereInput | ZoneWhereInput[]
+    code?: StringFilter<"Zone"> | string
+    name?: StringFilter<"Zone"> | string
+    type?: StringNullableFilter<"Zone"> | string | null
+    availability?: EnumAvailabilityFilter<"Zone"> | $Enums.Availability
+    status?: EnumServiceStatusFilter<"Zone"> | $Enums.ServiceStatus
+    calenderEntityId?: StringNullableFilter<"Zone"> | string | null
+    complexId?: StringNullableFilter<"Zone"> | string | null
+    buildingId?: StringNullableFilter<"Zone"> | string | null
+    floorId?: StringFilter<"Zone"> | string
+    address?: StringNullableFilter<"Zone"> | string | null
+    city?: StringNullableFilter<"Zone"> | string | null
+    zipCode?: StringNullableFilter<"Zone"> | string | null
+    totalRooms?: IntNullableFilter<"Zone"> | number | null
+    glazedArea?: FloatNullableFilter<"Zone"> | number | null
+    cleanableArea?: FloatNullableFilter<"Zone"> | number | null
+    coveredArea?: FloatNullableFilter<"Zone"> | number | null
+    totalNetArea?: FloatNullableFilter<"Zone"> | number | null
+    totalGrossArea?: FloatNullableFilter<"Zone"> | number | null
+    totalHeatedVolume?: FloatNullableFilter<"Zone"> | number | null
+    totalVolume?: FloatNullableFilter<"Zone"> | number | null
+    cadastralArea?: FloatNullableFilter<"Zone"> | number | null
+    urbanSection?: StringNullableFilter<"Zone"> | string | null
+    sheet?: StringNullableFilter<"Zone"> | string | null
+    plot?: StringNullableFilter<"Zone"> | string | null
+    subordinate?: StringNullableFilter<"Zone"> | string | null
+    class?: IntNullableFilter<"Zone"> | number | null
+    size?: FloatNullableFilter<"Zone"> | number | null
+    propertyRightsAndDuties?: StringNullableFilter<"Zone"> | string | null
+    cadastralIncome?: DecimalNullableFilter<"Zone"> | Decimal | DecimalJsLike | number | string | null
+    censusArea?: StringNullableFilter<"Zone"> | string | null
+    subArea?: StringNullableFilter<"Zone"> | string | null
+    createdAt?: DateTimeFilter<"Zone"> | Date | string
+    updatedAt?: DateTimeFilter<"Zone"> | Date | string
     calenderEntity?: XOR<CalenderEntityNullableScalarRelationFilter, CalenderEntityWhereInput> | null
     complex?: XOR<ComplexNullableScalarRelationFilter, ComplexWhereInput> | null
     building?: XOR<BuildingNullableScalarRelationFilter, BuildingWhereInput> | null
     floor?: XOR<FloorScalarRelationFilter, FloorWhereInput>
-    rooms?: RoomListRelationFilter
+    rooms?: SpaceListRelationFilter
     photos?: FileListRelationFilter
   }, "id" | "floorId_code">
 
-  export type UnitOrderByWithAggregationInput = {
+  export type ZoneOrderByWithAggregationInput = {
     id?: SortOrder
     code?: SortOrder
     name?: SortOrder
+    type?: SortOrderInput | SortOrder
     availability?: SortOrder
     status?: SortOrder
     calenderEntityId?: SortOrderInput | SortOrder
@@ -31134,89 +32724,91 @@ export namespace Prisma {
     subArea?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    _count?: UnitCountOrderByAggregateInput
-    _avg?: UnitAvgOrderByAggregateInput
-    _max?: UnitMaxOrderByAggregateInput
-    _min?: UnitMinOrderByAggregateInput
-    _sum?: UnitSumOrderByAggregateInput
+    _count?: ZoneCountOrderByAggregateInput
+    _avg?: ZoneAvgOrderByAggregateInput
+    _max?: ZoneMaxOrderByAggregateInput
+    _min?: ZoneMinOrderByAggregateInput
+    _sum?: ZoneSumOrderByAggregateInput
   }
 
-  export type UnitScalarWhereWithAggregatesInput = {
-    AND?: UnitScalarWhereWithAggregatesInput | UnitScalarWhereWithAggregatesInput[]
-    OR?: UnitScalarWhereWithAggregatesInput[]
-    NOT?: UnitScalarWhereWithAggregatesInput | UnitScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Unit"> | string
-    code?: StringWithAggregatesFilter<"Unit"> | string
-    name?: StringWithAggregatesFilter<"Unit"> | string
-    availability?: EnumAvailabilityWithAggregatesFilter<"Unit"> | $Enums.Availability
-    status?: EnumServiceStatusWithAggregatesFilter<"Unit"> | $Enums.ServiceStatus
-    calenderEntityId?: StringNullableWithAggregatesFilter<"Unit"> | string | null
-    complexId?: StringNullableWithAggregatesFilter<"Unit"> | string | null
-    buildingId?: StringNullableWithAggregatesFilter<"Unit"> | string | null
-    floorId?: StringWithAggregatesFilter<"Unit"> | string
-    address?: StringNullableWithAggregatesFilter<"Unit"> | string | null
-    city?: StringNullableWithAggregatesFilter<"Unit"> | string | null
-    zipCode?: StringNullableWithAggregatesFilter<"Unit"> | string | null
-    totalRooms?: IntNullableWithAggregatesFilter<"Unit"> | number | null
-    glazedArea?: FloatNullableWithAggregatesFilter<"Unit"> | number | null
-    cleanableArea?: FloatNullableWithAggregatesFilter<"Unit"> | number | null
-    coveredArea?: FloatNullableWithAggregatesFilter<"Unit"> | number | null
-    totalNetArea?: FloatNullableWithAggregatesFilter<"Unit"> | number | null
-    totalGrossArea?: FloatNullableWithAggregatesFilter<"Unit"> | number | null
-    totalHeatedVolume?: FloatNullableWithAggregatesFilter<"Unit"> | number | null
-    totalVolume?: FloatNullableWithAggregatesFilter<"Unit"> | number | null
-    cadastralArea?: FloatNullableWithAggregatesFilter<"Unit"> | number | null
-    urbanSection?: StringNullableWithAggregatesFilter<"Unit"> | string | null
-    sheet?: StringNullableWithAggregatesFilter<"Unit"> | string | null
-    plot?: StringNullableWithAggregatesFilter<"Unit"> | string | null
-    subordinate?: StringNullableWithAggregatesFilter<"Unit"> | string | null
-    class?: IntNullableWithAggregatesFilter<"Unit"> | number | null
-    size?: FloatNullableWithAggregatesFilter<"Unit"> | number | null
-    propertyRightsAndDuties?: StringNullableWithAggregatesFilter<"Unit"> | string | null
-    cadastralIncome?: DecimalNullableWithAggregatesFilter<"Unit"> | Decimal | DecimalJsLike | number | string | null
-    censusArea?: StringNullableWithAggregatesFilter<"Unit"> | string | null
-    subArea?: StringNullableWithAggregatesFilter<"Unit"> | string | null
-    createdAt?: DateTimeWithAggregatesFilter<"Unit"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Unit"> | Date | string
+  export type ZoneScalarWhereWithAggregatesInput = {
+    AND?: ZoneScalarWhereWithAggregatesInput | ZoneScalarWhereWithAggregatesInput[]
+    OR?: ZoneScalarWhereWithAggregatesInput[]
+    NOT?: ZoneScalarWhereWithAggregatesInput | ZoneScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Zone"> | string
+    code?: StringWithAggregatesFilter<"Zone"> | string
+    name?: StringWithAggregatesFilter<"Zone"> | string
+    type?: StringNullableWithAggregatesFilter<"Zone"> | string | null
+    availability?: EnumAvailabilityWithAggregatesFilter<"Zone"> | $Enums.Availability
+    status?: EnumServiceStatusWithAggregatesFilter<"Zone"> | $Enums.ServiceStatus
+    calenderEntityId?: StringNullableWithAggregatesFilter<"Zone"> | string | null
+    complexId?: StringNullableWithAggregatesFilter<"Zone"> | string | null
+    buildingId?: StringNullableWithAggregatesFilter<"Zone"> | string | null
+    floorId?: StringWithAggregatesFilter<"Zone"> | string
+    address?: StringNullableWithAggregatesFilter<"Zone"> | string | null
+    city?: StringNullableWithAggregatesFilter<"Zone"> | string | null
+    zipCode?: StringNullableWithAggregatesFilter<"Zone"> | string | null
+    totalRooms?: IntNullableWithAggregatesFilter<"Zone"> | number | null
+    glazedArea?: FloatNullableWithAggregatesFilter<"Zone"> | number | null
+    cleanableArea?: FloatNullableWithAggregatesFilter<"Zone"> | number | null
+    coveredArea?: FloatNullableWithAggregatesFilter<"Zone"> | number | null
+    totalNetArea?: FloatNullableWithAggregatesFilter<"Zone"> | number | null
+    totalGrossArea?: FloatNullableWithAggregatesFilter<"Zone"> | number | null
+    totalHeatedVolume?: FloatNullableWithAggregatesFilter<"Zone"> | number | null
+    totalVolume?: FloatNullableWithAggregatesFilter<"Zone"> | number | null
+    cadastralArea?: FloatNullableWithAggregatesFilter<"Zone"> | number | null
+    urbanSection?: StringNullableWithAggregatesFilter<"Zone"> | string | null
+    sheet?: StringNullableWithAggregatesFilter<"Zone"> | string | null
+    plot?: StringNullableWithAggregatesFilter<"Zone"> | string | null
+    subordinate?: StringNullableWithAggregatesFilter<"Zone"> | string | null
+    class?: IntNullableWithAggregatesFilter<"Zone"> | number | null
+    size?: FloatNullableWithAggregatesFilter<"Zone"> | number | null
+    propertyRightsAndDuties?: StringNullableWithAggregatesFilter<"Zone"> | string | null
+    cadastralIncome?: DecimalNullableWithAggregatesFilter<"Zone"> | Decimal | DecimalJsLike | number | string | null
+    censusArea?: StringNullableWithAggregatesFilter<"Zone"> | string | null
+    subArea?: StringNullableWithAggregatesFilter<"Zone"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Zone"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Zone"> | Date | string
   }
 
-  export type RoomWhereInput = {
-    AND?: RoomWhereInput | RoomWhereInput[]
-    OR?: RoomWhereInput[]
-    NOT?: RoomWhereInput | RoomWhereInput[]
-    id?: StringFilter<"Room"> | string
-    name?: StringFilter<"Room"> | string
-    code?: StringFilter<"Room"> | string
-    use?: EnumRoomUseFilter<"Room"> | $Enums.RoomUse
-    status?: EnumServiceStatusFilter<"Room"> | $Enums.ServiceStatus
-    calenderEntityId?: StringNullableFilter<"Room"> | string | null
-    complexId?: StringNullableFilter<"Room"> | string | null
-    buildingId?: StringNullableFilter<"Room"> | string | null
-    floorId?: StringFilter<"Room"> | string
-    unitId?: StringNullableFilter<"Room"> | string | null
-    condition?: EnumConditionFilter<"Room"> | $Enums.Condition
-    criticality?: EnumCriticalityFilter<"Room"> | $Enums.Criticality
-    glazedArea?: FloatNullableFilter<"Room"> | number | null
-    cleanableArea?: FloatNullableFilter<"Room"> | number | null
-    coveredArea?: FloatNullableFilter<"Room"> | number | null
-    totalNetArea?: FloatNullableFilter<"Room"> | number | null
-    totalGrossArea?: FloatNullableFilter<"Room"> | number | null
-    height?: IntNullableFilter<"Room"> | number | null
-    heated?: BoolFilter<"Room"> | boolean
-    totalVolume?: FloatNullableFilter<"Room"> | number | null
-    createdAt?: DateTimeFilter<"Room"> | Date | string
-    updatedAt?: DateTimeFilter<"Room"> | Date | string
+  export type SpaceWhereInput = {
+    AND?: SpaceWhereInput | SpaceWhereInput[]
+    OR?: SpaceWhereInput[]
+    NOT?: SpaceWhereInput | SpaceWhereInput[]
+    id?: StringFilter<"Space"> | string
+    name?: StringFilter<"Space"> | string
+    code?: StringFilter<"Space"> | string
+    use?: EnumRoomUseFilter<"Space"> | $Enums.RoomUse
+    status?: EnumServiceStatusFilter<"Space"> | $Enums.ServiceStatus
+    calenderEntityId?: StringNullableFilter<"Space"> | string | null
+    complexId?: StringNullableFilter<"Space"> | string | null
+    buildingId?: StringNullableFilter<"Space"> | string | null
+    floorId?: StringFilter<"Space"> | string
+    zoneId?: StringNullableFilter<"Space"> | string | null
+    condition?: EnumConditionFilter<"Space"> | $Enums.Condition
+    criticality?: EnumCriticalityFilter<"Space"> | $Enums.Criticality
+    glazedArea?: FloatNullableFilter<"Space"> | number | null
+    cleanableArea?: FloatNullableFilter<"Space"> | number | null
+    coveredArea?: FloatNullableFilter<"Space"> | number | null
+    totalNetArea?: FloatNullableFilter<"Space"> | number | null
+    totalGrossArea?: FloatNullableFilter<"Space"> | number | null
+    height?: IntNullableFilter<"Space"> | number | null
+    heated?: BoolFilter<"Space"> | boolean
+    totalVolume?: FloatNullableFilter<"Space"> | number | null
+    createdAt?: DateTimeFilter<"Space"> | Date | string
+    updatedAt?: DateTimeFilter<"Space"> | Date | string
     calenderEntity?: XOR<CalenderEntityNullableScalarRelationFilter, CalenderEntityWhereInput> | null
     complex?: XOR<ComplexNullableScalarRelationFilter, ComplexWhereInput> | null
     building?: XOR<BuildingNullableScalarRelationFilter, BuildingWhereInput> | null
     floor?: XOR<FloorScalarRelationFilter, FloorWhereInput>
-    unit?: XOR<UnitNullableScalarRelationFilter, UnitWhereInput> | null
+    zone?: XOR<ZoneNullableScalarRelationFilter, ZoneWhereInput> | null
     photos?: FileListRelationFilter
     maintenances?: MaintenanceListRelationFilter
     preventives?: PreventiveListRelationFilter
+    assets?: AssetListRelationFilter
   }
 
-  export type RoomOrderByWithRelationInput = {
+  export type SpaceOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
     code?: SortOrder
@@ -31226,7 +32818,7 @@ export namespace Prisma {
     complexId?: SortOrderInput | SortOrder
     buildingId?: SortOrderInput | SortOrder
     floorId?: SortOrder
-    unitId?: SortOrderInput | SortOrder
+    zoneId?: SortOrderInput | SortOrder
     condition?: SortOrder
     criticality?: SortOrder
     glazedArea?: SortOrderInput | SortOrder
@@ -31243,50 +32835,52 @@ export namespace Prisma {
     complex?: ComplexOrderByWithRelationInput
     building?: BuildingOrderByWithRelationInput
     floor?: FloorOrderByWithRelationInput
-    unit?: UnitOrderByWithRelationInput
+    zone?: ZoneOrderByWithRelationInput
     photos?: FileOrderByRelationAggregateInput
     maintenances?: MaintenanceOrderByRelationAggregateInput
     preventives?: PreventiveOrderByRelationAggregateInput
+    assets?: AssetOrderByRelationAggregateInput
   }
 
-  export type RoomWhereUniqueInput = Prisma.AtLeast<{
+  export type SpaceWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    floorId_buildingId_code?: RoomFloorIdBuildingIdCodeCompoundUniqueInput
-    AND?: RoomWhereInput | RoomWhereInput[]
-    OR?: RoomWhereInput[]
-    NOT?: RoomWhereInput | RoomWhereInput[]
-    name?: StringFilter<"Room"> | string
-    code?: StringFilter<"Room"> | string
-    use?: EnumRoomUseFilter<"Room"> | $Enums.RoomUse
-    status?: EnumServiceStatusFilter<"Room"> | $Enums.ServiceStatus
-    calenderEntityId?: StringNullableFilter<"Room"> | string | null
-    complexId?: StringNullableFilter<"Room"> | string | null
-    buildingId?: StringNullableFilter<"Room"> | string | null
-    floorId?: StringFilter<"Room"> | string
-    unitId?: StringNullableFilter<"Room"> | string | null
-    condition?: EnumConditionFilter<"Room"> | $Enums.Condition
-    criticality?: EnumCriticalityFilter<"Room"> | $Enums.Criticality
-    glazedArea?: FloatNullableFilter<"Room"> | number | null
-    cleanableArea?: FloatNullableFilter<"Room"> | number | null
-    coveredArea?: FloatNullableFilter<"Room"> | number | null
-    totalNetArea?: FloatNullableFilter<"Room"> | number | null
-    totalGrossArea?: FloatNullableFilter<"Room"> | number | null
-    height?: IntNullableFilter<"Room"> | number | null
-    heated?: BoolFilter<"Room"> | boolean
-    totalVolume?: FloatNullableFilter<"Room"> | number | null
-    createdAt?: DateTimeFilter<"Room"> | Date | string
-    updatedAt?: DateTimeFilter<"Room"> | Date | string
+    floorId_buildingId_code?: SpaceFloorIdBuildingIdCodeCompoundUniqueInput
+    AND?: SpaceWhereInput | SpaceWhereInput[]
+    OR?: SpaceWhereInput[]
+    NOT?: SpaceWhereInput | SpaceWhereInput[]
+    name?: StringFilter<"Space"> | string
+    code?: StringFilter<"Space"> | string
+    use?: EnumRoomUseFilter<"Space"> | $Enums.RoomUse
+    status?: EnumServiceStatusFilter<"Space"> | $Enums.ServiceStatus
+    calenderEntityId?: StringNullableFilter<"Space"> | string | null
+    complexId?: StringNullableFilter<"Space"> | string | null
+    buildingId?: StringNullableFilter<"Space"> | string | null
+    floorId?: StringFilter<"Space"> | string
+    zoneId?: StringNullableFilter<"Space"> | string | null
+    condition?: EnumConditionFilter<"Space"> | $Enums.Condition
+    criticality?: EnumCriticalityFilter<"Space"> | $Enums.Criticality
+    glazedArea?: FloatNullableFilter<"Space"> | number | null
+    cleanableArea?: FloatNullableFilter<"Space"> | number | null
+    coveredArea?: FloatNullableFilter<"Space"> | number | null
+    totalNetArea?: FloatNullableFilter<"Space"> | number | null
+    totalGrossArea?: FloatNullableFilter<"Space"> | number | null
+    height?: IntNullableFilter<"Space"> | number | null
+    heated?: BoolFilter<"Space"> | boolean
+    totalVolume?: FloatNullableFilter<"Space"> | number | null
+    createdAt?: DateTimeFilter<"Space"> | Date | string
+    updatedAt?: DateTimeFilter<"Space"> | Date | string
     calenderEntity?: XOR<CalenderEntityNullableScalarRelationFilter, CalenderEntityWhereInput> | null
     complex?: XOR<ComplexNullableScalarRelationFilter, ComplexWhereInput> | null
     building?: XOR<BuildingNullableScalarRelationFilter, BuildingWhereInput> | null
     floor?: XOR<FloorScalarRelationFilter, FloorWhereInput>
-    unit?: XOR<UnitNullableScalarRelationFilter, UnitWhereInput> | null
+    zone?: XOR<ZoneNullableScalarRelationFilter, ZoneWhereInput> | null
     photos?: FileListRelationFilter
     maintenances?: MaintenanceListRelationFilter
     preventives?: PreventiveListRelationFilter
+    assets?: AssetListRelationFilter
   }, "id" | "floorId_buildingId_code">
 
-  export type RoomOrderByWithAggregationInput = {
+  export type SpaceOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
     code?: SortOrder
@@ -31296,7 +32890,7 @@ export namespace Prisma {
     complexId?: SortOrderInput | SortOrder
     buildingId?: SortOrderInput | SortOrder
     floorId?: SortOrder
-    unitId?: SortOrderInput | SortOrder
+    zoneId?: SortOrderInput | SortOrder
     condition?: SortOrder
     criticality?: SortOrder
     glazedArea?: SortOrderInput | SortOrder
@@ -31309,39 +32903,39 @@ export namespace Prisma {
     totalVolume?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    _count?: RoomCountOrderByAggregateInput
-    _avg?: RoomAvgOrderByAggregateInput
-    _max?: RoomMaxOrderByAggregateInput
-    _min?: RoomMinOrderByAggregateInput
-    _sum?: RoomSumOrderByAggregateInput
+    _count?: SpaceCountOrderByAggregateInput
+    _avg?: SpaceAvgOrderByAggregateInput
+    _max?: SpaceMaxOrderByAggregateInput
+    _min?: SpaceMinOrderByAggregateInput
+    _sum?: SpaceSumOrderByAggregateInput
   }
 
-  export type RoomScalarWhereWithAggregatesInput = {
-    AND?: RoomScalarWhereWithAggregatesInput | RoomScalarWhereWithAggregatesInput[]
-    OR?: RoomScalarWhereWithAggregatesInput[]
-    NOT?: RoomScalarWhereWithAggregatesInput | RoomScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Room"> | string
-    name?: StringWithAggregatesFilter<"Room"> | string
-    code?: StringWithAggregatesFilter<"Room"> | string
-    use?: EnumRoomUseWithAggregatesFilter<"Room"> | $Enums.RoomUse
-    status?: EnumServiceStatusWithAggregatesFilter<"Room"> | $Enums.ServiceStatus
-    calenderEntityId?: StringNullableWithAggregatesFilter<"Room"> | string | null
-    complexId?: StringNullableWithAggregatesFilter<"Room"> | string | null
-    buildingId?: StringNullableWithAggregatesFilter<"Room"> | string | null
-    floorId?: StringWithAggregatesFilter<"Room"> | string
-    unitId?: StringNullableWithAggregatesFilter<"Room"> | string | null
-    condition?: EnumConditionWithAggregatesFilter<"Room"> | $Enums.Condition
-    criticality?: EnumCriticalityWithAggregatesFilter<"Room"> | $Enums.Criticality
-    glazedArea?: FloatNullableWithAggregatesFilter<"Room"> | number | null
-    cleanableArea?: FloatNullableWithAggregatesFilter<"Room"> | number | null
-    coveredArea?: FloatNullableWithAggregatesFilter<"Room"> | number | null
-    totalNetArea?: FloatNullableWithAggregatesFilter<"Room"> | number | null
-    totalGrossArea?: FloatNullableWithAggregatesFilter<"Room"> | number | null
-    height?: IntNullableWithAggregatesFilter<"Room"> | number | null
-    heated?: BoolWithAggregatesFilter<"Room"> | boolean
-    totalVolume?: FloatNullableWithAggregatesFilter<"Room"> | number | null
-    createdAt?: DateTimeWithAggregatesFilter<"Room"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Room"> | Date | string
+  export type SpaceScalarWhereWithAggregatesInput = {
+    AND?: SpaceScalarWhereWithAggregatesInput | SpaceScalarWhereWithAggregatesInput[]
+    OR?: SpaceScalarWhereWithAggregatesInput[]
+    NOT?: SpaceScalarWhereWithAggregatesInput | SpaceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Space"> | string
+    name?: StringWithAggregatesFilter<"Space"> | string
+    code?: StringWithAggregatesFilter<"Space"> | string
+    use?: EnumRoomUseWithAggregatesFilter<"Space"> | $Enums.RoomUse
+    status?: EnumServiceStatusWithAggregatesFilter<"Space"> | $Enums.ServiceStatus
+    calenderEntityId?: StringNullableWithAggregatesFilter<"Space"> | string | null
+    complexId?: StringNullableWithAggregatesFilter<"Space"> | string | null
+    buildingId?: StringNullableWithAggregatesFilter<"Space"> | string | null
+    floorId?: StringWithAggregatesFilter<"Space"> | string
+    zoneId?: StringNullableWithAggregatesFilter<"Space"> | string | null
+    condition?: EnumConditionWithAggregatesFilter<"Space"> | $Enums.Condition
+    criticality?: EnumCriticalityWithAggregatesFilter<"Space"> | $Enums.Criticality
+    glazedArea?: FloatNullableWithAggregatesFilter<"Space"> | number | null
+    cleanableArea?: FloatNullableWithAggregatesFilter<"Space"> | number | null
+    coveredArea?: FloatNullableWithAggregatesFilter<"Space"> | number | null
+    totalNetArea?: FloatNullableWithAggregatesFilter<"Space"> | number | null
+    totalGrossArea?: FloatNullableWithAggregatesFilter<"Space"> | number | null
+    height?: IntNullableWithAggregatesFilter<"Space"> | number | null
+    heated?: BoolWithAggregatesFilter<"Space"> | boolean
+    totalVolume?: FloatNullableWithAggregatesFilter<"Space"> | number | null
+    createdAt?: DateTimeWithAggregatesFilter<"Space"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Space"> | Date | string
   }
 
   export type AssetCategoryWhereInput = {
@@ -31412,9 +33006,15 @@ export namespace Prisma {
     name?: StringFilter<"Asset"> | string
     description?: StringNullableFilter<"Asset"> | string | null
     categoryId?: StringFilter<"Asset"> | string
+    tag?: StringNullableFilter<"Asset"> | string | null
+    parentSystemId?: StringNullableFilter<"Asset"> | string | null
+    spaceId?: StringNullableFilter<"Asset"> | string | null
     createdAt?: DateTimeFilter<"Asset"> | Date | string
     updatedAt?: DateTimeFilter<"Asset"> | Date | string
     category?: XOR<AssetCategoryScalarRelationFilter, AssetCategoryWhereInput>
+    parentSystem?: XOR<AssetNullableScalarRelationFilter, AssetWhereInput> | null
+    childAssets?: AssetListRelationFilter
+    space?: XOR<SpaceNullableScalarRelationFilter, SpaceWhereInput> | null
     maintenances?: MaintenanceListRelationFilter
     preventives?: PreventiveListRelationFilter
   }
@@ -31424,33 +33024,48 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     categoryId?: SortOrder
+    tag?: SortOrderInput | SortOrder
+    parentSystemId?: SortOrderInput | SortOrder
+    spaceId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     category?: AssetCategoryOrderByWithRelationInput
+    parentSystem?: AssetOrderByWithRelationInput
+    childAssets?: AssetOrderByRelationAggregateInput
+    space?: SpaceOrderByWithRelationInput
     maintenances?: MaintenanceOrderByRelationAggregateInput
     preventives?: PreventiveOrderByRelationAggregateInput
   }
 
   export type AssetWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    tag?: string
     AND?: AssetWhereInput | AssetWhereInput[]
     OR?: AssetWhereInput[]
     NOT?: AssetWhereInput | AssetWhereInput[]
     name?: StringFilter<"Asset"> | string
     description?: StringNullableFilter<"Asset"> | string | null
     categoryId?: StringFilter<"Asset"> | string
+    parentSystemId?: StringNullableFilter<"Asset"> | string | null
+    spaceId?: StringNullableFilter<"Asset"> | string | null
     createdAt?: DateTimeFilter<"Asset"> | Date | string
     updatedAt?: DateTimeFilter<"Asset"> | Date | string
     category?: XOR<AssetCategoryScalarRelationFilter, AssetCategoryWhereInput>
+    parentSystem?: XOR<AssetNullableScalarRelationFilter, AssetWhereInput> | null
+    childAssets?: AssetListRelationFilter
+    space?: XOR<SpaceNullableScalarRelationFilter, SpaceWhereInput> | null
     maintenances?: MaintenanceListRelationFilter
     preventives?: PreventiveListRelationFilter
-  }, "id">
+  }, "id" | "tag">
 
   export type AssetOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     categoryId?: SortOrder
+    tag?: SortOrderInput | SortOrder
+    parentSystemId?: SortOrderInput | SortOrder
+    spaceId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: AssetCountOrderByAggregateInput
@@ -31466,6 +33081,9 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Asset"> | string
     description?: StringNullableWithAggregatesFilter<"Asset"> | string | null
     categoryId?: StringWithAggregatesFilter<"Asset"> | string
+    tag?: StringNullableWithAggregatesFilter<"Asset"> | string | null
+    parentSystemId?: StringNullableWithAggregatesFilter<"Asset"> | string | null
+    spaceId?: StringNullableWithAggregatesFilter<"Asset"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Asset"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Asset"> | Date | string
   }
@@ -31477,8 +33095,8 @@ export namespace Prisma {
     id?: StringFilter<"File"> | string
     url?: StringFilter<"File"> | string
     maintenanceId?: StringNullableFilter<"File"> | string | null
-    rooms?: RoomListRelationFilter
-    units?: UnitListRelationFilter
+    spaces?: SpaceListRelationFilter
+    zones?: ZoneListRelationFilter
     buildings?: BuildingListRelationFilter
     complexes?: ComplexListRelationFilter
     maintenance?: XOR<MaintenanceNullableScalarRelationFilter, MaintenanceWhereInput> | null
@@ -31488,8 +33106,8 @@ export namespace Prisma {
     id?: SortOrder
     url?: SortOrder
     maintenanceId?: SortOrderInput | SortOrder
-    rooms?: RoomOrderByRelationAggregateInput
-    units?: UnitOrderByRelationAggregateInput
+    spaces?: SpaceOrderByRelationAggregateInput
+    zones?: ZoneOrderByRelationAggregateInput
     buildings?: BuildingOrderByRelationAggregateInput
     complexes?: ComplexOrderByRelationAggregateInput
     maintenance?: MaintenanceOrderByWithRelationInput
@@ -31502,8 +33120,8 @@ export namespace Prisma {
     OR?: FileWhereInput[]
     NOT?: FileWhereInput | FileWhereInput[]
     maintenanceId?: StringNullableFilter<"File"> | string | null
-    rooms?: RoomListRelationFilter
-    units?: UnitListRelationFilter
+    spaces?: SpaceListRelationFilter
+    zones?: ZoneListRelationFilter
     buildings?: BuildingListRelationFilter
     complexes?: ComplexListRelationFilter
     maintenance?: XOR<MaintenanceNullableScalarRelationFilter, MaintenanceWhereInput> | null
@@ -31892,8 +33510,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"CalenderEntity"> | Date | string
     buildings?: BuildingListRelationFilter
     complexes?: ComplexListRelationFilter
-    units?: UnitListRelationFilter
-    rooms?: RoomListRelationFilter
+    spaces?: SpaceListRelationFilter
+    zones?: ZoneListRelationFilter
     employees?: EmployeeListRelationFilter
   }
 
@@ -31904,8 +33522,8 @@ export namespace Prisma {
     updatedAt?: SortOrder
     buildings?: BuildingOrderByRelationAggregateInput
     complexes?: ComplexOrderByRelationAggregateInput
-    units?: UnitOrderByRelationAggregateInput
-    rooms?: RoomOrderByRelationAggregateInput
+    spaces?: SpaceOrderByRelationAggregateInput
+    zones?: ZoneOrderByRelationAggregateInput
     employees?: EmployeeOrderByRelationAggregateInput
   }
 
@@ -31919,8 +33537,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"CalenderEntity"> | Date | string
     buildings?: BuildingListRelationFilter
     complexes?: ComplexListRelationFilter
-    units?: UnitListRelationFilter
-    rooms?: RoomListRelationFilter
+    spaces?: SpaceListRelationFilter
+    zones?: ZoneListRelationFilter
     employees?: EmployeeListRelationFilter
   }, "id">
 
@@ -31958,6 +33576,7 @@ export namespace Prisma {
     action?: StringNullableFilter<"Maintenance"> | string | null
     message?: StringNullableFilter<"Maintenance"> | string | null
     processNotes?: StringNullableFilter<"Maintenance"> | string | null
+    metadata?: JsonNullableFilter<"Maintenance">
     performerId?: StringNullableFilter<"Maintenance"> | string | null
     processStatus?: EnumStatusFilter<"Maintenance"> | $Enums.Status
     register?: StringNullableFilter<"Maintenance"> | string | null
@@ -31986,7 +33605,7 @@ export namespace Prisma {
     companyId?: StringNullableFilter<"Maintenance"> | string | null
     teamId?: StringNullableFilter<"Maintenance"> | string | null
     floorId?: StringNullableFilter<"Maintenance"> | string | null
-    roomId?: StringNullableFilter<"Maintenance"> | string | null
+    spaceId?: StringNullableFilter<"Maintenance"> | string | null
     ttSystemOpening?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
@@ -32012,7 +33631,7 @@ export namespace Prisma {
     company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
     team?: XOR<TeamNullableScalarRelationFilter, TeamWhereInput> | null
     floor?: XOR<FloorNullableScalarRelationFilter, FloorWhereInput> | null
-    room?: XOR<RoomNullableScalarRelationFilter, RoomWhereInput> | null
+    space?: XOR<SpaceNullableScalarRelationFilter, SpaceWhereInput> | null
     assignee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
     asset?: XOR<AssetNullableScalarRelationFilter, AssetWhereInput> | null
     photos?: FileListRelationFilter
@@ -32029,6 +33648,7 @@ export namespace Prisma {
     action?: SortOrderInput | SortOrder
     message?: SortOrderInput | SortOrder
     processNotes?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     performerId?: SortOrderInput | SortOrder
     processStatus?: SortOrder
     register?: SortOrderInput | SortOrder
@@ -32057,7 +33677,7 @@ export namespace Prisma {
     companyId?: SortOrderInput | SortOrder
     teamId?: SortOrderInput | SortOrder
     floorId?: SortOrderInput | SortOrder
-    roomId?: SortOrderInput | SortOrder
+    spaceId?: SortOrderInput | SortOrder
     ttSystemOpening?: SortOrderInput | SortOrder
     ttWorkOpening?: SortOrderInput | SortOrder
     ttSystemAssignment?: SortOrderInput | SortOrder
@@ -32083,7 +33703,7 @@ export namespace Prisma {
     company?: CompanyOrderByWithRelationInput
     team?: TeamOrderByWithRelationInput
     floor?: FloorOrderByWithRelationInput
-    room?: RoomOrderByWithRelationInput
+    space?: SpaceOrderByWithRelationInput
     assignee?: EmployeeOrderByWithRelationInput
     asset?: AssetOrderByWithRelationInput
     photos?: FileOrderByRelationAggregateInput
@@ -32103,6 +33723,7 @@ export namespace Prisma {
     action?: StringNullableFilter<"Maintenance"> | string | null
     message?: StringNullableFilter<"Maintenance"> | string | null
     processNotes?: StringNullableFilter<"Maintenance"> | string | null
+    metadata?: JsonNullableFilter<"Maintenance">
     performerId?: StringNullableFilter<"Maintenance"> | string | null
     processStatus?: EnumStatusFilter<"Maintenance"> | $Enums.Status
     register?: StringNullableFilter<"Maintenance"> | string | null
@@ -32131,7 +33752,7 @@ export namespace Prisma {
     companyId?: StringNullableFilter<"Maintenance"> | string | null
     teamId?: StringNullableFilter<"Maintenance"> | string | null
     floorId?: StringNullableFilter<"Maintenance"> | string | null
-    roomId?: StringNullableFilter<"Maintenance"> | string | null
+    spaceId?: StringNullableFilter<"Maintenance"> | string | null
     ttSystemOpening?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
@@ -32157,7 +33778,7 @@ export namespace Prisma {
     company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
     team?: XOR<TeamNullableScalarRelationFilter, TeamWhereInput> | null
     floor?: XOR<FloorNullableScalarRelationFilter, FloorWhereInput> | null
-    room?: XOR<RoomNullableScalarRelationFilter, RoomWhereInput> | null
+    space?: XOR<SpaceNullableScalarRelationFilter, SpaceWhereInput> | null
     assignee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
     asset?: XOR<AssetNullableScalarRelationFilter, AssetWhereInput> | null
     photos?: FileListRelationFilter
@@ -32174,6 +33795,7 @@ export namespace Prisma {
     action?: SortOrderInput | SortOrder
     message?: SortOrderInput | SortOrder
     processNotes?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     performerId?: SortOrderInput | SortOrder
     processStatus?: SortOrder
     register?: SortOrderInput | SortOrder
@@ -32202,7 +33824,7 @@ export namespace Prisma {
     companyId?: SortOrderInput | SortOrder
     teamId?: SortOrderInput | SortOrder
     floorId?: SortOrderInput | SortOrder
-    roomId?: SortOrderInput | SortOrder
+    spaceId?: SortOrderInput | SortOrder
     ttSystemOpening?: SortOrderInput | SortOrder
     ttWorkOpening?: SortOrderInput | SortOrder
     ttSystemAssignment?: SortOrderInput | SortOrder
@@ -32243,6 +33865,7 @@ export namespace Prisma {
     action?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     message?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     processNotes?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    metadata?: JsonNullableWithAggregatesFilter<"Maintenance">
     performerId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     processStatus?: EnumStatusWithAggregatesFilter<"Maintenance"> | $Enums.Status
     register?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
@@ -32271,7 +33894,7 @@ export namespace Prisma {
     companyId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     teamId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     floorId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
-    roomId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    spaceId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     ttSystemOpening?: DecimalNullableWithAggregatesFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: DecimalNullableWithAggregatesFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: DecimalNullableWithAggregatesFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
@@ -32311,7 +33934,7 @@ export namespace Prisma {
     assetId?: StringNullableFilter<"Preventive"> | string | null
     buildingId?: StringNullableFilter<"Preventive"> | string | null
     floorId?: StringNullableFilter<"Preventive"> | string | null
-    roomId?: StringNullableFilter<"Preventive"> | string | null
+    spaceId?: StringNullableFilter<"Preventive"> | string | null
     teamId?: StringNullableFilter<"Preventive"> | string | null
     createdAt?: DateTimeFilter<"Preventive"> | Date | string
     updatedAt?: DateTimeFilter<"Preventive"> | Date | string
@@ -32319,7 +33942,7 @@ export namespace Prisma {
     asset?: XOR<AssetNullableScalarRelationFilter, AssetWhereInput> | null
     building?: XOR<BuildingNullableScalarRelationFilter, BuildingWhereInput> | null
     floor?: XOR<FloorNullableScalarRelationFilter, FloorWhereInput> | null
-    room?: XOR<RoomNullableScalarRelationFilter, RoomWhereInput> | null
+    space?: XOR<SpaceNullableScalarRelationFilter, SpaceWhereInput> | null
     team?: XOR<TeamNullableScalarRelationFilter, TeamWhereInput> | null
   }
 
@@ -32338,7 +33961,7 @@ export namespace Prisma {
     assetId?: SortOrderInput | SortOrder
     buildingId?: SortOrderInput | SortOrder
     floorId?: SortOrderInput | SortOrder
-    roomId?: SortOrderInput | SortOrder
+    spaceId?: SortOrderInput | SortOrder
     teamId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -32346,7 +33969,7 @@ export namespace Prisma {
     asset?: AssetOrderByWithRelationInput
     building?: BuildingOrderByWithRelationInput
     floor?: FloorOrderByWithRelationInput
-    room?: RoomOrderByWithRelationInput
+    space?: SpaceOrderByWithRelationInput
     team?: TeamOrderByWithRelationInput
   }
 
@@ -32368,7 +33991,7 @@ export namespace Prisma {
     assetId?: StringNullableFilter<"Preventive"> | string | null
     buildingId?: StringNullableFilter<"Preventive"> | string | null
     floorId?: StringNullableFilter<"Preventive"> | string | null
-    roomId?: StringNullableFilter<"Preventive"> | string | null
+    spaceId?: StringNullableFilter<"Preventive"> | string | null
     teamId?: StringNullableFilter<"Preventive"> | string | null
     createdAt?: DateTimeFilter<"Preventive"> | Date | string
     updatedAt?: DateTimeFilter<"Preventive"> | Date | string
@@ -32376,7 +33999,7 @@ export namespace Prisma {
     asset?: XOR<AssetNullableScalarRelationFilter, AssetWhereInput> | null
     building?: XOR<BuildingNullableScalarRelationFilter, BuildingWhereInput> | null
     floor?: XOR<FloorNullableScalarRelationFilter, FloorWhereInput> | null
-    room?: XOR<RoomNullableScalarRelationFilter, RoomWhereInput> | null
+    space?: XOR<SpaceNullableScalarRelationFilter, SpaceWhereInput> | null
     team?: XOR<TeamNullableScalarRelationFilter, TeamWhereInput> | null
   }, "id" | "code">
 
@@ -32395,7 +34018,7 @@ export namespace Prisma {
     assetId?: SortOrderInput | SortOrder
     buildingId?: SortOrderInput | SortOrder
     floorId?: SortOrderInput | SortOrder
-    roomId?: SortOrderInput | SortOrder
+    spaceId?: SortOrderInput | SortOrder
     teamId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -32424,7 +34047,7 @@ export namespace Prisma {
     assetId?: StringNullableWithAggregatesFilter<"Preventive"> | string | null
     buildingId?: StringNullableWithAggregatesFilter<"Preventive"> | string | null
     floorId?: StringNullableWithAggregatesFilter<"Preventive"> | string | null
-    roomId?: StringNullableWithAggregatesFilter<"Preventive"> | string | null
+    spaceId?: StringNullableWithAggregatesFilter<"Preventive"> | string | null
     teamId?: StringNullableWithAggregatesFilter<"Preventive"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Preventive"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Preventive"> | Date | string
@@ -32503,7 +34126,7 @@ export namespace Prisma {
     passwordExpiresAt?: Date | string | null
     passwordResetAt?: Date | string | null
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
-    role: RoleCreateNestedOneWithoutUsersInput
+    roles?: RoleCreateNestedManyWithoutUsersInput
     employees?: EmployeeCreateNestedManyWithoutUserInput
   }
 
@@ -32514,13 +34137,13 @@ export namespace Prisma {
     firstName: string
     lastName: string
     status?: $Enums.UserStatus
-    roleId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     passwordResetToken?: string | null
     passwordExpiresAt?: Date | string | null
     passwordResetAt?: Date | string | null
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    roles?: RoleUncheckedCreateNestedManyWithoutUsersInput
     employees?: EmployeeUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -32537,7 +34160,7 @@ export namespace Prisma {
     passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
-    role?: RoleUpdateOneRequiredWithoutUsersNestedInput
+    roles?: RoleUpdateManyWithoutUsersNestedInput
     employees?: EmployeeUpdateManyWithoutUserNestedInput
   }
 
@@ -32548,13 +34171,13 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-    roleId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutUsersNestedInput
     employees?: EmployeeUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -32565,7 +34188,6 @@ export namespace Prisma {
     firstName: string
     lastName: string
     status?: $Enums.UserStatus
-    roleId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     passwordResetToken?: string | null
@@ -32594,7 +34216,6 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-    roleId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -32604,47 +34225,52 @@ export namespace Prisma {
 
   export type RoleCreateInput = {
     id?: string
-    name: $Enums.RoleName
+    name: string
+    isSystem?: boolean
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     permissions?: PermissionCreateNestedManyWithoutRoleInput
-    users?: UserCreateNestedManyWithoutRoleInput
+    users?: UserCreateNestedManyWithoutRolesInput
   }
 
   export type RoleUncheckedCreateInput = {
     id?: string
-    name: $Enums.RoleName
+    name: string
+    isSystem?: boolean
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     permissions?: PermissionUncheckedCreateNestedManyWithoutRoleInput
-    users?: UserUncheckedCreateNestedManyWithoutRoleInput
+    users?: UserUncheckedCreateNestedManyWithoutRolesInput
   }
 
   export type RoleUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: EnumRoleNameFieldUpdateOperationsInput | $Enums.RoleName
+    name?: StringFieldUpdateOperationsInput | string
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     permissions?: PermissionUpdateManyWithoutRoleNestedInput
-    users?: UserUpdateManyWithoutRoleNestedInput
+    users?: UserUpdateManyWithoutRolesNestedInput
   }
 
   export type RoleUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: EnumRoleNameFieldUpdateOperationsInput | $Enums.RoleName
+    name?: StringFieldUpdateOperationsInput | string
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     permissions?: PermissionUncheckedUpdateManyWithoutRoleNestedInput
-    users?: UserUncheckedUpdateManyWithoutRoleNestedInput
+    users?: UserUncheckedUpdateManyWithoutRolesNestedInput
   }
 
   export type RoleCreateManyInput = {
     id?: string
-    name: $Enums.RoleName
+    name: string
+    isSystem?: boolean
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -32652,7 +34278,8 @@ export namespace Prisma {
 
   export type RoleUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: EnumRoleNameFieldUpdateOperationsInput | $Enums.RoleName
+    name?: StringFieldUpdateOperationsInput | string
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32660,7 +34287,8 @@ export namespace Prisma {
 
   export type RoleUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: EnumRoleNameFieldUpdateOperationsInput | $Enums.RoleName
+    name?: StringFieldUpdateOperationsInput | string
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32728,6 +34356,80 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SiteCreateInput = {
+    id?: string
+    name: string
+    address?: string | null
+    climateZone?: string | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    complexes?: ComplexCreateNestedManyWithoutSiteInput
+  }
+
+  export type SiteUncheckedCreateInput = {
+    id?: string
+    name: string
+    address?: string | null
+    climateZone?: string | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    complexes?: ComplexUncheckedCreateNestedManyWithoutSiteInput
+  }
+
+  export type SiteUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    climateZone?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    complexes?: ComplexUpdateManyWithoutSiteNestedInput
+  }
+
+  export type SiteUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    climateZone?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    complexes?: ComplexUncheckedUpdateManyWithoutSiteNestedInput
+  }
+
+  export type SiteCreateManyInput = {
+    id?: string
+    name: string
+    address?: string | null
+    climateZone?: string | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SiteUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    climateZone?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SiteUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    climateZone?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ComplexCreateInput = {
     id?: string
     code: string
@@ -32756,10 +34458,11 @@ export namespace Prisma {
     buildings?: BuildingCreateNestedManyWithoutComplexInput
     photos?: FileCreateNestedManyWithoutComplexesInput
     floors?: FloorCreateNestedManyWithoutComplexInput
-    units?: UnitCreateNestedManyWithoutComplexInput
-    rooms?: RoomCreateNestedManyWithoutComplexInput
+    spaces?: SpaceCreateNestedManyWithoutComplexInput
+    zones?: ZoneCreateNestedManyWithoutComplexInput
     maintenances?: MaintenanceCreateNestedManyWithoutSiteInput
     preventives?: PreventiveCreateNestedManyWithoutSiteInput
+    site?: SiteCreateNestedOneWithoutComplexesInput
   }
 
   export type ComplexUncheckedCreateInput = {
@@ -32787,11 +34490,12 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    siteId?: string | null
     buildings?: BuildingUncheckedCreateNestedManyWithoutComplexInput
     photos?: FileUncheckedCreateNestedManyWithoutComplexesInput
     floors?: FloorUncheckedCreateNestedManyWithoutComplexInput
-    units?: UnitUncheckedCreateNestedManyWithoutComplexInput
-    rooms?: RoomUncheckedCreateNestedManyWithoutComplexInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutComplexInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutComplexInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSiteInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutSiteInput
   }
@@ -32824,10 +34528,11 @@ export namespace Prisma {
     buildings?: BuildingUpdateManyWithoutComplexNestedInput
     photos?: FileUpdateManyWithoutComplexesNestedInput
     floors?: FloorUpdateManyWithoutComplexNestedInput
-    units?: UnitUpdateManyWithoutComplexNestedInput
-    rooms?: RoomUpdateManyWithoutComplexNestedInput
+    spaces?: SpaceUpdateManyWithoutComplexNestedInput
+    zones?: ZoneUpdateManyWithoutComplexNestedInput
     maintenances?: MaintenanceUpdateManyWithoutSiteNestedInput
     preventives?: PreventiveUpdateManyWithoutSiteNestedInput
+    site?: SiteUpdateOneWithoutComplexesNestedInput
   }
 
   export type ComplexUncheckedUpdateInput = {
@@ -32855,11 +34560,12 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
     buildings?: BuildingUncheckedUpdateManyWithoutComplexNestedInput
     photos?: FileUncheckedUpdateManyWithoutComplexesNestedInput
     floors?: FloorUncheckedUpdateManyWithoutComplexNestedInput
-    units?: UnitUncheckedUpdateManyWithoutComplexNestedInput
-    rooms?: RoomUncheckedUpdateManyWithoutComplexNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutComplexNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutComplexNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutSiteNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutSiteNestedInput
   }
@@ -32889,6 +34595,7 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    siteId?: string | null
   }
 
   export type ComplexUpdateManyMutationInput = {
@@ -32942,6 +34649,7 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BuildingCreateInput = {
@@ -32970,8 +34678,8 @@ export namespace Prisma {
     calenderEntity?: CalenderEntityCreateNestedOneWithoutBuildingsInput
     photos?: FileCreateNestedManyWithoutBuildingsInput
     floors?: FloorCreateNestedManyWithoutBuildingInput
-    units?: UnitCreateNestedManyWithoutBuildingInput
-    rooms?: RoomCreateNestedManyWithoutBuildingInput
+    spaces?: SpaceCreateNestedManyWithoutBuildingInput
+    zones?: ZoneCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveCreateNestedManyWithoutBuildingInput
   }
 
@@ -33001,8 +34709,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutBuildingsInput
     floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
-    units?: UnitUncheckedCreateNestedManyWithoutBuildingInput
-    rooms?: RoomUncheckedCreateNestedManyWithoutBuildingInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutBuildingInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
   }
 
@@ -33032,8 +34740,8 @@ export namespace Prisma {
     calenderEntity?: CalenderEntityUpdateOneWithoutBuildingsNestedInput
     photos?: FileUpdateManyWithoutBuildingsNestedInput
     floors?: FloorUpdateManyWithoutBuildingNestedInput
-    units?: UnitUpdateManyWithoutBuildingNestedInput
-    rooms?: RoomUpdateManyWithoutBuildingNestedInput
+    spaces?: SpaceUpdateManyWithoutBuildingNestedInput
+    zones?: ZoneUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
   }
 
@@ -33063,8 +34771,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutBuildingsNestedInput
     floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
-    units?: UnitUncheckedUpdateManyWithoutBuildingNestedInput
-    rooms?: RoomUncheckedUpdateManyWithoutBuildingNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutBuildingNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
@@ -33148,6 +34856,7 @@ export namespace Prisma {
     code: string
     name: string
     level: number
+    type?: string | null
     status?: $Enums.ServiceStatus
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
@@ -33164,8 +34873,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     complex: ComplexCreateNestedOneWithoutFloorsInput
     building: BuildingCreateNestedOneWithoutFloorsInput
-    rooms?: RoomCreateNestedManyWithoutFloorInput
-    units?: UnitCreateNestedManyWithoutFloorInput
+    spaces?: SpaceCreateNestedManyWithoutFloorInput
+    zones?: ZoneCreateNestedManyWithoutFloorInput
     maintenances?: MaintenanceCreateNestedManyWithoutFloorInput
     preventives?: PreventiveCreateNestedManyWithoutFloorInput
   }
@@ -33175,6 +34884,7 @@ export namespace Prisma {
     code: string
     name: string
     level: number
+    type?: string | null
     status?: $Enums.ServiceStatus
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
@@ -33191,8 +34901,8 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    rooms?: RoomUncheckedCreateNestedManyWithoutFloorInput
-    units?: UnitUncheckedCreateNestedManyWithoutFloorInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutFloorInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutFloorInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutFloorInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutFloorInput
   }
@@ -33202,6 +34912,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
@@ -33218,8 +34929,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     complex?: ComplexUpdateOneRequiredWithoutFloorsNestedInput
     building?: BuildingUpdateOneRequiredWithoutFloorsNestedInput
-    rooms?: RoomUpdateManyWithoutFloorNestedInput
-    units?: UnitUpdateManyWithoutFloorNestedInput
+    spaces?: SpaceUpdateManyWithoutFloorNestedInput
+    zones?: ZoneUpdateManyWithoutFloorNestedInput
     maintenances?: MaintenanceUpdateManyWithoutFloorNestedInput
     preventives?: PreventiveUpdateManyWithoutFloorNestedInput
   }
@@ -33229,6 +34940,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
@@ -33245,8 +34957,8 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    rooms?: RoomUncheckedUpdateManyWithoutFloorNestedInput
-    units?: UnitUncheckedUpdateManyWithoutFloorNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutFloorNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutFloorNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutFloorNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutFloorNestedInput
   }
@@ -33256,6 +34968,7 @@ export namespace Prisma {
     code: string
     name: string
     level: number
+    type?: string | null
     status?: $Enums.ServiceStatus
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
@@ -33279,6 +34992,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
@@ -33300,6 +35014,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
@@ -33318,10 +35033,11 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UnitCreateInput = {
+  export type ZoneCreateInput = {
     id?: string
     code: string
     name: string
+    type?: string | null
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
     address?: string | null
@@ -33348,132 +35064,19 @@ export namespace Prisma {
     subArea?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    calenderEntity?: CalenderEntityCreateNestedOneWithoutUnitsInput
-    complex?: ComplexCreateNestedOneWithoutUnitsInput
-    building?: BuildingCreateNestedOneWithoutUnitsInput
-    floor: FloorCreateNestedOneWithoutUnitsInput
-    rooms?: RoomCreateNestedManyWithoutUnitInput
-    photos?: FileCreateNestedManyWithoutUnitsInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutZonesInput
+    complex?: ComplexCreateNestedOneWithoutZonesInput
+    building?: BuildingCreateNestedOneWithoutZonesInput
+    floor: FloorCreateNestedOneWithoutZonesInput
+    rooms?: SpaceCreateNestedManyWithoutZoneInput
+    photos?: FileCreateNestedManyWithoutZonesInput
   }
 
-  export type UnitUncheckedCreateInput = {
+  export type ZoneUncheckedCreateInput = {
     id?: string
     code: string
     name: string
-    availability?: $Enums.Availability
-    status?: $Enums.ServiceStatus
-    calenderEntityId?: string | null
-    complexId?: string | null
-    buildingId?: string | null
-    floorId: string
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
-    totalRooms?: number | null
-    glazedArea?: number | null
-    cleanableArea?: number | null
-    coveredArea?: number | null
-    totalNetArea?: number | null
-    totalGrossArea?: number | null
-    totalHeatedVolume?: number | null
-    totalVolume?: number | null
-    cadastralArea?: number | null
-    urbanSection?: string | null
-    sheet?: string | null
-    plot?: string | null
-    subordinate?: string | null
-    class?: number | null
-    size?: number | null
-    propertyRightsAndDuties?: string | null
-    cadastralIncome?: Decimal | DecimalJsLike | number | string | null
-    censusArea?: string | null
-    subArea?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    rooms?: RoomUncheckedCreateNestedManyWithoutUnitInput
-    photos?: FileUncheckedCreateNestedManyWithoutUnitsInput
-  }
-
-  export type UnitUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
-    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    cadastralArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    urbanSection?: NullableStringFieldUpdateOperationsInput | string | null
-    sheet?: NullableStringFieldUpdateOperationsInput | string | null
-    plot?: NullableStringFieldUpdateOperationsInput | string | null
-    subordinate?: NullableStringFieldUpdateOperationsInput | string | null
-    class?: NullableIntFieldUpdateOperationsInput | number | null
-    size?: NullableFloatFieldUpdateOperationsInput | number | null
-    propertyRightsAndDuties?: NullableStringFieldUpdateOperationsInput | string | null
-    cadastralIncome?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    censusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    subArea?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    calenderEntity?: CalenderEntityUpdateOneWithoutUnitsNestedInput
-    complex?: ComplexUpdateOneWithoutUnitsNestedInput
-    building?: BuildingUpdateOneWithoutUnitsNestedInput
-    floor?: FloorUpdateOneRequiredWithoutUnitsNestedInput
-    rooms?: RoomUpdateManyWithoutUnitNestedInput
-    photos?: FileUpdateManyWithoutUnitsNestedInput
-  }
-
-  export type UnitUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    complexId?: NullableStringFieldUpdateOperationsInput | string | null
-    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
-    floorId?: StringFieldUpdateOperationsInput | string
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
-    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    cadastralArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    urbanSection?: NullableStringFieldUpdateOperationsInput | string | null
-    sheet?: NullableStringFieldUpdateOperationsInput | string | null
-    plot?: NullableStringFieldUpdateOperationsInput | string | null
-    subordinate?: NullableStringFieldUpdateOperationsInput | string | null
-    class?: NullableIntFieldUpdateOperationsInput | number | null
-    size?: NullableFloatFieldUpdateOperationsInput | number | null
-    propertyRightsAndDuties?: NullableStringFieldUpdateOperationsInput | string | null
-    cadastralIncome?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    censusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    subArea?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    rooms?: RoomUncheckedUpdateManyWithoutUnitNestedInput
-    photos?: FileUncheckedUpdateManyWithoutUnitsNestedInput
-  }
-
-  export type UnitCreateManyInput = {
-    id?: string
-    code: string
-    name: string
+    type?: string | null
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
     calenderEntityId?: string | null
@@ -33504,12 +35107,130 @@ export namespace Prisma {
     subArea?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    rooms?: SpaceUncheckedCreateNestedManyWithoutZoneInput
+    photos?: FileUncheckedCreateNestedManyWithoutZonesInput
   }
 
-  export type UnitUpdateManyMutationInput = {
+  export type ZoneUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    cadastralArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    urbanSection?: NullableStringFieldUpdateOperationsInput | string | null
+    sheet?: NullableStringFieldUpdateOperationsInput | string | null
+    plot?: NullableStringFieldUpdateOperationsInput | string | null
+    subordinate?: NullableStringFieldUpdateOperationsInput | string | null
+    class?: NullableIntFieldUpdateOperationsInput | number | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    propertyRightsAndDuties?: NullableStringFieldUpdateOperationsInput | string | null
+    cadastralIncome?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    censusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    subArea?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    calenderEntity?: CalenderEntityUpdateOneWithoutZonesNestedInput
+    complex?: ComplexUpdateOneWithoutZonesNestedInput
+    building?: BuildingUpdateOneWithoutZonesNestedInput
+    floor?: FloorUpdateOneRequiredWithoutZonesNestedInput
+    rooms?: SpaceUpdateManyWithoutZoneNestedInput
+    photos?: FileUpdateManyWithoutZonesNestedInput
+  }
+
+  export type ZoneUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    complexId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    cadastralArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    urbanSection?: NullableStringFieldUpdateOperationsInput | string | null
+    sheet?: NullableStringFieldUpdateOperationsInput | string | null
+    plot?: NullableStringFieldUpdateOperationsInput | string | null
+    subordinate?: NullableStringFieldUpdateOperationsInput | string | null
+    class?: NullableIntFieldUpdateOperationsInput | number | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    propertyRightsAndDuties?: NullableStringFieldUpdateOperationsInput | string | null
+    cadastralIncome?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    censusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    subArea?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rooms?: SpaceUncheckedUpdateManyWithoutZoneNestedInput
+    photos?: FileUncheckedUpdateManyWithoutZonesNestedInput
+  }
+
+  export type ZoneCreateManyInput = {
+    id?: string
+    code: string
+    name: string
+    type?: string | null
+    availability?: $Enums.Availability
+    status?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
+    complexId?: string | null
+    buildingId?: string | null
+    floorId: string
+    address?: string | null
+    city?: string | null
+    zipCode?: string | null
+    totalRooms?: number | null
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    totalHeatedVolume?: number | null
+    totalVolume?: number | null
+    cadastralArea?: number | null
+    urbanSection?: string | null
+    sheet?: string | null
+    plot?: string | null
+    subordinate?: string | null
+    class?: number | null
+    size?: number | null
+    propertyRightsAndDuties?: string | null
+    cadastralIncome?: Decimal | DecimalJsLike | number | string | null
+    censusArea?: string | null
+    subArea?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ZoneUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -33538,10 +35259,11 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UnitUncheckedUpdateManyInput = {
+  export type ZoneUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -33574,7 +35296,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type RoomCreateInput = {
+  export type SpaceCreateInput = {
     id?: string
     name: string
     code: string
@@ -33592,101 +35314,18 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    calenderEntity?: CalenderEntityCreateNestedOneWithoutRoomsInput
-    complex?: ComplexCreateNestedOneWithoutRoomsInput
-    building?: BuildingCreateNestedOneWithoutRoomsInput
-    floor: FloorCreateNestedOneWithoutRoomsInput
-    unit?: UnitCreateNestedOneWithoutRoomsInput
-    photos?: FileCreateNestedManyWithoutRoomsInput
-    maintenances?: MaintenanceCreateNestedManyWithoutRoomInput
-    preventives?: PreventiveCreateNestedManyWithoutRoomInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutSpacesInput
+    complex?: ComplexCreateNestedOneWithoutSpacesInput
+    building?: BuildingCreateNestedOneWithoutSpacesInput
+    floor: FloorCreateNestedOneWithoutSpacesInput
+    zone?: ZoneCreateNestedOneWithoutRoomsInput
+    photos?: FileCreateNestedManyWithoutSpacesInput
+    maintenances?: MaintenanceCreateNestedManyWithoutSpaceInput
+    preventives?: PreventiveCreateNestedManyWithoutSpaceInput
+    assets?: AssetCreateNestedManyWithoutSpaceInput
   }
 
-  export type RoomUncheckedCreateInput = {
-    id?: string
-    name: string
-    code: string
-    use?: $Enums.RoomUse
-    status?: $Enums.ServiceStatus
-    calenderEntityId?: string | null
-    complexId?: string | null
-    buildingId?: string | null
-    floorId: string
-    unitId?: string | null
-    condition?: $Enums.Condition
-    criticality?: $Enums.Criticality
-    glazedArea?: number | null
-    cleanableArea?: number | null
-    coveredArea?: number | null
-    totalNetArea?: number | null
-    totalGrossArea?: number | null
-    height?: number | null
-    heated?: boolean
-    totalVolume?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    photos?: FileUncheckedCreateNestedManyWithoutRoomsInput
-    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutRoomInput
-    preventives?: PreventiveUncheckedCreateNestedManyWithoutRoomInput
-  }
-
-  export type RoomUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
-    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
-    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    height?: NullableIntFieldUpdateOperationsInput | number | null
-    heated?: BoolFieldUpdateOperationsInput | boolean
-    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    calenderEntity?: CalenderEntityUpdateOneWithoutRoomsNestedInput
-    complex?: ComplexUpdateOneWithoutRoomsNestedInput
-    building?: BuildingUpdateOneWithoutRoomsNestedInput
-    floor?: FloorUpdateOneRequiredWithoutRoomsNestedInput
-    unit?: UnitUpdateOneWithoutRoomsNestedInput
-    photos?: FileUpdateManyWithoutRoomsNestedInput
-    maintenances?: MaintenanceUpdateManyWithoutRoomNestedInput
-    preventives?: PreventiveUpdateManyWithoutRoomNestedInput
-  }
-
-  export type RoomUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    complexId?: NullableStringFieldUpdateOperationsInput | string | null
-    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
-    floorId?: StringFieldUpdateOperationsInput | string
-    unitId?: NullableStringFieldUpdateOperationsInput | string | null
-    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
-    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
-    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    height?: NullableIntFieldUpdateOperationsInput | number | null
-    heated?: BoolFieldUpdateOperationsInput | boolean
-    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    photos?: FileUncheckedUpdateManyWithoutRoomsNestedInput
-    maintenances?: MaintenanceUncheckedUpdateManyWithoutRoomNestedInput
-    preventives?: PreventiveUncheckedUpdateManyWithoutRoomNestedInput
-  }
-
-  export type RoomCreateManyInput = {
+  export type SpaceUncheckedCreateInput = {
     id?: string
     name: string
     code: string
@@ -33696,7 +35335,94 @@ export namespace Prisma {
     complexId?: string | null
     buildingId?: string | null
     floorId: string
-    unitId?: string | null
+    zoneId?: string | null
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    height?: number | null
+    heated?: boolean
+    totalVolume?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photos?: FileUncheckedCreateNestedManyWithoutSpacesInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSpaceInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutSpaceInput
+    assets?: AssetUncheckedCreateNestedManyWithoutSpaceInput
+  }
+
+  export type SpaceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    heated?: BoolFieldUpdateOperationsInput | boolean
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    calenderEntity?: CalenderEntityUpdateOneWithoutSpacesNestedInput
+    complex?: ComplexUpdateOneWithoutSpacesNestedInput
+    building?: BuildingUpdateOneWithoutSpacesNestedInput
+    floor?: FloorUpdateOneRequiredWithoutSpacesNestedInput
+    zone?: ZoneUpdateOneWithoutRoomsNestedInput
+    photos?: FileUpdateManyWithoutSpacesNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutSpaceNestedInput
+    preventives?: PreventiveUpdateManyWithoutSpaceNestedInput
+    assets?: AssetUpdateManyWithoutSpaceNestedInput
+  }
+
+  export type SpaceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    complexId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: StringFieldUpdateOperationsInput | string
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    heated?: BoolFieldUpdateOperationsInput | boolean
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutSpacesNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutSpaceNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutSpaceNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutSpaceNestedInput
+  }
+
+  export type SpaceCreateManyInput = {
+    id?: string
+    name: string
+    code: string
+    use?: $Enums.RoomUse
+    status?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
+    complexId?: string | null
+    buildingId?: string | null
+    floorId: string
+    zoneId?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     glazedArea?: number | null
@@ -33711,7 +35437,7 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type RoomUpdateManyMutationInput = {
+  export type SpaceUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
@@ -33731,7 +35457,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type RoomUncheckedUpdateManyInput = {
+  export type SpaceUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
@@ -33741,7 +35467,7 @@ export namespace Prisma {
     complexId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: StringFieldUpdateOperationsInput | string
-    unitId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -33827,9 +35553,13 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
+    tag?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     category: AssetCategoryCreateNestedOneWithoutAssetsInput
+    parentSystem?: AssetCreateNestedOneWithoutChildAssetsInput
+    childAssets?: AssetCreateNestedManyWithoutParentSystemInput
+    space?: SpaceCreateNestedOneWithoutAssetsInput
     maintenances?: MaintenanceCreateNestedManyWithoutAssetInput
     preventives?: PreventiveCreateNestedManyWithoutAssetInput
   }
@@ -33839,8 +35569,12 @@ export namespace Prisma {
     name: string
     description?: string | null
     categoryId: string
+    tag?: string | null
+    parentSystemId?: string | null
+    spaceId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    childAssets?: AssetUncheckedCreateNestedManyWithoutParentSystemInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutAssetInput
   }
@@ -33849,9 +35583,13 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: AssetCategoryUpdateOneRequiredWithoutAssetsNestedInput
+    parentSystem?: AssetUpdateOneWithoutChildAssetsNestedInput
+    childAssets?: AssetUpdateManyWithoutParentSystemNestedInput
+    space?: SpaceUpdateOneWithoutAssetsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutAssetNestedInput
     preventives?: PreventiveUpdateManyWithoutAssetNestedInput
   }
@@ -33861,8 +35599,12 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    parentSystemId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    childAssets?: AssetUncheckedUpdateManyWithoutParentSystemNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutAssetNestedInput
   }
@@ -33872,6 +35614,9 @@ export namespace Prisma {
     name: string
     description?: string | null
     categoryId: string
+    tag?: string | null
+    parentSystemId?: string | null
+    spaceId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -33880,6 +35625,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -33889,6 +35635,9 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    parentSystemId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -33896,8 +35645,8 @@ export namespace Prisma {
   export type FileCreateInput = {
     id?: string
     url: string
-    rooms?: RoomCreateNestedManyWithoutPhotosInput
-    units?: UnitCreateNestedManyWithoutPhotosInput
+    spaces?: SpaceCreateNestedManyWithoutPhotosInput
+    zones?: ZoneCreateNestedManyWithoutPhotosInput
     buildings?: BuildingCreateNestedManyWithoutPhotosInput
     complexes?: ComplexCreateNestedManyWithoutPhotosInput
     maintenance?: MaintenanceCreateNestedOneWithoutPhotosInput
@@ -33907,8 +35656,8 @@ export namespace Prisma {
     id?: string
     url: string
     maintenanceId?: string | null
-    rooms?: RoomUncheckedCreateNestedManyWithoutPhotosInput
-    units?: UnitUncheckedCreateNestedManyWithoutPhotosInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutPhotosInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutPhotosInput
     buildings?: BuildingUncheckedCreateNestedManyWithoutPhotosInput
     complexes?: ComplexUncheckedCreateNestedManyWithoutPhotosInput
   }
@@ -33916,8 +35665,8 @@ export namespace Prisma {
   export type FileUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
-    rooms?: RoomUpdateManyWithoutPhotosNestedInput
-    units?: UnitUpdateManyWithoutPhotosNestedInput
+    spaces?: SpaceUpdateManyWithoutPhotosNestedInput
+    zones?: ZoneUpdateManyWithoutPhotosNestedInput
     buildings?: BuildingUpdateManyWithoutPhotosNestedInput
     complexes?: ComplexUpdateManyWithoutPhotosNestedInput
     maintenance?: MaintenanceUpdateOneWithoutPhotosNestedInput
@@ -33927,8 +35676,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
-    rooms?: RoomUncheckedUpdateManyWithoutPhotosNestedInput
-    units?: UnitUncheckedUpdateManyWithoutPhotosNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutPhotosNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutPhotosNestedInput
     buildings?: BuildingUncheckedUpdateManyWithoutPhotosNestedInput
     complexes?: ComplexUncheckedUpdateManyWithoutPhotosNestedInput
   }
@@ -34342,8 +36091,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     buildings?: BuildingCreateNestedManyWithoutCalenderEntityInput
     complexes?: ComplexCreateNestedManyWithoutCalenderEntityInput
-    units?: UnitCreateNestedManyWithoutCalenderEntityInput
-    rooms?: RoomCreateNestedManyWithoutCalenderEntityInput
+    spaces?: SpaceCreateNestedManyWithoutCalenderEntityInput
+    zones?: ZoneCreateNestedManyWithoutCalenderEntityInput
     employees?: EmployeeCreateNestedManyWithoutCalenderEntityInput
   }
 
@@ -34354,8 +36103,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     buildings?: BuildingUncheckedCreateNestedManyWithoutCalenderEntityInput
     complexes?: ComplexUncheckedCreateNestedManyWithoutCalenderEntityInput
-    units?: UnitUncheckedCreateNestedManyWithoutCalenderEntityInput
-    rooms?: RoomUncheckedCreateNestedManyWithoutCalenderEntityInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutCalenderEntityInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutCalenderEntityInput
     employees?: EmployeeUncheckedCreateNestedManyWithoutCalenderEntityInput
   }
 
@@ -34366,8 +36115,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buildings?: BuildingUpdateManyWithoutCalenderEntityNestedInput
     complexes?: ComplexUpdateManyWithoutCalenderEntityNestedInput
-    units?: UnitUpdateManyWithoutCalenderEntityNestedInput
-    rooms?: RoomUpdateManyWithoutCalenderEntityNestedInput
+    spaces?: SpaceUpdateManyWithoutCalenderEntityNestedInput
+    zones?: ZoneUpdateManyWithoutCalenderEntityNestedInput
     employees?: EmployeeUpdateManyWithoutCalenderEntityNestedInput
   }
 
@@ -34378,8 +36127,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buildings?: BuildingUncheckedUpdateManyWithoutCalenderEntityNestedInput
     complexes?: ComplexUncheckedUpdateManyWithoutCalenderEntityNestedInput
-    units?: UnitUncheckedUpdateManyWithoutCalenderEntityNestedInput
-    rooms?: RoomUncheckedUpdateManyWithoutCalenderEntityNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutCalenderEntityNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutCalenderEntityNestedInput
     employees?: EmployeeUncheckedUpdateManyWithoutCalenderEntityNestedInput
   }
 
@@ -34415,6 +36164,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -34460,7 +36210,7 @@ export namespace Prisma {
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
-    room?: RoomCreateNestedOneWithoutMaintenancesInput
+    space?: SpaceCreateNestedOneWithoutMaintenancesInput
     assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
@@ -34477,6 +36227,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
     processStatus?: $Enums.Status
     register?: string | null
@@ -34505,7 +36256,7 @@ export namespace Prisma {
     companyId?: string | null
     teamId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -34539,6 +36290,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34584,7 +36336,7 @@ export namespace Prisma {
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
-    room?: RoomUpdateOneWithoutMaintenancesNestedInput
+    space?: SpaceUpdateOneWithoutMaintenancesNestedInput
     assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
@@ -34601,6 +36353,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34629,7 +36382,7 @@ export namespace Prisma {
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -34663,6 +36416,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
     processStatus?: $Enums.Status
     register?: string | null
@@ -34691,7 +36445,7 @@ export namespace Prisma {
     companyId?: string | null
     teamId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -34724,6 +36478,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34776,6 +36531,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34804,7 +36560,7 @@ export namespace Prisma {
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -34843,7 +36599,7 @@ export namespace Prisma {
     asset?: AssetCreateNestedOneWithoutPreventivesInput
     building?: BuildingCreateNestedOneWithoutPreventivesInput
     floor?: FloorCreateNestedOneWithoutPreventivesInput
-    room?: RoomCreateNestedOneWithoutPreventivesInput
+    space?: SpaceCreateNestedOneWithoutPreventivesInput
     team?: TeamCreateNestedOneWithoutPreventivesInput
   }
 
@@ -34862,7 +36618,7 @@ export namespace Prisma {
     assetId?: string | null
     buildingId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     teamId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -34885,7 +36641,7 @@ export namespace Prisma {
     asset?: AssetUpdateOneWithoutPreventivesNestedInput
     building?: BuildingUpdateOneWithoutPreventivesNestedInput
     floor?: FloorUpdateOneWithoutPreventivesNestedInput
-    room?: RoomUpdateOneWithoutPreventivesNestedInput
+    space?: SpaceUpdateOneWithoutPreventivesNestedInput
     team?: TeamUpdateOneWithoutPreventivesNestedInput
   }
 
@@ -34904,7 +36660,7 @@ export namespace Prisma {
     assetId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34925,7 +36681,7 @@ export namespace Prisma {
     assetId?: string | null
     buildingId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     teamId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -34961,7 +36717,7 @@ export namespace Prisma {
     assetId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -35094,9 +36850,10 @@ export namespace Prisma {
     none?: RefreshTokenWhereInput
   }
 
-  export type RoleScalarRelationFilter = {
-    is?: RoleWhereInput
-    isNot?: RoleWhereInput
+  export type RoleListRelationFilter = {
+    every?: RoleWhereInput
+    some?: RoleWhereInput
+    none?: RoleWhereInput
   }
 
   export type EmployeeListRelationFilter = {
@@ -35114,6 +36871,10 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type RoleOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type EmployeeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -35125,7 +36886,6 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     status?: SortOrder
-    roleId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     passwordResetToken?: SortOrder
@@ -35140,7 +36900,6 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     status?: SortOrder
-    roleId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     passwordResetToken?: SortOrder
@@ -35155,7 +36914,6 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     status?: SortOrder
-    roleId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     passwordResetToken?: SortOrder
@@ -35237,11 +36995,9 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type EnumRoleNameFilter<$PrismaModel = never> = {
-    equals?: $Enums.RoleName | EnumRoleNameFieldRefInput<$PrismaModel>
-    in?: $Enums.RoleName[] | ListEnumRoleNameFieldRefInput<$PrismaModel>
-    notIn?: $Enums.RoleName[] | ListEnumRoleNameFieldRefInput<$PrismaModel>
-    not?: NestedEnumRoleNameFilter<$PrismaModel> | $Enums.RoleName
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type PermissionListRelationFilter = {
@@ -35267,6 +37023,7 @@ export namespace Prisma {
   export type RoleCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    isSystem?: SortOrder
     description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -35275,6 +37032,7 @@ export namespace Prisma {
   export type RoleMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    isSystem?: SortOrder
     description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -35283,19 +37041,18 @@ export namespace Prisma {
   export type RoleMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    isSystem?: SortOrder
     description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type EnumRoleNameWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.RoleName | EnumRoleNameFieldRefInput<$PrismaModel>
-    in?: $Enums.RoleName[] | ListEnumRoleNameFieldRefInput<$PrismaModel>
-    notIn?: $Enums.RoleName[] | ListEnumRoleNameFieldRefInput<$PrismaModel>
-    not?: NestedEnumRoleNameWithAggregatesFilter<$PrismaModel> | $Enums.RoleName
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumRoleNameFilter<$PrismaModel>
-    _max?: NestedEnumRoleNameFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type EnumAccessLevelFilter<$PrismaModel = never> = {
@@ -35303,6 +37060,11 @@ export namespace Prisma {
     in?: $Enums.AccessLevel[] | ListEnumAccessLevelFieldRefInput<$PrismaModel>
     notIn?: $Enums.AccessLevel[] | ListEnumAccessLevelFieldRefInput<$PrismaModel>
     not?: NestedEnumAccessLevelFilter<$PrismaModel> | $Enums.AccessLevel
+  }
+
+  export type RoleScalarRelationFilter = {
+    is?: RoleWhereInput
+    isNot?: RoleWhereInput
   }
 
   export type PermissionRoleIdResourceCompoundUniqueInput = {
@@ -35345,6 +37107,46 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumAccessLevelFilter<$PrismaModel>
     _max?: NestedEnumAccessLevelFilter<$PrismaModel>
+  }
+
+  export type ComplexListRelationFilter = {
+    every?: ComplexWhereInput
+    some?: ComplexWhereInput
+    none?: ComplexWhereInput
+  }
+
+  export type ComplexOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SiteCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    address?: SortOrder
+    climateZone?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SiteMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    address?: SortOrder
+    climateZone?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SiteMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    address?: SortOrder
+    climateZone?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type EnumAvailabilityFilter<$PrismaModel = never> = {
@@ -35420,16 +37222,16 @@ export namespace Prisma {
     none?: FloorWhereInput
   }
 
-  export type UnitListRelationFilter = {
-    every?: UnitWhereInput
-    some?: UnitWhereInput
-    none?: UnitWhereInput
+  export type SpaceListRelationFilter = {
+    every?: SpaceWhereInput
+    some?: SpaceWhereInput
+    none?: SpaceWhereInput
   }
 
-  export type RoomListRelationFilter = {
-    every?: RoomWhereInput
-    some?: RoomWhereInput
-    none?: RoomWhereInput
+  export type ZoneListRelationFilter = {
+    every?: ZoneWhereInput
+    some?: ZoneWhereInput
+    none?: ZoneWhereInput
   }
 
   export type MaintenanceListRelationFilter = {
@@ -35444,6 +37246,11 @@ export namespace Prisma {
     none?: PreventiveWhereInput
   }
 
+  export type SiteNullableScalarRelationFilter = {
+    is?: SiteWhereInput | null
+    isNot?: SiteWhereInput | null
+  }
+
   export type BuildingOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -35456,11 +37263,11 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type UnitOrderByRelationAggregateInput = {
+  export type SpaceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type RoomOrderByRelationAggregateInput = {
+  export type ZoneOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -35497,6 +37304,7 @@ export namespace Prisma {
     totalVolume?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    siteId?: SortOrder
   }
 
   export type ComplexAvgOrderByAggregateInput = {
@@ -35538,6 +37346,7 @@ export namespace Prisma {
     totalVolume?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    siteId?: SortOrder
   }
 
   export type ComplexMinOrderByAggregateInput = {
@@ -35565,6 +37374,7 @@ export namespace Prisma {
     totalVolume?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    siteId?: SortOrder
   }
 
   export type ComplexSumOrderByAggregateInput = {
@@ -35815,6 +37625,7 @@ export namespace Prisma {
     code?: SortOrder
     name?: SortOrder
     level?: SortOrder
+    type?: SortOrder
     status?: SortOrder
     condition?: SortOrder
     criticality?: SortOrder
@@ -35851,6 +37662,7 @@ export namespace Prisma {
     code?: SortOrder
     name?: SortOrder
     level?: SortOrder
+    type?: SortOrder
     status?: SortOrder
     condition?: SortOrder
     criticality?: SortOrder
@@ -35874,6 +37686,7 @@ export namespace Prisma {
     code?: SortOrder
     name?: SortOrder
     level?: SortOrder
+    type?: SortOrder
     status?: SortOrder
     condition?: SortOrder
     criticality?: SortOrder
@@ -35947,15 +37760,16 @@ export namespace Prisma {
     isNot?: FloorWhereInput
   }
 
-  export type UnitFloorIdCodeCompoundUniqueInput = {
+  export type ZoneFloorIdCodeCompoundUniqueInput = {
     floorId: string
     code: string
   }
 
-  export type UnitCountOrderByAggregateInput = {
+  export type ZoneCountOrderByAggregateInput = {
     id?: SortOrder
     code?: SortOrder
     name?: SortOrder
+    type?: SortOrder
     availability?: SortOrder
     status?: SortOrder
     calenderEntityId?: SortOrder
@@ -35988,7 +37802,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type UnitAvgOrderByAggregateInput = {
+  export type ZoneAvgOrderByAggregateInput = {
     totalRooms?: SortOrder
     glazedArea?: SortOrder
     cleanableArea?: SortOrder
@@ -36003,10 +37817,11 @@ export namespace Prisma {
     cadastralIncome?: SortOrder
   }
 
-  export type UnitMaxOrderByAggregateInput = {
+  export type ZoneMaxOrderByAggregateInput = {
     id?: SortOrder
     code?: SortOrder
     name?: SortOrder
+    type?: SortOrder
     availability?: SortOrder
     status?: SortOrder
     calenderEntityId?: SortOrder
@@ -36039,10 +37854,11 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type UnitMinOrderByAggregateInput = {
+  export type ZoneMinOrderByAggregateInput = {
     id?: SortOrder
     code?: SortOrder
     name?: SortOrder
+    type?: SortOrder
     availability?: SortOrder
     status?: SortOrder
     calenderEntityId?: SortOrder
@@ -36075,7 +37891,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type UnitSumOrderByAggregateInput = {
+  export type ZoneSumOrderByAggregateInput = {
     totalRooms?: SortOrder
     glazedArea?: SortOrder
     cleanableArea?: SortOrder
@@ -36113,23 +37929,28 @@ export namespace Prisma {
     not?: NestedEnumRoomUseFilter<$PrismaModel> | $Enums.RoomUse
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
+  export type ZoneNullableScalarRelationFilter = {
+    is?: ZoneWhereInput | null
+    isNot?: ZoneWhereInput | null
   }
 
-  export type UnitNullableScalarRelationFilter = {
-    is?: UnitWhereInput | null
-    isNot?: UnitWhereInput | null
+  export type AssetListRelationFilter = {
+    every?: AssetWhereInput
+    some?: AssetWhereInput
+    none?: AssetWhereInput
   }
 
-  export type RoomFloorIdBuildingIdCodeCompoundUniqueInput = {
+  export type AssetOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SpaceFloorIdBuildingIdCodeCompoundUniqueInput = {
     floorId: string
     buildingId: string
     code: string
   }
 
-  export type RoomCountOrderByAggregateInput = {
+  export type SpaceCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     code?: SortOrder
@@ -36139,7 +37960,7 @@ export namespace Prisma {
     complexId?: SortOrder
     buildingId?: SortOrder
     floorId?: SortOrder
-    unitId?: SortOrder
+    zoneId?: SortOrder
     condition?: SortOrder
     criticality?: SortOrder
     glazedArea?: SortOrder
@@ -36154,7 +37975,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type RoomAvgOrderByAggregateInput = {
+  export type SpaceAvgOrderByAggregateInput = {
     glazedArea?: SortOrder
     cleanableArea?: SortOrder
     coveredArea?: SortOrder
@@ -36164,7 +37985,7 @@ export namespace Prisma {
     totalVolume?: SortOrder
   }
 
-  export type RoomMaxOrderByAggregateInput = {
+  export type SpaceMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     code?: SortOrder
@@ -36174,7 +37995,7 @@ export namespace Prisma {
     complexId?: SortOrder
     buildingId?: SortOrder
     floorId?: SortOrder
-    unitId?: SortOrder
+    zoneId?: SortOrder
     condition?: SortOrder
     criticality?: SortOrder
     glazedArea?: SortOrder
@@ -36189,7 +38010,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type RoomMinOrderByAggregateInput = {
+  export type SpaceMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     code?: SortOrder
@@ -36199,7 +38020,7 @@ export namespace Prisma {
     complexId?: SortOrder
     buildingId?: SortOrder
     floorId?: SortOrder
-    unitId?: SortOrder
+    zoneId?: SortOrder
     condition?: SortOrder
     criticality?: SortOrder
     glazedArea?: SortOrder
@@ -36214,7 +38035,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type RoomSumOrderByAggregateInput = {
+  export type SpaceSumOrderByAggregateInput = {
     glazedArea?: SortOrder
     cleanableArea?: SortOrder
     coveredArea?: SortOrder
@@ -36234,29 +38055,11 @@ export namespace Prisma {
     _max?: NestedEnumRoomUseFilter<$PrismaModel>
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type EnumAssetCategoryTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.AssetCategoryType | EnumAssetCategoryTypeFieldRefInput<$PrismaModel>
     in?: $Enums.AssetCategoryType[] | ListEnumAssetCategoryTypeFieldRefInput<$PrismaModel>
     notIn?: $Enums.AssetCategoryType[] | ListEnumAssetCategoryTypeFieldRefInput<$PrismaModel>
     not?: NestedEnumAssetCategoryTypeFilter<$PrismaModel> | $Enums.AssetCategoryType
-  }
-
-  export type AssetListRelationFilter = {
-    every?: AssetWhereInput
-    some?: AssetWhereInput
-    none?: AssetWhereInput
-  }
-
-  export type AssetOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type AssetCategoryCountOrderByAggregateInput = {
@@ -36301,11 +38104,24 @@ export namespace Prisma {
     isNot?: AssetCategoryWhereInput
   }
 
+  export type AssetNullableScalarRelationFilter = {
+    is?: AssetWhereInput | null
+    isNot?: AssetWhereInput | null
+  }
+
+  export type SpaceNullableScalarRelationFilter = {
+    is?: SpaceWhereInput | null
+    isNot?: SpaceWhereInput | null
+  }
+
   export type AssetCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrder
     categoryId?: SortOrder
+    tag?: SortOrder
+    parentSystemId?: SortOrder
+    spaceId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -36315,6 +38131,9 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     categoryId?: SortOrder
+    tag?: SortOrder
+    parentSystemId?: SortOrder
+    spaceId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -36324,23 +38143,16 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     categoryId?: SortOrder
+    tag?: SortOrder
+    parentSystemId?: SortOrder
+    spaceId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type ComplexListRelationFilter = {
-    every?: ComplexWhereInput
-    some?: ComplexWhereInput
-    none?: ComplexWhereInput
   }
 
   export type MaintenanceNullableScalarRelationFilter = {
     is?: MaintenanceWhereInput | null
     isNot?: MaintenanceWhereInput | null
-  }
-
-  export type ComplexOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type FileCountOrderByAggregateInput = {
@@ -36607,6 +38419,29 @@ export namespace Prisma {
     notIn?: $Enums.MaintenanceType[] | ListEnumMaintenanceTypeFieldRefInput<$PrismaModel>
     not?: NestedEnumMaintenanceTypeFilter<$PrismaModel> | $Enums.MaintenanceType
   }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type EnumStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
@@ -36649,16 +38484,6 @@ export namespace Prisma {
     isNot?: FloorWhereInput | null
   }
 
-  export type RoomNullableScalarRelationFilter = {
-    is?: RoomWhereInput | null
-    isNot?: RoomWhereInput | null
-  }
-
-  export type AssetNullableScalarRelationFilter = {
-    is?: AssetWhereInput | null
-    isNot?: AssetWhereInput | null
-  }
-
   export type MaintenanceCountOrderByAggregateInput = {
     id?: SortOrder
     type?: SortOrder
@@ -36670,6 +38495,7 @@ export namespace Prisma {
     action?: SortOrder
     message?: SortOrder
     processNotes?: SortOrder
+    metadata?: SortOrder
     performerId?: SortOrder
     processStatus?: SortOrder
     register?: SortOrder
@@ -36698,7 +38524,7 @@ export namespace Prisma {
     companyId?: SortOrder
     teamId?: SortOrder
     floorId?: SortOrder
-    roomId?: SortOrder
+    spaceId?: SortOrder
     ttSystemOpening?: SortOrder
     ttWorkOpening?: SortOrder
     ttSystemAssignment?: SortOrder
@@ -36774,7 +38600,7 @@ export namespace Prisma {
     companyId?: SortOrder
     teamId?: SortOrder
     floorId?: SortOrder
-    roomId?: SortOrder
+    spaceId?: SortOrder
     ttSystemOpening?: SortOrder
     ttWorkOpening?: SortOrder
     ttSystemAssignment?: SortOrder
@@ -36835,7 +38661,7 @@ export namespace Prisma {
     companyId?: SortOrder
     teamId?: SortOrder
     floorId?: SortOrder
-    roomId?: SortOrder
+    spaceId?: SortOrder
     ttSystemOpening?: SortOrder
     ttWorkOpening?: SortOrder
     ttSystemAssignment?: SortOrder
@@ -36880,6 +38706,32 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumMaintenanceTypeFilter<$PrismaModel>
     _max?: NestedEnumMaintenanceTypeFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type EnumStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -36934,7 +38786,7 @@ export namespace Prisma {
     assetId?: SortOrder
     buildingId?: SortOrder
     floorId?: SortOrder
-    roomId?: SortOrder
+    spaceId?: SortOrder
     teamId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -36959,7 +38811,7 @@ export namespace Prisma {
     assetId?: SortOrder
     buildingId?: SortOrder
     floorId?: SortOrder
-    roomId?: SortOrder
+    spaceId?: SortOrder
     teamId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -36980,7 +38832,7 @@ export namespace Prisma {
     assetId?: SortOrder
     buildingId?: SortOrder
     floorId?: SortOrder
-    roomId?: SortOrder
+    spaceId?: SortOrder
     teamId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -37034,10 +38886,10 @@ export namespace Prisma {
     connect?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
   }
 
-  export type RoleCreateNestedOneWithoutUsersInput = {
-    create?: XOR<RoleCreateWithoutUsersInput, RoleUncheckedCreateWithoutUsersInput>
-    connectOrCreate?: RoleCreateOrConnectWithoutUsersInput
-    connect?: RoleWhereUniqueInput
+  export type RoleCreateNestedManyWithoutUsersInput = {
+    create?: XOR<RoleCreateWithoutUsersInput, RoleUncheckedCreateWithoutUsersInput> | RoleCreateWithoutUsersInput[] | RoleUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: RoleCreateOrConnectWithoutUsersInput | RoleCreateOrConnectWithoutUsersInput[]
+    connect?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
   }
 
   export type EmployeeCreateNestedManyWithoutUserInput = {
@@ -37052,6 +38904,12 @@ export namespace Prisma {
     connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
     createMany?: RefreshTokenCreateManyUserInputEnvelope
     connect?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
+  }
+
+  export type RoleUncheckedCreateNestedManyWithoutUsersInput = {
+    create?: XOR<RoleCreateWithoutUsersInput, RoleUncheckedCreateWithoutUsersInput> | RoleCreateWithoutUsersInput[] | RoleUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: RoleCreateOrConnectWithoutUsersInput | RoleCreateOrConnectWithoutUsersInput[]
+    connect?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
   }
 
   export type EmployeeUncheckedCreateNestedManyWithoutUserInput = {
@@ -37095,12 +38953,17 @@ export namespace Prisma {
     deleteMany?: RefreshTokenScalarWhereInput | RefreshTokenScalarWhereInput[]
   }
 
-  export type RoleUpdateOneRequiredWithoutUsersNestedInput = {
-    create?: XOR<RoleCreateWithoutUsersInput, RoleUncheckedCreateWithoutUsersInput>
-    connectOrCreate?: RoleCreateOrConnectWithoutUsersInput
-    upsert?: RoleUpsertWithoutUsersInput
-    connect?: RoleWhereUniqueInput
-    update?: XOR<XOR<RoleUpdateToOneWithWhereWithoutUsersInput, RoleUpdateWithoutUsersInput>, RoleUncheckedUpdateWithoutUsersInput>
+  export type RoleUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<RoleCreateWithoutUsersInput, RoleUncheckedCreateWithoutUsersInput> | RoleCreateWithoutUsersInput[] | RoleUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: RoleCreateOrConnectWithoutUsersInput | RoleCreateOrConnectWithoutUsersInput[]
+    upsert?: RoleUpsertWithWhereUniqueWithoutUsersInput | RoleUpsertWithWhereUniqueWithoutUsersInput[]
+    set?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
+    disconnect?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
+    delete?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
+    connect?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
+    update?: RoleUpdateWithWhereUniqueWithoutUsersInput | RoleUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: RoleUpdateManyWithWhereWithoutUsersInput | RoleUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: RoleScalarWhereInput | RoleScalarWhereInput[]
   }
 
   export type EmployeeUpdateManyWithoutUserNestedInput = {
@@ -37131,6 +38994,19 @@ export namespace Prisma {
     deleteMany?: RefreshTokenScalarWhereInput | RefreshTokenScalarWhereInput[]
   }
 
+  export type RoleUncheckedUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<RoleCreateWithoutUsersInput, RoleUncheckedCreateWithoutUsersInput> | RoleCreateWithoutUsersInput[] | RoleUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: RoleCreateOrConnectWithoutUsersInput | RoleCreateOrConnectWithoutUsersInput[]
+    upsert?: RoleUpsertWithWhereUniqueWithoutUsersInput | RoleUpsertWithWhereUniqueWithoutUsersInput[]
+    set?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
+    disconnect?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
+    delete?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
+    connect?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
+    update?: RoleUpdateWithWhereUniqueWithoutUsersInput | RoleUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: RoleUpdateManyWithWhereWithoutUsersInput | RoleUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: RoleScalarWhereInput | RoleScalarWhereInput[]
+  }
+
   export type EmployeeUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<EmployeeCreateWithoutUserInput, EmployeeUncheckedCreateWithoutUserInput> | EmployeeCreateWithoutUserInput[] | EmployeeUncheckedCreateWithoutUserInput[]
     connectOrCreate?: EmployeeCreateOrConnectWithoutUserInput | EmployeeCreateOrConnectWithoutUserInput[]
@@ -37152,10 +39028,9 @@ export namespace Prisma {
     connect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
   }
 
-  export type UserCreateNestedManyWithoutRoleInput = {
-    create?: XOR<UserCreateWithoutRoleInput, UserUncheckedCreateWithoutRoleInput> | UserCreateWithoutRoleInput[] | UserUncheckedCreateWithoutRoleInput[]
-    connectOrCreate?: UserCreateOrConnectWithoutRoleInput | UserCreateOrConnectWithoutRoleInput[]
-    createMany?: UserCreateManyRoleInputEnvelope
+  export type UserCreateNestedManyWithoutRolesInput = {
+    create?: XOR<UserCreateWithoutRolesInput, UserUncheckedCreateWithoutRolesInput> | UserCreateWithoutRolesInput[] | UserUncheckedCreateWithoutRolesInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutRolesInput | UserCreateOrConnectWithoutRolesInput[]
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
@@ -37166,15 +39041,14 @@ export namespace Prisma {
     connect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
   }
 
-  export type UserUncheckedCreateNestedManyWithoutRoleInput = {
-    create?: XOR<UserCreateWithoutRoleInput, UserUncheckedCreateWithoutRoleInput> | UserCreateWithoutRoleInput[] | UserUncheckedCreateWithoutRoleInput[]
-    connectOrCreate?: UserCreateOrConnectWithoutRoleInput | UserCreateOrConnectWithoutRoleInput[]
-    createMany?: UserCreateManyRoleInputEnvelope
+  export type UserUncheckedCreateNestedManyWithoutRolesInput = {
+    create?: XOR<UserCreateWithoutRolesInput, UserUncheckedCreateWithoutRolesInput> | UserCreateWithoutRolesInput[] | UserUncheckedCreateWithoutRolesInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutRolesInput | UserCreateOrConnectWithoutRolesInput[]
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
-  export type EnumRoleNameFieldUpdateOperationsInput = {
-    set?: $Enums.RoleName
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type PermissionUpdateManyWithoutRoleNestedInput = {
@@ -37191,17 +39065,16 @@ export namespace Prisma {
     deleteMany?: PermissionScalarWhereInput | PermissionScalarWhereInput[]
   }
 
-  export type UserUpdateManyWithoutRoleNestedInput = {
-    create?: XOR<UserCreateWithoutRoleInput, UserUncheckedCreateWithoutRoleInput> | UserCreateWithoutRoleInput[] | UserUncheckedCreateWithoutRoleInput[]
-    connectOrCreate?: UserCreateOrConnectWithoutRoleInput | UserCreateOrConnectWithoutRoleInput[]
-    upsert?: UserUpsertWithWhereUniqueWithoutRoleInput | UserUpsertWithWhereUniqueWithoutRoleInput[]
-    createMany?: UserCreateManyRoleInputEnvelope
+  export type UserUpdateManyWithoutRolesNestedInput = {
+    create?: XOR<UserCreateWithoutRolesInput, UserUncheckedCreateWithoutRolesInput> | UserCreateWithoutRolesInput[] | UserUncheckedCreateWithoutRolesInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutRolesInput | UserCreateOrConnectWithoutRolesInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutRolesInput | UserUpsertWithWhereUniqueWithoutRolesInput[]
     set?: UserWhereUniqueInput | UserWhereUniqueInput[]
     disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
     delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    update?: UserUpdateWithWhereUniqueWithoutRoleInput | UserUpdateWithWhereUniqueWithoutRoleInput[]
-    updateMany?: UserUpdateManyWithWhereWithoutRoleInput | UserUpdateManyWithWhereWithoutRoleInput[]
+    update?: UserUpdateWithWhereUniqueWithoutRolesInput | UserUpdateWithWhereUniqueWithoutRolesInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutRolesInput | UserUpdateManyWithWhereWithoutRolesInput[]
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
@@ -37219,17 +39092,16 @@ export namespace Prisma {
     deleteMany?: PermissionScalarWhereInput | PermissionScalarWhereInput[]
   }
 
-  export type UserUncheckedUpdateManyWithoutRoleNestedInput = {
-    create?: XOR<UserCreateWithoutRoleInput, UserUncheckedCreateWithoutRoleInput> | UserCreateWithoutRoleInput[] | UserUncheckedCreateWithoutRoleInput[]
-    connectOrCreate?: UserCreateOrConnectWithoutRoleInput | UserCreateOrConnectWithoutRoleInput[]
-    upsert?: UserUpsertWithWhereUniqueWithoutRoleInput | UserUpsertWithWhereUniqueWithoutRoleInput[]
-    createMany?: UserCreateManyRoleInputEnvelope
+  export type UserUncheckedUpdateManyWithoutRolesNestedInput = {
+    create?: XOR<UserCreateWithoutRolesInput, UserUncheckedCreateWithoutRolesInput> | UserCreateWithoutRolesInput[] | UserUncheckedCreateWithoutRolesInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutRolesInput | UserCreateOrConnectWithoutRolesInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutRolesInput | UserUpsertWithWhereUniqueWithoutRolesInput[]
     set?: UserWhereUniqueInput | UserWhereUniqueInput[]
     disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
     delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    update?: UserUpdateWithWhereUniqueWithoutRoleInput | UserUpdateWithWhereUniqueWithoutRoleInput[]
-    updateMany?: UserUpdateManyWithWhereWithoutRoleInput | UserUpdateManyWithWhereWithoutRoleInput[]
+    update?: UserUpdateWithWhereUniqueWithoutRolesInput | UserUpdateWithWhereUniqueWithoutRolesInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutRolesInput | UserUpdateManyWithWhereWithoutRolesInput[]
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
@@ -37249,6 +39121,48 @@ export namespace Prisma {
     upsert?: RoleUpsertWithoutPermissionsInput
     connect?: RoleWhereUniqueInput
     update?: XOR<XOR<RoleUpdateToOneWithWhereWithoutPermissionsInput, RoleUpdateWithoutPermissionsInput>, RoleUncheckedUpdateWithoutPermissionsInput>
+  }
+
+  export type ComplexCreateNestedManyWithoutSiteInput = {
+    create?: XOR<ComplexCreateWithoutSiteInput, ComplexUncheckedCreateWithoutSiteInput> | ComplexCreateWithoutSiteInput[] | ComplexUncheckedCreateWithoutSiteInput[]
+    connectOrCreate?: ComplexCreateOrConnectWithoutSiteInput | ComplexCreateOrConnectWithoutSiteInput[]
+    createMany?: ComplexCreateManySiteInputEnvelope
+    connect?: ComplexWhereUniqueInput | ComplexWhereUniqueInput[]
+  }
+
+  export type ComplexUncheckedCreateNestedManyWithoutSiteInput = {
+    create?: XOR<ComplexCreateWithoutSiteInput, ComplexUncheckedCreateWithoutSiteInput> | ComplexCreateWithoutSiteInput[] | ComplexUncheckedCreateWithoutSiteInput[]
+    connectOrCreate?: ComplexCreateOrConnectWithoutSiteInput | ComplexCreateOrConnectWithoutSiteInput[]
+    createMany?: ComplexCreateManySiteInputEnvelope
+    connect?: ComplexWhereUniqueInput | ComplexWhereUniqueInput[]
+  }
+
+  export type ComplexUpdateManyWithoutSiteNestedInput = {
+    create?: XOR<ComplexCreateWithoutSiteInput, ComplexUncheckedCreateWithoutSiteInput> | ComplexCreateWithoutSiteInput[] | ComplexUncheckedCreateWithoutSiteInput[]
+    connectOrCreate?: ComplexCreateOrConnectWithoutSiteInput | ComplexCreateOrConnectWithoutSiteInput[]
+    upsert?: ComplexUpsertWithWhereUniqueWithoutSiteInput | ComplexUpsertWithWhereUniqueWithoutSiteInput[]
+    createMany?: ComplexCreateManySiteInputEnvelope
+    set?: ComplexWhereUniqueInput | ComplexWhereUniqueInput[]
+    disconnect?: ComplexWhereUniqueInput | ComplexWhereUniqueInput[]
+    delete?: ComplexWhereUniqueInput | ComplexWhereUniqueInput[]
+    connect?: ComplexWhereUniqueInput | ComplexWhereUniqueInput[]
+    update?: ComplexUpdateWithWhereUniqueWithoutSiteInput | ComplexUpdateWithWhereUniqueWithoutSiteInput[]
+    updateMany?: ComplexUpdateManyWithWhereWithoutSiteInput | ComplexUpdateManyWithWhereWithoutSiteInput[]
+    deleteMany?: ComplexScalarWhereInput | ComplexScalarWhereInput[]
+  }
+
+  export type ComplexUncheckedUpdateManyWithoutSiteNestedInput = {
+    create?: XOR<ComplexCreateWithoutSiteInput, ComplexUncheckedCreateWithoutSiteInput> | ComplexCreateWithoutSiteInput[] | ComplexUncheckedCreateWithoutSiteInput[]
+    connectOrCreate?: ComplexCreateOrConnectWithoutSiteInput | ComplexCreateOrConnectWithoutSiteInput[]
+    upsert?: ComplexUpsertWithWhereUniqueWithoutSiteInput | ComplexUpsertWithWhereUniqueWithoutSiteInput[]
+    createMany?: ComplexCreateManySiteInputEnvelope
+    set?: ComplexWhereUniqueInput | ComplexWhereUniqueInput[]
+    disconnect?: ComplexWhereUniqueInput | ComplexWhereUniqueInput[]
+    delete?: ComplexWhereUniqueInput | ComplexWhereUniqueInput[]
+    connect?: ComplexWhereUniqueInput | ComplexWhereUniqueInput[]
+    update?: ComplexUpdateWithWhereUniqueWithoutSiteInput | ComplexUpdateWithWhereUniqueWithoutSiteInput[]
+    updateMany?: ComplexUpdateManyWithWhereWithoutSiteInput | ComplexUpdateManyWithWhereWithoutSiteInput[]
+    deleteMany?: ComplexScalarWhereInput | ComplexScalarWhereInput[]
   }
 
   export type CalenderEntityCreateNestedOneWithoutComplexesInput = {
@@ -37277,18 +39191,18 @@ export namespace Prisma {
     connect?: FloorWhereUniqueInput | FloorWhereUniqueInput[]
   }
 
-  export type UnitCreateNestedManyWithoutComplexInput = {
-    create?: XOR<UnitCreateWithoutComplexInput, UnitUncheckedCreateWithoutComplexInput> | UnitCreateWithoutComplexInput[] | UnitUncheckedCreateWithoutComplexInput[]
-    connectOrCreate?: UnitCreateOrConnectWithoutComplexInput | UnitCreateOrConnectWithoutComplexInput[]
-    createMany?: UnitCreateManyComplexInputEnvelope
-    connect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
+  export type SpaceCreateNestedManyWithoutComplexInput = {
+    create?: XOR<SpaceCreateWithoutComplexInput, SpaceUncheckedCreateWithoutComplexInput> | SpaceCreateWithoutComplexInput[] | SpaceUncheckedCreateWithoutComplexInput[]
+    connectOrCreate?: SpaceCreateOrConnectWithoutComplexInput | SpaceCreateOrConnectWithoutComplexInput[]
+    createMany?: SpaceCreateManyComplexInputEnvelope
+    connect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
   }
 
-  export type RoomCreateNestedManyWithoutComplexInput = {
-    create?: XOR<RoomCreateWithoutComplexInput, RoomUncheckedCreateWithoutComplexInput> | RoomCreateWithoutComplexInput[] | RoomUncheckedCreateWithoutComplexInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutComplexInput | RoomCreateOrConnectWithoutComplexInput[]
-    createMany?: RoomCreateManyComplexInputEnvelope
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
+  export type ZoneCreateNestedManyWithoutComplexInput = {
+    create?: XOR<ZoneCreateWithoutComplexInput, ZoneUncheckedCreateWithoutComplexInput> | ZoneCreateWithoutComplexInput[] | ZoneUncheckedCreateWithoutComplexInput[]
+    connectOrCreate?: ZoneCreateOrConnectWithoutComplexInput | ZoneCreateOrConnectWithoutComplexInput[]
+    createMany?: ZoneCreateManyComplexInputEnvelope
+    connect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
   }
 
   export type MaintenanceCreateNestedManyWithoutSiteInput = {
@@ -37303,6 +39217,12 @@ export namespace Prisma {
     connectOrCreate?: PreventiveCreateOrConnectWithoutSiteInput | PreventiveCreateOrConnectWithoutSiteInput[]
     createMany?: PreventiveCreateManySiteInputEnvelope
     connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+  }
+
+  export type SiteCreateNestedOneWithoutComplexesInput = {
+    create?: XOR<SiteCreateWithoutComplexesInput, SiteUncheckedCreateWithoutComplexesInput>
+    connectOrCreate?: SiteCreateOrConnectWithoutComplexesInput
+    connect?: SiteWhereUniqueInput
   }
 
   export type BuildingUncheckedCreateNestedManyWithoutComplexInput = {
@@ -37325,18 +39245,18 @@ export namespace Prisma {
     connect?: FloorWhereUniqueInput | FloorWhereUniqueInput[]
   }
 
-  export type UnitUncheckedCreateNestedManyWithoutComplexInput = {
-    create?: XOR<UnitCreateWithoutComplexInput, UnitUncheckedCreateWithoutComplexInput> | UnitCreateWithoutComplexInput[] | UnitUncheckedCreateWithoutComplexInput[]
-    connectOrCreate?: UnitCreateOrConnectWithoutComplexInput | UnitCreateOrConnectWithoutComplexInput[]
-    createMany?: UnitCreateManyComplexInputEnvelope
-    connect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
+  export type SpaceUncheckedCreateNestedManyWithoutComplexInput = {
+    create?: XOR<SpaceCreateWithoutComplexInput, SpaceUncheckedCreateWithoutComplexInput> | SpaceCreateWithoutComplexInput[] | SpaceUncheckedCreateWithoutComplexInput[]
+    connectOrCreate?: SpaceCreateOrConnectWithoutComplexInput | SpaceCreateOrConnectWithoutComplexInput[]
+    createMany?: SpaceCreateManyComplexInputEnvelope
+    connect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
   }
 
-  export type RoomUncheckedCreateNestedManyWithoutComplexInput = {
-    create?: XOR<RoomCreateWithoutComplexInput, RoomUncheckedCreateWithoutComplexInput> | RoomCreateWithoutComplexInput[] | RoomUncheckedCreateWithoutComplexInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutComplexInput | RoomCreateOrConnectWithoutComplexInput[]
-    createMany?: RoomCreateManyComplexInputEnvelope
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
+  export type ZoneUncheckedCreateNestedManyWithoutComplexInput = {
+    create?: XOR<ZoneCreateWithoutComplexInput, ZoneUncheckedCreateWithoutComplexInput> | ZoneCreateWithoutComplexInput[] | ZoneUncheckedCreateWithoutComplexInput[]
+    connectOrCreate?: ZoneCreateOrConnectWithoutComplexInput | ZoneCreateOrConnectWithoutComplexInput[]
+    createMany?: ZoneCreateManyComplexInputEnvelope
+    connect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
   }
 
   export type MaintenanceUncheckedCreateNestedManyWithoutSiteInput = {
@@ -37436,32 +39356,32 @@ export namespace Prisma {
     deleteMany?: FloorScalarWhereInput | FloorScalarWhereInput[]
   }
 
-  export type UnitUpdateManyWithoutComplexNestedInput = {
-    create?: XOR<UnitCreateWithoutComplexInput, UnitUncheckedCreateWithoutComplexInput> | UnitCreateWithoutComplexInput[] | UnitUncheckedCreateWithoutComplexInput[]
-    connectOrCreate?: UnitCreateOrConnectWithoutComplexInput | UnitCreateOrConnectWithoutComplexInput[]
-    upsert?: UnitUpsertWithWhereUniqueWithoutComplexInput | UnitUpsertWithWhereUniqueWithoutComplexInput[]
-    createMany?: UnitCreateManyComplexInputEnvelope
-    set?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    disconnect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    delete?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    connect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    update?: UnitUpdateWithWhereUniqueWithoutComplexInput | UnitUpdateWithWhereUniqueWithoutComplexInput[]
-    updateMany?: UnitUpdateManyWithWhereWithoutComplexInput | UnitUpdateManyWithWhereWithoutComplexInput[]
-    deleteMany?: UnitScalarWhereInput | UnitScalarWhereInput[]
+  export type SpaceUpdateManyWithoutComplexNestedInput = {
+    create?: XOR<SpaceCreateWithoutComplexInput, SpaceUncheckedCreateWithoutComplexInput> | SpaceCreateWithoutComplexInput[] | SpaceUncheckedCreateWithoutComplexInput[]
+    connectOrCreate?: SpaceCreateOrConnectWithoutComplexInput | SpaceCreateOrConnectWithoutComplexInput[]
+    upsert?: SpaceUpsertWithWhereUniqueWithoutComplexInput | SpaceUpsertWithWhereUniqueWithoutComplexInput[]
+    createMany?: SpaceCreateManyComplexInputEnvelope
+    set?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    disconnect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    delete?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    connect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    update?: SpaceUpdateWithWhereUniqueWithoutComplexInput | SpaceUpdateWithWhereUniqueWithoutComplexInput[]
+    updateMany?: SpaceUpdateManyWithWhereWithoutComplexInput | SpaceUpdateManyWithWhereWithoutComplexInput[]
+    deleteMany?: SpaceScalarWhereInput | SpaceScalarWhereInput[]
   }
 
-  export type RoomUpdateManyWithoutComplexNestedInput = {
-    create?: XOR<RoomCreateWithoutComplexInput, RoomUncheckedCreateWithoutComplexInput> | RoomCreateWithoutComplexInput[] | RoomUncheckedCreateWithoutComplexInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutComplexInput | RoomCreateOrConnectWithoutComplexInput[]
-    upsert?: RoomUpsertWithWhereUniqueWithoutComplexInput | RoomUpsertWithWhereUniqueWithoutComplexInput[]
-    createMany?: RoomCreateManyComplexInputEnvelope
-    set?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    disconnect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    delete?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    update?: RoomUpdateWithWhereUniqueWithoutComplexInput | RoomUpdateWithWhereUniqueWithoutComplexInput[]
-    updateMany?: RoomUpdateManyWithWhereWithoutComplexInput | RoomUpdateManyWithWhereWithoutComplexInput[]
-    deleteMany?: RoomScalarWhereInput | RoomScalarWhereInput[]
+  export type ZoneUpdateManyWithoutComplexNestedInput = {
+    create?: XOR<ZoneCreateWithoutComplexInput, ZoneUncheckedCreateWithoutComplexInput> | ZoneCreateWithoutComplexInput[] | ZoneUncheckedCreateWithoutComplexInput[]
+    connectOrCreate?: ZoneCreateOrConnectWithoutComplexInput | ZoneCreateOrConnectWithoutComplexInput[]
+    upsert?: ZoneUpsertWithWhereUniqueWithoutComplexInput | ZoneUpsertWithWhereUniqueWithoutComplexInput[]
+    createMany?: ZoneCreateManyComplexInputEnvelope
+    set?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    disconnect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    delete?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    connect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    update?: ZoneUpdateWithWhereUniqueWithoutComplexInput | ZoneUpdateWithWhereUniqueWithoutComplexInput[]
+    updateMany?: ZoneUpdateManyWithWhereWithoutComplexInput | ZoneUpdateManyWithWhereWithoutComplexInput[]
+    deleteMany?: ZoneScalarWhereInput | ZoneScalarWhereInput[]
   }
 
   export type MaintenanceUpdateManyWithoutSiteNestedInput = {
@@ -37490,6 +39410,16 @@ export namespace Prisma {
     update?: PreventiveUpdateWithWhereUniqueWithoutSiteInput | PreventiveUpdateWithWhereUniqueWithoutSiteInput[]
     updateMany?: PreventiveUpdateManyWithWhereWithoutSiteInput | PreventiveUpdateManyWithWhereWithoutSiteInput[]
     deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
+  }
+
+  export type SiteUpdateOneWithoutComplexesNestedInput = {
+    create?: XOR<SiteCreateWithoutComplexesInput, SiteUncheckedCreateWithoutComplexesInput>
+    connectOrCreate?: SiteCreateOrConnectWithoutComplexesInput
+    upsert?: SiteUpsertWithoutComplexesInput
+    disconnect?: SiteWhereInput | boolean
+    delete?: SiteWhereInput | boolean
+    connect?: SiteWhereUniqueInput
+    update?: XOR<XOR<SiteUpdateToOneWithWhereWithoutComplexesInput, SiteUpdateWithoutComplexesInput>, SiteUncheckedUpdateWithoutComplexesInput>
   }
 
   export type BuildingUncheckedUpdateManyWithoutComplexNestedInput = {
@@ -37533,32 +39463,32 @@ export namespace Prisma {
     deleteMany?: FloorScalarWhereInput | FloorScalarWhereInput[]
   }
 
-  export type UnitUncheckedUpdateManyWithoutComplexNestedInput = {
-    create?: XOR<UnitCreateWithoutComplexInput, UnitUncheckedCreateWithoutComplexInput> | UnitCreateWithoutComplexInput[] | UnitUncheckedCreateWithoutComplexInput[]
-    connectOrCreate?: UnitCreateOrConnectWithoutComplexInput | UnitCreateOrConnectWithoutComplexInput[]
-    upsert?: UnitUpsertWithWhereUniqueWithoutComplexInput | UnitUpsertWithWhereUniqueWithoutComplexInput[]
-    createMany?: UnitCreateManyComplexInputEnvelope
-    set?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    disconnect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    delete?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    connect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    update?: UnitUpdateWithWhereUniqueWithoutComplexInput | UnitUpdateWithWhereUniqueWithoutComplexInput[]
-    updateMany?: UnitUpdateManyWithWhereWithoutComplexInput | UnitUpdateManyWithWhereWithoutComplexInput[]
-    deleteMany?: UnitScalarWhereInput | UnitScalarWhereInput[]
+  export type SpaceUncheckedUpdateManyWithoutComplexNestedInput = {
+    create?: XOR<SpaceCreateWithoutComplexInput, SpaceUncheckedCreateWithoutComplexInput> | SpaceCreateWithoutComplexInput[] | SpaceUncheckedCreateWithoutComplexInput[]
+    connectOrCreate?: SpaceCreateOrConnectWithoutComplexInput | SpaceCreateOrConnectWithoutComplexInput[]
+    upsert?: SpaceUpsertWithWhereUniqueWithoutComplexInput | SpaceUpsertWithWhereUniqueWithoutComplexInput[]
+    createMany?: SpaceCreateManyComplexInputEnvelope
+    set?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    disconnect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    delete?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    connect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    update?: SpaceUpdateWithWhereUniqueWithoutComplexInput | SpaceUpdateWithWhereUniqueWithoutComplexInput[]
+    updateMany?: SpaceUpdateManyWithWhereWithoutComplexInput | SpaceUpdateManyWithWhereWithoutComplexInput[]
+    deleteMany?: SpaceScalarWhereInput | SpaceScalarWhereInput[]
   }
 
-  export type RoomUncheckedUpdateManyWithoutComplexNestedInput = {
-    create?: XOR<RoomCreateWithoutComplexInput, RoomUncheckedCreateWithoutComplexInput> | RoomCreateWithoutComplexInput[] | RoomUncheckedCreateWithoutComplexInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutComplexInput | RoomCreateOrConnectWithoutComplexInput[]
-    upsert?: RoomUpsertWithWhereUniqueWithoutComplexInput | RoomUpsertWithWhereUniqueWithoutComplexInput[]
-    createMany?: RoomCreateManyComplexInputEnvelope
-    set?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    disconnect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    delete?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    update?: RoomUpdateWithWhereUniqueWithoutComplexInput | RoomUpdateWithWhereUniqueWithoutComplexInput[]
-    updateMany?: RoomUpdateManyWithWhereWithoutComplexInput | RoomUpdateManyWithWhereWithoutComplexInput[]
-    deleteMany?: RoomScalarWhereInput | RoomScalarWhereInput[]
+  export type ZoneUncheckedUpdateManyWithoutComplexNestedInput = {
+    create?: XOR<ZoneCreateWithoutComplexInput, ZoneUncheckedCreateWithoutComplexInput> | ZoneCreateWithoutComplexInput[] | ZoneUncheckedCreateWithoutComplexInput[]
+    connectOrCreate?: ZoneCreateOrConnectWithoutComplexInput | ZoneCreateOrConnectWithoutComplexInput[]
+    upsert?: ZoneUpsertWithWhereUniqueWithoutComplexInput | ZoneUpsertWithWhereUniqueWithoutComplexInput[]
+    createMany?: ZoneCreateManyComplexInputEnvelope
+    set?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    disconnect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    delete?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    connect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    update?: ZoneUpdateWithWhereUniqueWithoutComplexInput | ZoneUpdateWithWhereUniqueWithoutComplexInput[]
+    updateMany?: ZoneUpdateManyWithWhereWithoutComplexInput | ZoneUpdateManyWithWhereWithoutComplexInput[]
+    deleteMany?: ZoneScalarWhereInput | ZoneScalarWhereInput[]
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutSiteNestedInput = {
@@ -37620,18 +39550,18 @@ export namespace Prisma {
     connect?: FloorWhereUniqueInput | FloorWhereUniqueInput[]
   }
 
-  export type UnitCreateNestedManyWithoutBuildingInput = {
-    create?: XOR<UnitCreateWithoutBuildingInput, UnitUncheckedCreateWithoutBuildingInput> | UnitCreateWithoutBuildingInput[] | UnitUncheckedCreateWithoutBuildingInput[]
-    connectOrCreate?: UnitCreateOrConnectWithoutBuildingInput | UnitCreateOrConnectWithoutBuildingInput[]
-    createMany?: UnitCreateManyBuildingInputEnvelope
-    connect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
+  export type SpaceCreateNestedManyWithoutBuildingInput = {
+    create?: XOR<SpaceCreateWithoutBuildingInput, SpaceUncheckedCreateWithoutBuildingInput> | SpaceCreateWithoutBuildingInput[] | SpaceUncheckedCreateWithoutBuildingInput[]
+    connectOrCreate?: SpaceCreateOrConnectWithoutBuildingInput | SpaceCreateOrConnectWithoutBuildingInput[]
+    createMany?: SpaceCreateManyBuildingInputEnvelope
+    connect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
   }
 
-  export type RoomCreateNestedManyWithoutBuildingInput = {
-    create?: XOR<RoomCreateWithoutBuildingInput, RoomUncheckedCreateWithoutBuildingInput> | RoomCreateWithoutBuildingInput[] | RoomUncheckedCreateWithoutBuildingInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutBuildingInput | RoomCreateOrConnectWithoutBuildingInput[]
-    createMany?: RoomCreateManyBuildingInputEnvelope
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
+  export type ZoneCreateNestedManyWithoutBuildingInput = {
+    create?: XOR<ZoneCreateWithoutBuildingInput, ZoneUncheckedCreateWithoutBuildingInput> | ZoneCreateWithoutBuildingInput[] | ZoneUncheckedCreateWithoutBuildingInput[]
+    connectOrCreate?: ZoneCreateOrConnectWithoutBuildingInput | ZoneCreateOrConnectWithoutBuildingInput[]
+    createMany?: ZoneCreateManyBuildingInputEnvelope
+    connect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
   }
 
   export type PreventiveCreateNestedManyWithoutBuildingInput = {
@@ -37654,18 +39584,18 @@ export namespace Prisma {
     connect?: FloorWhereUniqueInput | FloorWhereUniqueInput[]
   }
 
-  export type UnitUncheckedCreateNestedManyWithoutBuildingInput = {
-    create?: XOR<UnitCreateWithoutBuildingInput, UnitUncheckedCreateWithoutBuildingInput> | UnitCreateWithoutBuildingInput[] | UnitUncheckedCreateWithoutBuildingInput[]
-    connectOrCreate?: UnitCreateOrConnectWithoutBuildingInput | UnitCreateOrConnectWithoutBuildingInput[]
-    createMany?: UnitCreateManyBuildingInputEnvelope
-    connect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
+  export type SpaceUncheckedCreateNestedManyWithoutBuildingInput = {
+    create?: XOR<SpaceCreateWithoutBuildingInput, SpaceUncheckedCreateWithoutBuildingInput> | SpaceCreateWithoutBuildingInput[] | SpaceUncheckedCreateWithoutBuildingInput[]
+    connectOrCreate?: SpaceCreateOrConnectWithoutBuildingInput | SpaceCreateOrConnectWithoutBuildingInput[]
+    createMany?: SpaceCreateManyBuildingInputEnvelope
+    connect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
   }
 
-  export type RoomUncheckedCreateNestedManyWithoutBuildingInput = {
-    create?: XOR<RoomCreateWithoutBuildingInput, RoomUncheckedCreateWithoutBuildingInput> | RoomCreateWithoutBuildingInput[] | RoomUncheckedCreateWithoutBuildingInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutBuildingInput | RoomCreateOrConnectWithoutBuildingInput[]
-    createMany?: RoomCreateManyBuildingInputEnvelope
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
+  export type ZoneUncheckedCreateNestedManyWithoutBuildingInput = {
+    create?: XOR<ZoneCreateWithoutBuildingInput, ZoneUncheckedCreateWithoutBuildingInput> | ZoneCreateWithoutBuildingInput[] | ZoneUncheckedCreateWithoutBuildingInput[]
+    connectOrCreate?: ZoneCreateOrConnectWithoutBuildingInput | ZoneCreateOrConnectWithoutBuildingInput[]
+    createMany?: ZoneCreateManyBuildingInputEnvelope
+    connect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
   }
 
   export type PreventiveUncheckedCreateNestedManyWithoutBuildingInput = {
@@ -37732,32 +39662,32 @@ export namespace Prisma {
     deleteMany?: FloorScalarWhereInput | FloorScalarWhereInput[]
   }
 
-  export type UnitUpdateManyWithoutBuildingNestedInput = {
-    create?: XOR<UnitCreateWithoutBuildingInput, UnitUncheckedCreateWithoutBuildingInput> | UnitCreateWithoutBuildingInput[] | UnitUncheckedCreateWithoutBuildingInput[]
-    connectOrCreate?: UnitCreateOrConnectWithoutBuildingInput | UnitCreateOrConnectWithoutBuildingInput[]
-    upsert?: UnitUpsertWithWhereUniqueWithoutBuildingInput | UnitUpsertWithWhereUniqueWithoutBuildingInput[]
-    createMany?: UnitCreateManyBuildingInputEnvelope
-    set?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    disconnect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    delete?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    connect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    update?: UnitUpdateWithWhereUniqueWithoutBuildingInput | UnitUpdateWithWhereUniqueWithoutBuildingInput[]
-    updateMany?: UnitUpdateManyWithWhereWithoutBuildingInput | UnitUpdateManyWithWhereWithoutBuildingInput[]
-    deleteMany?: UnitScalarWhereInput | UnitScalarWhereInput[]
+  export type SpaceUpdateManyWithoutBuildingNestedInput = {
+    create?: XOR<SpaceCreateWithoutBuildingInput, SpaceUncheckedCreateWithoutBuildingInput> | SpaceCreateWithoutBuildingInput[] | SpaceUncheckedCreateWithoutBuildingInput[]
+    connectOrCreate?: SpaceCreateOrConnectWithoutBuildingInput | SpaceCreateOrConnectWithoutBuildingInput[]
+    upsert?: SpaceUpsertWithWhereUniqueWithoutBuildingInput | SpaceUpsertWithWhereUniqueWithoutBuildingInput[]
+    createMany?: SpaceCreateManyBuildingInputEnvelope
+    set?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    disconnect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    delete?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    connect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    update?: SpaceUpdateWithWhereUniqueWithoutBuildingInput | SpaceUpdateWithWhereUniqueWithoutBuildingInput[]
+    updateMany?: SpaceUpdateManyWithWhereWithoutBuildingInput | SpaceUpdateManyWithWhereWithoutBuildingInput[]
+    deleteMany?: SpaceScalarWhereInput | SpaceScalarWhereInput[]
   }
 
-  export type RoomUpdateManyWithoutBuildingNestedInput = {
-    create?: XOR<RoomCreateWithoutBuildingInput, RoomUncheckedCreateWithoutBuildingInput> | RoomCreateWithoutBuildingInput[] | RoomUncheckedCreateWithoutBuildingInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutBuildingInput | RoomCreateOrConnectWithoutBuildingInput[]
-    upsert?: RoomUpsertWithWhereUniqueWithoutBuildingInput | RoomUpsertWithWhereUniqueWithoutBuildingInput[]
-    createMany?: RoomCreateManyBuildingInputEnvelope
-    set?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    disconnect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    delete?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    update?: RoomUpdateWithWhereUniqueWithoutBuildingInput | RoomUpdateWithWhereUniqueWithoutBuildingInput[]
-    updateMany?: RoomUpdateManyWithWhereWithoutBuildingInput | RoomUpdateManyWithWhereWithoutBuildingInput[]
-    deleteMany?: RoomScalarWhereInput | RoomScalarWhereInput[]
+  export type ZoneUpdateManyWithoutBuildingNestedInput = {
+    create?: XOR<ZoneCreateWithoutBuildingInput, ZoneUncheckedCreateWithoutBuildingInput> | ZoneCreateWithoutBuildingInput[] | ZoneUncheckedCreateWithoutBuildingInput[]
+    connectOrCreate?: ZoneCreateOrConnectWithoutBuildingInput | ZoneCreateOrConnectWithoutBuildingInput[]
+    upsert?: ZoneUpsertWithWhereUniqueWithoutBuildingInput | ZoneUpsertWithWhereUniqueWithoutBuildingInput[]
+    createMany?: ZoneCreateManyBuildingInputEnvelope
+    set?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    disconnect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    delete?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    connect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    update?: ZoneUpdateWithWhereUniqueWithoutBuildingInput | ZoneUpdateWithWhereUniqueWithoutBuildingInput[]
+    updateMany?: ZoneUpdateManyWithWhereWithoutBuildingInput | ZoneUpdateManyWithWhereWithoutBuildingInput[]
+    deleteMany?: ZoneScalarWhereInput | ZoneScalarWhereInput[]
   }
 
   export type PreventiveUpdateManyWithoutBuildingNestedInput = {
@@ -37801,32 +39731,32 @@ export namespace Prisma {
     deleteMany?: FloorScalarWhereInput | FloorScalarWhereInput[]
   }
 
-  export type UnitUncheckedUpdateManyWithoutBuildingNestedInput = {
-    create?: XOR<UnitCreateWithoutBuildingInput, UnitUncheckedCreateWithoutBuildingInput> | UnitCreateWithoutBuildingInput[] | UnitUncheckedCreateWithoutBuildingInput[]
-    connectOrCreate?: UnitCreateOrConnectWithoutBuildingInput | UnitCreateOrConnectWithoutBuildingInput[]
-    upsert?: UnitUpsertWithWhereUniqueWithoutBuildingInput | UnitUpsertWithWhereUniqueWithoutBuildingInput[]
-    createMany?: UnitCreateManyBuildingInputEnvelope
-    set?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    disconnect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    delete?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    connect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    update?: UnitUpdateWithWhereUniqueWithoutBuildingInput | UnitUpdateWithWhereUniqueWithoutBuildingInput[]
-    updateMany?: UnitUpdateManyWithWhereWithoutBuildingInput | UnitUpdateManyWithWhereWithoutBuildingInput[]
-    deleteMany?: UnitScalarWhereInput | UnitScalarWhereInput[]
+  export type SpaceUncheckedUpdateManyWithoutBuildingNestedInput = {
+    create?: XOR<SpaceCreateWithoutBuildingInput, SpaceUncheckedCreateWithoutBuildingInput> | SpaceCreateWithoutBuildingInput[] | SpaceUncheckedCreateWithoutBuildingInput[]
+    connectOrCreate?: SpaceCreateOrConnectWithoutBuildingInput | SpaceCreateOrConnectWithoutBuildingInput[]
+    upsert?: SpaceUpsertWithWhereUniqueWithoutBuildingInput | SpaceUpsertWithWhereUniqueWithoutBuildingInput[]
+    createMany?: SpaceCreateManyBuildingInputEnvelope
+    set?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    disconnect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    delete?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    connect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    update?: SpaceUpdateWithWhereUniqueWithoutBuildingInput | SpaceUpdateWithWhereUniqueWithoutBuildingInput[]
+    updateMany?: SpaceUpdateManyWithWhereWithoutBuildingInput | SpaceUpdateManyWithWhereWithoutBuildingInput[]
+    deleteMany?: SpaceScalarWhereInput | SpaceScalarWhereInput[]
   }
 
-  export type RoomUncheckedUpdateManyWithoutBuildingNestedInput = {
-    create?: XOR<RoomCreateWithoutBuildingInput, RoomUncheckedCreateWithoutBuildingInput> | RoomCreateWithoutBuildingInput[] | RoomUncheckedCreateWithoutBuildingInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutBuildingInput | RoomCreateOrConnectWithoutBuildingInput[]
-    upsert?: RoomUpsertWithWhereUniqueWithoutBuildingInput | RoomUpsertWithWhereUniqueWithoutBuildingInput[]
-    createMany?: RoomCreateManyBuildingInputEnvelope
-    set?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    disconnect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    delete?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    update?: RoomUpdateWithWhereUniqueWithoutBuildingInput | RoomUpdateWithWhereUniqueWithoutBuildingInput[]
-    updateMany?: RoomUpdateManyWithWhereWithoutBuildingInput | RoomUpdateManyWithWhereWithoutBuildingInput[]
-    deleteMany?: RoomScalarWhereInput | RoomScalarWhereInput[]
+  export type ZoneUncheckedUpdateManyWithoutBuildingNestedInput = {
+    create?: XOR<ZoneCreateWithoutBuildingInput, ZoneUncheckedCreateWithoutBuildingInput> | ZoneCreateWithoutBuildingInput[] | ZoneUncheckedCreateWithoutBuildingInput[]
+    connectOrCreate?: ZoneCreateOrConnectWithoutBuildingInput | ZoneCreateOrConnectWithoutBuildingInput[]
+    upsert?: ZoneUpsertWithWhereUniqueWithoutBuildingInput | ZoneUpsertWithWhereUniqueWithoutBuildingInput[]
+    createMany?: ZoneCreateManyBuildingInputEnvelope
+    set?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    disconnect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    delete?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    connect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    update?: ZoneUpdateWithWhereUniqueWithoutBuildingInput | ZoneUpdateWithWhereUniqueWithoutBuildingInput[]
+    updateMany?: ZoneUpdateManyWithWhereWithoutBuildingInput | ZoneUpdateManyWithWhereWithoutBuildingInput[]
+    deleteMany?: ZoneScalarWhereInput | ZoneScalarWhereInput[]
   }
 
   export type PreventiveUncheckedUpdateManyWithoutBuildingNestedInput = {
@@ -37855,18 +39785,18 @@ export namespace Prisma {
     connect?: BuildingWhereUniqueInput
   }
 
-  export type RoomCreateNestedManyWithoutFloorInput = {
-    create?: XOR<RoomCreateWithoutFloorInput, RoomUncheckedCreateWithoutFloorInput> | RoomCreateWithoutFloorInput[] | RoomUncheckedCreateWithoutFloorInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutFloorInput | RoomCreateOrConnectWithoutFloorInput[]
-    createMany?: RoomCreateManyFloorInputEnvelope
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
+  export type SpaceCreateNestedManyWithoutFloorInput = {
+    create?: XOR<SpaceCreateWithoutFloorInput, SpaceUncheckedCreateWithoutFloorInput> | SpaceCreateWithoutFloorInput[] | SpaceUncheckedCreateWithoutFloorInput[]
+    connectOrCreate?: SpaceCreateOrConnectWithoutFloorInput | SpaceCreateOrConnectWithoutFloorInput[]
+    createMany?: SpaceCreateManyFloorInputEnvelope
+    connect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
   }
 
-  export type UnitCreateNestedManyWithoutFloorInput = {
-    create?: XOR<UnitCreateWithoutFloorInput, UnitUncheckedCreateWithoutFloorInput> | UnitCreateWithoutFloorInput[] | UnitUncheckedCreateWithoutFloorInput[]
-    connectOrCreate?: UnitCreateOrConnectWithoutFloorInput | UnitCreateOrConnectWithoutFloorInput[]
-    createMany?: UnitCreateManyFloorInputEnvelope
-    connect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
+  export type ZoneCreateNestedManyWithoutFloorInput = {
+    create?: XOR<ZoneCreateWithoutFloorInput, ZoneUncheckedCreateWithoutFloorInput> | ZoneCreateWithoutFloorInput[] | ZoneUncheckedCreateWithoutFloorInput[]
+    connectOrCreate?: ZoneCreateOrConnectWithoutFloorInput | ZoneCreateOrConnectWithoutFloorInput[]
+    createMany?: ZoneCreateManyFloorInputEnvelope
+    connect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
   }
 
   export type MaintenanceCreateNestedManyWithoutFloorInput = {
@@ -37883,18 +39813,18 @@ export namespace Prisma {
     connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
   }
 
-  export type RoomUncheckedCreateNestedManyWithoutFloorInput = {
-    create?: XOR<RoomCreateWithoutFloorInput, RoomUncheckedCreateWithoutFloorInput> | RoomCreateWithoutFloorInput[] | RoomUncheckedCreateWithoutFloorInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutFloorInput | RoomCreateOrConnectWithoutFloorInput[]
-    createMany?: RoomCreateManyFloorInputEnvelope
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
+  export type SpaceUncheckedCreateNestedManyWithoutFloorInput = {
+    create?: XOR<SpaceCreateWithoutFloorInput, SpaceUncheckedCreateWithoutFloorInput> | SpaceCreateWithoutFloorInput[] | SpaceUncheckedCreateWithoutFloorInput[]
+    connectOrCreate?: SpaceCreateOrConnectWithoutFloorInput | SpaceCreateOrConnectWithoutFloorInput[]
+    createMany?: SpaceCreateManyFloorInputEnvelope
+    connect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
   }
 
-  export type UnitUncheckedCreateNestedManyWithoutFloorInput = {
-    create?: XOR<UnitCreateWithoutFloorInput, UnitUncheckedCreateWithoutFloorInput> | UnitCreateWithoutFloorInput[] | UnitUncheckedCreateWithoutFloorInput[]
-    connectOrCreate?: UnitCreateOrConnectWithoutFloorInput | UnitCreateOrConnectWithoutFloorInput[]
-    createMany?: UnitCreateManyFloorInputEnvelope
-    connect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
+  export type ZoneUncheckedCreateNestedManyWithoutFloorInput = {
+    create?: XOR<ZoneCreateWithoutFloorInput, ZoneUncheckedCreateWithoutFloorInput> | ZoneCreateWithoutFloorInput[] | ZoneUncheckedCreateWithoutFloorInput[]
+    connectOrCreate?: ZoneCreateOrConnectWithoutFloorInput | ZoneCreateOrConnectWithoutFloorInput[]
+    createMany?: ZoneCreateManyFloorInputEnvelope
+    connect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
   }
 
   export type MaintenanceUncheckedCreateNestedManyWithoutFloorInput = {
@@ -37935,32 +39865,32 @@ export namespace Prisma {
     update?: XOR<XOR<BuildingUpdateToOneWithWhereWithoutFloorsInput, BuildingUpdateWithoutFloorsInput>, BuildingUncheckedUpdateWithoutFloorsInput>
   }
 
-  export type RoomUpdateManyWithoutFloorNestedInput = {
-    create?: XOR<RoomCreateWithoutFloorInput, RoomUncheckedCreateWithoutFloorInput> | RoomCreateWithoutFloorInput[] | RoomUncheckedCreateWithoutFloorInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutFloorInput | RoomCreateOrConnectWithoutFloorInput[]
-    upsert?: RoomUpsertWithWhereUniqueWithoutFloorInput | RoomUpsertWithWhereUniqueWithoutFloorInput[]
-    createMany?: RoomCreateManyFloorInputEnvelope
-    set?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    disconnect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    delete?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    update?: RoomUpdateWithWhereUniqueWithoutFloorInput | RoomUpdateWithWhereUniqueWithoutFloorInput[]
-    updateMany?: RoomUpdateManyWithWhereWithoutFloorInput | RoomUpdateManyWithWhereWithoutFloorInput[]
-    deleteMany?: RoomScalarWhereInput | RoomScalarWhereInput[]
+  export type SpaceUpdateManyWithoutFloorNestedInput = {
+    create?: XOR<SpaceCreateWithoutFloorInput, SpaceUncheckedCreateWithoutFloorInput> | SpaceCreateWithoutFloorInput[] | SpaceUncheckedCreateWithoutFloorInput[]
+    connectOrCreate?: SpaceCreateOrConnectWithoutFloorInput | SpaceCreateOrConnectWithoutFloorInput[]
+    upsert?: SpaceUpsertWithWhereUniqueWithoutFloorInput | SpaceUpsertWithWhereUniqueWithoutFloorInput[]
+    createMany?: SpaceCreateManyFloorInputEnvelope
+    set?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    disconnect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    delete?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    connect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    update?: SpaceUpdateWithWhereUniqueWithoutFloorInput | SpaceUpdateWithWhereUniqueWithoutFloorInput[]
+    updateMany?: SpaceUpdateManyWithWhereWithoutFloorInput | SpaceUpdateManyWithWhereWithoutFloorInput[]
+    deleteMany?: SpaceScalarWhereInput | SpaceScalarWhereInput[]
   }
 
-  export type UnitUpdateManyWithoutFloorNestedInput = {
-    create?: XOR<UnitCreateWithoutFloorInput, UnitUncheckedCreateWithoutFloorInput> | UnitCreateWithoutFloorInput[] | UnitUncheckedCreateWithoutFloorInput[]
-    connectOrCreate?: UnitCreateOrConnectWithoutFloorInput | UnitCreateOrConnectWithoutFloorInput[]
-    upsert?: UnitUpsertWithWhereUniqueWithoutFloorInput | UnitUpsertWithWhereUniqueWithoutFloorInput[]
-    createMany?: UnitCreateManyFloorInputEnvelope
-    set?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    disconnect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    delete?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    connect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    update?: UnitUpdateWithWhereUniqueWithoutFloorInput | UnitUpdateWithWhereUniqueWithoutFloorInput[]
-    updateMany?: UnitUpdateManyWithWhereWithoutFloorInput | UnitUpdateManyWithWhereWithoutFloorInput[]
-    deleteMany?: UnitScalarWhereInput | UnitScalarWhereInput[]
+  export type ZoneUpdateManyWithoutFloorNestedInput = {
+    create?: XOR<ZoneCreateWithoutFloorInput, ZoneUncheckedCreateWithoutFloorInput> | ZoneCreateWithoutFloorInput[] | ZoneUncheckedCreateWithoutFloorInput[]
+    connectOrCreate?: ZoneCreateOrConnectWithoutFloorInput | ZoneCreateOrConnectWithoutFloorInput[]
+    upsert?: ZoneUpsertWithWhereUniqueWithoutFloorInput | ZoneUpsertWithWhereUniqueWithoutFloorInput[]
+    createMany?: ZoneCreateManyFloorInputEnvelope
+    set?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    disconnect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    delete?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    connect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    update?: ZoneUpdateWithWhereUniqueWithoutFloorInput | ZoneUpdateWithWhereUniqueWithoutFloorInput[]
+    updateMany?: ZoneUpdateManyWithWhereWithoutFloorInput | ZoneUpdateManyWithWhereWithoutFloorInput[]
+    deleteMany?: ZoneScalarWhereInput | ZoneScalarWhereInput[]
   }
 
   export type MaintenanceUpdateManyWithoutFloorNestedInput = {
@@ -37991,32 +39921,32 @@ export namespace Prisma {
     deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
   }
 
-  export type RoomUncheckedUpdateManyWithoutFloorNestedInput = {
-    create?: XOR<RoomCreateWithoutFloorInput, RoomUncheckedCreateWithoutFloorInput> | RoomCreateWithoutFloorInput[] | RoomUncheckedCreateWithoutFloorInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutFloorInput | RoomCreateOrConnectWithoutFloorInput[]
-    upsert?: RoomUpsertWithWhereUniqueWithoutFloorInput | RoomUpsertWithWhereUniqueWithoutFloorInput[]
-    createMany?: RoomCreateManyFloorInputEnvelope
-    set?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    disconnect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    delete?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    update?: RoomUpdateWithWhereUniqueWithoutFloorInput | RoomUpdateWithWhereUniqueWithoutFloorInput[]
-    updateMany?: RoomUpdateManyWithWhereWithoutFloorInput | RoomUpdateManyWithWhereWithoutFloorInput[]
-    deleteMany?: RoomScalarWhereInput | RoomScalarWhereInput[]
+  export type SpaceUncheckedUpdateManyWithoutFloorNestedInput = {
+    create?: XOR<SpaceCreateWithoutFloorInput, SpaceUncheckedCreateWithoutFloorInput> | SpaceCreateWithoutFloorInput[] | SpaceUncheckedCreateWithoutFloorInput[]
+    connectOrCreate?: SpaceCreateOrConnectWithoutFloorInput | SpaceCreateOrConnectWithoutFloorInput[]
+    upsert?: SpaceUpsertWithWhereUniqueWithoutFloorInput | SpaceUpsertWithWhereUniqueWithoutFloorInput[]
+    createMany?: SpaceCreateManyFloorInputEnvelope
+    set?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    disconnect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    delete?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    connect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    update?: SpaceUpdateWithWhereUniqueWithoutFloorInput | SpaceUpdateWithWhereUniqueWithoutFloorInput[]
+    updateMany?: SpaceUpdateManyWithWhereWithoutFloorInput | SpaceUpdateManyWithWhereWithoutFloorInput[]
+    deleteMany?: SpaceScalarWhereInput | SpaceScalarWhereInput[]
   }
 
-  export type UnitUncheckedUpdateManyWithoutFloorNestedInput = {
-    create?: XOR<UnitCreateWithoutFloorInput, UnitUncheckedCreateWithoutFloorInput> | UnitCreateWithoutFloorInput[] | UnitUncheckedCreateWithoutFloorInput[]
-    connectOrCreate?: UnitCreateOrConnectWithoutFloorInput | UnitCreateOrConnectWithoutFloorInput[]
-    upsert?: UnitUpsertWithWhereUniqueWithoutFloorInput | UnitUpsertWithWhereUniqueWithoutFloorInput[]
-    createMany?: UnitCreateManyFloorInputEnvelope
-    set?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    disconnect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    delete?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    connect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    update?: UnitUpdateWithWhereUniqueWithoutFloorInput | UnitUpdateWithWhereUniqueWithoutFloorInput[]
-    updateMany?: UnitUpdateManyWithWhereWithoutFloorInput | UnitUpdateManyWithWhereWithoutFloorInput[]
-    deleteMany?: UnitScalarWhereInput | UnitScalarWhereInput[]
+  export type ZoneUncheckedUpdateManyWithoutFloorNestedInput = {
+    create?: XOR<ZoneCreateWithoutFloorInput, ZoneUncheckedCreateWithoutFloorInput> | ZoneCreateWithoutFloorInput[] | ZoneUncheckedCreateWithoutFloorInput[]
+    connectOrCreate?: ZoneCreateOrConnectWithoutFloorInput | ZoneCreateOrConnectWithoutFloorInput[]
+    upsert?: ZoneUpsertWithWhereUniqueWithoutFloorInput | ZoneUpsertWithWhereUniqueWithoutFloorInput[]
+    createMany?: ZoneCreateManyFloorInputEnvelope
+    set?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    disconnect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    delete?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    connect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    update?: ZoneUpdateWithWhereUniqueWithoutFloorInput | ZoneUpdateWithWhereUniqueWithoutFloorInput[]
+    updateMany?: ZoneUpdateManyWithWhereWithoutFloorInput | ZoneUpdateManyWithWhereWithoutFloorInput[]
+    deleteMany?: ZoneScalarWhereInput | ZoneScalarWhereInput[]
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutFloorNestedInput = {
@@ -38047,53 +39977,53 @@ export namespace Prisma {
     deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
   }
 
-  export type CalenderEntityCreateNestedOneWithoutUnitsInput = {
-    create?: XOR<CalenderEntityCreateWithoutUnitsInput, CalenderEntityUncheckedCreateWithoutUnitsInput>
-    connectOrCreate?: CalenderEntityCreateOrConnectWithoutUnitsInput
+  export type CalenderEntityCreateNestedOneWithoutZonesInput = {
+    create?: XOR<CalenderEntityCreateWithoutZonesInput, CalenderEntityUncheckedCreateWithoutZonesInput>
+    connectOrCreate?: CalenderEntityCreateOrConnectWithoutZonesInput
     connect?: CalenderEntityWhereUniqueInput
   }
 
-  export type ComplexCreateNestedOneWithoutUnitsInput = {
-    create?: XOR<ComplexCreateWithoutUnitsInput, ComplexUncheckedCreateWithoutUnitsInput>
-    connectOrCreate?: ComplexCreateOrConnectWithoutUnitsInput
+  export type ComplexCreateNestedOneWithoutZonesInput = {
+    create?: XOR<ComplexCreateWithoutZonesInput, ComplexUncheckedCreateWithoutZonesInput>
+    connectOrCreate?: ComplexCreateOrConnectWithoutZonesInput
     connect?: ComplexWhereUniqueInput
   }
 
-  export type BuildingCreateNestedOneWithoutUnitsInput = {
-    create?: XOR<BuildingCreateWithoutUnitsInput, BuildingUncheckedCreateWithoutUnitsInput>
-    connectOrCreate?: BuildingCreateOrConnectWithoutUnitsInput
+  export type BuildingCreateNestedOneWithoutZonesInput = {
+    create?: XOR<BuildingCreateWithoutZonesInput, BuildingUncheckedCreateWithoutZonesInput>
+    connectOrCreate?: BuildingCreateOrConnectWithoutZonesInput
     connect?: BuildingWhereUniqueInput
   }
 
-  export type FloorCreateNestedOneWithoutUnitsInput = {
-    create?: XOR<FloorCreateWithoutUnitsInput, FloorUncheckedCreateWithoutUnitsInput>
-    connectOrCreate?: FloorCreateOrConnectWithoutUnitsInput
+  export type FloorCreateNestedOneWithoutZonesInput = {
+    create?: XOR<FloorCreateWithoutZonesInput, FloorUncheckedCreateWithoutZonesInput>
+    connectOrCreate?: FloorCreateOrConnectWithoutZonesInput
     connect?: FloorWhereUniqueInput
   }
 
-  export type RoomCreateNestedManyWithoutUnitInput = {
-    create?: XOR<RoomCreateWithoutUnitInput, RoomUncheckedCreateWithoutUnitInput> | RoomCreateWithoutUnitInput[] | RoomUncheckedCreateWithoutUnitInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutUnitInput | RoomCreateOrConnectWithoutUnitInput[]
-    createMany?: RoomCreateManyUnitInputEnvelope
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
+  export type SpaceCreateNestedManyWithoutZoneInput = {
+    create?: XOR<SpaceCreateWithoutZoneInput, SpaceUncheckedCreateWithoutZoneInput> | SpaceCreateWithoutZoneInput[] | SpaceUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: SpaceCreateOrConnectWithoutZoneInput | SpaceCreateOrConnectWithoutZoneInput[]
+    createMany?: SpaceCreateManyZoneInputEnvelope
+    connect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
   }
 
-  export type FileCreateNestedManyWithoutUnitsInput = {
-    create?: XOR<FileCreateWithoutUnitsInput, FileUncheckedCreateWithoutUnitsInput> | FileCreateWithoutUnitsInput[] | FileUncheckedCreateWithoutUnitsInput[]
-    connectOrCreate?: FileCreateOrConnectWithoutUnitsInput | FileCreateOrConnectWithoutUnitsInput[]
+  export type FileCreateNestedManyWithoutZonesInput = {
+    create?: XOR<FileCreateWithoutZonesInput, FileUncheckedCreateWithoutZonesInput> | FileCreateWithoutZonesInput[] | FileUncheckedCreateWithoutZonesInput[]
+    connectOrCreate?: FileCreateOrConnectWithoutZonesInput | FileCreateOrConnectWithoutZonesInput[]
     connect?: FileWhereUniqueInput | FileWhereUniqueInput[]
   }
 
-  export type RoomUncheckedCreateNestedManyWithoutUnitInput = {
-    create?: XOR<RoomCreateWithoutUnitInput, RoomUncheckedCreateWithoutUnitInput> | RoomCreateWithoutUnitInput[] | RoomUncheckedCreateWithoutUnitInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutUnitInput | RoomCreateOrConnectWithoutUnitInput[]
-    createMany?: RoomCreateManyUnitInputEnvelope
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
+  export type SpaceUncheckedCreateNestedManyWithoutZoneInput = {
+    create?: XOR<SpaceCreateWithoutZoneInput, SpaceUncheckedCreateWithoutZoneInput> | SpaceCreateWithoutZoneInput[] | SpaceUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: SpaceCreateOrConnectWithoutZoneInput | SpaceCreateOrConnectWithoutZoneInput[]
+    createMany?: SpaceCreateManyZoneInputEnvelope
+    connect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
   }
 
-  export type FileUncheckedCreateNestedManyWithoutUnitsInput = {
-    create?: XOR<FileCreateWithoutUnitsInput, FileUncheckedCreateWithoutUnitsInput> | FileCreateWithoutUnitsInput[] | FileUncheckedCreateWithoutUnitsInput[]
-    connectOrCreate?: FileCreateOrConnectWithoutUnitsInput | FileCreateOrConnectWithoutUnitsInput[]
+  export type FileUncheckedCreateNestedManyWithoutZonesInput = {
+    create?: XOR<FileCreateWithoutZonesInput, FileUncheckedCreateWithoutZonesInput> | FileCreateWithoutZonesInput[] | FileUncheckedCreateWithoutZonesInput[]
+    connectOrCreate?: FileCreateOrConnectWithoutZonesInput | FileCreateOrConnectWithoutZonesInput[]
     connect?: FileWhereUniqueInput | FileWhereUniqueInput[]
   }
 
@@ -38105,304 +40035,342 @@ export namespace Prisma {
     divide?: Decimal | DecimalJsLike | number | string
   }
 
-  export type CalenderEntityUpdateOneWithoutUnitsNestedInput = {
-    create?: XOR<CalenderEntityCreateWithoutUnitsInput, CalenderEntityUncheckedCreateWithoutUnitsInput>
-    connectOrCreate?: CalenderEntityCreateOrConnectWithoutUnitsInput
-    upsert?: CalenderEntityUpsertWithoutUnitsInput
+  export type CalenderEntityUpdateOneWithoutZonesNestedInput = {
+    create?: XOR<CalenderEntityCreateWithoutZonesInput, CalenderEntityUncheckedCreateWithoutZonesInput>
+    connectOrCreate?: CalenderEntityCreateOrConnectWithoutZonesInput
+    upsert?: CalenderEntityUpsertWithoutZonesInput
     disconnect?: CalenderEntityWhereInput | boolean
     delete?: CalenderEntityWhereInput | boolean
     connect?: CalenderEntityWhereUniqueInput
-    update?: XOR<XOR<CalenderEntityUpdateToOneWithWhereWithoutUnitsInput, CalenderEntityUpdateWithoutUnitsInput>, CalenderEntityUncheckedUpdateWithoutUnitsInput>
+    update?: XOR<XOR<CalenderEntityUpdateToOneWithWhereWithoutZonesInput, CalenderEntityUpdateWithoutZonesInput>, CalenderEntityUncheckedUpdateWithoutZonesInput>
   }
 
-  export type ComplexUpdateOneWithoutUnitsNestedInput = {
-    create?: XOR<ComplexCreateWithoutUnitsInput, ComplexUncheckedCreateWithoutUnitsInput>
-    connectOrCreate?: ComplexCreateOrConnectWithoutUnitsInput
-    upsert?: ComplexUpsertWithoutUnitsInput
+  export type ComplexUpdateOneWithoutZonesNestedInput = {
+    create?: XOR<ComplexCreateWithoutZonesInput, ComplexUncheckedCreateWithoutZonesInput>
+    connectOrCreate?: ComplexCreateOrConnectWithoutZonesInput
+    upsert?: ComplexUpsertWithoutZonesInput
     disconnect?: ComplexWhereInput | boolean
     delete?: ComplexWhereInput | boolean
     connect?: ComplexWhereUniqueInput
-    update?: XOR<XOR<ComplexUpdateToOneWithWhereWithoutUnitsInput, ComplexUpdateWithoutUnitsInput>, ComplexUncheckedUpdateWithoutUnitsInput>
+    update?: XOR<XOR<ComplexUpdateToOneWithWhereWithoutZonesInput, ComplexUpdateWithoutZonesInput>, ComplexUncheckedUpdateWithoutZonesInput>
   }
 
-  export type BuildingUpdateOneWithoutUnitsNestedInput = {
-    create?: XOR<BuildingCreateWithoutUnitsInput, BuildingUncheckedCreateWithoutUnitsInput>
-    connectOrCreate?: BuildingCreateOrConnectWithoutUnitsInput
-    upsert?: BuildingUpsertWithoutUnitsInput
+  export type BuildingUpdateOneWithoutZonesNestedInput = {
+    create?: XOR<BuildingCreateWithoutZonesInput, BuildingUncheckedCreateWithoutZonesInput>
+    connectOrCreate?: BuildingCreateOrConnectWithoutZonesInput
+    upsert?: BuildingUpsertWithoutZonesInput
     disconnect?: BuildingWhereInput | boolean
     delete?: BuildingWhereInput | boolean
     connect?: BuildingWhereUniqueInput
-    update?: XOR<XOR<BuildingUpdateToOneWithWhereWithoutUnitsInput, BuildingUpdateWithoutUnitsInput>, BuildingUncheckedUpdateWithoutUnitsInput>
+    update?: XOR<XOR<BuildingUpdateToOneWithWhereWithoutZonesInput, BuildingUpdateWithoutZonesInput>, BuildingUncheckedUpdateWithoutZonesInput>
   }
 
-  export type FloorUpdateOneRequiredWithoutUnitsNestedInput = {
-    create?: XOR<FloorCreateWithoutUnitsInput, FloorUncheckedCreateWithoutUnitsInput>
-    connectOrCreate?: FloorCreateOrConnectWithoutUnitsInput
-    upsert?: FloorUpsertWithoutUnitsInput
+  export type FloorUpdateOneRequiredWithoutZonesNestedInput = {
+    create?: XOR<FloorCreateWithoutZonesInput, FloorUncheckedCreateWithoutZonesInput>
+    connectOrCreate?: FloorCreateOrConnectWithoutZonesInput
+    upsert?: FloorUpsertWithoutZonesInput
     connect?: FloorWhereUniqueInput
-    update?: XOR<XOR<FloorUpdateToOneWithWhereWithoutUnitsInput, FloorUpdateWithoutUnitsInput>, FloorUncheckedUpdateWithoutUnitsInput>
+    update?: XOR<XOR<FloorUpdateToOneWithWhereWithoutZonesInput, FloorUpdateWithoutZonesInput>, FloorUncheckedUpdateWithoutZonesInput>
   }
 
-  export type RoomUpdateManyWithoutUnitNestedInput = {
-    create?: XOR<RoomCreateWithoutUnitInput, RoomUncheckedCreateWithoutUnitInput> | RoomCreateWithoutUnitInput[] | RoomUncheckedCreateWithoutUnitInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutUnitInput | RoomCreateOrConnectWithoutUnitInput[]
-    upsert?: RoomUpsertWithWhereUniqueWithoutUnitInput | RoomUpsertWithWhereUniqueWithoutUnitInput[]
-    createMany?: RoomCreateManyUnitInputEnvelope
-    set?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    disconnect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    delete?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    update?: RoomUpdateWithWhereUniqueWithoutUnitInput | RoomUpdateWithWhereUniqueWithoutUnitInput[]
-    updateMany?: RoomUpdateManyWithWhereWithoutUnitInput | RoomUpdateManyWithWhereWithoutUnitInput[]
-    deleteMany?: RoomScalarWhereInput | RoomScalarWhereInput[]
+  export type SpaceUpdateManyWithoutZoneNestedInput = {
+    create?: XOR<SpaceCreateWithoutZoneInput, SpaceUncheckedCreateWithoutZoneInput> | SpaceCreateWithoutZoneInput[] | SpaceUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: SpaceCreateOrConnectWithoutZoneInput | SpaceCreateOrConnectWithoutZoneInput[]
+    upsert?: SpaceUpsertWithWhereUniqueWithoutZoneInput | SpaceUpsertWithWhereUniqueWithoutZoneInput[]
+    createMany?: SpaceCreateManyZoneInputEnvelope
+    set?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    disconnect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    delete?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    connect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    update?: SpaceUpdateWithWhereUniqueWithoutZoneInput | SpaceUpdateWithWhereUniqueWithoutZoneInput[]
+    updateMany?: SpaceUpdateManyWithWhereWithoutZoneInput | SpaceUpdateManyWithWhereWithoutZoneInput[]
+    deleteMany?: SpaceScalarWhereInput | SpaceScalarWhereInput[]
   }
 
-  export type FileUpdateManyWithoutUnitsNestedInput = {
-    create?: XOR<FileCreateWithoutUnitsInput, FileUncheckedCreateWithoutUnitsInput> | FileCreateWithoutUnitsInput[] | FileUncheckedCreateWithoutUnitsInput[]
-    connectOrCreate?: FileCreateOrConnectWithoutUnitsInput | FileCreateOrConnectWithoutUnitsInput[]
-    upsert?: FileUpsertWithWhereUniqueWithoutUnitsInput | FileUpsertWithWhereUniqueWithoutUnitsInput[]
+  export type FileUpdateManyWithoutZonesNestedInput = {
+    create?: XOR<FileCreateWithoutZonesInput, FileUncheckedCreateWithoutZonesInput> | FileCreateWithoutZonesInput[] | FileUncheckedCreateWithoutZonesInput[]
+    connectOrCreate?: FileCreateOrConnectWithoutZonesInput | FileCreateOrConnectWithoutZonesInput[]
+    upsert?: FileUpsertWithWhereUniqueWithoutZonesInput | FileUpsertWithWhereUniqueWithoutZonesInput[]
     set?: FileWhereUniqueInput | FileWhereUniqueInput[]
     disconnect?: FileWhereUniqueInput | FileWhereUniqueInput[]
     delete?: FileWhereUniqueInput | FileWhereUniqueInput[]
     connect?: FileWhereUniqueInput | FileWhereUniqueInput[]
-    update?: FileUpdateWithWhereUniqueWithoutUnitsInput | FileUpdateWithWhereUniqueWithoutUnitsInput[]
-    updateMany?: FileUpdateManyWithWhereWithoutUnitsInput | FileUpdateManyWithWhereWithoutUnitsInput[]
+    update?: FileUpdateWithWhereUniqueWithoutZonesInput | FileUpdateWithWhereUniqueWithoutZonesInput[]
+    updateMany?: FileUpdateManyWithWhereWithoutZonesInput | FileUpdateManyWithWhereWithoutZonesInput[]
     deleteMany?: FileScalarWhereInput | FileScalarWhereInput[]
   }
 
-  export type RoomUncheckedUpdateManyWithoutUnitNestedInput = {
-    create?: XOR<RoomCreateWithoutUnitInput, RoomUncheckedCreateWithoutUnitInput> | RoomCreateWithoutUnitInput[] | RoomUncheckedCreateWithoutUnitInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutUnitInput | RoomCreateOrConnectWithoutUnitInput[]
-    upsert?: RoomUpsertWithWhereUniqueWithoutUnitInput | RoomUpsertWithWhereUniqueWithoutUnitInput[]
-    createMany?: RoomCreateManyUnitInputEnvelope
-    set?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    disconnect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    delete?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    update?: RoomUpdateWithWhereUniqueWithoutUnitInput | RoomUpdateWithWhereUniqueWithoutUnitInput[]
-    updateMany?: RoomUpdateManyWithWhereWithoutUnitInput | RoomUpdateManyWithWhereWithoutUnitInput[]
-    deleteMany?: RoomScalarWhereInput | RoomScalarWhereInput[]
+  export type SpaceUncheckedUpdateManyWithoutZoneNestedInput = {
+    create?: XOR<SpaceCreateWithoutZoneInput, SpaceUncheckedCreateWithoutZoneInput> | SpaceCreateWithoutZoneInput[] | SpaceUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: SpaceCreateOrConnectWithoutZoneInput | SpaceCreateOrConnectWithoutZoneInput[]
+    upsert?: SpaceUpsertWithWhereUniqueWithoutZoneInput | SpaceUpsertWithWhereUniqueWithoutZoneInput[]
+    createMany?: SpaceCreateManyZoneInputEnvelope
+    set?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    disconnect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    delete?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    connect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    update?: SpaceUpdateWithWhereUniqueWithoutZoneInput | SpaceUpdateWithWhereUniqueWithoutZoneInput[]
+    updateMany?: SpaceUpdateManyWithWhereWithoutZoneInput | SpaceUpdateManyWithWhereWithoutZoneInput[]
+    deleteMany?: SpaceScalarWhereInput | SpaceScalarWhereInput[]
   }
 
-  export type FileUncheckedUpdateManyWithoutUnitsNestedInput = {
-    create?: XOR<FileCreateWithoutUnitsInput, FileUncheckedCreateWithoutUnitsInput> | FileCreateWithoutUnitsInput[] | FileUncheckedCreateWithoutUnitsInput[]
-    connectOrCreate?: FileCreateOrConnectWithoutUnitsInput | FileCreateOrConnectWithoutUnitsInput[]
-    upsert?: FileUpsertWithWhereUniqueWithoutUnitsInput | FileUpsertWithWhereUniqueWithoutUnitsInput[]
+  export type FileUncheckedUpdateManyWithoutZonesNestedInput = {
+    create?: XOR<FileCreateWithoutZonesInput, FileUncheckedCreateWithoutZonesInput> | FileCreateWithoutZonesInput[] | FileUncheckedCreateWithoutZonesInput[]
+    connectOrCreate?: FileCreateOrConnectWithoutZonesInput | FileCreateOrConnectWithoutZonesInput[]
+    upsert?: FileUpsertWithWhereUniqueWithoutZonesInput | FileUpsertWithWhereUniqueWithoutZonesInput[]
     set?: FileWhereUniqueInput | FileWhereUniqueInput[]
     disconnect?: FileWhereUniqueInput | FileWhereUniqueInput[]
     delete?: FileWhereUniqueInput | FileWhereUniqueInput[]
     connect?: FileWhereUniqueInput | FileWhereUniqueInput[]
-    update?: FileUpdateWithWhereUniqueWithoutUnitsInput | FileUpdateWithWhereUniqueWithoutUnitsInput[]
-    updateMany?: FileUpdateManyWithWhereWithoutUnitsInput | FileUpdateManyWithWhereWithoutUnitsInput[]
+    update?: FileUpdateWithWhereUniqueWithoutZonesInput | FileUpdateWithWhereUniqueWithoutZonesInput[]
+    updateMany?: FileUpdateManyWithWhereWithoutZonesInput | FileUpdateManyWithWhereWithoutZonesInput[]
     deleteMany?: FileScalarWhereInput | FileScalarWhereInput[]
   }
 
-  export type CalenderEntityCreateNestedOneWithoutRoomsInput = {
-    create?: XOR<CalenderEntityCreateWithoutRoomsInput, CalenderEntityUncheckedCreateWithoutRoomsInput>
-    connectOrCreate?: CalenderEntityCreateOrConnectWithoutRoomsInput
+  export type CalenderEntityCreateNestedOneWithoutSpacesInput = {
+    create?: XOR<CalenderEntityCreateWithoutSpacesInput, CalenderEntityUncheckedCreateWithoutSpacesInput>
+    connectOrCreate?: CalenderEntityCreateOrConnectWithoutSpacesInput
     connect?: CalenderEntityWhereUniqueInput
   }
 
-  export type ComplexCreateNestedOneWithoutRoomsInput = {
-    create?: XOR<ComplexCreateWithoutRoomsInput, ComplexUncheckedCreateWithoutRoomsInput>
-    connectOrCreate?: ComplexCreateOrConnectWithoutRoomsInput
+  export type ComplexCreateNestedOneWithoutSpacesInput = {
+    create?: XOR<ComplexCreateWithoutSpacesInput, ComplexUncheckedCreateWithoutSpacesInput>
+    connectOrCreate?: ComplexCreateOrConnectWithoutSpacesInput
     connect?: ComplexWhereUniqueInput
   }
 
-  export type BuildingCreateNestedOneWithoutRoomsInput = {
-    create?: XOR<BuildingCreateWithoutRoomsInput, BuildingUncheckedCreateWithoutRoomsInput>
-    connectOrCreate?: BuildingCreateOrConnectWithoutRoomsInput
+  export type BuildingCreateNestedOneWithoutSpacesInput = {
+    create?: XOR<BuildingCreateWithoutSpacesInput, BuildingUncheckedCreateWithoutSpacesInput>
+    connectOrCreate?: BuildingCreateOrConnectWithoutSpacesInput
     connect?: BuildingWhereUniqueInput
   }
 
-  export type FloorCreateNestedOneWithoutRoomsInput = {
-    create?: XOR<FloorCreateWithoutRoomsInput, FloorUncheckedCreateWithoutRoomsInput>
-    connectOrCreate?: FloorCreateOrConnectWithoutRoomsInput
+  export type FloorCreateNestedOneWithoutSpacesInput = {
+    create?: XOR<FloorCreateWithoutSpacesInput, FloorUncheckedCreateWithoutSpacesInput>
+    connectOrCreate?: FloorCreateOrConnectWithoutSpacesInput
     connect?: FloorWhereUniqueInput
   }
 
-  export type UnitCreateNestedOneWithoutRoomsInput = {
-    create?: XOR<UnitCreateWithoutRoomsInput, UnitUncheckedCreateWithoutRoomsInput>
-    connectOrCreate?: UnitCreateOrConnectWithoutRoomsInput
-    connect?: UnitWhereUniqueInput
+  export type ZoneCreateNestedOneWithoutRoomsInput = {
+    create?: XOR<ZoneCreateWithoutRoomsInput, ZoneUncheckedCreateWithoutRoomsInput>
+    connectOrCreate?: ZoneCreateOrConnectWithoutRoomsInput
+    connect?: ZoneWhereUniqueInput
   }
 
-  export type FileCreateNestedManyWithoutRoomsInput = {
-    create?: XOR<FileCreateWithoutRoomsInput, FileUncheckedCreateWithoutRoomsInput> | FileCreateWithoutRoomsInput[] | FileUncheckedCreateWithoutRoomsInput[]
-    connectOrCreate?: FileCreateOrConnectWithoutRoomsInput | FileCreateOrConnectWithoutRoomsInput[]
+  export type FileCreateNestedManyWithoutSpacesInput = {
+    create?: XOR<FileCreateWithoutSpacesInput, FileUncheckedCreateWithoutSpacesInput> | FileCreateWithoutSpacesInput[] | FileUncheckedCreateWithoutSpacesInput[]
+    connectOrCreate?: FileCreateOrConnectWithoutSpacesInput | FileCreateOrConnectWithoutSpacesInput[]
     connect?: FileWhereUniqueInput | FileWhereUniqueInput[]
   }
 
-  export type MaintenanceCreateNestedManyWithoutRoomInput = {
-    create?: XOR<MaintenanceCreateWithoutRoomInput, MaintenanceUncheckedCreateWithoutRoomInput> | MaintenanceCreateWithoutRoomInput[] | MaintenanceUncheckedCreateWithoutRoomInput[]
-    connectOrCreate?: MaintenanceCreateOrConnectWithoutRoomInput | MaintenanceCreateOrConnectWithoutRoomInput[]
-    createMany?: MaintenanceCreateManyRoomInputEnvelope
+  export type MaintenanceCreateNestedManyWithoutSpaceInput = {
+    create?: XOR<MaintenanceCreateWithoutSpaceInput, MaintenanceUncheckedCreateWithoutSpaceInput> | MaintenanceCreateWithoutSpaceInput[] | MaintenanceUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutSpaceInput | MaintenanceCreateOrConnectWithoutSpaceInput[]
+    createMany?: MaintenanceCreateManySpaceInputEnvelope
     connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
   }
 
-  export type PreventiveCreateNestedManyWithoutRoomInput = {
-    create?: XOR<PreventiveCreateWithoutRoomInput, PreventiveUncheckedCreateWithoutRoomInput> | PreventiveCreateWithoutRoomInput[] | PreventiveUncheckedCreateWithoutRoomInput[]
-    connectOrCreate?: PreventiveCreateOrConnectWithoutRoomInput | PreventiveCreateOrConnectWithoutRoomInput[]
-    createMany?: PreventiveCreateManyRoomInputEnvelope
+  export type PreventiveCreateNestedManyWithoutSpaceInput = {
+    create?: XOR<PreventiveCreateWithoutSpaceInput, PreventiveUncheckedCreateWithoutSpaceInput> | PreventiveCreateWithoutSpaceInput[] | PreventiveUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutSpaceInput | PreventiveCreateOrConnectWithoutSpaceInput[]
+    createMany?: PreventiveCreateManySpaceInputEnvelope
     connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
   }
 
-  export type FileUncheckedCreateNestedManyWithoutRoomsInput = {
-    create?: XOR<FileCreateWithoutRoomsInput, FileUncheckedCreateWithoutRoomsInput> | FileCreateWithoutRoomsInput[] | FileUncheckedCreateWithoutRoomsInput[]
-    connectOrCreate?: FileCreateOrConnectWithoutRoomsInput | FileCreateOrConnectWithoutRoomsInput[]
+  export type AssetCreateNestedManyWithoutSpaceInput = {
+    create?: XOR<AssetCreateWithoutSpaceInput, AssetUncheckedCreateWithoutSpaceInput> | AssetCreateWithoutSpaceInput[] | AssetUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: AssetCreateOrConnectWithoutSpaceInput | AssetCreateOrConnectWithoutSpaceInput[]
+    createMany?: AssetCreateManySpaceInputEnvelope
+    connect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+  }
+
+  export type FileUncheckedCreateNestedManyWithoutSpacesInput = {
+    create?: XOR<FileCreateWithoutSpacesInput, FileUncheckedCreateWithoutSpacesInput> | FileCreateWithoutSpacesInput[] | FileUncheckedCreateWithoutSpacesInput[]
+    connectOrCreate?: FileCreateOrConnectWithoutSpacesInput | FileCreateOrConnectWithoutSpacesInput[]
     connect?: FileWhereUniqueInput | FileWhereUniqueInput[]
   }
 
-  export type MaintenanceUncheckedCreateNestedManyWithoutRoomInput = {
-    create?: XOR<MaintenanceCreateWithoutRoomInput, MaintenanceUncheckedCreateWithoutRoomInput> | MaintenanceCreateWithoutRoomInput[] | MaintenanceUncheckedCreateWithoutRoomInput[]
-    connectOrCreate?: MaintenanceCreateOrConnectWithoutRoomInput | MaintenanceCreateOrConnectWithoutRoomInput[]
-    createMany?: MaintenanceCreateManyRoomInputEnvelope
+  export type MaintenanceUncheckedCreateNestedManyWithoutSpaceInput = {
+    create?: XOR<MaintenanceCreateWithoutSpaceInput, MaintenanceUncheckedCreateWithoutSpaceInput> | MaintenanceCreateWithoutSpaceInput[] | MaintenanceUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutSpaceInput | MaintenanceCreateOrConnectWithoutSpaceInput[]
+    createMany?: MaintenanceCreateManySpaceInputEnvelope
     connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
   }
 
-  export type PreventiveUncheckedCreateNestedManyWithoutRoomInput = {
-    create?: XOR<PreventiveCreateWithoutRoomInput, PreventiveUncheckedCreateWithoutRoomInput> | PreventiveCreateWithoutRoomInput[] | PreventiveUncheckedCreateWithoutRoomInput[]
-    connectOrCreate?: PreventiveCreateOrConnectWithoutRoomInput | PreventiveCreateOrConnectWithoutRoomInput[]
-    createMany?: PreventiveCreateManyRoomInputEnvelope
+  export type PreventiveUncheckedCreateNestedManyWithoutSpaceInput = {
+    create?: XOR<PreventiveCreateWithoutSpaceInput, PreventiveUncheckedCreateWithoutSpaceInput> | PreventiveCreateWithoutSpaceInput[] | PreventiveUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutSpaceInput | PreventiveCreateOrConnectWithoutSpaceInput[]
+    createMany?: PreventiveCreateManySpaceInputEnvelope
     connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+  }
+
+  export type AssetUncheckedCreateNestedManyWithoutSpaceInput = {
+    create?: XOR<AssetCreateWithoutSpaceInput, AssetUncheckedCreateWithoutSpaceInput> | AssetCreateWithoutSpaceInput[] | AssetUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: AssetCreateOrConnectWithoutSpaceInput | AssetCreateOrConnectWithoutSpaceInput[]
+    createMany?: AssetCreateManySpaceInputEnvelope
+    connect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
   }
 
   export type EnumRoomUseFieldUpdateOperationsInput = {
     set?: $Enums.RoomUse
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
-  export type CalenderEntityUpdateOneWithoutRoomsNestedInput = {
-    create?: XOR<CalenderEntityCreateWithoutRoomsInput, CalenderEntityUncheckedCreateWithoutRoomsInput>
-    connectOrCreate?: CalenderEntityCreateOrConnectWithoutRoomsInput
-    upsert?: CalenderEntityUpsertWithoutRoomsInput
+  export type CalenderEntityUpdateOneWithoutSpacesNestedInput = {
+    create?: XOR<CalenderEntityCreateWithoutSpacesInput, CalenderEntityUncheckedCreateWithoutSpacesInput>
+    connectOrCreate?: CalenderEntityCreateOrConnectWithoutSpacesInput
+    upsert?: CalenderEntityUpsertWithoutSpacesInput
     disconnect?: CalenderEntityWhereInput | boolean
     delete?: CalenderEntityWhereInput | boolean
     connect?: CalenderEntityWhereUniqueInput
-    update?: XOR<XOR<CalenderEntityUpdateToOneWithWhereWithoutRoomsInput, CalenderEntityUpdateWithoutRoomsInput>, CalenderEntityUncheckedUpdateWithoutRoomsInput>
+    update?: XOR<XOR<CalenderEntityUpdateToOneWithWhereWithoutSpacesInput, CalenderEntityUpdateWithoutSpacesInput>, CalenderEntityUncheckedUpdateWithoutSpacesInput>
   }
 
-  export type ComplexUpdateOneWithoutRoomsNestedInput = {
-    create?: XOR<ComplexCreateWithoutRoomsInput, ComplexUncheckedCreateWithoutRoomsInput>
-    connectOrCreate?: ComplexCreateOrConnectWithoutRoomsInput
-    upsert?: ComplexUpsertWithoutRoomsInput
+  export type ComplexUpdateOneWithoutSpacesNestedInput = {
+    create?: XOR<ComplexCreateWithoutSpacesInput, ComplexUncheckedCreateWithoutSpacesInput>
+    connectOrCreate?: ComplexCreateOrConnectWithoutSpacesInput
+    upsert?: ComplexUpsertWithoutSpacesInput
     disconnect?: ComplexWhereInput | boolean
     delete?: ComplexWhereInput | boolean
     connect?: ComplexWhereUniqueInput
-    update?: XOR<XOR<ComplexUpdateToOneWithWhereWithoutRoomsInput, ComplexUpdateWithoutRoomsInput>, ComplexUncheckedUpdateWithoutRoomsInput>
+    update?: XOR<XOR<ComplexUpdateToOneWithWhereWithoutSpacesInput, ComplexUpdateWithoutSpacesInput>, ComplexUncheckedUpdateWithoutSpacesInput>
   }
 
-  export type BuildingUpdateOneWithoutRoomsNestedInput = {
-    create?: XOR<BuildingCreateWithoutRoomsInput, BuildingUncheckedCreateWithoutRoomsInput>
-    connectOrCreate?: BuildingCreateOrConnectWithoutRoomsInput
-    upsert?: BuildingUpsertWithoutRoomsInput
+  export type BuildingUpdateOneWithoutSpacesNestedInput = {
+    create?: XOR<BuildingCreateWithoutSpacesInput, BuildingUncheckedCreateWithoutSpacesInput>
+    connectOrCreate?: BuildingCreateOrConnectWithoutSpacesInput
+    upsert?: BuildingUpsertWithoutSpacesInput
     disconnect?: BuildingWhereInput | boolean
     delete?: BuildingWhereInput | boolean
     connect?: BuildingWhereUniqueInput
-    update?: XOR<XOR<BuildingUpdateToOneWithWhereWithoutRoomsInput, BuildingUpdateWithoutRoomsInput>, BuildingUncheckedUpdateWithoutRoomsInput>
+    update?: XOR<XOR<BuildingUpdateToOneWithWhereWithoutSpacesInput, BuildingUpdateWithoutSpacesInput>, BuildingUncheckedUpdateWithoutSpacesInput>
   }
 
-  export type FloorUpdateOneRequiredWithoutRoomsNestedInput = {
-    create?: XOR<FloorCreateWithoutRoomsInput, FloorUncheckedCreateWithoutRoomsInput>
-    connectOrCreate?: FloorCreateOrConnectWithoutRoomsInput
-    upsert?: FloorUpsertWithoutRoomsInput
+  export type FloorUpdateOneRequiredWithoutSpacesNestedInput = {
+    create?: XOR<FloorCreateWithoutSpacesInput, FloorUncheckedCreateWithoutSpacesInput>
+    connectOrCreate?: FloorCreateOrConnectWithoutSpacesInput
+    upsert?: FloorUpsertWithoutSpacesInput
     connect?: FloorWhereUniqueInput
-    update?: XOR<XOR<FloorUpdateToOneWithWhereWithoutRoomsInput, FloorUpdateWithoutRoomsInput>, FloorUncheckedUpdateWithoutRoomsInput>
+    update?: XOR<XOR<FloorUpdateToOneWithWhereWithoutSpacesInput, FloorUpdateWithoutSpacesInput>, FloorUncheckedUpdateWithoutSpacesInput>
   }
 
-  export type UnitUpdateOneWithoutRoomsNestedInput = {
-    create?: XOR<UnitCreateWithoutRoomsInput, UnitUncheckedCreateWithoutRoomsInput>
-    connectOrCreate?: UnitCreateOrConnectWithoutRoomsInput
-    upsert?: UnitUpsertWithoutRoomsInput
-    disconnect?: UnitWhereInput | boolean
-    delete?: UnitWhereInput | boolean
-    connect?: UnitWhereUniqueInput
-    update?: XOR<XOR<UnitUpdateToOneWithWhereWithoutRoomsInput, UnitUpdateWithoutRoomsInput>, UnitUncheckedUpdateWithoutRoomsInput>
+  export type ZoneUpdateOneWithoutRoomsNestedInput = {
+    create?: XOR<ZoneCreateWithoutRoomsInput, ZoneUncheckedCreateWithoutRoomsInput>
+    connectOrCreate?: ZoneCreateOrConnectWithoutRoomsInput
+    upsert?: ZoneUpsertWithoutRoomsInput
+    disconnect?: ZoneWhereInput | boolean
+    delete?: ZoneWhereInput | boolean
+    connect?: ZoneWhereUniqueInput
+    update?: XOR<XOR<ZoneUpdateToOneWithWhereWithoutRoomsInput, ZoneUpdateWithoutRoomsInput>, ZoneUncheckedUpdateWithoutRoomsInput>
   }
 
-  export type FileUpdateManyWithoutRoomsNestedInput = {
-    create?: XOR<FileCreateWithoutRoomsInput, FileUncheckedCreateWithoutRoomsInput> | FileCreateWithoutRoomsInput[] | FileUncheckedCreateWithoutRoomsInput[]
-    connectOrCreate?: FileCreateOrConnectWithoutRoomsInput | FileCreateOrConnectWithoutRoomsInput[]
-    upsert?: FileUpsertWithWhereUniqueWithoutRoomsInput | FileUpsertWithWhereUniqueWithoutRoomsInput[]
+  export type FileUpdateManyWithoutSpacesNestedInput = {
+    create?: XOR<FileCreateWithoutSpacesInput, FileUncheckedCreateWithoutSpacesInput> | FileCreateWithoutSpacesInput[] | FileUncheckedCreateWithoutSpacesInput[]
+    connectOrCreate?: FileCreateOrConnectWithoutSpacesInput | FileCreateOrConnectWithoutSpacesInput[]
+    upsert?: FileUpsertWithWhereUniqueWithoutSpacesInput | FileUpsertWithWhereUniqueWithoutSpacesInput[]
     set?: FileWhereUniqueInput | FileWhereUniqueInput[]
     disconnect?: FileWhereUniqueInput | FileWhereUniqueInput[]
     delete?: FileWhereUniqueInput | FileWhereUniqueInput[]
     connect?: FileWhereUniqueInput | FileWhereUniqueInput[]
-    update?: FileUpdateWithWhereUniqueWithoutRoomsInput | FileUpdateWithWhereUniqueWithoutRoomsInput[]
-    updateMany?: FileUpdateManyWithWhereWithoutRoomsInput | FileUpdateManyWithWhereWithoutRoomsInput[]
+    update?: FileUpdateWithWhereUniqueWithoutSpacesInput | FileUpdateWithWhereUniqueWithoutSpacesInput[]
+    updateMany?: FileUpdateManyWithWhereWithoutSpacesInput | FileUpdateManyWithWhereWithoutSpacesInput[]
     deleteMany?: FileScalarWhereInput | FileScalarWhereInput[]
   }
 
-  export type MaintenanceUpdateManyWithoutRoomNestedInput = {
-    create?: XOR<MaintenanceCreateWithoutRoomInput, MaintenanceUncheckedCreateWithoutRoomInput> | MaintenanceCreateWithoutRoomInput[] | MaintenanceUncheckedCreateWithoutRoomInput[]
-    connectOrCreate?: MaintenanceCreateOrConnectWithoutRoomInput | MaintenanceCreateOrConnectWithoutRoomInput[]
-    upsert?: MaintenanceUpsertWithWhereUniqueWithoutRoomInput | MaintenanceUpsertWithWhereUniqueWithoutRoomInput[]
-    createMany?: MaintenanceCreateManyRoomInputEnvelope
+  export type MaintenanceUpdateManyWithoutSpaceNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutSpaceInput, MaintenanceUncheckedCreateWithoutSpaceInput> | MaintenanceCreateWithoutSpaceInput[] | MaintenanceUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutSpaceInput | MaintenanceCreateOrConnectWithoutSpaceInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutSpaceInput | MaintenanceUpsertWithWhereUniqueWithoutSpaceInput[]
+    createMany?: MaintenanceCreateManySpaceInputEnvelope
     set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
     disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
     delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
     connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    update?: MaintenanceUpdateWithWhereUniqueWithoutRoomInput | MaintenanceUpdateWithWhereUniqueWithoutRoomInput[]
-    updateMany?: MaintenanceUpdateManyWithWhereWithoutRoomInput | MaintenanceUpdateManyWithWhereWithoutRoomInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutSpaceInput | MaintenanceUpdateWithWhereUniqueWithoutSpaceInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutSpaceInput | MaintenanceUpdateManyWithWhereWithoutSpaceInput[]
     deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
   }
 
-  export type PreventiveUpdateManyWithoutRoomNestedInput = {
-    create?: XOR<PreventiveCreateWithoutRoomInput, PreventiveUncheckedCreateWithoutRoomInput> | PreventiveCreateWithoutRoomInput[] | PreventiveUncheckedCreateWithoutRoomInput[]
-    connectOrCreate?: PreventiveCreateOrConnectWithoutRoomInput | PreventiveCreateOrConnectWithoutRoomInput[]
-    upsert?: PreventiveUpsertWithWhereUniqueWithoutRoomInput | PreventiveUpsertWithWhereUniqueWithoutRoomInput[]
-    createMany?: PreventiveCreateManyRoomInputEnvelope
+  export type PreventiveUpdateManyWithoutSpaceNestedInput = {
+    create?: XOR<PreventiveCreateWithoutSpaceInput, PreventiveUncheckedCreateWithoutSpaceInput> | PreventiveCreateWithoutSpaceInput[] | PreventiveUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutSpaceInput | PreventiveCreateOrConnectWithoutSpaceInput[]
+    upsert?: PreventiveUpsertWithWhereUniqueWithoutSpaceInput | PreventiveUpsertWithWhereUniqueWithoutSpaceInput[]
+    createMany?: PreventiveCreateManySpaceInputEnvelope
     set?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
     disconnect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
     delete?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
     connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
-    update?: PreventiveUpdateWithWhereUniqueWithoutRoomInput | PreventiveUpdateWithWhereUniqueWithoutRoomInput[]
-    updateMany?: PreventiveUpdateManyWithWhereWithoutRoomInput | PreventiveUpdateManyWithWhereWithoutRoomInput[]
+    update?: PreventiveUpdateWithWhereUniqueWithoutSpaceInput | PreventiveUpdateWithWhereUniqueWithoutSpaceInput[]
+    updateMany?: PreventiveUpdateManyWithWhereWithoutSpaceInput | PreventiveUpdateManyWithWhereWithoutSpaceInput[]
     deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
   }
 
-  export type FileUncheckedUpdateManyWithoutRoomsNestedInput = {
-    create?: XOR<FileCreateWithoutRoomsInput, FileUncheckedCreateWithoutRoomsInput> | FileCreateWithoutRoomsInput[] | FileUncheckedCreateWithoutRoomsInput[]
-    connectOrCreate?: FileCreateOrConnectWithoutRoomsInput | FileCreateOrConnectWithoutRoomsInput[]
-    upsert?: FileUpsertWithWhereUniqueWithoutRoomsInput | FileUpsertWithWhereUniqueWithoutRoomsInput[]
+  export type AssetUpdateManyWithoutSpaceNestedInput = {
+    create?: XOR<AssetCreateWithoutSpaceInput, AssetUncheckedCreateWithoutSpaceInput> | AssetCreateWithoutSpaceInput[] | AssetUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: AssetCreateOrConnectWithoutSpaceInput | AssetCreateOrConnectWithoutSpaceInput[]
+    upsert?: AssetUpsertWithWhereUniqueWithoutSpaceInput | AssetUpsertWithWhereUniqueWithoutSpaceInput[]
+    createMany?: AssetCreateManySpaceInputEnvelope
+    set?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    disconnect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    delete?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    connect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    update?: AssetUpdateWithWhereUniqueWithoutSpaceInput | AssetUpdateWithWhereUniqueWithoutSpaceInput[]
+    updateMany?: AssetUpdateManyWithWhereWithoutSpaceInput | AssetUpdateManyWithWhereWithoutSpaceInput[]
+    deleteMany?: AssetScalarWhereInput | AssetScalarWhereInput[]
+  }
+
+  export type FileUncheckedUpdateManyWithoutSpacesNestedInput = {
+    create?: XOR<FileCreateWithoutSpacesInput, FileUncheckedCreateWithoutSpacesInput> | FileCreateWithoutSpacesInput[] | FileUncheckedCreateWithoutSpacesInput[]
+    connectOrCreate?: FileCreateOrConnectWithoutSpacesInput | FileCreateOrConnectWithoutSpacesInput[]
+    upsert?: FileUpsertWithWhereUniqueWithoutSpacesInput | FileUpsertWithWhereUniqueWithoutSpacesInput[]
     set?: FileWhereUniqueInput | FileWhereUniqueInput[]
     disconnect?: FileWhereUniqueInput | FileWhereUniqueInput[]
     delete?: FileWhereUniqueInput | FileWhereUniqueInput[]
     connect?: FileWhereUniqueInput | FileWhereUniqueInput[]
-    update?: FileUpdateWithWhereUniqueWithoutRoomsInput | FileUpdateWithWhereUniqueWithoutRoomsInput[]
-    updateMany?: FileUpdateManyWithWhereWithoutRoomsInput | FileUpdateManyWithWhereWithoutRoomsInput[]
+    update?: FileUpdateWithWhereUniqueWithoutSpacesInput | FileUpdateWithWhereUniqueWithoutSpacesInput[]
+    updateMany?: FileUpdateManyWithWhereWithoutSpacesInput | FileUpdateManyWithWhereWithoutSpacesInput[]
     deleteMany?: FileScalarWhereInput | FileScalarWhereInput[]
   }
 
-  export type MaintenanceUncheckedUpdateManyWithoutRoomNestedInput = {
-    create?: XOR<MaintenanceCreateWithoutRoomInput, MaintenanceUncheckedCreateWithoutRoomInput> | MaintenanceCreateWithoutRoomInput[] | MaintenanceUncheckedCreateWithoutRoomInput[]
-    connectOrCreate?: MaintenanceCreateOrConnectWithoutRoomInput | MaintenanceCreateOrConnectWithoutRoomInput[]
-    upsert?: MaintenanceUpsertWithWhereUniqueWithoutRoomInput | MaintenanceUpsertWithWhereUniqueWithoutRoomInput[]
-    createMany?: MaintenanceCreateManyRoomInputEnvelope
+  export type MaintenanceUncheckedUpdateManyWithoutSpaceNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutSpaceInput, MaintenanceUncheckedCreateWithoutSpaceInput> | MaintenanceCreateWithoutSpaceInput[] | MaintenanceUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutSpaceInput | MaintenanceCreateOrConnectWithoutSpaceInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutSpaceInput | MaintenanceUpsertWithWhereUniqueWithoutSpaceInput[]
+    createMany?: MaintenanceCreateManySpaceInputEnvelope
     set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
     disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
     delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
     connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
-    update?: MaintenanceUpdateWithWhereUniqueWithoutRoomInput | MaintenanceUpdateWithWhereUniqueWithoutRoomInput[]
-    updateMany?: MaintenanceUpdateManyWithWhereWithoutRoomInput | MaintenanceUpdateManyWithWhereWithoutRoomInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutSpaceInput | MaintenanceUpdateWithWhereUniqueWithoutSpaceInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutSpaceInput | MaintenanceUpdateManyWithWhereWithoutSpaceInput[]
     deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
   }
 
-  export type PreventiveUncheckedUpdateManyWithoutRoomNestedInput = {
-    create?: XOR<PreventiveCreateWithoutRoomInput, PreventiveUncheckedCreateWithoutRoomInput> | PreventiveCreateWithoutRoomInput[] | PreventiveUncheckedCreateWithoutRoomInput[]
-    connectOrCreate?: PreventiveCreateOrConnectWithoutRoomInput | PreventiveCreateOrConnectWithoutRoomInput[]
-    upsert?: PreventiveUpsertWithWhereUniqueWithoutRoomInput | PreventiveUpsertWithWhereUniqueWithoutRoomInput[]
-    createMany?: PreventiveCreateManyRoomInputEnvelope
+  export type PreventiveUncheckedUpdateManyWithoutSpaceNestedInput = {
+    create?: XOR<PreventiveCreateWithoutSpaceInput, PreventiveUncheckedCreateWithoutSpaceInput> | PreventiveCreateWithoutSpaceInput[] | PreventiveUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: PreventiveCreateOrConnectWithoutSpaceInput | PreventiveCreateOrConnectWithoutSpaceInput[]
+    upsert?: PreventiveUpsertWithWhereUniqueWithoutSpaceInput | PreventiveUpsertWithWhereUniqueWithoutSpaceInput[]
+    createMany?: PreventiveCreateManySpaceInputEnvelope
     set?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
     disconnect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
     delete?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
     connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
-    update?: PreventiveUpdateWithWhereUniqueWithoutRoomInput | PreventiveUpdateWithWhereUniqueWithoutRoomInput[]
-    updateMany?: PreventiveUpdateManyWithWhereWithoutRoomInput | PreventiveUpdateManyWithWhereWithoutRoomInput[]
+    update?: PreventiveUpdateWithWhereUniqueWithoutSpaceInput | PreventiveUpdateWithWhereUniqueWithoutSpaceInput[]
+    updateMany?: PreventiveUpdateManyWithWhereWithoutSpaceInput | PreventiveUpdateManyWithWhereWithoutSpaceInput[]
     deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
+  }
+
+  export type AssetUncheckedUpdateManyWithoutSpaceNestedInput = {
+    create?: XOR<AssetCreateWithoutSpaceInput, AssetUncheckedCreateWithoutSpaceInput> | AssetCreateWithoutSpaceInput[] | AssetUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: AssetCreateOrConnectWithoutSpaceInput | AssetCreateOrConnectWithoutSpaceInput[]
+    upsert?: AssetUpsertWithWhereUniqueWithoutSpaceInput | AssetUpsertWithWhereUniqueWithoutSpaceInput[]
+    createMany?: AssetCreateManySpaceInputEnvelope
+    set?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    disconnect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    delete?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    connect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    update?: AssetUpdateWithWhereUniqueWithoutSpaceInput | AssetUpdateWithWhereUniqueWithoutSpaceInput[]
+    updateMany?: AssetUpdateManyWithWhereWithoutSpaceInput | AssetUpdateManyWithWhereWithoutSpaceInput[]
+    deleteMany?: AssetScalarWhereInput | AssetScalarWhereInput[]
   }
 
   export type AssetCreateNestedManyWithoutCategoryInput = {
@@ -38457,6 +40425,25 @@ export namespace Prisma {
     connect?: AssetCategoryWhereUniqueInput
   }
 
+  export type AssetCreateNestedOneWithoutChildAssetsInput = {
+    create?: XOR<AssetCreateWithoutChildAssetsInput, AssetUncheckedCreateWithoutChildAssetsInput>
+    connectOrCreate?: AssetCreateOrConnectWithoutChildAssetsInput
+    connect?: AssetWhereUniqueInput
+  }
+
+  export type AssetCreateNestedManyWithoutParentSystemInput = {
+    create?: XOR<AssetCreateWithoutParentSystemInput, AssetUncheckedCreateWithoutParentSystemInput> | AssetCreateWithoutParentSystemInput[] | AssetUncheckedCreateWithoutParentSystemInput[]
+    connectOrCreate?: AssetCreateOrConnectWithoutParentSystemInput | AssetCreateOrConnectWithoutParentSystemInput[]
+    createMany?: AssetCreateManyParentSystemInputEnvelope
+    connect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+  }
+
+  export type SpaceCreateNestedOneWithoutAssetsInput = {
+    create?: XOR<SpaceCreateWithoutAssetsInput, SpaceUncheckedCreateWithoutAssetsInput>
+    connectOrCreate?: SpaceCreateOrConnectWithoutAssetsInput
+    connect?: SpaceWhereUniqueInput
+  }
+
   export type MaintenanceCreateNestedManyWithoutAssetInput = {
     create?: XOR<MaintenanceCreateWithoutAssetInput, MaintenanceUncheckedCreateWithoutAssetInput> | MaintenanceCreateWithoutAssetInput[] | MaintenanceUncheckedCreateWithoutAssetInput[]
     connectOrCreate?: MaintenanceCreateOrConnectWithoutAssetInput | MaintenanceCreateOrConnectWithoutAssetInput[]
@@ -38469,6 +40456,13 @@ export namespace Prisma {
     connectOrCreate?: PreventiveCreateOrConnectWithoutAssetInput | PreventiveCreateOrConnectWithoutAssetInput[]
     createMany?: PreventiveCreateManyAssetInputEnvelope
     connect?: PreventiveWhereUniqueInput | PreventiveWhereUniqueInput[]
+  }
+
+  export type AssetUncheckedCreateNestedManyWithoutParentSystemInput = {
+    create?: XOR<AssetCreateWithoutParentSystemInput, AssetUncheckedCreateWithoutParentSystemInput> | AssetCreateWithoutParentSystemInput[] | AssetUncheckedCreateWithoutParentSystemInput[]
+    connectOrCreate?: AssetCreateOrConnectWithoutParentSystemInput | AssetCreateOrConnectWithoutParentSystemInput[]
+    createMany?: AssetCreateManyParentSystemInputEnvelope
+    connect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
   }
 
   export type MaintenanceUncheckedCreateNestedManyWithoutAssetInput = {
@@ -38491,6 +40485,40 @@ export namespace Prisma {
     upsert?: AssetCategoryUpsertWithoutAssetsInput
     connect?: AssetCategoryWhereUniqueInput
     update?: XOR<XOR<AssetCategoryUpdateToOneWithWhereWithoutAssetsInput, AssetCategoryUpdateWithoutAssetsInput>, AssetCategoryUncheckedUpdateWithoutAssetsInput>
+  }
+
+  export type AssetUpdateOneWithoutChildAssetsNestedInput = {
+    create?: XOR<AssetCreateWithoutChildAssetsInput, AssetUncheckedCreateWithoutChildAssetsInput>
+    connectOrCreate?: AssetCreateOrConnectWithoutChildAssetsInput
+    upsert?: AssetUpsertWithoutChildAssetsInput
+    disconnect?: AssetWhereInput | boolean
+    delete?: AssetWhereInput | boolean
+    connect?: AssetWhereUniqueInput
+    update?: XOR<XOR<AssetUpdateToOneWithWhereWithoutChildAssetsInput, AssetUpdateWithoutChildAssetsInput>, AssetUncheckedUpdateWithoutChildAssetsInput>
+  }
+
+  export type AssetUpdateManyWithoutParentSystemNestedInput = {
+    create?: XOR<AssetCreateWithoutParentSystemInput, AssetUncheckedCreateWithoutParentSystemInput> | AssetCreateWithoutParentSystemInput[] | AssetUncheckedCreateWithoutParentSystemInput[]
+    connectOrCreate?: AssetCreateOrConnectWithoutParentSystemInput | AssetCreateOrConnectWithoutParentSystemInput[]
+    upsert?: AssetUpsertWithWhereUniqueWithoutParentSystemInput | AssetUpsertWithWhereUniqueWithoutParentSystemInput[]
+    createMany?: AssetCreateManyParentSystemInputEnvelope
+    set?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    disconnect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    delete?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    connect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    update?: AssetUpdateWithWhereUniqueWithoutParentSystemInput | AssetUpdateWithWhereUniqueWithoutParentSystemInput[]
+    updateMany?: AssetUpdateManyWithWhereWithoutParentSystemInput | AssetUpdateManyWithWhereWithoutParentSystemInput[]
+    deleteMany?: AssetScalarWhereInput | AssetScalarWhereInput[]
+  }
+
+  export type SpaceUpdateOneWithoutAssetsNestedInput = {
+    create?: XOR<SpaceCreateWithoutAssetsInput, SpaceUncheckedCreateWithoutAssetsInput>
+    connectOrCreate?: SpaceCreateOrConnectWithoutAssetsInput
+    upsert?: SpaceUpsertWithoutAssetsInput
+    disconnect?: SpaceWhereInput | boolean
+    delete?: SpaceWhereInput | boolean
+    connect?: SpaceWhereUniqueInput
+    update?: XOR<XOR<SpaceUpdateToOneWithWhereWithoutAssetsInput, SpaceUpdateWithoutAssetsInput>, SpaceUncheckedUpdateWithoutAssetsInput>
   }
 
   export type MaintenanceUpdateManyWithoutAssetNestedInput = {
@@ -38521,6 +40549,20 @@ export namespace Prisma {
     deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
   }
 
+  export type AssetUncheckedUpdateManyWithoutParentSystemNestedInput = {
+    create?: XOR<AssetCreateWithoutParentSystemInput, AssetUncheckedCreateWithoutParentSystemInput> | AssetCreateWithoutParentSystemInput[] | AssetUncheckedCreateWithoutParentSystemInput[]
+    connectOrCreate?: AssetCreateOrConnectWithoutParentSystemInput | AssetCreateOrConnectWithoutParentSystemInput[]
+    upsert?: AssetUpsertWithWhereUniqueWithoutParentSystemInput | AssetUpsertWithWhereUniqueWithoutParentSystemInput[]
+    createMany?: AssetCreateManyParentSystemInputEnvelope
+    set?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    disconnect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    delete?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    connect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    update?: AssetUpdateWithWhereUniqueWithoutParentSystemInput | AssetUpdateWithWhereUniqueWithoutParentSystemInput[]
+    updateMany?: AssetUpdateManyWithWhereWithoutParentSystemInput | AssetUpdateManyWithWhereWithoutParentSystemInput[]
+    deleteMany?: AssetScalarWhereInput | AssetScalarWhereInput[]
+  }
+
   export type MaintenanceUncheckedUpdateManyWithoutAssetNestedInput = {
     create?: XOR<MaintenanceCreateWithoutAssetInput, MaintenanceUncheckedCreateWithoutAssetInput> | MaintenanceCreateWithoutAssetInput[] | MaintenanceUncheckedCreateWithoutAssetInput[]
     connectOrCreate?: MaintenanceCreateOrConnectWithoutAssetInput | MaintenanceCreateOrConnectWithoutAssetInput[]
@@ -38549,16 +40591,16 @@ export namespace Prisma {
     deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
   }
 
-  export type RoomCreateNestedManyWithoutPhotosInput = {
-    create?: XOR<RoomCreateWithoutPhotosInput, RoomUncheckedCreateWithoutPhotosInput> | RoomCreateWithoutPhotosInput[] | RoomUncheckedCreateWithoutPhotosInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutPhotosInput | RoomCreateOrConnectWithoutPhotosInput[]
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
+  export type SpaceCreateNestedManyWithoutPhotosInput = {
+    create?: XOR<SpaceCreateWithoutPhotosInput, SpaceUncheckedCreateWithoutPhotosInput> | SpaceCreateWithoutPhotosInput[] | SpaceUncheckedCreateWithoutPhotosInput[]
+    connectOrCreate?: SpaceCreateOrConnectWithoutPhotosInput | SpaceCreateOrConnectWithoutPhotosInput[]
+    connect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
   }
 
-  export type UnitCreateNestedManyWithoutPhotosInput = {
-    create?: XOR<UnitCreateWithoutPhotosInput, UnitUncheckedCreateWithoutPhotosInput> | UnitCreateWithoutPhotosInput[] | UnitUncheckedCreateWithoutPhotosInput[]
-    connectOrCreate?: UnitCreateOrConnectWithoutPhotosInput | UnitCreateOrConnectWithoutPhotosInput[]
-    connect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
+  export type ZoneCreateNestedManyWithoutPhotosInput = {
+    create?: XOR<ZoneCreateWithoutPhotosInput, ZoneUncheckedCreateWithoutPhotosInput> | ZoneCreateWithoutPhotosInput[] | ZoneUncheckedCreateWithoutPhotosInput[]
+    connectOrCreate?: ZoneCreateOrConnectWithoutPhotosInput | ZoneCreateOrConnectWithoutPhotosInput[]
+    connect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
   }
 
   export type BuildingCreateNestedManyWithoutPhotosInput = {
@@ -38579,16 +40621,16 @@ export namespace Prisma {
     connect?: MaintenanceWhereUniqueInput
   }
 
-  export type RoomUncheckedCreateNestedManyWithoutPhotosInput = {
-    create?: XOR<RoomCreateWithoutPhotosInput, RoomUncheckedCreateWithoutPhotosInput> | RoomCreateWithoutPhotosInput[] | RoomUncheckedCreateWithoutPhotosInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutPhotosInput | RoomCreateOrConnectWithoutPhotosInput[]
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
+  export type SpaceUncheckedCreateNestedManyWithoutPhotosInput = {
+    create?: XOR<SpaceCreateWithoutPhotosInput, SpaceUncheckedCreateWithoutPhotosInput> | SpaceCreateWithoutPhotosInput[] | SpaceUncheckedCreateWithoutPhotosInput[]
+    connectOrCreate?: SpaceCreateOrConnectWithoutPhotosInput | SpaceCreateOrConnectWithoutPhotosInput[]
+    connect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
   }
 
-  export type UnitUncheckedCreateNestedManyWithoutPhotosInput = {
-    create?: XOR<UnitCreateWithoutPhotosInput, UnitUncheckedCreateWithoutPhotosInput> | UnitCreateWithoutPhotosInput[] | UnitUncheckedCreateWithoutPhotosInput[]
-    connectOrCreate?: UnitCreateOrConnectWithoutPhotosInput | UnitCreateOrConnectWithoutPhotosInput[]
-    connect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
+  export type ZoneUncheckedCreateNestedManyWithoutPhotosInput = {
+    create?: XOR<ZoneCreateWithoutPhotosInput, ZoneUncheckedCreateWithoutPhotosInput> | ZoneCreateWithoutPhotosInput[] | ZoneUncheckedCreateWithoutPhotosInput[]
+    connectOrCreate?: ZoneCreateOrConnectWithoutPhotosInput | ZoneCreateOrConnectWithoutPhotosInput[]
+    connect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
   }
 
   export type BuildingUncheckedCreateNestedManyWithoutPhotosInput = {
@@ -38603,30 +40645,30 @@ export namespace Prisma {
     connect?: ComplexWhereUniqueInput | ComplexWhereUniqueInput[]
   }
 
-  export type RoomUpdateManyWithoutPhotosNestedInput = {
-    create?: XOR<RoomCreateWithoutPhotosInput, RoomUncheckedCreateWithoutPhotosInput> | RoomCreateWithoutPhotosInput[] | RoomUncheckedCreateWithoutPhotosInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutPhotosInput | RoomCreateOrConnectWithoutPhotosInput[]
-    upsert?: RoomUpsertWithWhereUniqueWithoutPhotosInput | RoomUpsertWithWhereUniqueWithoutPhotosInput[]
-    set?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    disconnect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    delete?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    update?: RoomUpdateWithWhereUniqueWithoutPhotosInput | RoomUpdateWithWhereUniqueWithoutPhotosInput[]
-    updateMany?: RoomUpdateManyWithWhereWithoutPhotosInput | RoomUpdateManyWithWhereWithoutPhotosInput[]
-    deleteMany?: RoomScalarWhereInput | RoomScalarWhereInput[]
+  export type SpaceUpdateManyWithoutPhotosNestedInput = {
+    create?: XOR<SpaceCreateWithoutPhotosInput, SpaceUncheckedCreateWithoutPhotosInput> | SpaceCreateWithoutPhotosInput[] | SpaceUncheckedCreateWithoutPhotosInput[]
+    connectOrCreate?: SpaceCreateOrConnectWithoutPhotosInput | SpaceCreateOrConnectWithoutPhotosInput[]
+    upsert?: SpaceUpsertWithWhereUniqueWithoutPhotosInput | SpaceUpsertWithWhereUniqueWithoutPhotosInput[]
+    set?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    disconnect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    delete?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    connect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    update?: SpaceUpdateWithWhereUniqueWithoutPhotosInput | SpaceUpdateWithWhereUniqueWithoutPhotosInput[]
+    updateMany?: SpaceUpdateManyWithWhereWithoutPhotosInput | SpaceUpdateManyWithWhereWithoutPhotosInput[]
+    deleteMany?: SpaceScalarWhereInput | SpaceScalarWhereInput[]
   }
 
-  export type UnitUpdateManyWithoutPhotosNestedInput = {
-    create?: XOR<UnitCreateWithoutPhotosInput, UnitUncheckedCreateWithoutPhotosInput> | UnitCreateWithoutPhotosInput[] | UnitUncheckedCreateWithoutPhotosInput[]
-    connectOrCreate?: UnitCreateOrConnectWithoutPhotosInput | UnitCreateOrConnectWithoutPhotosInput[]
-    upsert?: UnitUpsertWithWhereUniqueWithoutPhotosInput | UnitUpsertWithWhereUniqueWithoutPhotosInput[]
-    set?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    disconnect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    delete?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    connect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    update?: UnitUpdateWithWhereUniqueWithoutPhotosInput | UnitUpdateWithWhereUniqueWithoutPhotosInput[]
-    updateMany?: UnitUpdateManyWithWhereWithoutPhotosInput | UnitUpdateManyWithWhereWithoutPhotosInput[]
-    deleteMany?: UnitScalarWhereInput | UnitScalarWhereInput[]
+  export type ZoneUpdateManyWithoutPhotosNestedInput = {
+    create?: XOR<ZoneCreateWithoutPhotosInput, ZoneUncheckedCreateWithoutPhotosInput> | ZoneCreateWithoutPhotosInput[] | ZoneUncheckedCreateWithoutPhotosInput[]
+    connectOrCreate?: ZoneCreateOrConnectWithoutPhotosInput | ZoneCreateOrConnectWithoutPhotosInput[]
+    upsert?: ZoneUpsertWithWhereUniqueWithoutPhotosInput | ZoneUpsertWithWhereUniqueWithoutPhotosInput[]
+    set?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    disconnect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    delete?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    connect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    update?: ZoneUpdateWithWhereUniqueWithoutPhotosInput | ZoneUpdateWithWhereUniqueWithoutPhotosInput[]
+    updateMany?: ZoneUpdateManyWithWhereWithoutPhotosInput | ZoneUpdateManyWithWhereWithoutPhotosInput[]
+    deleteMany?: ZoneScalarWhereInput | ZoneScalarWhereInput[]
   }
 
   export type BuildingUpdateManyWithoutPhotosNestedInput = {
@@ -38665,30 +40707,30 @@ export namespace Prisma {
     update?: XOR<XOR<MaintenanceUpdateToOneWithWhereWithoutPhotosInput, MaintenanceUpdateWithoutPhotosInput>, MaintenanceUncheckedUpdateWithoutPhotosInput>
   }
 
-  export type RoomUncheckedUpdateManyWithoutPhotosNestedInput = {
-    create?: XOR<RoomCreateWithoutPhotosInput, RoomUncheckedCreateWithoutPhotosInput> | RoomCreateWithoutPhotosInput[] | RoomUncheckedCreateWithoutPhotosInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutPhotosInput | RoomCreateOrConnectWithoutPhotosInput[]
-    upsert?: RoomUpsertWithWhereUniqueWithoutPhotosInput | RoomUpsertWithWhereUniqueWithoutPhotosInput[]
-    set?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    disconnect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    delete?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    update?: RoomUpdateWithWhereUniqueWithoutPhotosInput | RoomUpdateWithWhereUniqueWithoutPhotosInput[]
-    updateMany?: RoomUpdateManyWithWhereWithoutPhotosInput | RoomUpdateManyWithWhereWithoutPhotosInput[]
-    deleteMany?: RoomScalarWhereInput | RoomScalarWhereInput[]
+  export type SpaceUncheckedUpdateManyWithoutPhotosNestedInput = {
+    create?: XOR<SpaceCreateWithoutPhotosInput, SpaceUncheckedCreateWithoutPhotosInput> | SpaceCreateWithoutPhotosInput[] | SpaceUncheckedCreateWithoutPhotosInput[]
+    connectOrCreate?: SpaceCreateOrConnectWithoutPhotosInput | SpaceCreateOrConnectWithoutPhotosInput[]
+    upsert?: SpaceUpsertWithWhereUniqueWithoutPhotosInput | SpaceUpsertWithWhereUniqueWithoutPhotosInput[]
+    set?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    disconnect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    delete?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    connect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    update?: SpaceUpdateWithWhereUniqueWithoutPhotosInput | SpaceUpdateWithWhereUniqueWithoutPhotosInput[]
+    updateMany?: SpaceUpdateManyWithWhereWithoutPhotosInput | SpaceUpdateManyWithWhereWithoutPhotosInput[]
+    deleteMany?: SpaceScalarWhereInput | SpaceScalarWhereInput[]
   }
 
-  export type UnitUncheckedUpdateManyWithoutPhotosNestedInput = {
-    create?: XOR<UnitCreateWithoutPhotosInput, UnitUncheckedCreateWithoutPhotosInput> | UnitCreateWithoutPhotosInput[] | UnitUncheckedCreateWithoutPhotosInput[]
-    connectOrCreate?: UnitCreateOrConnectWithoutPhotosInput | UnitCreateOrConnectWithoutPhotosInput[]
-    upsert?: UnitUpsertWithWhereUniqueWithoutPhotosInput | UnitUpsertWithWhereUniqueWithoutPhotosInput[]
-    set?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    disconnect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    delete?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    connect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    update?: UnitUpdateWithWhereUniqueWithoutPhotosInput | UnitUpdateWithWhereUniqueWithoutPhotosInput[]
-    updateMany?: UnitUpdateManyWithWhereWithoutPhotosInput | UnitUpdateManyWithWhereWithoutPhotosInput[]
-    deleteMany?: UnitScalarWhereInput | UnitScalarWhereInput[]
+  export type ZoneUncheckedUpdateManyWithoutPhotosNestedInput = {
+    create?: XOR<ZoneCreateWithoutPhotosInput, ZoneUncheckedCreateWithoutPhotosInput> | ZoneCreateWithoutPhotosInput[] | ZoneUncheckedCreateWithoutPhotosInput[]
+    connectOrCreate?: ZoneCreateOrConnectWithoutPhotosInput | ZoneCreateOrConnectWithoutPhotosInput[]
+    upsert?: ZoneUpsertWithWhereUniqueWithoutPhotosInput | ZoneUpsertWithWhereUniqueWithoutPhotosInput[]
+    set?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    disconnect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    delete?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    connect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    update?: ZoneUpdateWithWhereUniqueWithoutPhotosInput | ZoneUpdateWithWhereUniqueWithoutPhotosInput[]
+    updateMany?: ZoneUpdateManyWithWhereWithoutPhotosInput | ZoneUpdateManyWithWhereWithoutPhotosInput[]
+    deleteMany?: ZoneScalarWhereInput | ZoneScalarWhereInput[]
   }
 
   export type BuildingUncheckedUpdateManyWithoutPhotosNestedInput = {
@@ -39231,18 +41273,18 @@ export namespace Prisma {
     connect?: ComplexWhereUniqueInput | ComplexWhereUniqueInput[]
   }
 
-  export type UnitCreateNestedManyWithoutCalenderEntityInput = {
-    create?: XOR<UnitCreateWithoutCalenderEntityInput, UnitUncheckedCreateWithoutCalenderEntityInput> | UnitCreateWithoutCalenderEntityInput[] | UnitUncheckedCreateWithoutCalenderEntityInput[]
-    connectOrCreate?: UnitCreateOrConnectWithoutCalenderEntityInput | UnitCreateOrConnectWithoutCalenderEntityInput[]
-    createMany?: UnitCreateManyCalenderEntityInputEnvelope
-    connect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
+  export type SpaceCreateNestedManyWithoutCalenderEntityInput = {
+    create?: XOR<SpaceCreateWithoutCalenderEntityInput, SpaceUncheckedCreateWithoutCalenderEntityInput> | SpaceCreateWithoutCalenderEntityInput[] | SpaceUncheckedCreateWithoutCalenderEntityInput[]
+    connectOrCreate?: SpaceCreateOrConnectWithoutCalenderEntityInput | SpaceCreateOrConnectWithoutCalenderEntityInput[]
+    createMany?: SpaceCreateManyCalenderEntityInputEnvelope
+    connect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
   }
 
-  export type RoomCreateNestedManyWithoutCalenderEntityInput = {
-    create?: XOR<RoomCreateWithoutCalenderEntityInput, RoomUncheckedCreateWithoutCalenderEntityInput> | RoomCreateWithoutCalenderEntityInput[] | RoomUncheckedCreateWithoutCalenderEntityInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutCalenderEntityInput | RoomCreateOrConnectWithoutCalenderEntityInput[]
-    createMany?: RoomCreateManyCalenderEntityInputEnvelope
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
+  export type ZoneCreateNestedManyWithoutCalenderEntityInput = {
+    create?: XOR<ZoneCreateWithoutCalenderEntityInput, ZoneUncheckedCreateWithoutCalenderEntityInput> | ZoneCreateWithoutCalenderEntityInput[] | ZoneUncheckedCreateWithoutCalenderEntityInput[]
+    connectOrCreate?: ZoneCreateOrConnectWithoutCalenderEntityInput | ZoneCreateOrConnectWithoutCalenderEntityInput[]
+    createMany?: ZoneCreateManyCalenderEntityInputEnvelope
+    connect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
   }
 
   export type EmployeeCreateNestedManyWithoutCalenderEntityInput = {
@@ -39266,18 +41308,18 @@ export namespace Prisma {
     connect?: ComplexWhereUniqueInput | ComplexWhereUniqueInput[]
   }
 
-  export type UnitUncheckedCreateNestedManyWithoutCalenderEntityInput = {
-    create?: XOR<UnitCreateWithoutCalenderEntityInput, UnitUncheckedCreateWithoutCalenderEntityInput> | UnitCreateWithoutCalenderEntityInput[] | UnitUncheckedCreateWithoutCalenderEntityInput[]
-    connectOrCreate?: UnitCreateOrConnectWithoutCalenderEntityInput | UnitCreateOrConnectWithoutCalenderEntityInput[]
-    createMany?: UnitCreateManyCalenderEntityInputEnvelope
-    connect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
+  export type SpaceUncheckedCreateNestedManyWithoutCalenderEntityInput = {
+    create?: XOR<SpaceCreateWithoutCalenderEntityInput, SpaceUncheckedCreateWithoutCalenderEntityInput> | SpaceCreateWithoutCalenderEntityInput[] | SpaceUncheckedCreateWithoutCalenderEntityInput[]
+    connectOrCreate?: SpaceCreateOrConnectWithoutCalenderEntityInput | SpaceCreateOrConnectWithoutCalenderEntityInput[]
+    createMany?: SpaceCreateManyCalenderEntityInputEnvelope
+    connect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
   }
 
-  export type RoomUncheckedCreateNestedManyWithoutCalenderEntityInput = {
-    create?: XOR<RoomCreateWithoutCalenderEntityInput, RoomUncheckedCreateWithoutCalenderEntityInput> | RoomCreateWithoutCalenderEntityInput[] | RoomUncheckedCreateWithoutCalenderEntityInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutCalenderEntityInput | RoomCreateOrConnectWithoutCalenderEntityInput[]
-    createMany?: RoomCreateManyCalenderEntityInputEnvelope
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
+  export type ZoneUncheckedCreateNestedManyWithoutCalenderEntityInput = {
+    create?: XOR<ZoneCreateWithoutCalenderEntityInput, ZoneUncheckedCreateWithoutCalenderEntityInput> | ZoneCreateWithoutCalenderEntityInput[] | ZoneUncheckedCreateWithoutCalenderEntityInput[]
+    connectOrCreate?: ZoneCreateOrConnectWithoutCalenderEntityInput | ZoneCreateOrConnectWithoutCalenderEntityInput[]
+    createMany?: ZoneCreateManyCalenderEntityInputEnvelope
+    connect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
   }
 
   export type EmployeeUncheckedCreateNestedManyWithoutCalenderEntityInput = {
@@ -39315,32 +41357,32 @@ export namespace Prisma {
     deleteMany?: ComplexScalarWhereInput | ComplexScalarWhereInput[]
   }
 
-  export type UnitUpdateManyWithoutCalenderEntityNestedInput = {
-    create?: XOR<UnitCreateWithoutCalenderEntityInput, UnitUncheckedCreateWithoutCalenderEntityInput> | UnitCreateWithoutCalenderEntityInput[] | UnitUncheckedCreateWithoutCalenderEntityInput[]
-    connectOrCreate?: UnitCreateOrConnectWithoutCalenderEntityInput | UnitCreateOrConnectWithoutCalenderEntityInput[]
-    upsert?: UnitUpsertWithWhereUniqueWithoutCalenderEntityInput | UnitUpsertWithWhereUniqueWithoutCalenderEntityInput[]
-    createMany?: UnitCreateManyCalenderEntityInputEnvelope
-    set?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    disconnect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    delete?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    connect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    update?: UnitUpdateWithWhereUniqueWithoutCalenderEntityInput | UnitUpdateWithWhereUniqueWithoutCalenderEntityInput[]
-    updateMany?: UnitUpdateManyWithWhereWithoutCalenderEntityInput | UnitUpdateManyWithWhereWithoutCalenderEntityInput[]
-    deleteMany?: UnitScalarWhereInput | UnitScalarWhereInput[]
+  export type SpaceUpdateManyWithoutCalenderEntityNestedInput = {
+    create?: XOR<SpaceCreateWithoutCalenderEntityInput, SpaceUncheckedCreateWithoutCalenderEntityInput> | SpaceCreateWithoutCalenderEntityInput[] | SpaceUncheckedCreateWithoutCalenderEntityInput[]
+    connectOrCreate?: SpaceCreateOrConnectWithoutCalenderEntityInput | SpaceCreateOrConnectWithoutCalenderEntityInput[]
+    upsert?: SpaceUpsertWithWhereUniqueWithoutCalenderEntityInput | SpaceUpsertWithWhereUniqueWithoutCalenderEntityInput[]
+    createMany?: SpaceCreateManyCalenderEntityInputEnvelope
+    set?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    disconnect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    delete?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    connect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    update?: SpaceUpdateWithWhereUniqueWithoutCalenderEntityInput | SpaceUpdateWithWhereUniqueWithoutCalenderEntityInput[]
+    updateMany?: SpaceUpdateManyWithWhereWithoutCalenderEntityInput | SpaceUpdateManyWithWhereWithoutCalenderEntityInput[]
+    deleteMany?: SpaceScalarWhereInput | SpaceScalarWhereInput[]
   }
 
-  export type RoomUpdateManyWithoutCalenderEntityNestedInput = {
-    create?: XOR<RoomCreateWithoutCalenderEntityInput, RoomUncheckedCreateWithoutCalenderEntityInput> | RoomCreateWithoutCalenderEntityInput[] | RoomUncheckedCreateWithoutCalenderEntityInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutCalenderEntityInput | RoomCreateOrConnectWithoutCalenderEntityInput[]
-    upsert?: RoomUpsertWithWhereUniqueWithoutCalenderEntityInput | RoomUpsertWithWhereUniqueWithoutCalenderEntityInput[]
-    createMany?: RoomCreateManyCalenderEntityInputEnvelope
-    set?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    disconnect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    delete?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    update?: RoomUpdateWithWhereUniqueWithoutCalenderEntityInput | RoomUpdateWithWhereUniqueWithoutCalenderEntityInput[]
-    updateMany?: RoomUpdateManyWithWhereWithoutCalenderEntityInput | RoomUpdateManyWithWhereWithoutCalenderEntityInput[]
-    deleteMany?: RoomScalarWhereInput | RoomScalarWhereInput[]
+  export type ZoneUpdateManyWithoutCalenderEntityNestedInput = {
+    create?: XOR<ZoneCreateWithoutCalenderEntityInput, ZoneUncheckedCreateWithoutCalenderEntityInput> | ZoneCreateWithoutCalenderEntityInput[] | ZoneUncheckedCreateWithoutCalenderEntityInput[]
+    connectOrCreate?: ZoneCreateOrConnectWithoutCalenderEntityInput | ZoneCreateOrConnectWithoutCalenderEntityInput[]
+    upsert?: ZoneUpsertWithWhereUniqueWithoutCalenderEntityInput | ZoneUpsertWithWhereUniqueWithoutCalenderEntityInput[]
+    createMany?: ZoneCreateManyCalenderEntityInputEnvelope
+    set?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    disconnect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    delete?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    connect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    update?: ZoneUpdateWithWhereUniqueWithoutCalenderEntityInput | ZoneUpdateWithWhereUniqueWithoutCalenderEntityInput[]
+    updateMany?: ZoneUpdateManyWithWhereWithoutCalenderEntityInput | ZoneUpdateManyWithWhereWithoutCalenderEntityInput[]
+    deleteMany?: ZoneScalarWhereInput | ZoneScalarWhereInput[]
   }
 
   export type EmployeeUpdateManyWithoutCalenderEntityNestedInput = {
@@ -39385,32 +41427,32 @@ export namespace Prisma {
     deleteMany?: ComplexScalarWhereInput | ComplexScalarWhereInput[]
   }
 
-  export type UnitUncheckedUpdateManyWithoutCalenderEntityNestedInput = {
-    create?: XOR<UnitCreateWithoutCalenderEntityInput, UnitUncheckedCreateWithoutCalenderEntityInput> | UnitCreateWithoutCalenderEntityInput[] | UnitUncheckedCreateWithoutCalenderEntityInput[]
-    connectOrCreate?: UnitCreateOrConnectWithoutCalenderEntityInput | UnitCreateOrConnectWithoutCalenderEntityInput[]
-    upsert?: UnitUpsertWithWhereUniqueWithoutCalenderEntityInput | UnitUpsertWithWhereUniqueWithoutCalenderEntityInput[]
-    createMany?: UnitCreateManyCalenderEntityInputEnvelope
-    set?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    disconnect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    delete?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    connect?: UnitWhereUniqueInput | UnitWhereUniqueInput[]
-    update?: UnitUpdateWithWhereUniqueWithoutCalenderEntityInput | UnitUpdateWithWhereUniqueWithoutCalenderEntityInput[]
-    updateMany?: UnitUpdateManyWithWhereWithoutCalenderEntityInput | UnitUpdateManyWithWhereWithoutCalenderEntityInput[]
-    deleteMany?: UnitScalarWhereInput | UnitScalarWhereInput[]
+  export type SpaceUncheckedUpdateManyWithoutCalenderEntityNestedInput = {
+    create?: XOR<SpaceCreateWithoutCalenderEntityInput, SpaceUncheckedCreateWithoutCalenderEntityInput> | SpaceCreateWithoutCalenderEntityInput[] | SpaceUncheckedCreateWithoutCalenderEntityInput[]
+    connectOrCreate?: SpaceCreateOrConnectWithoutCalenderEntityInput | SpaceCreateOrConnectWithoutCalenderEntityInput[]
+    upsert?: SpaceUpsertWithWhereUniqueWithoutCalenderEntityInput | SpaceUpsertWithWhereUniqueWithoutCalenderEntityInput[]
+    createMany?: SpaceCreateManyCalenderEntityInputEnvelope
+    set?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    disconnect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    delete?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    connect?: SpaceWhereUniqueInput | SpaceWhereUniqueInput[]
+    update?: SpaceUpdateWithWhereUniqueWithoutCalenderEntityInput | SpaceUpdateWithWhereUniqueWithoutCalenderEntityInput[]
+    updateMany?: SpaceUpdateManyWithWhereWithoutCalenderEntityInput | SpaceUpdateManyWithWhereWithoutCalenderEntityInput[]
+    deleteMany?: SpaceScalarWhereInput | SpaceScalarWhereInput[]
   }
 
-  export type RoomUncheckedUpdateManyWithoutCalenderEntityNestedInput = {
-    create?: XOR<RoomCreateWithoutCalenderEntityInput, RoomUncheckedCreateWithoutCalenderEntityInput> | RoomCreateWithoutCalenderEntityInput[] | RoomUncheckedCreateWithoutCalenderEntityInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutCalenderEntityInput | RoomCreateOrConnectWithoutCalenderEntityInput[]
-    upsert?: RoomUpsertWithWhereUniqueWithoutCalenderEntityInput | RoomUpsertWithWhereUniqueWithoutCalenderEntityInput[]
-    createMany?: RoomCreateManyCalenderEntityInputEnvelope
-    set?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    disconnect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    delete?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    update?: RoomUpdateWithWhereUniqueWithoutCalenderEntityInput | RoomUpdateWithWhereUniqueWithoutCalenderEntityInput[]
-    updateMany?: RoomUpdateManyWithWhereWithoutCalenderEntityInput | RoomUpdateManyWithWhereWithoutCalenderEntityInput[]
-    deleteMany?: RoomScalarWhereInput | RoomScalarWhereInput[]
+  export type ZoneUncheckedUpdateManyWithoutCalenderEntityNestedInput = {
+    create?: XOR<ZoneCreateWithoutCalenderEntityInput, ZoneUncheckedCreateWithoutCalenderEntityInput> | ZoneCreateWithoutCalenderEntityInput[] | ZoneUncheckedCreateWithoutCalenderEntityInput[]
+    connectOrCreate?: ZoneCreateOrConnectWithoutCalenderEntityInput | ZoneCreateOrConnectWithoutCalenderEntityInput[]
+    upsert?: ZoneUpsertWithWhereUniqueWithoutCalenderEntityInput | ZoneUpsertWithWhereUniqueWithoutCalenderEntityInput[]
+    createMany?: ZoneCreateManyCalenderEntityInputEnvelope
+    set?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    disconnect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    delete?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    connect?: ZoneWhereUniqueInput | ZoneWhereUniqueInput[]
+    update?: ZoneUpdateWithWhereUniqueWithoutCalenderEntityInput | ZoneUpdateWithWhereUniqueWithoutCalenderEntityInput[]
+    updateMany?: ZoneUpdateManyWithWhereWithoutCalenderEntityInput | ZoneUpdateManyWithWhereWithoutCalenderEntityInput[]
+    deleteMany?: ZoneScalarWhereInput | ZoneScalarWhereInput[]
   }
 
   export type EmployeeUncheckedUpdateManyWithoutCalenderEntityNestedInput = {
@@ -39463,10 +41505,10 @@ export namespace Prisma {
     connect?: FloorWhereUniqueInput
   }
 
-  export type RoomCreateNestedOneWithoutMaintenancesInput = {
-    create?: XOR<RoomCreateWithoutMaintenancesInput, RoomUncheckedCreateWithoutMaintenancesInput>
-    connectOrCreate?: RoomCreateOrConnectWithoutMaintenancesInput
-    connect?: RoomWhereUniqueInput
+  export type SpaceCreateNestedOneWithoutMaintenancesInput = {
+    create?: XOR<SpaceCreateWithoutMaintenancesInput, SpaceUncheckedCreateWithoutMaintenancesInput>
+    connectOrCreate?: SpaceCreateOrConnectWithoutMaintenancesInput
+    connect?: SpaceWhereUniqueInput
   }
 
   export type EmployeeCreateNestedOneWithoutAssignedMaintenancesInput = {
@@ -39569,14 +41611,14 @@ export namespace Prisma {
     update?: XOR<XOR<FloorUpdateToOneWithWhereWithoutMaintenancesInput, FloorUpdateWithoutMaintenancesInput>, FloorUncheckedUpdateWithoutMaintenancesInput>
   }
 
-  export type RoomUpdateOneWithoutMaintenancesNestedInput = {
-    create?: XOR<RoomCreateWithoutMaintenancesInput, RoomUncheckedCreateWithoutMaintenancesInput>
-    connectOrCreate?: RoomCreateOrConnectWithoutMaintenancesInput
-    upsert?: RoomUpsertWithoutMaintenancesInput
-    disconnect?: RoomWhereInput | boolean
-    delete?: RoomWhereInput | boolean
-    connect?: RoomWhereUniqueInput
-    update?: XOR<XOR<RoomUpdateToOneWithWhereWithoutMaintenancesInput, RoomUpdateWithoutMaintenancesInput>, RoomUncheckedUpdateWithoutMaintenancesInput>
+  export type SpaceUpdateOneWithoutMaintenancesNestedInput = {
+    create?: XOR<SpaceCreateWithoutMaintenancesInput, SpaceUncheckedCreateWithoutMaintenancesInput>
+    connectOrCreate?: SpaceCreateOrConnectWithoutMaintenancesInput
+    upsert?: SpaceUpsertWithoutMaintenancesInput
+    disconnect?: SpaceWhereInput | boolean
+    delete?: SpaceWhereInput | boolean
+    connect?: SpaceWhereUniqueInput
+    update?: XOR<XOR<SpaceUpdateToOneWithWhereWithoutMaintenancesInput, SpaceUpdateWithoutMaintenancesInput>, SpaceUncheckedUpdateWithoutMaintenancesInput>
   }
 
   export type EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput = {
@@ -39651,10 +41693,10 @@ export namespace Prisma {
     connect?: FloorWhereUniqueInput
   }
 
-  export type RoomCreateNestedOneWithoutPreventivesInput = {
-    create?: XOR<RoomCreateWithoutPreventivesInput, RoomUncheckedCreateWithoutPreventivesInput>
-    connectOrCreate?: RoomCreateOrConnectWithoutPreventivesInput
-    connect?: RoomWhereUniqueInput
+  export type SpaceCreateNestedOneWithoutPreventivesInput = {
+    create?: XOR<SpaceCreateWithoutPreventivesInput, SpaceUncheckedCreateWithoutPreventivesInput>
+    connectOrCreate?: SpaceCreateOrConnectWithoutPreventivesInput
+    connect?: SpaceWhereUniqueInput
   }
 
   export type TeamCreateNestedOneWithoutPreventivesInput = {
@@ -39705,14 +41747,14 @@ export namespace Prisma {
     update?: XOR<XOR<FloorUpdateToOneWithWhereWithoutPreventivesInput, FloorUpdateWithoutPreventivesInput>, FloorUncheckedUpdateWithoutPreventivesInput>
   }
 
-  export type RoomUpdateOneWithoutPreventivesNestedInput = {
-    create?: XOR<RoomCreateWithoutPreventivesInput, RoomUncheckedCreateWithoutPreventivesInput>
-    connectOrCreate?: RoomCreateOrConnectWithoutPreventivesInput
-    upsert?: RoomUpsertWithoutPreventivesInput
-    disconnect?: RoomWhereInput | boolean
-    delete?: RoomWhereInput | boolean
-    connect?: RoomWhereUniqueInput
-    update?: XOR<XOR<RoomUpdateToOneWithWhereWithoutPreventivesInput, RoomUpdateWithoutPreventivesInput>, RoomUncheckedUpdateWithoutPreventivesInput>
+  export type SpaceUpdateOneWithoutPreventivesNestedInput = {
+    create?: XOR<SpaceCreateWithoutPreventivesInput, SpaceUncheckedCreateWithoutPreventivesInput>
+    connectOrCreate?: SpaceCreateOrConnectWithoutPreventivesInput
+    upsert?: SpaceUpsertWithoutPreventivesInput
+    disconnect?: SpaceWhereInput | boolean
+    delete?: SpaceWhereInput | boolean
+    connect?: SpaceWhereUniqueInput
+    update?: XOR<XOR<SpaceUpdateToOneWithWhereWithoutPreventivesInput, SpaceUpdateWithoutPreventivesInput>, SpaceUncheckedUpdateWithoutPreventivesInput>
   }
 
   export type TeamUpdateOneWithoutPreventivesNestedInput = {
@@ -39890,21 +41932,17 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type NestedEnumRoleNameFilter<$PrismaModel = never> = {
-    equals?: $Enums.RoleName | EnumRoleNameFieldRefInput<$PrismaModel>
-    in?: $Enums.RoleName[] | ListEnumRoleNameFieldRefInput<$PrismaModel>
-    notIn?: $Enums.RoleName[] | ListEnumRoleNameFieldRefInput<$PrismaModel>
-    not?: NestedEnumRoleNameFilter<$PrismaModel> | $Enums.RoleName
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-  export type NestedEnumRoleNameWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.RoleName | EnumRoleNameFieldRefInput<$PrismaModel>
-    in?: $Enums.RoleName[] | ListEnumRoleNameFieldRefInput<$PrismaModel>
-    notIn?: $Enums.RoleName[] | ListEnumRoleNameFieldRefInput<$PrismaModel>
-    not?: NestedEnumRoleNameWithAggregatesFilter<$PrismaModel> | $Enums.RoleName
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumRoleNameFilter<$PrismaModel>
-    _max?: NestedEnumRoleNameFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedEnumAccessLevelFilter<$PrismaModel = never> = {
@@ -40113,11 +42151,6 @@ export namespace Prisma {
     not?: NestedEnumRoomUseFilter<$PrismaModel> | $Enums.RoomUse
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type NestedEnumRoomUseWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.RoomUse | EnumRoomUseFieldRefInput<$PrismaModel>
     in?: $Enums.RoomUse[] | ListEnumRoomUseFieldRefInput<$PrismaModel>
@@ -40126,14 +42159,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumRoomUseFilter<$PrismaModel>
     _max?: NestedEnumRoomUseFilter<$PrismaModel>
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedEnumAssetCategoryTypeFilter<$PrismaModel = never> = {
@@ -40224,6 +42249,29 @@ export namespace Prisma {
     _min?: NestedEnumMaintenanceTypeFilter<$PrismaModel>
     _max?: NestedEnumMaintenanceTypeFilter<$PrismaModel>
   }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type NestedEnumStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
@@ -40300,7 +42348,8 @@ export namespace Prisma {
 
   export type RoleCreateWithoutUsersInput = {
     id?: string
-    name: $Enums.RoleName
+    name: string
+    isSystem?: boolean
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -40309,7 +42358,8 @@ export namespace Prisma {
 
   export type RoleUncheckedCreateWithoutUsersInput = {
     id?: string
-    name: $Enums.RoleName
+    name: string
+    isSystem?: boolean
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -40385,33 +42435,32 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"RefreshToken"> | Date | string
   }
 
-  export type RoleUpsertWithoutUsersInput = {
+  export type RoleUpsertWithWhereUniqueWithoutUsersInput = {
+    where: RoleWhereUniqueInput
     update: XOR<RoleUpdateWithoutUsersInput, RoleUncheckedUpdateWithoutUsersInput>
     create: XOR<RoleCreateWithoutUsersInput, RoleUncheckedCreateWithoutUsersInput>
-    where?: RoleWhereInput
   }
 
-  export type RoleUpdateToOneWithWhereWithoutUsersInput = {
-    where?: RoleWhereInput
+  export type RoleUpdateWithWhereUniqueWithoutUsersInput = {
+    where: RoleWhereUniqueInput
     data: XOR<RoleUpdateWithoutUsersInput, RoleUncheckedUpdateWithoutUsersInput>
   }
 
-  export type RoleUpdateWithoutUsersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: EnumRoleNameFieldUpdateOperationsInput | $Enums.RoleName
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    permissions?: PermissionUpdateManyWithoutRoleNestedInput
+  export type RoleUpdateManyWithWhereWithoutUsersInput = {
+    where: RoleScalarWhereInput
+    data: XOR<RoleUpdateManyMutationInput, RoleUncheckedUpdateManyWithoutUsersInput>
   }
 
-  export type RoleUncheckedUpdateWithoutUsersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: EnumRoleNameFieldUpdateOperationsInput | $Enums.RoleName
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    permissions?: PermissionUncheckedUpdateManyWithoutRoleNestedInput
+  export type RoleScalarWhereInput = {
+    AND?: RoleScalarWhereInput | RoleScalarWhereInput[]
+    OR?: RoleScalarWhereInput[]
+    NOT?: RoleScalarWhereInput | RoleScalarWhereInput[]
+    id?: StringFilter<"Role"> | string
+    name?: StringFilter<"Role"> | string
+    isSystem?: BoolFilter<"Role"> | boolean
+    description?: StringNullableFilter<"Role"> | string | null
+    createdAt?: DateTimeFilter<"Role"> | Date | string
+    updatedAt?: DateTimeFilter<"Role"> | Date | string
   }
 
   export type EmployeeUpsertWithWhereUniqueWithoutUserInput = {
@@ -40469,7 +42518,7 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UserCreateWithoutRoleInput = {
+  export type UserCreateWithoutRolesInput = {
     id?: string
     email: string
     password: string
@@ -40485,7 +42534,7 @@ export namespace Prisma {
     employees?: EmployeeCreateNestedManyWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutRoleInput = {
+  export type UserUncheckedCreateWithoutRolesInput = {
     id?: string
     email: string
     password: string
@@ -40501,14 +42550,9 @@ export namespace Prisma {
     employees?: EmployeeUncheckedCreateNestedManyWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutRoleInput = {
+  export type UserCreateOrConnectWithoutRolesInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutRoleInput, UserUncheckedCreateWithoutRoleInput>
-  }
-
-  export type UserCreateManyRoleInputEnvelope = {
-    data: UserCreateManyRoleInput | UserCreateManyRoleInput[]
-    skipDuplicates?: boolean
+    create: XOR<UserCreateWithoutRolesInput, UserUncheckedCreateWithoutRolesInput>
   }
 
   export type PermissionUpsertWithWhereUniqueWithoutRoleInput = {
@@ -40539,20 +42583,20 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Permission"> | Date | string
   }
 
-  export type UserUpsertWithWhereUniqueWithoutRoleInput = {
+  export type UserUpsertWithWhereUniqueWithoutRolesInput = {
     where: UserWhereUniqueInput
-    update: XOR<UserUpdateWithoutRoleInput, UserUncheckedUpdateWithoutRoleInput>
-    create: XOR<UserCreateWithoutRoleInput, UserUncheckedCreateWithoutRoleInput>
+    update: XOR<UserUpdateWithoutRolesInput, UserUncheckedUpdateWithoutRolesInput>
+    create: XOR<UserCreateWithoutRolesInput, UserUncheckedCreateWithoutRolesInput>
   }
 
-  export type UserUpdateWithWhereUniqueWithoutRoleInput = {
+  export type UserUpdateWithWhereUniqueWithoutRolesInput = {
     where: UserWhereUniqueInput
-    data: XOR<UserUpdateWithoutRoleInput, UserUncheckedUpdateWithoutRoleInput>
+    data: XOR<UserUpdateWithoutRolesInput, UserUncheckedUpdateWithoutRolesInput>
   }
 
-  export type UserUpdateManyWithWhereWithoutRoleInput = {
+  export type UserUpdateManyWithWhereWithoutRolesInput = {
     where: UserScalarWhereInput
-    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutRoleInput>
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutRolesInput>
   }
 
   export type UserScalarWhereInput = {
@@ -40565,7 +42609,6 @@ export namespace Prisma {
     firstName?: StringFilter<"User"> | string
     lastName?: StringFilter<"User"> | string
     status?: EnumUserStatusFilter<"User"> | $Enums.UserStatus
-    roleId?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     passwordResetToken?: StringNullableFilter<"User"> | string | null
@@ -40575,20 +42618,22 @@ export namespace Prisma {
 
   export type RoleCreateWithoutPermissionsInput = {
     id?: string
-    name: $Enums.RoleName
+    name: string
+    isSystem?: boolean
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    users?: UserCreateNestedManyWithoutRoleInput
+    users?: UserCreateNestedManyWithoutRolesInput
   }
 
   export type RoleUncheckedCreateWithoutPermissionsInput = {
     id?: string
-    name: $Enums.RoleName
+    name: string
+    isSystem?: boolean
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    users?: UserUncheckedCreateNestedManyWithoutRoleInput
+    users?: UserUncheckedCreateNestedManyWithoutRolesInput
   }
 
   export type RoleCreateOrConnectWithoutPermissionsInput = {
@@ -40609,20 +42654,147 @@ export namespace Prisma {
 
   export type RoleUpdateWithoutPermissionsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: EnumRoleNameFieldUpdateOperationsInput | $Enums.RoleName
+    name?: StringFieldUpdateOperationsInput | string
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: UserUpdateManyWithoutRoleNestedInput
+    users?: UserUpdateManyWithoutRolesNestedInput
   }
 
   export type RoleUncheckedUpdateWithoutPermissionsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: EnumRoleNameFieldUpdateOperationsInput | $Enums.RoleName
+    name?: StringFieldUpdateOperationsInput | string
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: UserUncheckedUpdateManyWithoutRoleNestedInput
+    users?: UserUncheckedUpdateManyWithoutRolesNestedInput
+  }
+
+  export type ComplexCreateWithoutSiteInput = {
+    id?: string
+    code: string
+    name: string
+    availability?: $Enums.Availability
+    status?: $Enums.ServiceStatus
+    address?: string | null
+    city?: string | null
+    zipCode?: string | null
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    totalBuildings?: number | null
+    totalFloors?: number | null
+    totalUnits?: number | null
+    totalRooms?: number | null
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    totalHeatedVolume?: number | null
+    totalVolume?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutComplexesInput
+    buildings?: BuildingCreateNestedManyWithoutComplexInput
+    photos?: FileCreateNestedManyWithoutComplexesInput
+    floors?: FloorCreateNestedManyWithoutComplexInput
+    spaces?: SpaceCreateNestedManyWithoutComplexInput
+    zones?: ZoneCreateNestedManyWithoutComplexInput
+    maintenances?: MaintenanceCreateNestedManyWithoutSiteInput
+    preventives?: PreventiveCreateNestedManyWithoutSiteInput
+  }
+
+  export type ComplexUncheckedCreateWithoutSiteInput = {
+    id?: string
+    code: string
+    name: string
+    availability?: $Enums.Availability
+    status?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
+    address?: string | null
+    city?: string | null
+    zipCode?: string | null
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    totalBuildings?: number | null
+    totalFloors?: number | null
+    totalUnits?: number | null
+    totalRooms?: number | null
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    totalHeatedVolume?: number | null
+    totalVolume?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    buildings?: BuildingUncheckedCreateNestedManyWithoutComplexInput
+    photos?: FileUncheckedCreateNestedManyWithoutComplexesInput
+    floors?: FloorUncheckedCreateNestedManyWithoutComplexInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutComplexInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutComplexInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSiteInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutSiteInput
+  }
+
+  export type ComplexCreateOrConnectWithoutSiteInput = {
+    where: ComplexWhereUniqueInput
+    create: XOR<ComplexCreateWithoutSiteInput, ComplexUncheckedCreateWithoutSiteInput>
+  }
+
+  export type ComplexCreateManySiteInputEnvelope = {
+    data: ComplexCreateManySiteInput | ComplexCreateManySiteInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ComplexUpsertWithWhereUniqueWithoutSiteInput = {
+    where: ComplexWhereUniqueInput
+    update: XOR<ComplexUpdateWithoutSiteInput, ComplexUncheckedUpdateWithoutSiteInput>
+    create: XOR<ComplexCreateWithoutSiteInput, ComplexUncheckedCreateWithoutSiteInput>
+  }
+
+  export type ComplexUpdateWithWhereUniqueWithoutSiteInput = {
+    where: ComplexWhereUniqueInput
+    data: XOR<ComplexUpdateWithoutSiteInput, ComplexUncheckedUpdateWithoutSiteInput>
+  }
+
+  export type ComplexUpdateManyWithWhereWithoutSiteInput = {
+    where: ComplexScalarWhereInput
+    data: XOR<ComplexUpdateManyMutationInput, ComplexUncheckedUpdateManyWithoutSiteInput>
+  }
+
+  export type ComplexScalarWhereInput = {
+    AND?: ComplexScalarWhereInput | ComplexScalarWhereInput[]
+    OR?: ComplexScalarWhereInput[]
+    NOT?: ComplexScalarWhereInput | ComplexScalarWhereInput[]
+    id?: StringFilter<"Complex"> | string
+    code?: StringFilter<"Complex"> | string
+    name?: StringFilter<"Complex"> | string
+    availability?: EnumAvailabilityFilter<"Complex"> | $Enums.Availability
+    status?: EnumServiceStatusFilter<"Complex"> | $Enums.ServiceStatus
+    calenderEntityId?: StringNullableFilter<"Complex"> | string | null
+    address?: StringNullableFilter<"Complex"> | string | null
+    city?: StringNullableFilter<"Complex"> | string | null
+    zipCode?: StringNullableFilter<"Complex"> | string | null
+    condition?: EnumConditionFilter<"Complex"> | $Enums.Condition
+    criticality?: EnumCriticalityFilter<"Complex"> | $Enums.Criticality
+    totalBuildings?: IntNullableFilter<"Complex"> | number | null
+    totalFloors?: IntNullableFilter<"Complex"> | number | null
+    totalUnits?: IntNullableFilter<"Complex"> | number | null
+    totalRooms?: IntNullableFilter<"Complex"> | number | null
+    glazedArea?: FloatNullableFilter<"Complex"> | number | null
+    cleanableArea?: FloatNullableFilter<"Complex"> | number | null
+    coveredArea?: FloatNullableFilter<"Complex"> | number | null
+    totalNetArea?: FloatNullableFilter<"Complex"> | number | null
+    totalGrossArea?: FloatNullableFilter<"Complex"> | number | null
+    totalHeatedVolume?: FloatNullableFilter<"Complex"> | number | null
+    totalVolume?: FloatNullableFilter<"Complex"> | number | null
+    createdAt?: DateTimeFilter<"Complex"> | Date | string
+    updatedAt?: DateTimeFilter<"Complex"> | Date | string
+    siteId?: StringNullableFilter<"Complex"> | string | null
   }
 
   export type CalenderEntityCreateWithoutComplexesInput = {
@@ -40631,8 +42803,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     buildings?: BuildingCreateNestedManyWithoutCalenderEntityInput
-    units?: UnitCreateNestedManyWithoutCalenderEntityInput
-    rooms?: RoomCreateNestedManyWithoutCalenderEntityInput
+    spaces?: SpaceCreateNestedManyWithoutCalenderEntityInput
+    zones?: ZoneCreateNestedManyWithoutCalenderEntityInput
     employees?: EmployeeCreateNestedManyWithoutCalenderEntityInput
   }
 
@@ -40642,8 +42814,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     buildings?: BuildingUncheckedCreateNestedManyWithoutCalenderEntityInput
-    units?: UnitUncheckedCreateNestedManyWithoutCalenderEntityInput
-    rooms?: RoomUncheckedCreateNestedManyWithoutCalenderEntityInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutCalenderEntityInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutCalenderEntityInput
     employees?: EmployeeUncheckedCreateNestedManyWithoutCalenderEntityInput
   }
 
@@ -40677,8 +42849,8 @@ export namespace Prisma {
     calenderEntity?: CalenderEntityCreateNestedOneWithoutBuildingsInput
     photos?: FileCreateNestedManyWithoutBuildingsInput
     floors?: FloorCreateNestedManyWithoutBuildingInput
-    units?: UnitCreateNestedManyWithoutBuildingInput
-    rooms?: RoomCreateNestedManyWithoutBuildingInput
+    spaces?: SpaceCreateNestedManyWithoutBuildingInput
+    zones?: ZoneCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveCreateNestedManyWithoutBuildingInput
   }
 
@@ -40707,8 +42879,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutBuildingsInput
     floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
-    units?: UnitUncheckedCreateNestedManyWithoutBuildingInput
-    rooms?: RoomUncheckedCreateNestedManyWithoutBuildingInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutBuildingInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
   }
 
@@ -40725,8 +42897,8 @@ export namespace Prisma {
   export type FileCreateWithoutComplexesInput = {
     id?: string
     url: string
-    rooms?: RoomCreateNestedManyWithoutPhotosInput
-    units?: UnitCreateNestedManyWithoutPhotosInput
+    spaces?: SpaceCreateNestedManyWithoutPhotosInput
+    zones?: ZoneCreateNestedManyWithoutPhotosInput
     buildings?: BuildingCreateNestedManyWithoutPhotosInput
     maintenance?: MaintenanceCreateNestedOneWithoutPhotosInput
   }
@@ -40735,8 +42907,8 @@ export namespace Prisma {
     id?: string
     url: string
     maintenanceId?: string | null
-    rooms?: RoomUncheckedCreateNestedManyWithoutPhotosInput
-    units?: UnitUncheckedCreateNestedManyWithoutPhotosInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutPhotosInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutPhotosInput
     buildings?: BuildingUncheckedCreateNestedManyWithoutPhotosInput
   }
 
@@ -40750,6 +42922,7 @@ export namespace Prisma {
     code: string
     name: string
     level: number
+    type?: string | null
     status?: $Enums.ServiceStatus
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
@@ -40765,8 +42938,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     building: BuildingCreateNestedOneWithoutFloorsInput
-    rooms?: RoomCreateNestedManyWithoutFloorInput
-    units?: UnitCreateNestedManyWithoutFloorInput
+    spaces?: SpaceCreateNestedManyWithoutFloorInput
+    zones?: ZoneCreateNestedManyWithoutFloorInput
     maintenances?: MaintenanceCreateNestedManyWithoutFloorInput
     preventives?: PreventiveCreateNestedManyWithoutFloorInput
   }
@@ -40776,6 +42949,7 @@ export namespace Prisma {
     code: string
     name: string
     level: number
+    type?: string | null
     status?: $Enums.ServiceStatus
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
@@ -40791,8 +42965,8 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    rooms?: RoomUncheckedCreateNestedManyWithoutFloorInput
-    units?: UnitUncheckedCreateNestedManyWithoutFloorInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutFloorInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutFloorInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutFloorInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutFloorInput
   }
@@ -40807,151 +42981,155 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UnitCreateWithoutComplexInput = {
+  export type SpaceCreateWithoutComplexInput = {
     id?: string
-    code: string
     name: string
-    availability?: $Enums.Availability
+    code: string
+    use?: $Enums.RoomUse
     status?: $Enums.ServiceStatus
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
-    totalRooms?: number | null
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
     glazedArea?: number | null
     cleanableArea?: number | null
     coveredArea?: number | null
     totalNetArea?: number | null
     totalGrossArea?: number | null
-    totalHeatedVolume?: number | null
+    height?: number | null
+    heated?: boolean
     totalVolume?: number | null
-    cadastralArea?: number | null
-    urbanSection?: string | null
-    sheet?: string | null
-    plot?: string | null
-    subordinate?: string | null
-    class?: number | null
-    size?: number | null
-    propertyRightsAndDuties?: string | null
-    cadastralIncome?: Decimal | DecimalJsLike | number | string | null
-    censusArea?: string | null
-    subArea?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    calenderEntity?: CalenderEntityCreateNestedOneWithoutUnitsInput
-    building?: BuildingCreateNestedOneWithoutUnitsInput
-    floor: FloorCreateNestedOneWithoutUnitsInput
-    rooms?: RoomCreateNestedManyWithoutUnitInput
-    photos?: FileCreateNestedManyWithoutUnitsInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutSpacesInput
+    building?: BuildingCreateNestedOneWithoutSpacesInput
+    floor: FloorCreateNestedOneWithoutSpacesInput
+    zone?: ZoneCreateNestedOneWithoutRoomsInput
+    photos?: FileCreateNestedManyWithoutSpacesInput
+    maintenances?: MaintenanceCreateNestedManyWithoutSpaceInput
+    preventives?: PreventiveCreateNestedManyWithoutSpaceInput
+    assets?: AssetCreateNestedManyWithoutSpaceInput
   }
 
-  export type UnitUncheckedCreateWithoutComplexInput = {
+  export type SpaceUncheckedCreateWithoutComplexInput = {
     id?: string
-    code: string
     name: string
-    availability?: $Enums.Availability
+    code: string
+    use?: $Enums.RoomUse
     status?: $Enums.ServiceStatus
     calenderEntityId?: string | null
     buildingId?: string | null
     floorId: string
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
-    totalRooms?: number | null
+    zoneId?: string | null
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
     glazedArea?: number | null
     cleanableArea?: number | null
     coveredArea?: number | null
     totalNetArea?: number | null
     totalGrossArea?: number | null
-    totalHeatedVolume?: number | null
+    height?: number | null
+    heated?: boolean
     totalVolume?: number | null
-    cadastralArea?: number | null
-    urbanSection?: string | null
-    sheet?: string | null
-    plot?: string | null
-    subordinate?: string | null
-    class?: number | null
-    size?: number | null
-    propertyRightsAndDuties?: string | null
-    cadastralIncome?: Decimal | DecimalJsLike | number | string | null
-    censusArea?: string | null
-    subArea?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    rooms?: RoomUncheckedCreateNestedManyWithoutUnitInput
-    photos?: FileUncheckedCreateNestedManyWithoutUnitsInput
+    photos?: FileUncheckedCreateNestedManyWithoutSpacesInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSpaceInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutSpaceInput
+    assets?: AssetUncheckedCreateNestedManyWithoutSpaceInput
   }
 
-  export type UnitCreateOrConnectWithoutComplexInput = {
-    where: UnitWhereUniqueInput
-    create: XOR<UnitCreateWithoutComplexInput, UnitUncheckedCreateWithoutComplexInput>
+  export type SpaceCreateOrConnectWithoutComplexInput = {
+    where: SpaceWhereUniqueInput
+    create: XOR<SpaceCreateWithoutComplexInput, SpaceUncheckedCreateWithoutComplexInput>
   }
 
-  export type UnitCreateManyComplexInputEnvelope = {
-    data: UnitCreateManyComplexInput | UnitCreateManyComplexInput[]
+  export type SpaceCreateManyComplexInputEnvelope = {
+    data: SpaceCreateManyComplexInput | SpaceCreateManyComplexInput[]
     skipDuplicates?: boolean
   }
 
-  export type RoomCreateWithoutComplexInput = {
+  export type ZoneCreateWithoutComplexInput = {
     id?: string
-    name: string
     code: string
-    use?: $Enums.RoomUse
+    name: string
+    type?: string | null
+    availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
-    condition?: $Enums.Condition
-    criticality?: $Enums.Criticality
+    address?: string | null
+    city?: string | null
+    zipCode?: string | null
+    totalRooms?: number | null
     glazedArea?: number | null
     cleanableArea?: number | null
     coveredArea?: number | null
     totalNetArea?: number | null
     totalGrossArea?: number | null
-    height?: number | null
-    heated?: boolean
+    totalHeatedVolume?: number | null
     totalVolume?: number | null
+    cadastralArea?: number | null
+    urbanSection?: string | null
+    sheet?: string | null
+    plot?: string | null
+    subordinate?: string | null
+    class?: number | null
+    size?: number | null
+    propertyRightsAndDuties?: string | null
+    cadastralIncome?: Decimal | DecimalJsLike | number | string | null
+    censusArea?: string | null
+    subArea?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    calenderEntity?: CalenderEntityCreateNestedOneWithoutRoomsInput
-    building?: BuildingCreateNestedOneWithoutRoomsInput
-    floor: FloorCreateNestedOneWithoutRoomsInput
-    unit?: UnitCreateNestedOneWithoutRoomsInput
-    photos?: FileCreateNestedManyWithoutRoomsInput
-    maintenances?: MaintenanceCreateNestedManyWithoutRoomInput
-    preventives?: PreventiveCreateNestedManyWithoutRoomInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutZonesInput
+    building?: BuildingCreateNestedOneWithoutZonesInput
+    floor: FloorCreateNestedOneWithoutZonesInput
+    rooms?: SpaceCreateNestedManyWithoutZoneInput
+    photos?: FileCreateNestedManyWithoutZonesInput
   }
 
-  export type RoomUncheckedCreateWithoutComplexInput = {
+  export type ZoneUncheckedCreateWithoutComplexInput = {
     id?: string
-    name: string
     code: string
-    use?: $Enums.RoomUse
+    name: string
+    type?: string | null
+    availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
     calenderEntityId?: string | null
     buildingId?: string | null
     floorId: string
-    unitId?: string | null
-    condition?: $Enums.Condition
-    criticality?: $Enums.Criticality
+    address?: string | null
+    city?: string | null
+    zipCode?: string | null
+    totalRooms?: number | null
     glazedArea?: number | null
     cleanableArea?: number | null
     coveredArea?: number | null
     totalNetArea?: number | null
     totalGrossArea?: number | null
-    height?: number | null
-    heated?: boolean
+    totalHeatedVolume?: number | null
     totalVolume?: number | null
+    cadastralArea?: number | null
+    urbanSection?: string | null
+    sheet?: string | null
+    plot?: string | null
+    subordinate?: string | null
+    class?: number | null
+    size?: number | null
+    propertyRightsAndDuties?: string | null
+    cadastralIncome?: Decimal | DecimalJsLike | number | string | null
+    censusArea?: string | null
+    subArea?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    photos?: FileUncheckedCreateNestedManyWithoutRoomsInput
-    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutRoomInput
-    preventives?: PreventiveUncheckedCreateNestedManyWithoutRoomInput
+    rooms?: SpaceUncheckedCreateNestedManyWithoutZoneInput
+    photos?: FileUncheckedCreateNestedManyWithoutZonesInput
   }
 
-  export type RoomCreateOrConnectWithoutComplexInput = {
-    where: RoomWhereUniqueInput
-    create: XOR<RoomCreateWithoutComplexInput, RoomUncheckedCreateWithoutComplexInput>
+  export type ZoneCreateOrConnectWithoutComplexInput = {
+    where: ZoneWhereUniqueInput
+    create: XOR<ZoneCreateWithoutComplexInput, ZoneUncheckedCreateWithoutComplexInput>
   }
 
-  export type RoomCreateManyComplexInputEnvelope = {
-    data: RoomCreateManyComplexInput | RoomCreateManyComplexInput[]
+  export type ZoneCreateManyComplexInputEnvelope = {
+    data: ZoneCreateManyComplexInput | ZoneCreateManyComplexInput[]
     skipDuplicates?: boolean
   }
 
@@ -40966,6 +43144,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -41010,7 +43189,7 @@ export namespace Prisma {
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
-    room?: RoomCreateNestedOneWithoutMaintenancesInput
+    space?: SpaceCreateNestedOneWithoutMaintenancesInput
     assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
@@ -41027,6 +43206,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
     processStatus?: $Enums.Status
     register?: string | null
@@ -41054,7 +43234,7 @@ export namespace Prisma {
     companyId?: string | null
     teamId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -41103,7 +43283,7 @@ export namespace Prisma {
     asset?: AssetCreateNestedOneWithoutPreventivesInput
     building?: BuildingCreateNestedOneWithoutPreventivesInput
     floor?: FloorCreateNestedOneWithoutPreventivesInput
-    room?: RoomCreateNestedOneWithoutPreventivesInput
+    space?: SpaceCreateNestedOneWithoutPreventivesInput
     team?: TeamCreateNestedOneWithoutPreventivesInput
   }
 
@@ -41121,7 +43301,7 @@ export namespace Prisma {
     assetId?: string | null
     buildingId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     teamId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -41135,6 +43315,31 @@ export namespace Prisma {
   export type PreventiveCreateManySiteInputEnvelope = {
     data: PreventiveCreateManySiteInput | PreventiveCreateManySiteInput[]
     skipDuplicates?: boolean
+  }
+
+  export type SiteCreateWithoutComplexesInput = {
+    id?: string
+    name: string
+    address?: string | null
+    climateZone?: string | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SiteUncheckedCreateWithoutComplexesInput = {
+    id?: string
+    name: string
+    address?: string | null
+    climateZone?: string | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SiteCreateOrConnectWithoutComplexesInput = {
+    where: SiteWhereUniqueInput
+    create: XOR<SiteCreateWithoutComplexesInput, SiteUncheckedCreateWithoutComplexesInput>
   }
 
   export type CalenderEntityUpsertWithoutComplexesInput = {
@@ -41154,8 +43359,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buildings?: BuildingUpdateManyWithoutCalenderEntityNestedInput
-    units?: UnitUpdateManyWithoutCalenderEntityNestedInput
-    rooms?: RoomUpdateManyWithoutCalenderEntityNestedInput
+    spaces?: SpaceUpdateManyWithoutCalenderEntityNestedInput
+    zones?: ZoneUpdateManyWithoutCalenderEntityNestedInput
     employees?: EmployeeUpdateManyWithoutCalenderEntityNestedInput
   }
 
@@ -41165,8 +43370,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buildings?: BuildingUncheckedUpdateManyWithoutCalenderEntityNestedInput
-    units?: UnitUncheckedUpdateManyWithoutCalenderEntityNestedInput
-    rooms?: RoomUncheckedUpdateManyWithoutCalenderEntityNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutCalenderEntityNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutCalenderEntityNestedInput
     employees?: EmployeeUncheckedUpdateManyWithoutCalenderEntityNestedInput
   }
 
@@ -41264,6 +43469,7 @@ export namespace Prisma {
     code?: StringFilter<"Floor"> | string
     name?: StringFilter<"Floor"> | string
     level?: IntFilter<"Floor"> | number
+    type?: StringNullableFilter<"Floor"> | string | null
     status?: EnumServiceStatusFilter<"Floor"> | $Enums.ServiceStatus
     condition?: EnumConditionFilter<"Floor"> | $Enums.Condition
     criticality?: EnumCriticalityFilter<"Floor"> | $Enums.Criticality
@@ -41282,103 +43488,104 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Floor"> | Date | string
   }
 
-  export type UnitUpsertWithWhereUniqueWithoutComplexInput = {
-    where: UnitWhereUniqueInput
-    update: XOR<UnitUpdateWithoutComplexInput, UnitUncheckedUpdateWithoutComplexInput>
-    create: XOR<UnitCreateWithoutComplexInput, UnitUncheckedCreateWithoutComplexInput>
+  export type SpaceUpsertWithWhereUniqueWithoutComplexInput = {
+    where: SpaceWhereUniqueInput
+    update: XOR<SpaceUpdateWithoutComplexInput, SpaceUncheckedUpdateWithoutComplexInput>
+    create: XOR<SpaceCreateWithoutComplexInput, SpaceUncheckedCreateWithoutComplexInput>
   }
 
-  export type UnitUpdateWithWhereUniqueWithoutComplexInput = {
-    where: UnitWhereUniqueInput
-    data: XOR<UnitUpdateWithoutComplexInput, UnitUncheckedUpdateWithoutComplexInput>
+  export type SpaceUpdateWithWhereUniqueWithoutComplexInput = {
+    where: SpaceWhereUniqueInput
+    data: XOR<SpaceUpdateWithoutComplexInput, SpaceUncheckedUpdateWithoutComplexInput>
   }
 
-  export type UnitUpdateManyWithWhereWithoutComplexInput = {
-    where: UnitScalarWhereInput
-    data: XOR<UnitUpdateManyMutationInput, UnitUncheckedUpdateManyWithoutComplexInput>
+  export type SpaceUpdateManyWithWhereWithoutComplexInput = {
+    where: SpaceScalarWhereInput
+    data: XOR<SpaceUpdateManyMutationInput, SpaceUncheckedUpdateManyWithoutComplexInput>
   }
 
-  export type UnitScalarWhereInput = {
-    AND?: UnitScalarWhereInput | UnitScalarWhereInput[]
-    OR?: UnitScalarWhereInput[]
-    NOT?: UnitScalarWhereInput | UnitScalarWhereInput[]
-    id?: StringFilter<"Unit"> | string
-    code?: StringFilter<"Unit"> | string
-    name?: StringFilter<"Unit"> | string
-    availability?: EnumAvailabilityFilter<"Unit"> | $Enums.Availability
-    status?: EnumServiceStatusFilter<"Unit"> | $Enums.ServiceStatus
-    calenderEntityId?: StringNullableFilter<"Unit"> | string | null
-    complexId?: StringNullableFilter<"Unit"> | string | null
-    buildingId?: StringNullableFilter<"Unit"> | string | null
-    floorId?: StringFilter<"Unit"> | string
-    address?: StringNullableFilter<"Unit"> | string | null
-    city?: StringNullableFilter<"Unit"> | string | null
-    zipCode?: StringNullableFilter<"Unit"> | string | null
-    totalRooms?: IntNullableFilter<"Unit"> | number | null
-    glazedArea?: FloatNullableFilter<"Unit"> | number | null
-    cleanableArea?: FloatNullableFilter<"Unit"> | number | null
-    coveredArea?: FloatNullableFilter<"Unit"> | number | null
-    totalNetArea?: FloatNullableFilter<"Unit"> | number | null
-    totalGrossArea?: FloatNullableFilter<"Unit"> | number | null
-    totalHeatedVolume?: FloatNullableFilter<"Unit"> | number | null
-    totalVolume?: FloatNullableFilter<"Unit"> | number | null
-    cadastralArea?: FloatNullableFilter<"Unit"> | number | null
-    urbanSection?: StringNullableFilter<"Unit"> | string | null
-    sheet?: StringNullableFilter<"Unit"> | string | null
-    plot?: StringNullableFilter<"Unit"> | string | null
-    subordinate?: StringNullableFilter<"Unit"> | string | null
-    class?: IntNullableFilter<"Unit"> | number | null
-    size?: FloatNullableFilter<"Unit"> | number | null
-    propertyRightsAndDuties?: StringNullableFilter<"Unit"> | string | null
-    cadastralIncome?: DecimalNullableFilter<"Unit"> | Decimal | DecimalJsLike | number | string | null
-    censusArea?: StringNullableFilter<"Unit"> | string | null
-    subArea?: StringNullableFilter<"Unit"> | string | null
-    createdAt?: DateTimeFilter<"Unit"> | Date | string
-    updatedAt?: DateTimeFilter<"Unit"> | Date | string
+  export type SpaceScalarWhereInput = {
+    AND?: SpaceScalarWhereInput | SpaceScalarWhereInput[]
+    OR?: SpaceScalarWhereInput[]
+    NOT?: SpaceScalarWhereInput | SpaceScalarWhereInput[]
+    id?: StringFilter<"Space"> | string
+    name?: StringFilter<"Space"> | string
+    code?: StringFilter<"Space"> | string
+    use?: EnumRoomUseFilter<"Space"> | $Enums.RoomUse
+    status?: EnumServiceStatusFilter<"Space"> | $Enums.ServiceStatus
+    calenderEntityId?: StringNullableFilter<"Space"> | string | null
+    complexId?: StringNullableFilter<"Space"> | string | null
+    buildingId?: StringNullableFilter<"Space"> | string | null
+    floorId?: StringFilter<"Space"> | string
+    zoneId?: StringNullableFilter<"Space"> | string | null
+    condition?: EnumConditionFilter<"Space"> | $Enums.Condition
+    criticality?: EnumCriticalityFilter<"Space"> | $Enums.Criticality
+    glazedArea?: FloatNullableFilter<"Space"> | number | null
+    cleanableArea?: FloatNullableFilter<"Space"> | number | null
+    coveredArea?: FloatNullableFilter<"Space"> | number | null
+    totalNetArea?: FloatNullableFilter<"Space"> | number | null
+    totalGrossArea?: FloatNullableFilter<"Space"> | number | null
+    height?: IntNullableFilter<"Space"> | number | null
+    heated?: BoolFilter<"Space"> | boolean
+    totalVolume?: FloatNullableFilter<"Space"> | number | null
+    createdAt?: DateTimeFilter<"Space"> | Date | string
+    updatedAt?: DateTimeFilter<"Space"> | Date | string
   }
 
-  export type RoomUpsertWithWhereUniqueWithoutComplexInput = {
-    where: RoomWhereUniqueInput
-    update: XOR<RoomUpdateWithoutComplexInput, RoomUncheckedUpdateWithoutComplexInput>
-    create: XOR<RoomCreateWithoutComplexInput, RoomUncheckedCreateWithoutComplexInput>
+  export type ZoneUpsertWithWhereUniqueWithoutComplexInput = {
+    where: ZoneWhereUniqueInput
+    update: XOR<ZoneUpdateWithoutComplexInput, ZoneUncheckedUpdateWithoutComplexInput>
+    create: XOR<ZoneCreateWithoutComplexInput, ZoneUncheckedCreateWithoutComplexInput>
   }
 
-  export type RoomUpdateWithWhereUniqueWithoutComplexInput = {
-    where: RoomWhereUniqueInput
-    data: XOR<RoomUpdateWithoutComplexInput, RoomUncheckedUpdateWithoutComplexInput>
+  export type ZoneUpdateWithWhereUniqueWithoutComplexInput = {
+    where: ZoneWhereUniqueInput
+    data: XOR<ZoneUpdateWithoutComplexInput, ZoneUncheckedUpdateWithoutComplexInput>
   }
 
-  export type RoomUpdateManyWithWhereWithoutComplexInput = {
-    where: RoomScalarWhereInput
-    data: XOR<RoomUpdateManyMutationInput, RoomUncheckedUpdateManyWithoutComplexInput>
+  export type ZoneUpdateManyWithWhereWithoutComplexInput = {
+    where: ZoneScalarWhereInput
+    data: XOR<ZoneUpdateManyMutationInput, ZoneUncheckedUpdateManyWithoutComplexInput>
   }
 
-  export type RoomScalarWhereInput = {
-    AND?: RoomScalarWhereInput | RoomScalarWhereInput[]
-    OR?: RoomScalarWhereInput[]
-    NOT?: RoomScalarWhereInput | RoomScalarWhereInput[]
-    id?: StringFilter<"Room"> | string
-    name?: StringFilter<"Room"> | string
-    code?: StringFilter<"Room"> | string
-    use?: EnumRoomUseFilter<"Room"> | $Enums.RoomUse
-    status?: EnumServiceStatusFilter<"Room"> | $Enums.ServiceStatus
-    calenderEntityId?: StringNullableFilter<"Room"> | string | null
-    complexId?: StringNullableFilter<"Room"> | string | null
-    buildingId?: StringNullableFilter<"Room"> | string | null
-    floorId?: StringFilter<"Room"> | string
-    unitId?: StringNullableFilter<"Room"> | string | null
-    condition?: EnumConditionFilter<"Room"> | $Enums.Condition
-    criticality?: EnumCriticalityFilter<"Room"> | $Enums.Criticality
-    glazedArea?: FloatNullableFilter<"Room"> | number | null
-    cleanableArea?: FloatNullableFilter<"Room"> | number | null
-    coveredArea?: FloatNullableFilter<"Room"> | number | null
-    totalNetArea?: FloatNullableFilter<"Room"> | number | null
-    totalGrossArea?: FloatNullableFilter<"Room"> | number | null
-    height?: IntNullableFilter<"Room"> | number | null
-    heated?: BoolFilter<"Room"> | boolean
-    totalVolume?: FloatNullableFilter<"Room"> | number | null
-    createdAt?: DateTimeFilter<"Room"> | Date | string
-    updatedAt?: DateTimeFilter<"Room"> | Date | string
+  export type ZoneScalarWhereInput = {
+    AND?: ZoneScalarWhereInput | ZoneScalarWhereInput[]
+    OR?: ZoneScalarWhereInput[]
+    NOT?: ZoneScalarWhereInput | ZoneScalarWhereInput[]
+    id?: StringFilter<"Zone"> | string
+    code?: StringFilter<"Zone"> | string
+    name?: StringFilter<"Zone"> | string
+    type?: StringNullableFilter<"Zone"> | string | null
+    availability?: EnumAvailabilityFilter<"Zone"> | $Enums.Availability
+    status?: EnumServiceStatusFilter<"Zone"> | $Enums.ServiceStatus
+    calenderEntityId?: StringNullableFilter<"Zone"> | string | null
+    complexId?: StringNullableFilter<"Zone"> | string | null
+    buildingId?: StringNullableFilter<"Zone"> | string | null
+    floorId?: StringFilter<"Zone"> | string
+    address?: StringNullableFilter<"Zone"> | string | null
+    city?: StringNullableFilter<"Zone"> | string | null
+    zipCode?: StringNullableFilter<"Zone"> | string | null
+    totalRooms?: IntNullableFilter<"Zone"> | number | null
+    glazedArea?: FloatNullableFilter<"Zone"> | number | null
+    cleanableArea?: FloatNullableFilter<"Zone"> | number | null
+    coveredArea?: FloatNullableFilter<"Zone"> | number | null
+    totalNetArea?: FloatNullableFilter<"Zone"> | number | null
+    totalGrossArea?: FloatNullableFilter<"Zone"> | number | null
+    totalHeatedVolume?: FloatNullableFilter<"Zone"> | number | null
+    totalVolume?: FloatNullableFilter<"Zone"> | number | null
+    cadastralArea?: FloatNullableFilter<"Zone"> | number | null
+    urbanSection?: StringNullableFilter<"Zone"> | string | null
+    sheet?: StringNullableFilter<"Zone"> | string | null
+    plot?: StringNullableFilter<"Zone"> | string | null
+    subordinate?: StringNullableFilter<"Zone"> | string | null
+    class?: IntNullableFilter<"Zone"> | number | null
+    size?: FloatNullableFilter<"Zone"> | number | null
+    propertyRightsAndDuties?: StringNullableFilter<"Zone"> | string | null
+    cadastralIncome?: DecimalNullableFilter<"Zone"> | Decimal | DecimalJsLike | number | string | null
+    censusArea?: StringNullableFilter<"Zone"> | string | null
+    subArea?: StringNullableFilter<"Zone"> | string | null
+    createdAt?: DateTimeFilter<"Zone"> | Date | string
+    updatedAt?: DateTimeFilter<"Zone"> | Date | string
   }
 
   export type MaintenanceUpsertWithWhereUniqueWithoutSiteInput = {
@@ -41411,6 +43618,7 @@ export namespace Prisma {
     action?: StringNullableFilter<"Maintenance"> | string | null
     message?: StringNullableFilter<"Maintenance"> | string | null
     processNotes?: StringNullableFilter<"Maintenance"> | string | null
+    metadata?: JsonNullableFilter<"Maintenance">
     performerId?: StringNullableFilter<"Maintenance"> | string | null
     processStatus?: EnumStatusFilter<"Maintenance"> | $Enums.Status
     register?: StringNullableFilter<"Maintenance"> | string | null
@@ -41439,7 +43647,7 @@ export namespace Prisma {
     companyId?: StringNullableFilter<"Maintenance"> | string | null
     teamId?: StringNullableFilter<"Maintenance"> | string | null
     floorId?: StringNullableFilter<"Maintenance"> | string | null
-    roomId?: StringNullableFilter<"Maintenance"> | string | null
+    spaceId?: StringNullableFilter<"Maintenance"> | string | null
     ttSystemOpening?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
@@ -41495,10 +43703,41 @@ export namespace Prisma {
     assetId?: StringNullableFilter<"Preventive"> | string | null
     buildingId?: StringNullableFilter<"Preventive"> | string | null
     floorId?: StringNullableFilter<"Preventive"> | string | null
-    roomId?: StringNullableFilter<"Preventive"> | string | null
+    spaceId?: StringNullableFilter<"Preventive"> | string | null
     teamId?: StringNullableFilter<"Preventive"> | string | null
     createdAt?: DateTimeFilter<"Preventive"> | Date | string
     updatedAt?: DateTimeFilter<"Preventive"> | Date | string
+  }
+
+  export type SiteUpsertWithoutComplexesInput = {
+    update: XOR<SiteUpdateWithoutComplexesInput, SiteUncheckedUpdateWithoutComplexesInput>
+    create: XOR<SiteCreateWithoutComplexesInput, SiteUncheckedCreateWithoutComplexesInput>
+    where?: SiteWhereInput
+  }
+
+  export type SiteUpdateToOneWithWhereWithoutComplexesInput = {
+    where?: SiteWhereInput
+    data: XOR<SiteUpdateWithoutComplexesInput, SiteUncheckedUpdateWithoutComplexesInput>
+  }
+
+  export type SiteUpdateWithoutComplexesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    climateZone?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SiteUncheckedUpdateWithoutComplexesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    climateZone?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AddressCreateWithoutBuildingsInput = {
@@ -41551,10 +43790,11 @@ export namespace Prisma {
     calenderEntity?: CalenderEntityCreateNestedOneWithoutComplexesInput
     photos?: FileCreateNestedManyWithoutComplexesInput
     floors?: FloorCreateNestedManyWithoutComplexInput
-    units?: UnitCreateNestedManyWithoutComplexInput
-    rooms?: RoomCreateNestedManyWithoutComplexInput
+    spaces?: SpaceCreateNestedManyWithoutComplexInput
+    zones?: ZoneCreateNestedManyWithoutComplexInput
     maintenances?: MaintenanceCreateNestedManyWithoutSiteInput
     preventives?: PreventiveCreateNestedManyWithoutSiteInput
+    site?: SiteCreateNestedOneWithoutComplexesInput
   }
 
   export type ComplexUncheckedCreateWithoutBuildingsInput = {
@@ -41582,10 +43822,11 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    siteId?: string | null
     photos?: FileUncheckedCreateNestedManyWithoutComplexesInput
     floors?: FloorUncheckedCreateNestedManyWithoutComplexInput
-    units?: UnitUncheckedCreateNestedManyWithoutComplexInput
-    rooms?: RoomUncheckedCreateNestedManyWithoutComplexInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutComplexInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutComplexInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSiteInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutSiteInput
   }
@@ -41601,8 +43842,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     complexes?: ComplexCreateNestedManyWithoutCalenderEntityInput
-    units?: UnitCreateNestedManyWithoutCalenderEntityInput
-    rooms?: RoomCreateNestedManyWithoutCalenderEntityInput
+    spaces?: SpaceCreateNestedManyWithoutCalenderEntityInput
+    zones?: ZoneCreateNestedManyWithoutCalenderEntityInput
     employees?: EmployeeCreateNestedManyWithoutCalenderEntityInput
   }
 
@@ -41612,8 +43853,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     complexes?: ComplexUncheckedCreateNestedManyWithoutCalenderEntityInput
-    units?: UnitUncheckedCreateNestedManyWithoutCalenderEntityInput
-    rooms?: RoomUncheckedCreateNestedManyWithoutCalenderEntityInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutCalenderEntityInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutCalenderEntityInput
     employees?: EmployeeUncheckedCreateNestedManyWithoutCalenderEntityInput
   }
 
@@ -41625,8 +43866,8 @@ export namespace Prisma {
   export type FileCreateWithoutBuildingsInput = {
     id?: string
     url: string
-    rooms?: RoomCreateNestedManyWithoutPhotosInput
-    units?: UnitCreateNestedManyWithoutPhotosInput
+    spaces?: SpaceCreateNestedManyWithoutPhotosInput
+    zones?: ZoneCreateNestedManyWithoutPhotosInput
     complexes?: ComplexCreateNestedManyWithoutPhotosInput
     maintenance?: MaintenanceCreateNestedOneWithoutPhotosInput
   }
@@ -41635,8 +43876,8 @@ export namespace Prisma {
     id?: string
     url: string
     maintenanceId?: string | null
-    rooms?: RoomUncheckedCreateNestedManyWithoutPhotosInput
-    units?: UnitUncheckedCreateNestedManyWithoutPhotosInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutPhotosInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutPhotosInput
     complexes?: ComplexUncheckedCreateNestedManyWithoutPhotosInput
   }
 
@@ -41650,6 +43891,7 @@ export namespace Prisma {
     code: string
     name: string
     level: number
+    type?: string | null
     status?: $Enums.ServiceStatus
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
@@ -41665,8 +43907,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     complex: ComplexCreateNestedOneWithoutFloorsInput
-    rooms?: RoomCreateNestedManyWithoutFloorInput
-    units?: UnitCreateNestedManyWithoutFloorInput
+    spaces?: SpaceCreateNestedManyWithoutFloorInput
+    zones?: ZoneCreateNestedManyWithoutFloorInput
     maintenances?: MaintenanceCreateNestedManyWithoutFloorInput
     preventives?: PreventiveCreateNestedManyWithoutFloorInput
   }
@@ -41676,6 +43918,7 @@ export namespace Prisma {
     code: string
     name: string
     level: number
+    type?: string | null
     status?: $Enums.ServiceStatus
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
@@ -41691,8 +43934,8 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    rooms?: RoomUncheckedCreateNestedManyWithoutFloorInput
-    units?: UnitUncheckedCreateNestedManyWithoutFloorInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutFloorInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutFloorInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutFloorInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutFloorInput
   }
@@ -41707,151 +43950,155 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UnitCreateWithoutBuildingInput = {
+  export type SpaceCreateWithoutBuildingInput = {
     id?: string
-    code: string
     name: string
-    availability?: $Enums.Availability
+    code: string
+    use?: $Enums.RoomUse
     status?: $Enums.ServiceStatus
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
-    totalRooms?: number | null
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
     glazedArea?: number | null
     cleanableArea?: number | null
     coveredArea?: number | null
     totalNetArea?: number | null
     totalGrossArea?: number | null
-    totalHeatedVolume?: number | null
+    height?: number | null
+    heated?: boolean
     totalVolume?: number | null
-    cadastralArea?: number | null
-    urbanSection?: string | null
-    sheet?: string | null
-    plot?: string | null
-    subordinate?: string | null
-    class?: number | null
-    size?: number | null
-    propertyRightsAndDuties?: string | null
-    cadastralIncome?: Decimal | DecimalJsLike | number | string | null
-    censusArea?: string | null
-    subArea?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    calenderEntity?: CalenderEntityCreateNestedOneWithoutUnitsInput
-    complex?: ComplexCreateNestedOneWithoutUnitsInput
-    floor: FloorCreateNestedOneWithoutUnitsInput
-    rooms?: RoomCreateNestedManyWithoutUnitInput
-    photos?: FileCreateNestedManyWithoutUnitsInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutSpacesInput
+    complex?: ComplexCreateNestedOneWithoutSpacesInput
+    floor: FloorCreateNestedOneWithoutSpacesInput
+    zone?: ZoneCreateNestedOneWithoutRoomsInput
+    photos?: FileCreateNestedManyWithoutSpacesInput
+    maintenances?: MaintenanceCreateNestedManyWithoutSpaceInput
+    preventives?: PreventiveCreateNestedManyWithoutSpaceInput
+    assets?: AssetCreateNestedManyWithoutSpaceInput
   }
 
-  export type UnitUncheckedCreateWithoutBuildingInput = {
+  export type SpaceUncheckedCreateWithoutBuildingInput = {
     id?: string
-    code: string
     name: string
-    availability?: $Enums.Availability
+    code: string
+    use?: $Enums.RoomUse
     status?: $Enums.ServiceStatus
     calenderEntityId?: string | null
     complexId?: string | null
     floorId: string
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
-    totalRooms?: number | null
+    zoneId?: string | null
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
     glazedArea?: number | null
     cleanableArea?: number | null
     coveredArea?: number | null
     totalNetArea?: number | null
     totalGrossArea?: number | null
-    totalHeatedVolume?: number | null
+    height?: number | null
+    heated?: boolean
     totalVolume?: number | null
-    cadastralArea?: number | null
-    urbanSection?: string | null
-    sheet?: string | null
-    plot?: string | null
-    subordinate?: string | null
-    class?: number | null
-    size?: number | null
-    propertyRightsAndDuties?: string | null
-    cadastralIncome?: Decimal | DecimalJsLike | number | string | null
-    censusArea?: string | null
-    subArea?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    rooms?: RoomUncheckedCreateNestedManyWithoutUnitInput
-    photos?: FileUncheckedCreateNestedManyWithoutUnitsInput
+    photos?: FileUncheckedCreateNestedManyWithoutSpacesInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSpaceInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutSpaceInput
+    assets?: AssetUncheckedCreateNestedManyWithoutSpaceInput
   }
 
-  export type UnitCreateOrConnectWithoutBuildingInput = {
-    where: UnitWhereUniqueInput
-    create: XOR<UnitCreateWithoutBuildingInput, UnitUncheckedCreateWithoutBuildingInput>
+  export type SpaceCreateOrConnectWithoutBuildingInput = {
+    where: SpaceWhereUniqueInput
+    create: XOR<SpaceCreateWithoutBuildingInput, SpaceUncheckedCreateWithoutBuildingInput>
   }
 
-  export type UnitCreateManyBuildingInputEnvelope = {
-    data: UnitCreateManyBuildingInput | UnitCreateManyBuildingInput[]
+  export type SpaceCreateManyBuildingInputEnvelope = {
+    data: SpaceCreateManyBuildingInput | SpaceCreateManyBuildingInput[]
     skipDuplicates?: boolean
   }
 
-  export type RoomCreateWithoutBuildingInput = {
+  export type ZoneCreateWithoutBuildingInput = {
     id?: string
-    name: string
     code: string
-    use?: $Enums.RoomUse
+    name: string
+    type?: string | null
+    availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
-    condition?: $Enums.Condition
-    criticality?: $Enums.Criticality
+    address?: string | null
+    city?: string | null
+    zipCode?: string | null
+    totalRooms?: number | null
     glazedArea?: number | null
     cleanableArea?: number | null
     coveredArea?: number | null
     totalNetArea?: number | null
     totalGrossArea?: number | null
-    height?: number | null
-    heated?: boolean
+    totalHeatedVolume?: number | null
     totalVolume?: number | null
+    cadastralArea?: number | null
+    urbanSection?: string | null
+    sheet?: string | null
+    plot?: string | null
+    subordinate?: string | null
+    class?: number | null
+    size?: number | null
+    propertyRightsAndDuties?: string | null
+    cadastralIncome?: Decimal | DecimalJsLike | number | string | null
+    censusArea?: string | null
+    subArea?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    calenderEntity?: CalenderEntityCreateNestedOneWithoutRoomsInput
-    complex?: ComplexCreateNestedOneWithoutRoomsInput
-    floor: FloorCreateNestedOneWithoutRoomsInput
-    unit?: UnitCreateNestedOneWithoutRoomsInput
-    photos?: FileCreateNestedManyWithoutRoomsInput
-    maintenances?: MaintenanceCreateNestedManyWithoutRoomInput
-    preventives?: PreventiveCreateNestedManyWithoutRoomInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutZonesInput
+    complex?: ComplexCreateNestedOneWithoutZonesInput
+    floor: FloorCreateNestedOneWithoutZonesInput
+    rooms?: SpaceCreateNestedManyWithoutZoneInput
+    photos?: FileCreateNestedManyWithoutZonesInput
   }
 
-  export type RoomUncheckedCreateWithoutBuildingInput = {
+  export type ZoneUncheckedCreateWithoutBuildingInput = {
     id?: string
-    name: string
     code: string
-    use?: $Enums.RoomUse
+    name: string
+    type?: string | null
+    availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
     calenderEntityId?: string | null
     complexId?: string | null
     floorId: string
-    unitId?: string | null
-    condition?: $Enums.Condition
-    criticality?: $Enums.Criticality
+    address?: string | null
+    city?: string | null
+    zipCode?: string | null
+    totalRooms?: number | null
     glazedArea?: number | null
     cleanableArea?: number | null
     coveredArea?: number | null
     totalNetArea?: number | null
     totalGrossArea?: number | null
-    height?: number | null
-    heated?: boolean
+    totalHeatedVolume?: number | null
     totalVolume?: number | null
+    cadastralArea?: number | null
+    urbanSection?: string | null
+    sheet?: string | null
+    plot?: string | null
+    subordinate?: string | null
+    class?: number | null
+    size?: number | null
+    propertyRightsAndDuties?: string | null
+    cadastralIncome?: Decimal | DecimalJsLike | number | string | null
+    censusArea?: string | null
+    subArea?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    photos?: FileUncheckedCreateNestedManyWithoutRoomsInput
-    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutRoomInput
-    preventives?: PreventiveUncheckedCreateNestedManyWithoutRoomInput
+    rooms?: SpaceUncheckedCreateNestedManyWithoutZoneInput
+    photos?: FileUncheckedCreateNestedManyWithoutZonesInput
   }
 
-  export type RoomCreateOrConnectWithoutBuildingInput = {
-    where: RoomWhereUniqueInput
-    create: XOR<RoomCreateWithoutBuildingInput, RoomUncheckedCreateWithoutBuildingInput>
+  export type ZoneCreateOrConnectWithoutBuildingInput = {
+    where: ZoneWhereUniqueInput
+    create: XOR<ZoneCreateWithoutBuildingInput, ZoneUncheckedCreateWithoutBuildingInput>
   }
 
-  export type RoomCreateManyBuildingInputEnvelope = {
-    data: RoomCreateManyBuildingInput | RoomCreateManyBuildingInput[]
+  export type ZoneCreateManyBuildingInputEnvelope = {
+    data: ZoneCreateManyBuildingInput | ZoneCreateManyBuildingInput[]
     skipDuplicates?: boolean
   }
 
@@ -41871,7 +44118,7 @@ export namespace Prisma {
     site: ComplexCreateNestedOneWithoutPreventivesInput
     asset?: AssetCreateNestedOneWithoutPreventivesInput
     floor?: FloorCreateNestedOneWithoutPreventivesInput
-    room?: RoomCreateNestedOneWithoutPreventivesInput
+    space?: SpaceCreateNestedOneWithoutPreventivesInput
     team?: TeamCreateNestedOneWithoutPreventivesInput
   }
 
@@ -41889,7 +44136,7 @@ export namespace Prisma {
     siteId: string
     assetId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     teamId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -41972,10 +44219,11 @@ export namespace Prisma {
     calenderEntity?: CalenderEntityUpdateOneWithoutComplexesNestedInput
     photos?: FileUpdateManyWithoutComplexesNestedInput
     floors?: FloorUpdateManyWithoutComplexNestedInput
-    units?: UnitUpdateManyWithoutComplexNestedInput
-    rooms?: RoomUpdateManyWithoutComplexNestedInput
+    spaces?: SpaceUpdateManyWithoutComplexNestedInput
+    zones?: ZoneUpdateManyWithoutComplexNestedInput
     maintenances?: MaintenanceUpdateManyWithoutSiteNestedInput
     preventives?: PreventiveUpdateManyWithoutSiteNestedInput
+    site?: SiteUpdateOneWithoutComplexesNestedInput
   }
 
   export type ComplexUncheckedUpdateWithoutBuildingsInput = {
@@ -42003,10 +44251,11 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
     photos?: FileUncheckedUpdateManyWithoutComplexesNestedInput
     floors?: FloorUncheckedUpdateManyWithoutComplexNestedInput
-    units?: UnitUncheckedUpdateManyWithoutComplexNestedInput
-    rooms?: RoomUncheckedUpdateManyWithoutComplexNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutComplexNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutComplexNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutSiteNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutSiteNestedInput
   }
@@ -42028,8 +44277,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     complexes?: ComplexUpdateManyWithoutCalenderEntityNestedInput
-    units?: UnitUpdateManyWithoutCalenderEntityNestedInput
-    rooms?: RoomUpdateManyWithoutCalenderEntityNestedInput
+    spaces?: SpaceUpdateManyWithoutCalenderEntityNestedInput
+    zones?: ZoneUpdateManyWithoutCalenderEntityNestedInput
     employees?: EmployeeUpdateManyWithoutCalenderEntityNestedInput
   }
 
@@ -42039,8 +44288,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     complexes?: ComplexUncheckedUpdateManyWithoutCalenderEntityNestedInput
-    units?: UnitUncheckedUpdateManyWithoutCalenderEntityNestedInput
-    rooms?: RoomUncheckedUpdateManyWithoutCalenderEntityNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutCalenderEntityNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutCalenderEntityNestedInput
     employees?: EmployeeUncheckedUpdateManyWithoutCalenderEntityNestedInput
   }
 
@@ -42076,36 +44325,36 @@ export namespace Prisma {
     data: XOR<FloorUpdateManyMutationInput, FloorUncheckedUpdateManyWithoutBuildingInput>
   }
 
-  export type UnitUpsertWithWhereUniqueWithoutBuildingInput = {
-    where: UnitWhereUniqueInput
-    update: XOR<UnitUpdateWithoutBuildingInput, UnitUncheckedUpdateWithoutBuildingInput>
-    create: XOR<UnitCreateWithoutBuildingInput, UnitUncheckedCreateWithoutBuildingInput>
+  export type SpaceUpsertWithWhereUniqueWithoutBuildingInput = {
+    where: SpaceWhereUniqueInput
+    update: XOR<SpaceUpdateWithoutBuildingInput, SpaceUncheckedUpdateWithoutBuildingInput>
+    create: XOR<SpaceCreateWithoutBuildingInput, SpaceUncheckedCreateWithoutBuildingInput>
   }
 
-  export type UnitUpdateWithWhereUniqueWithoutBuildingInput = {
-    where: UnitWhereUniqueInput
-    data: XOR<UnitUpdateWithoutBuildingInput, UnitUncheckedUpdateWithoutBuildingInput>
+  export type SpaceUpdateWithWhereUniqueWithoutBuildingInput = {
+    where: SpaceWhereUniqueInput
+    data: XOR<SpaceUpdateWithoutBuildingInput, SpaceUncheckedUpdateWithoutBuildingInput>
   }
 
-  export type UnitUpdateManyWithWhereWithoutBuildingInput = {
-    where: UnitScalarWhereInput
-    data: XOR<UnitUpdateManyMutationInput, UnitUncheckedUpdateManyWithoutBuildingInput>
+  export type SpaceUpdateManyWithWhereWithoutBuildingInput = {
+    where: SpaceScalarWhereInput
+    data: XOR<SpaceUpdateManyMutationInput, SpaceUncheckedUpdateManyWithoutBuildingInput>
   }
 
-  export type RoomUpsertWithWhereUniqueWithoutBuildingInput = {
-    where: RoomWhereUniqueInput
-    update: XOR<RoomUpdateWithoutBuildingInput, RoomUncheckedUpdateWithoutBuildingInput>
-    create: XOR<RoomCreateWithoutBuildingInput, RoomUncheckedCreateWithoutBuildingInput>
+  export type ZoneUpsertWithWhereUniqueWithoutBuildingInput = {
+    where: ZoneWhereUniqueInput
+    update: XOR<ZoneUpdateWithoutBuildingInput, ZoneUncheckedUpdateWithoutBuildingInput>
+    create: XOR<ZoneCreateWithoutBuildingInput, ZoneUncheckedCreateWithoutBuildingInput>
   }
 
-  export type RoomUpdateWithWhereUniqueWithoutBuildingInput = {
-    where: RoomWhereUniqueInput
-    data: XOR<RoomUpdateWithoutBuildingInput, RoomUncheckedUpdateWithoutBuildingInput>
+  export type ZoneUpdateWithWhereUniqueWithoutBuildingInput = {
+    where: ZoneWhereUniqueInput
+    data: XOR<ZoneUpdateWithoutBuildingInput, ZoneUncheckedUpdateWithoutBuildingInput>
   }
 
-  export type RoomUpdateManyWithWhereWithoutBuildingInput = {
-    where: RoomScalarWhereInput
-    data: XOR<RoomUpdateManyMutationInput, RoomUncheckedUpdateManyWithoutBuildingInput>
+  export type ZoneUpdateManyWithWhereWithoutBuildingInput = {
+    where: ZoneScalarWhereInput
+    data: XOR<ZoneUpdateManyMutationInput, ZoneUncheckedUpdateManyWithoutBuildingInput>
   }
 
   export type PreventiveUpsertWithWhereUniqueWithoutBuildingInput = {
@@ -42151,10 +44400,11 @@ export namespace Prisma {
     calenderEntity?: CalenderEntityCreateNestedOneWithoutComplexesInput
     buildings?: BuildingCreateNestedManyWithoutComplexInput
     photos?: FileCreateNestedManyWithoutComplexesInput
-    units?: UnitCreateNestedManyWithoutComplexInput
-    rooms?: RoomCreateNestedManyWithoutComplexInput
+    spaces?: SpaceCreateNestedManyWithoutComplexInput
+    zones?: ZoneCreateNestedManyWithoutComplexInput
     maintenances?: MaintenanceCreateNestedManyWithoutSiteInput
     preventives?: PreventiveCreateNestedManyWithoutSiteInput
+    site?: SiteCreateNestedOneWithoutComplexesInput
   }
 
   export type ComplexUncheckedCreateWithoutFloorsInput = {
@@ -42182,10 +44432,11 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    siteId?: string | null
     buildings?: BuildingUncheckedCreateNestedManyWithoutComplexInput
     photos?: FileUncheckedCreateNestedManyWithoutComplexesInput
-    units?: UnitUncheckedCreateNestedManyWithoutComplexInput
-    rooms?: RoomUncheckedCreateNestedManyWithoutComplexInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutComplexInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutComplexInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSiteInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutSiteInput
   }
@@ -42220,8 +44471,8 @@ export namespace Prisma {
     complex: ComplexCreateNestedOneWithoutBuildingsInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutBuildingsInput
     photos?: FileCreateNestedManyWithoutBuildingsInput
-    units?: UnitCreateNestedManyWithoutBuildingInput
-    rooms?: RoomCreateNestedManyWithoutBuildingInput
+    spaces?: SpaceCreateNestedManyWithoutBuildingInput
+    zones?: ZoneCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveCreateNestedManyWithoutBuildingInput
   }
 
@@ -42250,8 +44501,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutBuildingsInput
-    units?: UnitUncheckedCreateNestedManyWithoutBuildingInput
-    rooms?: RoomUncheckedCreateNestedManyWithoutBuildingInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutBuildingInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
   }
 
@@ -42260,7 +44511,7 @@ export namespace Prisma {
     create: XOR<BuildingCreateWithoutFloorsInput, BuildingUncheckedCreateWithoutFloorsInput>
   }
 
-  export type RoomCreateWithoutFloorInput = {
+  export type SpaceCreateWithoutFloorInput = {
     id?: string
     name: string
     code: string
@@ -42278,16 +44529,17 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    calenderEntity?: CalenderEntityCreateNestedOneWithoutRoomsInput
-    complex?: ComplexCreateNestedOneWithoutRoomsInput
-    building?: BuildingCreateNestedOneWithoutRoomsInput
-    unit?: UnitCreateNestedOneWithoutRoomsInput
-    photos?: FileCreateNestedManyWithoutRoomsInput
-    maintenances?: MaintenanceCreateNestedManyWithoutRoomInput
-    preventives?: PreventiveCreateNestedManyWithoutRoomInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutSpacesInput
+    complex?: ComplexCreateNestedOneWithoutSpacesInput
+    building?: BuildingCreateNestedOneWithoutSpacesInput
+    zone?: ZoneCreateNestedOneWithoutRoomsInput
+    photos?: FileCreateNestedManyWithoutSpacesInput
+    maintenances?: MaintenanceCreateNestedManyWithoutSpaceInput
+    preventives?: PreventiveCreateNestedManyWithoutSpaceInput
+    assets?: AssetCreateNestedManyWithoutSpaceInput
   }
 
-  export type RoomUncheckedCreateWithoutFloorInput = {
+  export type SpaceUncheckedCreateWithoutFloorInput = {
     id?: string
     name: string
     code: string
@@ -42296,7 +44548,7 @@ export namespace Prisma {
     calenderEntityId?: string | null
     complexId?: string | null
     buildingId?: string | null
-    unitId?: string | null
+    zoneId?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     glazedArea?: number | null
@@ -42309,25 +44561,27 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    photos?: FileUncheckedCreateNestedManyWithoutRoomsInput
-    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutRoomInput
-    preventives?: PreventiveUncheckedCreateNestedManyWithoutRoomInput
+    photos?: FileUncheckedCreateNestedManyWithoutSpacesInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSpaceInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutSpaceInput
+    assets?: AssetUncheckedCreateNestedManyWithoutSpaceInput
   }
 
-  export type RoomCreateOrConnectWithoutFloorInput = {
-    where: RoomWhereUniqueInput
-    create: XOR<RoomCreateWithoutFloorInput, RoomUncheckedCreateWithoutFloorInput>
+  export type SpaceCreateOrConnectWithoutFloorInput = {
+    where: SpaceWhereUniqueInput
+    create: XOR<SpaceCreateWithoutFloorInput, SpaceUncheckedCreateWithoutFloorInput>
   }
 
-  export type RoomCreateManyFloorInputEnvelope = {
-    data: RoomCreateManyFloorInput | RoomCreateManyFloorInput[]
+  export type SpaceCreateManyFloorInputEnvelope = {
+    data: SpaceCreateManyFloorInput | SpaceCreateManyFloorInput[]
     skipDuplicates?: boolean
   }
 
-  export type UnitCreateWithoutFloorInput = {
+  export type ZoneCreateWithoutFloorInput = {
     id?: string
     code: string
     name: string
+    type?: string | null
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
     address?: string | null
@@ -42354,17 +44608,18 @@ export namespace Prisma {
     subArea?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    calenderEntity?: CalenderEntityCreateNestedOneWithoutUnitsInput
-    complex?: ComplexCreateNestedOneWithoutUnitsInput
-    building?: BuildingCreateNestedOneWithoutUnitsInput
-    rooms?: RoomCreateNestedManyWithoutUnitInput
-    photos?: FileCreateNestedManyWithoutUnitsInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutZonesInput
+    complex?: ComplexCreateNestedOneWithoutZonesInput
+    building?: BuildingCreateNestedOneWithoutZonesInput
+    rooms?: SpaceCreateNestedManyWithoutZoneInput
+    photos?: FileCreateNestedManyWithoutZonesInput
   }
 
-  export type UnitUncheckedCreateWithoutFloorInput = {
+  export type ZoneUncheckedCreateWithoutFloorInput = {
     id?: string
     code: string
     name: string
+    type?: string | null
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
     calenderEntityId?: string | null
@@ -42394,17 +44649,17 @@ export namespace Prisma {
     subArea?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    rooms?: RoomUncheckedCreateNestedManyWithoutUnitInput
-    photos?: FileUncheckedCreateNestedManyWithoutUnitsInput
+    rooms?: SpaceUncheckedCreateNestedManyWithoutZoneInput
+    photos?: FileUncheckedCreateNestedManyWithoutZonesInput
   }
 
-  export type UnitCreateOrConnectWithoutFloorInput = {
-    where: UnitWhereUniqueInput
-    create: XOR<UnitCreateWithoutFloorInput, UnitUncheckedCreateWithoutFloorInput>
+  export type ZoneCreateOrConnectWithoutFloorInput = {
+    where: ZoneWhereUniqueInput
+    create: XOR<ZoneCreateWithoutFloorInput, ZoneUncheckedCreateWithoutFloorInput>
   }
 
-  export type UnitCreateManyFloorInputEnvelope = {
-    data: UnitCreateManyFloorInput | UnitCreateManyFloorInput[]
+  export type ZoneCreateManyFloorInputEnvelope = {
+    data: ZoneCreateManyFloorInput | ZoneCreateManyFloorInput[]
     skipDuplicates?: boolean
   }
 
@@ -42419,6 +44674,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -42463,7 +44719,7 @@ export namespace Prisma {
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
-    room?: RoomCreateNestedOneWithoutMaintenancesInput
+    space?: SpaceCreateNestedOneWithoutMaintenancesInput
     assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
@@ -42480,6 +44736,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
     processStatus?: $Enums.Status
     register?: string | null
@@ -42507,7 +44764,7 @@ export namespace Prisma {
     subCategory?: string | null
     companyId?: string | null
     teamId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -42556,7 +44813,7 @@ export namespace Prisma {
     site: ComplexCreateNestedOneWithoutPreventivesInput
     asset?: AssetCreateNestedOneWithoutPreventivesInput
     building?: BuildingCreateNestedOneWithoutPreventivesInput
-    room?: RoomCreateNestedOneWithoutPreventivesInput
+    space?: SpaceCreateNestedOneWithoutPreventivesInput
     team?: TeamCreateNestedOneWithoutPreventivesInput
   }
 
@@ -42574,7 +44831,7 @@ export namespace Prisma {
     siteId: string
     assetId?: string | null
     buildingId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     teamId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -42628,10 +44885,11 @@ export namespace Prisma {
     calenderEntity?: CalenderEntityUpdateOneWithoutComplexesNestedInput
     buildings?: BuildingUpdateManyWithoutComplexNestedInput
     photos?: FileUpdateManyWithoutComplexesNestedInput
-    units?: UnitUpdateManyWithoutComplexNestedInput
-    rooms?: RoomUpdateManyWithoutComplexNestedInput
+    spaces?: SpaceUpdateManyWithoutComplexNestedInput
+    zones?: ZoneUpdateManyWithoutComplexNestedInput
     maintenances?: MaintenanceUpdateManyWithoutSiteNestedInput
     preventives?: PreventiveUpdateManyWithoutSiteNestedInput
+    site?: SiteUpdateOneWithoutComplexesNestedInput
   }
 
   export type ComplexUncheckedUpdateWithoutFloorsInput = {
@@ -42659,10 +44917,11 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
     buildings?: BuildingUncheckedUpdateManyWithoutComplexNestedInput
     photos?: FileUncheckedUpdateManyWithoutComplexesNestedInput
-    units?: UnitUncheckedUpdateManyWithoutComplexNestedInput
-    rooms?: RoomUncheckedUpdateManyWithoutComplexNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutComplexNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutComplexNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutSiteNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutSiteNestedInput
   }
@@ -42703,8 +44962,8 @@ export namespace Prisma {
     complex?: ComplexUpdateOneRequiredWithoutBuildingsNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutBuildingsNestedInput
     photos?: FileUpdateManyWithoutBuildingsNestedInput
-    units?: UnitUpdateManyWithoutBuildingNestedInput
-    rooms?: RoomUpdateManyWithoutBuildingNestedInput
+    spaces?: SpaceUpdateManyWithoutBuildingNestedInput
+    zones?: ZoneUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
   }
 
@@ -42733,41 +44992,41 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutBuildingsNestedInput
-    units?: UnitUncheckedUpdateManyWithoutBuildingNestedInput
-    rooms?: RoomUncheckedUpdateManyWithoutBuildingNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutBuildingNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
-  export type RoomUpsertWithWhereUniqueWithoutFloorInput = {
-    where: RoomWhereUniqueInput
-    update: XOR<RoomUpdateWithoutFloorInput, RoomUncheckedUpdateWithoutFloorInput>
-    create: XOR<RoomCreateWithoutFloorInput, RoomUncheckedCreateWithoutFloorInput>
+  export type SpaceUpsertWithWhereUniqueWithoutFloorInput = {
+    where: SpaceWhereUniqueInput
+    update: XOR<SpaceUpdateWithoutFloorInput, SpaceUncheckedUpdateWithoutFloorInput>
+    create: XOR<SpaceCreateWithoutFloorInput, SpaceUncheckedCreateWithoutFloorInput>
   }
 
-  export type RoomUpdateWithWhereUniqueWithoutFloorInput = {
-    where: RoomWhereUniqueInput
-    data: XOR<RoomUpdateWithoutFloorInput, RoomUncheckedUpdateWithoutFloorInput>
+  export type SpaceUpdateWithWhereUniqueWithoutFloorInput = {
+    where: SpaceWhereUniqueInput
+    data: XOR<SpaceUpdateWithoutFloorInput, SpaceUncheckedUpdateWithoutFloorInput>
   }
 
-  export type RoomUpdateManyWithWhereWithoutFloorInput = {
-    where: RoomScalarWhereInput
-    data: XOR<RoomUpdateManyMutationInput, RoomUncheckedUpdateManyWithoutFloorInput>
+  export type SpaceUpdateManyWithWhereWithoutFloorInput = {
+    where: SpaceScalarWhereInput
+    data: XOR<SpaceUpdateManyMutationInput, SpaceUncheckedUpdateManyWithoutFloorInput>
   }
 
-  export type UnitUpsertWithWhereUniqueWithoutFloorInput = {
-    where: UnitWhereUniqueInput
-    update: XOR<UnitUpdateWithoutFloorInput, UnitUncheckedUpdateWithoutFloorInput>
-    create: XOR<UnitCreateWithoutFloorInput, UnitUncheckedCreateWithoutFloorInput>
+  export type ZoneUpsertWithWhereUniqueWithoutFloorInput = {
+    where: ZoneWhereUniqueInput
+    update: XOR<ZoneUpdateWithoutFloorInput, ZoneUncheckedUpdateWithoutFloorInput>
+    create: XOR<ZoneCreateWithoutFloorInput, ZoneUncheckedCreateWithoutFloorInput>
   }
 
-  export type UnitUpdateWithWhereUniqueWithoutFloorInput = {
-    where: UnitWhereUniqueInput
-    data: XOR<UnitUpdateWithoutFloorInput, UnitUncheckedUpdateWithoutFloorInput>
+  export type ZoneUpdateWithWhereUniqueWithoutFloorInput = {
+    where: ZoneWhereUniqueInput
+    data: XOR<ZoneUpdateWithoutFloorInput, ZoneUncheckedUpdateWithoutFloorInput>
   }
 
-  export type UnitUpdateManyWithWhereWithoutFloorInput = {
-    where: UnitScalarWhereInput
-    data: XOR<UnitUpdateManyMutationInput, UnitUncheckedUpdateManyWithoutFloorInput>
+  export type ZoneUpdateManyWithWhereWithoutFloorInput = {
+    where: ZoneScalarWhereInput
+    data: XOR<ZoneUpdateManyMutationInput, ZoneUncheckedUpdateManyWithoutFloorInput>
   }
 
   export type MaintenanceUpsertWithWhereUniqueWithoutFloorInput = {
@@ -42802,34 +45061,34 @@ export namespace Prisma {
     data: XOR<PreventiveUpdateManyMutationInput, PreventiveUncheckedUpdateManyWithoutFloorInput>
   }
 
-  export type CalenderEntityCreateWithoutUnitsInput = {
+  export type CalenderEntityCreateWithoutZonesInput = {
     id?: string
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
     buildings?: BuildingCreateNestedManyWithoutCalenderEntityInput
     complexes?: ComplexCreateNestedManyWithoutCalenderEntityInput
-    rooms?: RoomCreateNestedManyWithoutCalenderEntityInput
+    spaces?: SpaceCreateNestedManyWithoutCalenderEntityInput
     employees?: EmployeeCreateNestedManyWithoutCalenderEntityInput
   }
 
-  export type CalenderEntityUncheckedCreateWithoutUnitsInput = {
+  export type CalenderEntityUncheckedCreateWithoutZonesInput = {
     id?: string
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
     buildings?: BuildingUncheckedCreateNestedManyWithoutCalenderEntityInput
     complexes?: ComplexUncheckedCreateNestedManyWithoutCalenderEntityInput
-    rooms?: RoomUncheckedCreateNestedManyWithoutCalenderEntityInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutCalenderEntityInput
     employees?: EmployeeUncheckedCreateNestedManyWithoutCalenderEntityInput
   }
 
-  export type CalenderEntityCreateOrConnectWithoutUnitsInput = {
+  export type CalenderEntityCreateOrConnectWithoutZonesInput = {
     where: CalenderEntityWhereUniqueInput
-    create: XOR<CalenderEntityCreateWithoutUnitsInput, CalenderEntityUncheckedCreateWithoutUnitsInput>
+    create: XOR<CalenderEntityCreateWithoutZonesInput, CalenderEntityUncheckedCreateWithoutZonesInput>
   }
 
-  export type ComplexCreateWithoutUnitsInput = {
+  export type ComplexCreateWithoutZonesInput = {
     id?: string
     code: string
     name: string
@@ -42857,12 +45116,13 @@ export namespace Prisma {
     buildings?: BuildingCreateNestedManyWithoutComplexInput
     photos?: FileCreateNestedManyWithoutComplexesInput
     floors?: FloorCreateNestedManyWithoutComplexInput
-    rooms?: RoomCreateNestedManyWithoutComplexInput
+    spaces?: SpaceCreateNestedManyWithoutComplexInput
     maintenances?: MaintenanceCreateNestedManyWithoutSiteInput
     preventives?: PreventiveCreateNestedManyWithoutSiteInput
+    site?: SiteCreateNestedOneWithoutComplexesInput
   }
 
-  export type ComplexUncheckedCreateWithoutUnitsInput = {
+  export type ComplexUncheckedCreateWithoutZonesInput = {
     id?: string
     code: string
     name: string
@@ -42887,20 +45147,21 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    siteId?: string | null
     buildings?: BuildingUncheckedCreateNestedManyWithoutComplexInput
     photos?: FileUncheckedCreateNestedManyWithoutComplexesInput
     floors?: FloorUncheckedCreateNestedManyWithoutComplexInput
-    rooms?: RoomUncheckedCreateNestedManyWithoutComplexInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutComplexInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSiteInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutSiteInput
   }
 
-  export type ComplexCreateOrConnectWithoutUnitsInput = {
+  export type ComplexCreateOrConnectWithoutZonesInput = {
     where: ComplexWhereUniqueInput
-    create: XOR<ComplexCreateWithoutUnitsInput, ComplexUncheckedCreateWithoutUnitsInput>
+    create: XOR<ComplexCreateWithoutZonesInput, ComplexUncheckedCreateWithoutZonesInput>
   }
 
-  export type BuildingCreateWithoutUnitsInput = {
+  export type BuildingCreateWithoutZonesInput = {
     id?: string
     name: string
     code: string
@@ -42926,11 +45187,11 @@ export namespace Prisma {
     calenderEntity?: CalenderEntityCreateNestedOneWithoutBuildingsInput
     photos?: FileCreateNestedManyWithoutBuildingsInput
     floors?: FloorCreateNestedManyWithoutBuildingInput
-    rooms?: RoomCreateNestedManyWithoutBuildingInput
+    spaces?: SpaceCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveCreateNestedManyWithoutBuildingInput
   }
 
-  export type BuildingUncheckedCreateWithoutUnitsInput = {
+  export type BuildingUncheckedCreateWithoutZonesInput = {
     id?: string
     name: string
     code: string
@@ -42956,20 +45217,21 @@ export namespace Prisma {
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutBuildingsInput
     floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
-    rooms?: RoomUncheckedCreateNestedManyWithoutBuildingInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
   }
 
-  export type BuildingCreateOrConnectWithoutUnitsInput = {
+  export type BuildingCreateOrConnectWithoutZonesInput = {
     where: BuildingWhereUniqueInput
-    create: XOR<BuildingCreateWithoutUnitsInput, BuildingUncheckedCreateWithoutUnitsInput>
+    create: XOR<BuildingCreateWithoutZonesInput, BuildingUncheckedCreateWithoutZonesInput>
   }
 
-  export type FloorCreateWithoutUnitsInput = {
+  export type FloorCreateWithoutZonesInput = {
     id?: string
     code: string
     name: string
     level: number
+    type?: string | null
     status?: $Enums.ServiceStatus
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
@@ -42986,16 +45248,17 @@ export namespace Prisma {
     updatedAt?: Date | string
     complex: ComplexCreateNestedOneWithoutFloorsInput
     building: BuildingCreateNestedOneWithoutFloorsInput
-    rooms?: RoomCreateNestedManyWithoutFloorInput
+    spaces?: SpaceCreateNestedManyWithoutFloorInput
     maintenances?: MaintenanceCreateNestedManyWithoutFloorInput
     preventives?: PreventiveCreateNestedManyWithoutFloorInput
   }
 
-  export type FloorUncheckedCreateWithoutUnitsInput = {
+  export type FloorUncheckedCreateWithoutZonesInput = {
     id?: string
     code: string
     name: string
     level: number
+    type?: string | null
     status?: $Enums.ServiceStatus
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
@@ -43012,17 +45275,17 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    rooms?: RoomUncheckedCreateNestedManyWithoutFloorInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutFloorInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutFloorInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutFloorInput
   }
 
-  export type FloorCreateOrConnectWithoutUnitsInput = {
+  export type FloorCreateOrConnectWithoutZonesInput = {
     where: FloorWhereUniqueInput
-    create: XOR<FloorCreateWithoutUnitsInput, FloorUncheckedCreateWithoutUnitsInput>
+    create: XOR<FloorCreateWithoutZonesInput, FloorUncheckedCreateWithoutZonesInput>
   }
 
-  export type RoomCreateWithoutUnitInput = {
+  export type SpaceCreateWithoutZoneInput = {
     id?: string
     name: string
     code: string
@@ -43040,16 +45303,17 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    calenderEntity?: CalenderEntityCreateNestedOneWithoutRoomsInput
-    complex?: ComplexCreateNestedOneWithoutRoomsInput
-    building?: BuildingCreateNestedOneWithoutRoomsInput
-    floor: FloorCreateNestedOneWithoutRoomsInput
-    photos?: FileCreateNestedManyWithoutRoomsInput
-    maintenances?: MaintenanceCreateNestedManyWithoutRoomInput
-    preventives?: PreventiveCreateNestedManyWithoutRoomInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutSpacesInput
+    complex?: ComplexCreateNestedOneWithoutSpacesInput
+    building?: BuildingCreateNestedOneWithoutSpacesInput
+    floor: FloorCreateNestedOneWithoutSpacesInput
+    photos?: FileCreateNestedManyWithoutSpacesInput
+    maintenances?: MaintenanceCreateNestedManyWithoutSpaceInput
+    preventives?: PreventiveCreateNestedManyWithoutSpaceInput
+    assets?: AssetCreateNestedManyWithoutSpaceInput
   }
 
-  export type RoomUncheckedCreateWithoutUnitInput = {
+  export type SpaceUncheckedCreateWithoutZoneInput = {
     id?: string
     name: string
     code: string
@@ -43071,89 +45335,90 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    photos?: FileUncheckedCreateNestedManyWithoutRoomsInput
-    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutRoomInput
-    preventives?: PreventiveUncheckedCreateNestedManyWithoutRoomInput
+    photos?: FileUncheckedCreateNestedManyWithoutSpacesInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSpaceInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutSpaceInput
+    assets?: AssetUncheckedCreateNestedManyWithoutSpaceInput
   }
 
-  export type RoomCreateOrConnectWithoutUnitInput = {
-    where: RoomWhereUniqueInput
-    create: XOR<RoomCreateWithoutUnitInput, RoomUncheckedCreateWithoutUnitInput>
+  export type SpaceCreateOrConnectWithoutZoneInput = {
+    where: SpaceWhereUniqueInput
+    create: XOR<SpaceCreateWithoutZoneInput, SpaceUncheckedCreateWithoutZoneInput>
   }
 
-  export type RoomCreateManyUnitInputEnvelope = {
-    data: RoomCreateManyUnitInput | RoomCreateManyUnitInput[]
+  export type SpaceCreateManyZoneInputEnvelope = {
+    data: SpaceCreateManyZoneInput | SpaceCreateManyZoneInput[]
     skipDuplicates?: boolean
   }
 
-  export type FileCreateWithoutUnitsInput = {
+  export type FileCreateWithoutZonesInput = {
     id?: string
     url: string
-    rooms?: RoomCreateNestedManyWithoutPhotosInput
+    spaces?: SpaceCreateNestedManyWithoutPhotosInput
     buildings?: BuildingCreateNestedManyWithoutPhotosInput
     complexes?: ComplexCreateNestedManyWithoutPhotosInput
     maintenance?: MaintenanceCreateNestedOneWithoutPhotosInput
   }
 
-  export type FileUncheckedCreateWithoutUnitsInput = {
+  export type FileUncheckedCreateWithoutZonesInput = {
     id?: string
     url: string
     maintenanceId?: string | null
-    rooms?: RoomUncheckedCreateNestedManyWithoutPhotosInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutPhotosInput
     buildings?: BuildingUncheckedCreateNestedManyWithoutPhotosInput
     complexes?: ComplexUncheckedCreateNestedManyWithoutPhotosInput
   }
 
-  export type FileCreateOrConnectWithoutUnitsInput = {
+  export type FileCreateOrConnectWithoutZonesInput = {
     where: FileWhereUniqueInput
-    create: XOR<FileCreateWithoutUnitsInput, FileUncheckedCreateWithoutUnitsInput>
+    create: XOR<FileCreateWithoutZonesInput, FileUncheckedCreateWithoutZonesInput>
   }
 
-  export type CalenderEntityUpsertWithoutUnitsInput = {
-    update: XOR<CalenderEntityUpdateWithoutUnitsInput, CalenderEntityUncheckedUpdateWithoutUnitsInput>
-    create: XOR<CalenderEntityCreateWithoutUnitsInput, CalenderEntityUncheckedCreateWithoutUnitsInput>
+  export type CalenderEntityUpsertWithoutZonesInput = {
+    update: XOR<CalenderEntityUpdateWithoutZonesInput, CalenderEntityUncheckedUpdateWithoutZonesInput>
+    create: XOR<CalenderEntityCreateWithoutZonesInput, CalenderEntityUncheckedCreateWithoutZonesInput>
     where?: CalenderEntityWhereInput
   }
 
-  export type CalenderEntityUpdateToOneWithWhereWithoutUnitsInput = {
+  export type CalenderEntityUpdateToOneWithWhereWithoutZonesInput = {
     where?: CalenderEntityWhereInput
-    data: XOR<CalenderEntityUpdateWithoutUnitsInput, CalenderEntityUncheckedUpdateWithoutUnitsInput>
+    data: XOR<CalenderEntityUpdateWithoutZonesInput, CalenderEntityUncheckedUpdateWithoutZonesInput>
   }
 
-  export type CalenderEntityUpdateWithoutUnitsInput = {
+  export type CalenderEntityUpdateWithoutZonesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buildings?: BuildingUpdateManyWithoutCalenderEntityNestedInput
     complexes?: ComplexUpdateManyWithoutCalenderEntityNestedInput
-    rooms?: RoomUpdateManyWithoutCalenderEntityNestedInput
+    spaces?: SpaceUpdateManyWithoutCalenderEntityNestedInput
     employees?: EmployeeUpdateManyWithoutCalenderEntityNestedInput
   }
 
-  export type CalenderEntityUncheckedUpdateWithoutUnitsInput = {
+  export type CalenderEntityUncheckedUpdateWithoutZonesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buildings?: BuildingUncheckedUpdateManyWithoutCalenderEntityNestedInput
     complexes?: ComplexUncheckedUpdateManyWithoutCalenderEntityNestedInput
-    rooms?: RoomUncheckedUpdateManyWithoutCalenderEntityNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutCalenderEntityNestedInput
     employees?: EmployeeUncheckedUpdateManyWithoutCalenderEntityNestedInput
   }
 
-  export type ComplexUpsertWithoutUnitsInput = {
-    update: XOR<ComplexUpdateWithoutUnitsInput, ComplexUncheckedUpdateWithoutUnitsInput>
-    create: XOR<ComplexCreateWithoutUnitsInput, ComplexUncheckedCreateWithoutUnitsInput>
+  export type ComplexUpsertWithoutZonesInput = {
+    update: XOR<ComplexUpdateWithoutZonesInput, ComplexUncheckedUpdateWithoutZonesInput>
+    create: XOR<ComplexCreateWithoutZonesInput, ComplexUncheckedCreateWithoutZonesInput>
     where?: ComplexWhereInput
   }
 
-  export type ComplexUpdateToOneWithWhereWithoutUnitsInput = {
+  export type ComplexUpdateToOneWithWhereWithoutZonesInput = {
     where?: ComplexWhereInput
-    data: XOR<ComplexUpdateWithoutUnitsInput, ComplexUncheckedUpdateWithoutUnitsInput>
+    data: XOR<ComplexUpdateWithoutZonesInput, ComplexUncheckedUpdateWithoutZonesInput>
   }
 
-  export type ComplexUpdateWithoutUnitsInput = {
+  export type ComplexUpdateWithoutZonesInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -43181,12 +45446,13 @@ export namespace Prisma {
     buildings?: BuildingUpdateManyWithoutComplexNestedInput
     photos?: FileUpdateManyWithoutComplexesNestedInput
     floors?: FloorUpdateManyWithoutComplexNestedInput
-    rooms?: RoomUpdateManyWithoutComplexNestedInput
+    spaces?: SpaceUpdateManyWithoutComplexNestedInput
     maintenances?: MaintenanceUpdateManyWithoutSiteNestedInput
     preventives?: PreventiveUpdateManyWithoutSiteNestedInput
+    site?: SiteUpdateOneWithoutComplexesNestedInput
   }
 
-  export type ComplexUncheckedUpdateWithoutUnitsInput = {
+  export type ComplexUncheckedUpdateWithoutZonesInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -43211,26 +45477,27 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
     buildings?: BuildingUncheckedUpdateManyWithoutComplexNestedInput
     photos?: FileUncheckedUpdateManyWithoutComplexesNestedInput
     floors?: FloorUncheckedUpdateManyWithoutComplexNestedInput
-    rooms?: RoomUncheckedUpdateManyWithoutComplexNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutComplexNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutSiteNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutSiteNestedInput
   }
 
-  export type BuildingUpsertWithoutUnitsInput = {
-    update: XOR<BuildingUpdateWithoutUnitsInput, BuildingUncheckedUpdateWithoutUnitsInput>
-    create: XOR<BuildingCreateWithoutUnitsInput, BuildingUncheckedCreateWithoutUnitsInput>
+  export type BuildingUpsertWithoutZonesInput = {
+    update: XOR<BuildingUpdateWithoutZonesInput, BuildingUncheckedUpdateWithoutZonesInput>
+    create: XOR<BuildingCreateWithoutZonesInput, BuildingUncheckedCreateWithoutZonesInput>
     where?: BuildingWhereInput
   }
 
-  export type BuildingUpdateToOneWithWhereWithoutUnitsInput = {
+  export type BuildingUpdateToOneWithWhereWithoutZonesInput = {
     where?: BuildingWhereInput
-    data: XOR<BuildingUpdateWithoutUnitsInput, BuildingUncheckedUpdateWithoutUnitsInput>
+    data: XOR<BuildingUpdateWithoutZonesInput, BuildingUncheckedUpdateWithoutZonesInput>
   }
 
-  export type BuildingUpdateWithoutUnitsInput = {
+  export type BuildingUpdateWithoutZonesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
@@ -43256,11 +45523,11 @@ export namespace Prisma {
     calenderEntity?: CalenderEntityUpdateOneWithoutBuildingsNestedInput
     photos?: FileUpdateManyWithoutBuildingsNestedInput
     floors?: FloorUpdateManyWithoutBuildingNestedInput
-    rooms?: RoomUpdateManyWithoutBuildingNestedInput
+    spaces?: SpaceUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
   }
 
-  export type BuildingUncheckedUpdateWithoutUnitsInput = {
+  export type BuildingUncheckedUpdateWithoutZonesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
@@ -43286,26 +45553,27 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutBuildingsNestedInput
     floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
-    rooms?: RoomUncheckedUpdateManyWithoutBuildingNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
-  export type FloorUpsertWithoutUnitsInput = {
-    update: XOR<FloorUpdateWithoutUnitsInput, FloorUncheckedUpdateWithoutUnitsInput>
-    create: XOR<FloorCreateWithoutUnitsInput, FloorUncheckedCreateWithoutUnitsInput>
+  export type FloorUpsertWithoutZonesInput = {
+    update: XOR<FloorUpdateWithoutZonesInput, FloorUncheckedUpdateWithoutZonesInput>
+    create: XOR<FloorCreateWithoutZonesInput, FloorUncheckedCreateWithoutZonesInput>
     where?: FloorWhereInput
   }
 
-  export type FloorUpdateToOneWithWhereWithoutUnitsInput = {
+  export type FloorUpdateToOneWithWhereWithoutZonesInput = {
     where?: FloorWhereInput
-    data: XOR<FloorUpdateWithoutUnitsInput, FloorUncheckedUpdateWithoutUnitsInput>
+    data: XOR<FloorUpdateWithoutZonesInput, FloorUncheckedUpdateWithoutZonesInput>
   }
 
-  export type FloorUpdateWithoutUnitsInput = {
+  export type FloorUpdateWithoutZonesInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
@@ -43322,16 +45590,17 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     complex?: ComplexUpdateOneRequiredWithoutFloorsNestedInput
     building?: BuildingUpdateOneRequiredWithoutFloorsNestedInput
-    rooms?: RoomUpdateManyWithoutFloorNestedInput
+    spaces?: SpaceUpdateManyWithoutFloorNestedInput
     maintenances?: MaintenanceUpdateManyWithoutFloorNestedInput
     preventives?: PreventiveUpdateManyWithoutFloorNestedInput
   }
 
-  export type FloorUncheckedUpdateWithoutUnitsInput = {
+  export type FloorUncheckedUpdateWithoutZonesInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
@@ -43348,71 +45617,71 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    rooms?: RoomUncheckedUpdateManyWithoutFloorNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutFloorNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutFloorNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutFloorNestedInput
   }
 
-  export type RoomUpsertWithWhereUniqueWithoutUnitInput = {
-    where: RoomWhereUniqueInput
-    update: XOR<RoomUpdateWithoutUnitInput, RoomUncheckedUpdateWithoutUnitInput>
-    create: XOR<RoomCreateWithoutUnitInput, RoomUncheckedCreateWithoutUnitInput>
+  export type SpaceUpsertWithWhereUniqueWithoutZoneInput = {
+    where: SpaceWhereUniqueInput
+    update: XOR<SpaceUpdateWithoutZoneInput, SpaceUncheckedUpdateWithoutZoneInput>
+    create: XOR<SpaceCreateWithoutZoneInput, SpaceUncheckedCreateWithoutZoneInput>
   }
 
-  export type RoomUpdateWithWhereUniqueWithoutUnitInput = {
-    where: RoomWhereUniqueInput
-    data: XOR<RoomUpdateWithoutUnitInput, RoomUncheckedUpdateWithoutUnitInput>
+  export type SpaceUpdateWithWhereUniqueWithoutZoneInput = {
+    where: SpaceWhereUniqueInput
+    data: XOR<SpaceUpdateWithoutZoneInput, SpaceUncheckedUpdateWithoutZoneInput>
   }
 
-  export type RoomUpdateManyWithWhereWithoutUnitInput = {
-    where: RoomScalarWhereInput
-    data: XOR<RoomUpdateManyMutationInput, RoomUncheckedUpdateManyWithoutUnitInput>
+  export type SpaceUpdateManyWithWhereWithoutZoneInput = {
+    where: SpaceScalarWhereInput
+    data: XOR<SpaceUpdateManyMutationInput, SpaceUncheckedUpdateManyWithoutZoneInput>
   }
 
-  export type FileUpsertWithWhereUniqueWithoutUnitsInput = {
+  export type FileUpsertWithWhereUniqueWithoutZonesInput = {
     where: FileWhereUniqueInput
-    update: XOR<FileUpdateWithoutUnitsInput, FileUncheckedUpdateWithoutUnitsInput>
-    create: XOR<FileCreateWithoutUnitsInput, FileUncheckedCreateWithoutUnitsInput>
+    update: XOR<FileUpdateWithoutZonesInput, FileUncheckedUpdateWithoutZonesInput>
+    create: XOR<FileCreateWithoutZonesInput, FileUncheckedCreateWithoutZonesInput>
   }
 
-  export type FileUpdateWithWhereUniqueWithoutUnitsInput = {
+  export type FileUpdateWithWhereUniqueWithoutZonesInput = {
     where: FileWhereUniqueInput
-    data: XOR<FileUpdateWithoutUnitsInput, FileUncheckedUpdateWithoutUnitsInput>
+    data: XOR<FileUpdateWithoutZonesInput, FileUncheckedUpdateWithoutZonesInput>
   }
 
-  export type FileUpdateManyWithWhereWithoutUnitsInput = {
+  export type FileUpdateManyWithWhereWithoutZonesInput = {
     where: FileScalarWhereInput
-    data: XOR<FileUpdateManyMutationInput, FileUncheckedUpdateManyWithoutUnitsInput>
+    data: XOR<FileUpdateManyMutationInput, FileUncheckedUpdateManyWithoutZonesInput>
   }
 
-  export type CalenderEntityCreateWithoutRoomsInput = {
+  export type CalenderEntityCreateWithoutSpacesInput = {
     id?: string
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
     buildings?: BuildingCreateNestedManyWithoutCalenderEntityInput
     complexes?: ComplexCreateNestedManyWithoutCalenderEntityInput
-    units?: UnitCreateNestedManyWithoutCalenderEntityInput
+    zones?: ZoneCreateNestedManyWithoutCalenderEntityInput
     employees?: EmployeeCreateNestedManyWithoutCalenderEntityInput
   }
 
-  export type CalenderEntityUncheckedCreateWithoutRoomsInput = {
+  export type CalenderEntityUncheckedCreateWithoutSpacesInput = {
     id?: string
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
     buildings?: BuildingUncheckedCreateNestedManyWithoutCalenderEntityInput
     complexes?: ComplexUncheckedCreateNestedManyWithoutCalenderEntityInput
-    units?: UnitUncheckedCreateNestedManyWithoutCalenderEntityInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutCalenderEntityInput
     employees?: EmployeeUncheckedCreateNestedManyWithoutCalenderEntityInput
   }
 
-  export type CalenderEntityCreateOrConnectWithoutRoomsInput = {
+  export type CalenderEntityCreateOrConnectWithoutSpacesInput = {
     where: CalenderEntityWhereUniqueInput
-    create: XOR<CalenderEntityCreateWithoutRoomsInput, CalenderEntityUncheckedCreateWithoutRoomsInput>
+    create: XOR<CalenderEntityCreateWithoutSpacesInput, CalenderEntityUncheckedCreateWithoutSpacesInput>
   }
 
-  export type ComplexCreateWithoutRoomsInput = {
+  export type ComplexCreateWithoutSpacesInput = {
     id?: string
     code: string
     name: string
@@ -43440,12 +45709,13 @@ export namespace Prisma {
     buildings?: BuildingCreateNestedManyWithoutComplexInput
     photos?: FileCreateNestedManyWithoutComplexesInput
     floors?: FloorCreateNestedManyWithoutComplexInput
-    units?: UnitCreateNestedManyWithoutComplexInput
+    zones?: ZoneCreateNestedManyWithoutComplexInput
     maintenances?: MaintenanceCreateNestedManyWithoutSiteInput
     preventives?: PreventiveCreateNestedManyWithoutSiteInput
+    site?: SiteCreateNestedOneWithoutComplexesInput
   }
 
-  export type ComplexUncheckedCreateWithoutRoomsInput = {
+  export type ComplexUncheckedCreateWithoutSpacesInput = {
     id?: string
     code: string
     name: string
@@ -43470,20 +45740,21 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    siteId?: string | null
     buildings?: BuildingUncheckedCreateNestedManyWithoutComplexInput
     photos?: FileUncheckedCreateNestedManyWithoutComplexesInput
     floors?: FloorUncheckedCreateNestedManyWithoutComplexInput
-    units?: UnitUncheckedCreateNestedManyWithoutComplexInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutComplexInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSiteInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutSiteInput
   }
 
-  export type ComplexCreateOrConnectWithoutRoomsInput = {
+  export type ComplexCreateOrConnectWithoutSpacesInput = {
     where: ComplexWhereUniqueInput
-    create: XOR<ComplexCreateWithoutRoomsInput, ComplexUncheckedCreateWithoutRoomsInput>
+    create: XOR<ComplexCreateWithoutSpacesInput, ComplexUncheckedCreateWithoutSpacesInput>
   }
 
-  export type BuildingCreateWithoutRoomsInput = {
+  export type BuildingCreateWithoutSpacesInput = {
     id?: string
     name: string
     code: string
@@ -43509,11 +45780,11 @@ export namespace Prisma {
     calenderEntity?: CalenderEntityCreateNestedOneWithoutBuildingsInput
     photos?: FileCreateNestedManyWithoutBuildingsInput
     floors?: FloorCreateNestedManyWithoutBuildingInput
-    units?: UnitCreateNestedManyWithoutBuildingInput
+    zones?: ZoneCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveCreateNestedManyWithoutBuildingInput
   }
 
-  export type BuildingUncheckedCreateWithoutRoomsInput = {
+  export type BuildingUncheckedCreateWithoutSpacesInput = {
     id?: string
     name: string
     code: string
@@ -43539,20 +45810,21 @@ export namespace Prisma {
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutBuildingsInput
     floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
-    units?: UnitUncheckedCreateNestedManyWithoutBuildingInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
   }
 
-  export type BuildingCreateOrConnectWithoutRoomsInput = {
+  export type BuildingCreateOrConnectWithoutSpacesInput = {
     where: BuildingWhereUniqueInput
-    create: XOR<BuildingCreateWithoutRoomsInput, BuildingUncheckedCreateWithoutRoomsInput>
+    create: XOR<BuildingCreateWithoutSpacesInput, BuildingUncheckedCreateWithoutSpacesInput>
   }
 
-  export type FloorCreateWithoutRoomsInput = {
+  export type FloorCreateWithoutSpacesInput = {
     id?: string
     code: string
     name: string
     level: number
+    type?: string | null
     status?: $Enums.ServiceStatus
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
@@ -43569,16 +45841,17 @@ export namespace Prisma {
     updatedAt?: Date | string
     complex: ComplexCreateNestedOneWithoutFloorsInput
     building: BuildingCreateNestedOneWithoutFloorsInput
-    units?: UnitCreateNestedManyWithoutFloorInput
+    zones?: ZoneCreateNestedManyWithoutFloorInput
     maintenances?: MaintenanceCreateNestedManyWithoutFloorInput
     preventives?: PreventiveCreateNestedManyWithoutFloorInput
   }
 
-  export type FloorUncheckedCreateWithoutRoomsInput = {
+  export type FloorUncheckedCreateWithoutSpacesInput = {
     id?: string
     code: string
     name: string
     level: number
+    type?: string | null
     status?: $Enums.ServiceStatus
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
@@ -43595,20 +45868,21 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    units?: UnitUncheckedCreateNestedManyWithoutFloorInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutFloorInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutFloorInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutFloorInput
   }
 
-  export type FloorCreateOrConnectWithoutRoomsInput = {
+  export type FloorCreateOrConnectWithoutSpacesInput = {
     where: FloorWhereUniqueInput
-    create: XOR<FloorCreateWithoutRoomsInput, FloorUncheckedCreateWithoutRoomsInput>
+    create: XOR<FloorCreateWithoutSpacesInput, FloorUncheckedCreateWithoutSpacesInput>
   }
 
-  export type UnitCreateWithoutRoomsInput = {
+  export type ZoneCreateWithoutRoomsInput = {
     id?: string
     code: string
     name: string
+    type?: string | null
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
     address?: string | null
@@ -43635,17 +45909,18 @@ export namespace Prisma {
     subArea?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    calenderEntity?: CalenderEntityCreateNestedOneWithoutUnitsInput
-    complex?: ComplexCreateNestedOneWithoutUnitsInput
-    building?: BuildingCreateNestedOneWithoutUnitsInput
-    floor: FloorCreateNestedOneWithoutUnitsInput
-    photos?: FileCreateNestedManyWithoutUnitsInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutZonesInput
+    complex?: ComplexCreateNestedOneWithoutZonesInput
+    building?: BuildingCreateNestedOneWithoutZonesInput
+    floor: FloorCreateNestedOneWithoutZonesInput
+    photos?: FileCreateNestedManyWithoutZonesInput
   }
 
-  export type UnitUncheckedCreateWithoutRoomsInput = {
+  export type ZoneUncheckedCreateWithoutRoomsInput = {
     id?: string
     code: string
     name: string
+    type?: string | null
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
     calenderEntityId?: string | null
@@ -43676,38 +45951,38 @@ export namespace Prisma {
     subArea?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    photos?: FileUncheckedCreateNestedManyWithoutUnitsInput
+    photos?: FileUncheckedCreateNestedManyWithoutZonesInput
   }
 
-  export type UnitCreateOrConnectWithoutRoomsInput = {
-    where: UnitWhereUniqueInput
-    create: XOR<UnitCreateWithoutRoomsInput, UnitUncheckedCreateWithoutRoomsInput>
+  export type ZoneCreateOrConnectWithoutRoomsInput = {
+    where: ZoneWhereUniqueInput
+    create: XOR<ZoneCreateWithoutRoomsInput, ZoneUncheckedCreateWithoutRoomsInput>
   }
 
-  export type FileCreateWithoutRoomsInput = {
+  export type FileCreateWithoutSpacesInput = {
     id?: string
     url: string
-    units?: UnitCreateNestedManyWithoutPhotosInput
+    zones?: ZoneCreateNestedManyWithoutPhotosInput
     buildings?: BuildingCreateNestedManyWithoutPhotosInput
     complexes?: ComplexCreateNestedManyWithoutPhotosInput
     maintenance?: MaintenanceCreateNestedOneWithoutPhotosInput
   }
 
-  export type FileUncheckedCreateWithoutRoomsInput = {
+  export type FileUncheckedCreateWithoutSpacesInput = {
     id?: string
     url: string
     maintenanceId?: string | null
-    units?: UnitUncheckedCreateNestedManyWithoutPhotosInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutPhotosInput
     buildings?: BuildingUncheckedCreateNestedManyWithoutPhotosInput
     complexes?: ComplexUncheckedCreateNestedManyWithoutPhotosInput
   }
 
-  export type FileCreateOrConnectWithoutRoomsInput = {
+  export type FileCreateOrConnectWithoutSpacesInput = {
     where: FileWhereUniqueInput
-    create: XOR<FileCreateWithoutRoomsInput, FileUncheckedCreateWithoutRoomsInput>
+    create: XOR<FileCreateWithoutSpacesInput, FileUncheckedCreateWithoutSpacesInput>
   }
 
-  export type MaintenanceCreateWithoutRoomInput = {
+  export type MaintenanceCreateWithoutSpaceInput = {
     id?: string
     type?: $Enums.MaintenanceType
     code: string
@@ -43718,6 +45993,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -43768,7 +46044,7 @@ export namespace Prisma {
     photos?: FileCreateNestedManyWithoutMaintenanceInput
   }
 
-  export type MaintenanceUncheckedCreateWithoutRoomInput = {
+  export type MaintenanceUncheckedCreateWithoutSpaceInput = {
     id?: string
     type?: $Enums.MaintenanceType
     code: string
@@ -43779,6 +46055,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
     processStatus?: $Enums.Status
     register?: string | null
@@ -43829,17 +46106,17 @@ export namespace Prisma {
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
-  export type MaintenanceCreateOrConnectWithoutRoomInput = {
+  export type MaintenanceCreateOrConnectWithoutSpaceInput = {
     where: MaintenanceWhereUniqueInput
-    create: XOR<MaintenanceCreateWithoutRoomInput, MaintenanceUncheckedCreateWithoutRoomInput>
+    create: XOR<MaintenanceCreateWithoutSpaceInput, MaintenanceUncheckedCreateWithoutSpaceInput>
   }
 
-  export type MaintenanceCreateManyRoomInputEnvelope = {
-    data: MaintenanceCreateManyRoomInput | MaintenanceCreateManyRoomInput[]
+  export type MaintenanceCreateManySpaceInputEnvelope = {
+    data: MaintenanceCreateManySpaceInput | MaintenanceCreateManySpaceInput[]
     skipDuplicates?: boolean
   }
 
-  export type PreventiveCreateWithoutRoomInput = {
+  export type PreventiveCreateWithoutSpaceInput = {
     id?: string
     code: string
     name: string
@@ -43859,7 +46136,7 @@ export namespace Prisma {
     team?: TeamCreateNestedOneWithoutPreventivesInput
   }
 
-  export type PreventiveUncheckedCreateWithoutRoomInput = {
+  export type PreventiveUncheckedCreateWithoutSpaceInput = {
     id?: string
     code: string
     name: string
@@ -43879,61 +46156,99 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type PreventiveCreateOrConnectWithoutRoomInput = {
+  export type PreventiveCreateOrConnectWithoutSpaceInput = {
     where: PreventiveWhereUniqueInput
-    create: XOR<PreventiveCreateWithoutRoomInput, PreventiveUncheckedCreateWithoutRoomInput>
+    create: XOR<PreventiveCreateWithoutSpaceInput, PreventiveUncheckedCreateWithoutSpaceInput>
   }
 
-  export type PreventiveCreateManyRoomInputEnvelope = {
-    data: PreventiveCreateManyRoomInput | PreventiveCreateManyRoomInput[]
+  export type PreventiveCreateManySpaceInputEnvelope = {
+    data: PreventiveCreateManySpaceInput | PreventiveCreateManySpaceInput[]
     skipDuplicates?: boolean
   }
 
-  export type CalenderEntityUpsertWithoutRoomsInput = {
-    update: XOR<CalenderEntityUpdateWithoutRoomsInput, CalenderEntityUncheckedUpdateWithoutRoomsInput>
-    create: XOR<CalenderEntityCreateWithoutRoomsInput, CalenderEntityUncheckedCreateWithoutRoomsInput>
+  export type AssetCreateWithoutSpaceInput = {
+    id?: string
+    name: string
+    description?: string | null
+    tag?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    category: AssetCategoryCreateNestedOneWithoutAssetsInput
+    parentSystem?: AssetCreateNestedOneWithoutChildAssetsInput
+    childAssets?: AssetCreateNestedManyWithoutParentSystemInput
+    maintenances?: MaintenanceCreateNestedManyWithoutAssetInput
+    preventives?: PreventiveCreateNestedManyWithoutAssetInput
+  }
+
+  export type AssetUncheckedCreateWithoutSpaceInput = {
+    id?: string
+    name: string
+    description?: string | null
+    categoryId: string
+    tag?: string | null
+    parentSystemId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    childAssets?: AssetUncheckedCreateNestedManyWithoutParentSystemInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutAssetInput
+  }
+
+  export type AssetCreateOrConnectWithoutSpaceInput = {
+    where: AssetWhereUniqueInput
+    create: XOR<AssetCreateWithoutSpaceInput, AssetUncheckedCreateWithoutSpaceInput>
+  }
+
+  export type AssetCreateManySpaceInputEnvelope = {
+    data: AssetCreateManySpaceInput | AssetCreateManySpaceInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CalenderEntityUpsertWithoutSpacesInput = {
+    update: XOR<CalenderEntityUpdateWithoutSpacesInput, CalenderEntityUncheckedUpdateWithoutSpacesInput>
+    create: XOR<CalenderEntityCreateWithoutSpacesInput, CalenderEntityUncheckedCreateWithoutSpacesInput>
     where?: CalenderEntityWhereInput
   }
 
-  export type CalenderEntityUpdateToOneWithWhereWithoutRoomsInput = {
+  export type CalenderEntityUpdateToOneWithWhereWithoutSpacesInput = {
     where?: CalenderEntityWhereInput
-    data: XOR<CalenderEntityUpdateWithoutRoomsInput, CalenderEntityUncheckedUpdateWithoutRoomsInput>
+    data: XOR<CalenderEntityUpdateWithoutSpacesInput, CalenderEntityUncheckedUpdateWithoutSpacesInput>
   }
 
-  export type CalenderEntityUpdateWithoutRoomsInput = {
+  export type CalenderEntityUpdateWithoutSpacesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buildings?: BuildingUpdateManyWithoutCalenderEntityNestedInput
     complexes?: ComplexUpdateManyWithoutCalenderEntityNestedInput
-    units?: UnitUpdateManyWithoutCalenderEntityNestedInput
+    zones?: ZoneUpdateManyWithoutCalenderEntityNestedInput
     employees?: EmployeeUpdateManyWithoutCalenderEntityNestedInput
   }
 
-  export type CalenderEntityUncheckedUpdateWithoutRoomsInput = {
+  export type CalenderEntityUncheckedUpdateWithoutSpacesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buildings?: BuildingUncheckedUpdateManyWithoutCalenderEntityNestedInput
     complexes?: ComplexUncheckedUpdateManyWithoutCalenderEntityNestedInput
-    units?: UnitUncheckedUpdateManyWithoutCalenderEntityNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutCalenderEntityNestedInput
     employees?: EmployeeUncheckedUpdateManyWithoutCalenderEntityNestedInput
   }
 
-  export type ComplexUpsertWithoutRoomsInput = {
-    update: XOR<ComplexUpdateWithoutRoomsInput, ComplexUncheckedUpdateWithoutRoomsInput>
-    create: XOR<ComplexCreateWithoutRoomsInput, ComplexUncheckedCreateWithoutRoomsInput>
+  export type ComplexUpsertWithoutSpacesInput = {
+    update: XOR<ComplexUpdateWithoutSpacesInput, ComplexUncheckedUpdateWithoutSpacesInput>
+    create: XOR<ComplexCreateWithoutSpacesInput, ComplexUncheckedCreateWithoutSpacesInput>
     where?: ComplexWhereInput
   }
 
-  export type ComplexUpdateToOneWithWhereWithoutRoomsInput = {
+  export type ComplexUpdateToOneWithWhereWithoutSpacesInput = {
     where?: ComplexWhereInput
-    data: XOR<ComplexUpdateWithoutRoomsInput, ComplexUncheckedUpdateWithoutRoomsInput>
+    data: XOR<ComplexUpdateWithoutSpacesInput, ComplexUncheckedUpdateWithoutSpacesInput>
   }
 
-  export type ComplexUpdateWithoutRoomsInput = {
+  export type ComplexUpdateWithoutSpacesInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -43961,12 +46276,13 @@ export namespace Prisma {
     buildings?: BuildingUpdateManyWithoutComplexNestedInput
     photos?: FileUpdateManyWithoutComplexesNestedInput
     floors?: FloorUpdateManyWithoutComplexNestedInput
-    units?: UnitUpdateManyWithoutComplexNestedInput
+    zones?: ZoneUpdateManyWithoutComplexNestedInput
     maintenances?: MaintenanceUpdateManyWithoutSiteNestedInput
     preventives?: PreventiveUpdateManyWithoutSiteNestedInput
+    site?: SiteUpdateOneWithoutComplexesNestedInput
   }
 
-  export type ComplexUncheckedUpdateWithoutRoomsInput = {
+  export type ComplexUncheckedUpdateWithoutSpacesInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -43991,26 +46307,27 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
     buildings?: BuildingUncheckedUpdateManyWithoutComplexNestedInput
     photos?: FileUncheckedUpdateManyWithoutComplexesNestedInput
     floors?: FloorUncheckedUpdateManyWithoutComplexNestedInput
-    units?: UnitUncheckedUpdateManyWithoutComplexNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutComplexNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutSiteNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutSiteNestedInput
   }
 
-  export type BuildingUpsertWithoutRoomsInput = {
-    update: XOR<BuildingUpdateWithoutRoomsInput, BuildingUncheckedUpdateWithoutRoomsInput>
-    create: XOR<BuildingCreateWithoutRoomsInput, BuildingUncheckedCreateWithoutRoomsInput>
+  export type BuildingUpsertWithoutSpacesInput = {
+    update: XOR<BuildingUpdateWithoutSpacesInput, BuildingUncheckedUpdateWithoutSpacesInput>
+    create: XOR<BuildingCreateWithoutSpacesInput, BuildingUncheckedCreateWithoutSpacesInput>
     where?: BuildingWhereInput
   }
 
-  export type BuildingUpdateToOneWithWhereWithoutRoomsInput = {
+  export type BuildingUpdateToOneWithWhereWithoutSpacesInput = {
     where?: BuildingWhereInput
-    data: XOR<BuildingUpdateWithoutRoomsInput, BuildingUncheckedUpdateWithoutRoomsInput>
+    data: XOR<BuildingUpdateWithoutSpacesInput, BuildingUncheckedUpdateWithoutSpacesInput>
   }
 
-  export type BuildingUpdateWithoutRoomsInput = {
+  export type BuildingUpdateWithoutSpacesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
@@ -44036,11 +46353,11 @@ export namespace Prisma {
     calenderEntity?: CalenderEntityUpdateOneWithoutBuildingsNestedInput
     photos?: FileUpdateManyWithoutBuildingsNestedInput
     floors?: FloorUpdateManyWithoutBuildingNestedInput
-    units?: UnitUpdateManyWithoutBuildingNestedInput
+    zones?: ZoneUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
   }
 
-  export type BuildingUncheckedUpdateWithoutRoomsInput = {
+  export type BuildingUncheckedUpdateWithoutSpacesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
@@ -44066,26 +46383,27 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutBuildingsNestedInput
     floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
-    units?: UnitUncheckedUpdateManyWithoutBuildingNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
-  export type FloorUpsertWithoutRoomsInput = {
-    update: XOR<FloorUpdateWithoutRoomsInput, FloorUncheckedUpdateWithoutRoomsInput>
-    create: XOR<FloorCreateWithoutRoomsInput, FloorUncheckedCreateWithoutRoomsInput>
+  export type FloorUpsertWithoutSpacesInput = {
+    update: XOR<FloorUpdateWithoutSpacesInput, FloorUncheckedUpdateWithoutSpacesInput>
+    create: XOR<FloorCreateWithoutSpacesInput, FloorUncheckedCreateWithoutSpacesInput>
     where?: FloorWhereInput
   }
 
-  export type FloorUpdateToOneWithWhereWithoutRoomsInput = {
+  export type FloorUpdateToOneWithWhereWithoutSpacesInput = {
     where?: FloorWhereInput
-    data: XOR<FloorUpdateWithoutRoomsInput, FloorUncheckedUpdateWithoutRoomsInput>
+    data: XOR<FloorUpdateWithoutSpacesInput, FloorUncheckedUpdateWithoutSpacesInput>
   }
 
-  export type FloorUpdateWithoutRoomsInput = {
+  export type FloorUpdateWithoutSpacesInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
@@ -44102,16 +46420,17 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     complex?: ComplexUpdateOneRequiredWithoutFloorsNestedInput
     building?: BuildingUpdateOneRequiredWithoutFloorsNestedInput
-    units?: UnitUpdateManyWithoutFloorNestedInput
+    zones?: ZoneUpdateManyWithoutFloorNestedInput
     maintenances?: MaintenanceUpdateManyWithoutFloorNestedInput
     preventives?: PreventiveUpdateManyWithoutFloorNestedInput
   }
 
-  export type FloorUncheckedUpdateWithoutRoomsInput = {
+  export type FloorUncheckedUpdateWithoutSpacesInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
@@ -44128,26 +46447,27 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    units?: UnitUncheckedUpdateManyWithoutFloorNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutFloorNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutFloorNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutFloorNestedInput
   }
 
-  export type UnitUpsertWithoutRoomsInput = {
-    update: XOR<UnitUpdateWithoutRoomsInput, UnitUncheckedUpdateWithoutRoomsInput>
-    create: XOR<UnitCreateWithoutRoomsInput, UnitUncheckedCreateWithoutRoomsInput>
-    where?: UnitWhereInput
+  export type ZoneUpsertWithoutRoomsInput = {
+    update: XOR<ZoneUpdateWithoutRoomsInput, ZoneUncheckedUpdateWithoutRoomsInput>
+    create: XOR<ZoneCreateWithoutRoomsInput, ZoneUncheckedCreateWithoutRoomsInput>
+    where?: ZoneWhereInput
   }
 
-  export type UnitUpdateToOneWithWhereWithoutRoomsInput = {
-    where?: UnitWhereInput
-    data: XOR<UnitUpdateWithoutRoomsInput, UnitUncheckedUpdateWithoutRoomsInput>
+  export type ZoneUpdateToOneWithWhereWithoutRoomsInput = {
+    where?: ZoneWhereInput
+    data: XOR<ZoneUpdateWithoutRoomsInput, ZoneUncheckedUpdateWithoutRoomsInput>
   }
 
-  export type UnitUpdateWithoutRoomsInput = {
+  export type ZoneUpdateWithoutRoomsInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -44174,17 +46494,18 @@ export namespace Prisma {
     subArea?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    calenderEntity?: CalenderEntityUpdateOneWithoutUnitsNestedInput
-    complex?: ComplexUpdateOneWithoutUnitsNestedInput
-    building?: BuildingUpdateOneWithoutUnitsNestedInput
-    floor?: FloorUpdateOneRequiredWithoutUnitsNestedInput
-    photos?: FileUpdateManyWithoutUnitsNestedInput
+    calenderEntity?: CalenderEntityUpdateOneWithoutZonesNestedInput
+    complex?: ComplexUpdateOneWithoutZonesNestedInput
+    building?: BuildingUpdateOneWithoutZonesNestedInput
+    floor?: FloorUpdateOneRequiredWithoutZonesNestedInput
+    photos?: FileUpdateManyWithoutZonesNestedInput
   }
 
-  export type UnitUncheckedUpdateWithoutRoomsInput = {
+  export type ZoneUncheckedUpdateWithoutRoomsInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -44215,63 +46536,98 @@ export namespace Prisma {
     subArea?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    photos?: FileUncheckedUpdateManyWithoutUnitsNestedInput
+    photos?: FileUncheckedUpdateManyWithoutZonesNestedInput
   }
 
-  export type FileUpsertWithWhereUniqueWithoutRoomsInput = {
+  export type FileUpsertWithWhereUniqueWithoutSpacesInput = {
     where: FileWhereUniqueInput
-    update: XOR<FileUpdateWithoutRoomsInput, FileUncheckedUpdateWithoutRoomsInput>
-    create: XOR<FileCreateWithoutRoomsInput, FileUncheckedCreateWithoutRoomsInput>
+    update: XOR<FileUpdateWithoutSpacesInput, FileUncheckedUpdateWithoutSpacesInput>
+    create: XOR<FileCreateWithoutSpacesInput, FileUncheckedCreateWithoutSpacesInput>
   }
 
-  export type FileUpdateWithWhereUniqueWithoutRoomsInput = {
+  export type FileUpdateWithWhereUniqueWithoutSpacesInput = {
     where: FileWhereUniqueInput
-    data: XOR<FileUpdateWithoutRoomsInput, FileUncheckedUpdateWithoutRoomsInput>
+    data: XOR<FileUpdateWithoutSpacesInput, FileUncheckedUpdateWithoutSpacesInput>
   }
 
-  export type FileUpdateManyWithWhereWithoutRoomsInput = {
+  export type FileUpdateManyWithWhereWithoutSpacesInput = {
     where: FileScalarWhereInput
-    data: XOR<FileUpdateManyMutationInput, FileUncheckedUpdateManyWithoutRoomsInput>
+    data: XOR<FileUpdateManyMutationInput, FileUncheckedUpdateManyWithoutSpacesInput>
   }
 
-  export type MaintenanceUpsertWithWhereUniqueWithoutRoomInput = {
+  export type MaintenanceUpsertWithWhereUniqueWithoutSpaceInput = {
     where: MaintenanceWhereUniqueInput
-    update: XOR<MaintenanceUpdateWithoutRoomInput, MaintenanceUncheckedUpdateWithoutRoomInput>
-    create: XOR<MaintenanceCreateWithoutRoomInput, MaintenanceUncheckedCreateWithoutRoomInput>
+    update: XOR<MaintenanceUpdateWithoutSpaceInput, MaintenanceUncheckedUpdateWithoutSpaceInput>
+    create: XOR<MaintenanceCreateWithoutSpaceInput, MaintenanceUncheckedCreateWithoutSpaceInput>
   }
 
-  export type MaintenanceUpdateWithWhereUniqueWithoutRoomInput = {
+  export type MaintenanceUpdateWithWhereUniqueWithoutSpaceInput = {
     where: MaintenanceWhereUniqueInput
-    data: XOR<MaintenanceUpdateWithoutRoomInput, MaintenanceUncheckedUpdateWithoutRoomInput>
+    data: XOR<MaintenanceUpdateWithoutSpaceInput, MaintenanceUncheckedUpdateWithoutSpaceInput>
   }
 
-  export type MaintenanceUpdateManyWithWhereWithoutRoomInput = {
+  export type MaintenanceUpdateManyWithWhereWithoutSpaceInput = {
     where: MaintenanceScalarWhereInput
-    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutRoomInput>
+    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutSpaceInput>
   }
 
-  export type PreventiveUpsertWithWhereUniqueWithoutRoomInput = {
+  export type PreventiveUpsertWithWhereUniqueWithoutSpaceInput = {
     where: PreventiveWhereUniqueInput
-    update: XOR<PreventiveUpdateWithoutRoomInput, PreventiveUncheckedUpdateWithoutRoomInput>
-    create: XOR<PreventiveCreateWithoutRoomInput, PreventiveUncheckedCreateWithoutRoomInput>
+    update: XOR<PreventiveUpdateWithoutSpaceInput, PreventiveUncheckedUpdateWithoutSpaceInput>
+    create: XOR<PreventiveCreateWithoutSpaceInput, PreventiveUncheckedCreateWithoutSpaceInput>
   }
 
-  export type PreventiveUpdateWithWhereUniqueWithoutRoomInput = {
+  export type PreventiveUpdateWithWhereUniqueWithoutSpaceInput = {
     where: PreventiveWhereUniqueInput
-    data: XOR<PreventiveUpdateWithoutRoomInput, PreventiveUncheckedUpdateWithoutRoomInput>
+    data: XOR<PreventiveUpdateWithoutSpaceInput, PreventiveUncheckedUpdateWithoutSpaceInput>
   }
 
-  export type PreventiveUpdateManyWithWhereWithoutRoomInput = {
+  export type PreventiveUpdateManyWithWhereWithoutSpaceInput = {
     where: PreventiveScalarWhereInput
-    data: XOR<PreventiveUpdateManyMutationInput, PreventiveUncheckedUpdateManyWithoutRoomInput>
+    data: XOR<PreventiveUpdateManyMutationInput, PreventiveUncheckedUpdateManyWithoutSpaceInput>
+  }
+
+  export type AssetUpsertWithWhereUniqueWithoutSpaceInput = {
+    where: AssetWhereUniqueInput
+    update: XOR<AssetUpdateWithoutSpaceInput, AssetUncheckedUpdateWithoutSpaceInput>
+    create: XOR<AssetCreateWithoutSpaceInput, AssetUncheckedCreateWithoutSpaceInput>
+  }
+
+  export type AssetUpdateWithWhereUniqueWithoutSpaceInput = {
+    where: AssetWhereUniqueInput
+    data: XOR<AssetUpdateWithoutSpaceInput, AssetUncheckedUpdateWithoutSpaceInput>
+  }
+
+  export type AssetUpdateManyWithWhereWithoutSpaceInput = {
+    where: AssetScalarWhereInput
+    data: XOR<AssetUpdateManyMutationInput, AssetUncheckedUpdateManyWithoutSpaceInput>
+  }
+
+  export type AssetScalarWhereInput = {
+    AND?: AssetScalarWhereInput | AssetScalarWhereInput[]
+    OR?: AssetScalarWhereInput[]
+    NOT?: AssetScalarWhereInput | AssetScalarWhereInput[]
+    id?: StringFilter<"Asset"> | string
+    name?: StringFilter<"Asset"> | string
+    description?: StringNullableFilter<"Asset"> | string | null
+    categoryId?: StringFilter<"Asset"> | string
+    tag?: StringNullableFilter<"Asset"> | string | null
+    parentSystemId?: StringNullableFilter<"Asset"> | string | null
+    spaceId?: StringNullableFilter<"Asset"> | string | null
+    createdAt?: DateTimeFilter<"Asset"> | Date | string
+    updatedAt?: DateTimeFilter<"Asset"> | Date | string
   }
 
   export type AssetCreateWithoutCategoryInput = {
     id?: string
     name: string
     description?: string | null
+    tag?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    parentSystem?: AssetCreateNestedOneWithoutChildAssetsInput
+    childAssets?: AssetCreateNestedManyWithoutParentSystemInput
+    space?: SpaceCreateNestedOneWithoutAssetsInput
     maintenances?: MaintenanceCreateNestedManyWithoutAssetInput
     preventives?: PreventiveCreateNestedManyWithoutAssetInput
   }
@@ -44280,8 +46636,12 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
+    tag?: string | null
+    parentSystemId?: string | null
+    spaceId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    childAssets?: AssetUncheckedCreateNestedManyWithoutParentSystemInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutAssetInput
   }
@@ -44312,18 +46672,6 @@ export namespace Prisma {
     data: XOR<AssetUpdateManyMutationInput, AssetUncheckedUpdateManyWithoutCategoryInput>
   }
 
-  export type AssetScalarWhereInput = {
-    AND?: AssetScalarWhereInput | AssetScalarWhereInput[]
-    OR?: AssetScalarWhereInput[]
-    NOT?: AssetScalarWhereInput | AssetScalarWhereInput[]
-    id?: StringFilter<"Asset"> | string
-    name?: StringFilter<"Asset"> | string
-    description?: StringNullableFilter<"Asset"> | string | null
-    categoryId?: StringFilter<"Asset"> | string
-    createdAt?: DateTimeFilter<"Asset"> | Date | string
-    updatedAt?: DateTimeFilter<"Asset"> | Date | string
-  }
-
   export type AssetCategoryCreateWithoutAssetsInput = {
     id?: string
     name: string
@@ -44347,6 +46695,138 @@ export namespace Prisma {
     create: XOR<AssetCategoryCreateWithoutAssetsInput, AssetCategoryUncheckedCreateWithoutAssetsInput>
   }
 
+  export type AssetCreateWithoutChildAssetsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    tag?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    category: AssetCategoryCreateNestedOneWithoutAssetsInput
+    parentSystem?: AssetCreateNestedOneWithoutChildAssetsInput
+    space?: SpaceCreateNestedOneWithoutAssetsInput
+    maintenances?: MaintenanceCreateNestedManyWithoutAssetInput
+    preventives?: PreventiveCreateNestedManyWithoutAssetInput
+  }
+
+  export type AssetUncheckedCreateWithoutChildAssetsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    categoryId: string
+    tag?: string | null
+    parentSystemId?: string | null
+    spaceId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutAssetInput
+  }
+
+  export type AssetCreateOrConnectWithoutChildAssetsInput = {
+    where: AssetWhereUniqueInput
+    create: XOR<AssetCreateWithoutChildAssetsInput, AssetUncheckedCreateWithoutChildAssetsInput>
+  }
+
+  export type AssetCreateWithoutParentSystemInput = {
+    id?: string
+    name: string
+    description?: string | null
+    tag?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    category: AssetCategoryCreateNestedOneWithoutAssetsInput
+    childAssets?: AssetCreateNestedManyWithoutParentSystemInput
+    space?: SpaceCreateNestedOneWithoutAssetsInput
+    maintenances?: MaintenanceCreateNestedManyWithoutAssetInput
+    preventives?: PreventiveCreateNestedManyWithoutAssetInput
+  }
+
+  export type AssetUncheckedCreateWithoutParentSystemInput = {
+    id?: string
+    name: string
+    description?: string | null
+    categoryId: string
+    tag?: string | null
+    spaceId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    childAssets?: AssetUncheckedCreateNestedManyWithoutParentSystemInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutAssetInput
+  }
+
+  export type AssetCreateOrConnectWithoutParentSystemInput = {
+    where: AssetWhereUniqueInput
+    create: XOR<AssetCreateWithoutParentSystemInput, AssetUncheckedCreateWithoutParentSystemInput>
+  }
+
+  export type AssetCreateManyParentSystemInputEnvelope = {
+    data: AssetCreateManyParentSystemInput | AssetCreateManyParentSystemInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SpaceCreateWithoutAssetsInput = {
+    id?: string
+    name: string
+    code: string
+    use?: $Enums.RoomUse
+    status?: $Enums.ServiceStatus
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    height?: number | null
+    heated?: boolean
+    totalVolume?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutSpacesInput
+    complex?: ComplexCreateNestedOneWithoutSpacesInput
+    building?: BuildingCreateNestedOneWithoutSpacesInput
+    floor: FloorCreateNestedOneWithoutSpacesInput
+    zone?: ZoneCreateNestedOneWithoutRoomsInput
+    photos?: FileCreateNestedManyWithoutSpacesInput
+    maintenances?: MaintenanceCreateNestedManyWithoutSpaceInput
+    preventives?: PreventiveCreateNestedManyWithoutSpaceInput
+  }
+
+  export type SpaceUncheckedCreateWithoutAssetsInput = {
+    id?: string
+    name: string
+    code: string
+    use?: $Enums.RoomUse
+    status?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
+    complexId?: string | null
+    buildingId?: string | null
+    floorId: string
+    zoneId?: string | null
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    height?: number | null
+    heated?: boolean
+    totalVolume?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photos?: FileUncheckedCreateNestedManyWithoutSpacesInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSpaceInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutSpaceInput
+  }
+
+  export type SpaceCreateOrConnectWithoutAssetsInput = {
+    where: SpaceWhereUniqueInput
+    create: XOR<SpaceCreateWithoutAssetsInput, SpaceUncheckedCreateWithoutAssetsInput>
+  }
+
   export type MaintenanceCreateWithoutAssetInput = {
     id?: string
     type?: $Enums.MaintenanceType
@@ -44358,6 +46838,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -44403,7 +46884,7 @@ export namespace Prisma {
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
-    room?: RoomCreateNestedOneWithoutMaintenancesInput
+    space?: SpaceCreateNestedOneWithoutMaintenancesInput
     assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
   }
@@ -44419,6 +46900,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
     processStatus?: $Enums.Status
     register?: string | null
@@ -44447,7 +46929,7 @@ export namespace Prisma {
     companyId?: string | null
     teamId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -44495,7 +46977,7 @@ export namespace Prisma {
     site: ComplexCreateNestedOneWithoutPreventivesInput
     building?: BuildingCreateNestedOneWithoutPreventivesInput
     floor?: FloorCreateNestedOneWithoutPreventivesInput
-    room?: RoomCreateNestedOneWithoutPreventivesInput
+    space?: SpaceCreateNestedOneWithoutPreventivesInput
     team?: TeamCreateNestedOneWithoutPreventivesInput
   }
 
@@ -44513,7 +46995,7 @@ export namespace Prisma {
     siteId: string
     buildingId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     teamId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -44558,6 +47040,128 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AssetUpsertWithoutChildAssetsInput = {
+    update: XOR<AssetUpdateWithoutChildAssetsInput, AssetUncheckedUpdateWithoutChildAssetsInput>
+    create: XOR<AssetCreateWithoutChildAssetsInput, AssetUncheckedCreateWithoutChildAssetsInput>
+    where?: AssetWhereInput
+  }
+
+  export type AssetUpdateToOneWithWhereWithoutChildAssetsInput = {
+    where?: AssetWhereInput
+    data: XOR<AssetUpdateWithoutChildAssetsInput, AssetUncheckedUpdateWithoutChildAssetsInput>
+  }
+
+  export type AssetUpdateWithoutChildAssetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: AssetCategoryUpdateOneRequiredWithoutAssetsNestedInput
+    parentSystem?: AssetUpdateOneWithoutChildAssetsNestedInput
+    space?: SpaceUpdateOneWithoutAssetsNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutAssetNestedInput
+    preventives?: PreventiveUpdateManyWithoutAssetNestedInput
+  }
+
+  export type AssetUncheckedUpdateWithoutChildAssetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryId?: StringFieldUpdateOperationsInput | string
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    parentSystemId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutAssetNestedInput
+  }
+
+  export type AssetUpsertWithWhereUniqueWithoutParentSystemInput = {
+    where: AssetWhereUniqueInput
+    update: XOR<AssetUpdateWithoutParentSystemInput, AssetUncheckedUpdateWithoutParentSystemInput>
+    create: XOR<AssetCreateWithoutParentSystemInput, AssetUncheckedCreateWithoutParentSystemInput>
+  }
+
+  export type AssetUpdateWithWhereUniqueWithoutParentSystemInput = {
+    where: AssetWhereUniqueInput
+    data: XOR<AssetUpdateWithoutParentSystemInput, AssetUncheckedUpdateWithoutParentSystemInput>
+  }
+
+  export type AssetUpdateManyWithWhereWithoutParentSystemInput = {
+    where: AssetScalarWhereInput
+    data: XOR<AssetUpdateManyMutationInput, AssetUncheckedUpdateManyWithoutParentSystemInput>
+  }
+
+  export type SpaceUpsertWithoutAssetsInput = {
+    update: XOR<SpaceUpdateWithoutAssetsInput, SpaceUncheckedUpdateWithoutAssetsInput>
+    create: XOR<SpaceCreateWithoutAssetsInput, SpaceUncheckedCreateWithoutAssetsInput>
+    where?: SpaceWhereInput
+  }
+
+  export type SpaceUpdateToOneWithWhereWithoutAssetsInput = {
+    where?: SpaceWhereInput
+    data: XOR<SpaceUpdateWithoutAssetsInput, SpaceUncheckedUpdateWithoutAssetsInput>
+  }
+
+  export type SpaceUpdateWithoutAssetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    heated?: BoolFieldUpdateOperationsInput | boolean
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    calenderEntity?: CalenderEntityUpdateOneWithoutSpacesNestedInput
+    complex?: ComplexUpdateOneWithoutSpacesNestedInput
+    building?: BuildingUpdateOneWithoutSpacesNestedInput
+    floor?: FloorUpdateOneRequiredWithoutSpacesNestedInput
+    zone?: ZoneUpdateOneWithoutRoomsNestedInput
+    photos?: FileUpdateManyWithoutSpacesNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutSpaceNestedInput
+    preventives?: PreventiveUpdateManyWithoutSpaceNestedInput
+  }
+
+  export type SpaceUncheckedUpdateWithoutAssetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    complexId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: StringFieldUpdateOperationsInput | string
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    heated?: BoolFieldUpdateOperationsInput | boolean
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutSpacesNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutSpaceNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutSpaceNestedInput
+  }
+
   export type MaintenanceUpsertWithWhereUniqueWithoutAssetInput = {
     where: MaintenanceWhereUniqueInput
     update: XOR<MaintenanceUpdateWithoutAssetInput, MaintenanceUncheckedUpdateWithoutAssetInput>
@@ -44590,7 +47194,7 @@ export namespace Prisma {
     data: XOR<PreventiveUpdateManyMutationInput, PreventiveUncheckedUpdateManyWithoutAssetInput>
   }
 
-  export type RoomCreateWithoutPhotosInput = {
+  export type SpaceCreateWithoutPhotosInput = {
     id?: string
     name: string
     code: string
@@ -44608,16 +47212,17 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    calenderEntity?: CalenderEntityCreateNestedOneWithoutRoomsInput
-    complex?: ComplexCreateNestedOneWithoutRoomsInput
-    building?: BuildingCreateNestedOneWithoutRoomsInput
-    floor: FloorCreateNestedOneWithoutRoomsInput
-    unit?: UnitCreateNestedOneWithoutRoomsInput
-    maintenances?: MaintenanceCreateNestedManyWithoutRoomInput
-    preventives?: PreventiveCreateNestedManyWithoutRoomInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutSpacesInput
+    complex?: ComplexCreateNestedOneWithoutSpacesInput
+    building?: BuildingCreateNestedOneWithoutSpacesInput
+    floor: FloorCreateNestedOneWithoutSpacesInput
+    zone?: ZoneCreateNestedOneWithoutRoomsInput
+    maintenances?: MaintenanceCreateNestedManyWithoutSpaceInput
+    preventives?: PreventiveCreateNestedManyWithoutSpaceInput
+    assets?: AssetCreateNestedManyWithoutSpaceInput
   }
 
-  export type RoomUncheckedCreateWithoutPhotosInput = {
+  export type SpaceUncheckedCreateWithoutPhotosInput = {
     id?: string
     name: string
     code: string
@@ -44627,7 +47232,7 @@ export namespace Prisma {
     complexId?: string | null
     buildingId?: string | null
     floorId: string
-    unitId?: string | null
+    zoneId?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     glazedArea?: number | null
@@ -44640,19 +47245,21 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutRoomInput
-    preventives?: PreventiveUncheckedCreateNestedManyWithoutRoomInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSpaceInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutSpaceInput
+    assets?: AssetUncheckedCreateNestedManyWithoutSpaceInput
   }
 
-  export type RoomCreateOrConnectWithoutPhotosInput = {
-    where: RoomWhereUniqueInput
-    create: XOR<RoomCreateWithoutPhotosInput, RoomUncheckedCreateWithoutPhotosInput>
+  export type SpaceCreateOrConnectWithoutPhotosInput = {
+    where: SpaceWhereUniqueInput
+    create: XOR<SpaceCreateWithoutPhotosInput, SpaceUncheckedCreateWithoutPhotosInput>
   }
 
-  export type UnitCreateWithoutPhotosInput = {
+  export type ZoneCreateWithoutPhotosInput = {
     id?: string
     code: string
     name: string
+    type?: string | null
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
     address?: string | null
@@ -44679,17 +47286,18 @@ export namespace Prisma {
     subArea?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    calenderEntity?: CalenderEntityCreateNestedOneWithoutUnitsInput
-    complex?: ComplexCreateNestedOneWithoutUnitsInput
-    building?: BuildingCreateNestedOneWithoutUnitsInput
-    floor: FloorCreateNestedOneWithoutUnitsInput
-    rooms?: RoomCreateNestedManyWithoutUnitInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutZonesInput
+    complex?: ComplexCreateNestedOneWithoutZonesInput
+    building?: BuildingCreateNestedOneWithoutZonesInput
+    floor: FloorCreateNestedOneWithoutZonesInput
+    rooms?: SpaceCreateNestedManyWithoutZoneInput
   }
 
-  export type UnitUncheckedCreateWithoutPhotosInput = {
+  export type ZoneUncheckedCreateWithoutPhotosInput = {
     id?: string
     code: string
     name: string
+    type?: string | null
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
     calenderEntityId?: string | null
@@ -44720,12 +47328,12 @@ export namespace Prisma {
     subArea?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    rooms?: RoomUncheckedCreateNestedManyWithoutUnitInput
+    rooms?: SpaceUncheckedCreateNestedManyWithoutZoneInput
   }
 
-  export type UnitCreateOrConnectWithoutPhotosInput = {
-    where: UnitWhereUniqueInput
-    create: XOR<UnitCreateWithoutPhotosInput, UnitUncheckedCreateWithoutPhotosInput>
+  export type ZoneCreateOrConnectWithoutPhotosInput = {
+    where: ZoneWhereUniqueInput
+    create: XOR<ZoneCreateWithoutPhotosInput, ZoneUncheckedCreateWithoutPhotosInput>
   }
 
   export type BuildingCreateWithoutPhotosInput = {
@@ -44753,8 +47361,8 @@ export namespace Prisma {
     complex: ComplexCreateNestedOneWithoutBuildingsInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutBuildingsInput
     floors?: FloorCreateNestedManyWithoutBuildingInput
-    units?: UnitCreateNestedManyWithoutBuildingInput
-    rooms?: RoomCreateNestedManyWithoutBuildingInput
+    spaces?: SpaceCreateNestedManyWithoutBuildingInput
+    zones?: ZoneCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveCreateNestedManyWithoutBuildingInput
   }
 
@@ -44783,8 +47391,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
-    units?: UnitUncheckedCreateNestedManyWithoutBuildingInput
-    rooms?: RoomUncheckedCreateNestedManyWithoutBuildingInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutBuildingInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
   }
 
@@ -44820,10 +47428,11 @@ export namespace Prisma {
     calenderEntity?: CalenderEntityCreateNestedOneWithoutComplexesInput
     buildings?: BuildingCreateNestedManyWithoutComplexInput
     floors?: FloorCreateNestedManyWithoutComplexInput
-    units?: UnitCreateNestedManyWithoutComplexInput
-    rooms?: RoomCreateNestedManyWithoutComplexInput
+    spaces?: SpaceCreateNestedManyWithoutComplexInput
+    zones?: ZoneCreateNestedManyWithoutComplexInput
     maintenances?: MaintenanceCreateNestedManyWithoutSiteInput
     preventives?: PreventiveCreateNestedManyWithoutSiteInput
+    site?: SiteCreateNestedOneWithoutComplexesInput
   }
 
   export type ComplexUncheckedCreateWithoutPhotosInput = {
@@ -44851,10 +47460,11 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    siteId?: string | null
     buildings?: BuildingUncheckedCreateNestedManyWithoutComplexInput
     floors?: FloorUncheckedCreateNestedManyWithoutComplexInput
-    units?: UnitUncheckedCreateNestedManyWithoutComplexInput
-    rooms?: RoomUncheckedCreateNestedManyWithoutComplexInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutComplexInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutComplexInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSiteInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutSiteInput
   }
@@ -44875,6 +47485,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -44920,7 +47531,7 @@ export namespace Prisma {
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
-    room?: RoomCreateNestedOneWithoutMaintenancesInput
+    space?: SpaceCreateNestedOneWithoutMaintenancesInput
     assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
   }
@@ -44936,6 +47547,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
     processStatus?: $Enums.Status
     register?: string | null
@@ -44964,7 +47576,7 @@ export namespace Prisma {
     companyId?: string | null
     teamId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -44991,36 +47603,36 @@ export namespace Prisma {
     create: XOR<MaintenanceCreateWithoutPhotosInput, MaintenanceUncheckedCreateWithoutPhotosInput>
   }
 
-  export type RoomUpsertWithWhereUniqueWithoutPhotosInput = {
-    where: RoomWhereUniqueInput
-    update: XOR<RoomUpdateWithoutPhotosInput, RoomUncheckedUpdateWithoutPhotosInput>
-    create: XOR<RoomCreateWithoutPhotosInput, RoomUncheckedCreateWithoutPhotosInput>
+  export type SpaceUpsertWithWhereUniqueWithoutPhotosInput = {
+    where: SpaceWhereUniqueInput
+    update: XOR<SpaceUpdateWithoutPhotosInput, SpaceUncheckedUpdateWithoutPhotosInput>
+    create: XOR<SpaceCreateWithoutPhotosInput, SpaceUncheckedCreateWithoutPhotosInput>
   }
 
-  export type RoomUpdateWithWhereUniqueWithoutPhotosInput = {
-    where: RoomWhereUniqueInput
-    data: XOR<RoomUpdateWithoutPhotosInput, RoomUncheckedUpdateWithoutPhotosInput>
+  export type SpaceUpdateWithWhereUniqueWithoutPhotosInput = {
+    where: SpaceWhereUniqueInput
+    data: XOR<SpaceUpdateWithoutPhotosInput, SpaceUncheckedUpdateWithoutPhotosInput>
   }
 
-  export type RoomUpdateManyWithWhereWithoutPhotosInput = {
-    where: RoomScalarWhereInput
-    data: XOR<RoomUpdateManyMutationInput, RoomUncheckedUpdateManyWithoutPhotosInput>
+  export type SpaceUpdateManyWithWhereWithoutPhotosInput = {
+    where: SpaceScalarWhereInput
+    data: XOR<SpaceUpdateManyMutationInput, SpaceUncheckedUpdateManyWithoutPhotosInput>
   }
 
-  export type UnitUpsertWithWhereUniqueWithoutPhotosInput = {
-    where: UnitWhereUniqueInput
-    update: XOR<UnitUpdateWithoutPhotosInput, UnitUncheckedUpdateWithoutPhotosInput>
-    create: XOR<UnitCreateWithoutPhotosInput, UnitUncheckedCreateWithoutPhotosInput>
+  export type ZoneUpsertWithWhereUniqueWithoutPhotosInput = {
+    where: ZoneWhereUniqueInput
+    update: XOR<ZoneUpdateWithoutPhotosInput, ZoneUncheckedUpdateWithoutPhotosInput>
+    create: XOR<ZoneCreateWithoutPhotosInput, ZoneUncheckedCreateWithoutPhotosInput>
   }
 
-  export type UnitUpdateWithWhereUniqueWithoutPhotosInput = {
-    where: UnitWhereUniqueInput
-    data: XOR<UnitUpdateWithoutPhotosInput, UnitUncheckedUpdateWithoutPhotosInput>
+  export type ZoneUpdateWithWhereUniqueWithoutPhotosInput = {
+    where: ZoneWhereUniqueInput
+    data: XOR<ZoneUpdateWithoutPhotosInput, ZoneUncheckedUpdateWithoutPhotosInput>
   }
 
-  export type UnitUpdateManyWithWhereWithoutPhotosInput = {
-    where: UnitScalarWhereInput
-    data: XOR<UnitUpdateManyMutationInput, UnitUncheckedUpdateManyWithoutPhotosInput>
+  export type ZoneUpdateManyWithWhereWithoutPhotosInput = {
+    where: ZoneScalarWhereInput
+    data: XOR<ZoneUpdateManyMutationInput, ZoneUncheckedUpdateManyWithoutPhotosInput>
   }
 
   export type BuildingUpsertWithWhereUniqueWithoutPhotosInput = {
@@ -45055,36 +47667,6 @@ export namespace Prisma {
     data: XOR<ComplexUpdateManyMutationInput, ComplexUncheckedUpdateManyWithoutPhotosInput>
   }
 
-  export type ComplexScalarWhereInput = {
-    AND?: ComplexScalarWhereInput | ComplexScalarWhereInput[]
-    OR?: ComplexScalarWhereInput[]
-    NOT?: ComplexScalarWhereInput | ComplexScalarWhereInput[]
-    id?: StringFilter<"Complex"> | string
-    code?: StringFilter<"Complex"> | string
-    name?: StringFilter<"Complex"> | string
-    availability?: EnumAvailabilityFilter<"Complex"> | $Enums.Availability
-    status?: EnumServiceStatusFilter<"Complex"> | $Enums.ServiceStatus
-    calenderEntityId?: StringNullableFilter<"Complex"> | string | null
-    address?: StringNullableFilter<"Complex"> | string | null
-    city?: StringNullableFilter<"Complex"> | string | null
-    zipCode?: StringNullableFilter<"Complex"> | string | null
-    condition?: EnumConditionFilter<"Complex"> | $Enums.Condition
-    criticality?: EnumCriticalityFilter<"Complex"> | $Enums.Criticality
-    totalBuildings?: IntNullableFilter<"Complex"> | number | null
-    totalFloors?: IntNullableFilter<"Complex"> | number | null
-    totalUnits?: IntNullableFilter<"Complex"> | number | null
-    totalRooms?: IntNullableFilter<"Complex"> | number | null
-    glazedArea?: FloatNullableFilter<"Complex"> | number | null
-    cleanableArea?: FloatNullableFilter<"Complex"> | number | null
-    coveredArea?: FloatNullableFilter<"Complex"> | number | null
-    totalNetArea?: FloatNullableFilter<"Complex"> | number | null
-    totalGrossArea?: FloatNullableFilter<"Complex"> | number | null
-    totalHeatedVolume?: FloatNullableFilter<"Complex"> | number | null
-    totalVolume?: FloatNullableFilter<"Complex"> | number | null
-    createdAt?: DateTimeFilter<"Complex"> | Date | string
-    updatedAt?: DateTimeFilter<"Complex"> | Date | string
-  }
-
   export type MaintenanceUpsertWithoutPhotosInput = {
     update: XOR<MaintenanceUpdateWithoutPhotosInput, MaintenanceUncheckedUpdateWithoutPhotosInput>
     create: XOR<MaintenanceCreateWithoutPhotosInput, MaintenanceUncheckedCreateWithoutPhotosInput>
@@ -45107,6 +47689,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -45152,7 +47735,7 @@ export namespace Prisma {
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
-    room?: RoomUpdateOneWithoutMaintenancesNestedInput
+    space?: SpaceUpdateOneWithoutMaintenancesNestedInput
     assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
   }
@@ -45168,6 +47751,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
@@ -45196,7 +47780,7 @@ export namespace Prisma {
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -45288,6 +47872,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -45332,7 +47917,7 @@ export namespace Prisma {
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
-    room?: RoomCreateNestedOneWithoutMaintenancesInput
+    space?: SpaceCreateNestedOneWithoutMaintenancesInput
     assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
@@ -45349,6 +47934,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
     processStatus?: $Enums.Status
     register?: string | null
@@ -45376,7 +47962,7 @@ export namespace Prisma {
     subCategory?: string | null
     teamId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -45483,7 +48069,7 @@ export namespace Prisma {
     passwordExpiresAt?: Date | string | null
     passwordResetAt?: Date | string | null
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
-    role: RoleCreateNestedOneWithoutUsersInput
+    roles?: RoleCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutEmployeesInput = {
@@ -45493,13 +48079,13 @@ export namespace Prisma {
     firstName: string
     lastName: string
     status?: $Enums.UserStatus
-    roleId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     passwordResetToken?: string | null
     passwordExpiresAt?: Date | string | null
     passwordResetAt?: Date | string | null
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    roles?: RoleUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutEmployeesInput = {
@@ -45551,8 +48137,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     buildings?: BuildingCreateNestedManyWithoutCalenderEntityInput
     complexes?: ComplexCreateNestedManyWithoutCalenderEntityInput
-    units?: UnitCreateNestedManyWithoutCalenderEntityInput
-    rooms?: RoomCreateNestedManyWithoutCalenderEntityInput
+    spaces?: SpaceCreateNestedManyWithoutCalenderEntityInput
+    zones?: ZoneCreateNestedManyWithoutCalenderEntityInput
   }
 
   export type CalenderEntityUncheckedCreateWithoutEmployeesInput = {
@@ -45562,8 +48148,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     buildings?: BuildingUncheckedCreateNestedManyWithoutCalenderEntityInput
     complexes?: ComplexUncheckedCreateNestedManyWithoutCalenderEntityInput
-    units?: UnitUncheckedCreateNestedManyWithoutCalenderEntityInput
-    rooms?: RoomUncheckedCreateNestedManyWithoutCalenderEntityInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutCalenderEntityInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutCalenderEntityInput
   }
 
   export type CalenderEntityCreateOrConnectWithoutEmployeesInput = {
@@ -45616,6 +48202,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -45660,7 +48247,7 @@ export namespace Prisma {
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
-    room?: RoomCreateNestedOneWithoutMaintenancesInput
+    space?: SpaceCreateNestedOneWithoutMaintenancesInput
     assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
@@ -45677,6 +48264,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -45704,7 +48292,7 @@ export namespace Prisma {
     companyId?: string | null
     teamId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -45748,6 +48336,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -45792,7 +48381,7 @@ export namespace Prisma {
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
-    room?: RoomCreateNestedOneWithoutMaintenancesInput
+    space?: SpaceCreateNestedOneWithoutMaintenancesInput
     assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
@@ -45809,6 +48398,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
     processStatus?: $Enums.Status
     register?: string | null
@@ -45836,7 +48426,7 @@ export namespace Prisma {
     companyId?: string | null
     teamId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -45880,6 +48470,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -45925,7 +48516,7 @@ export namespace Prisma {
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     team?: TeamCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
-    room?: RoomCreateNestedOneWithoutMaintenancesInput
+    space?: SpaceCreateNestedOneWithoutMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
   }
@@ -45941,6 +48532,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
     processStatus?: $Enums.Status
     register?: string | null
@@ -45969,7 +48561,7 @@ export namespace Prisma {
     companyId?: string | null
     teamId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -46025,7 +48617,7 @@ export namespace Prisma {
     passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
-    role?: RoleUpdateOneRequiredWithoutUsersNestedInput
+    roles?: RoleUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEmployeesInput = {
@@ -46035,13 +48627,13 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-    roleId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type CompanyUpsertWithoutEmployeesInput = {
@@ -46105,8 +48697,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buildings?: BuildingUpdateManyWithoutCalenderEntityNestedInput
     complexes?: ComplexUpdateManyWithoutCalenderEntityNestedInput
-    units?: UnitUpdateManyWithoutCalenderEntityNestedInput
-    rooms?: RoomUpdateManyWithoutCalenderEntityNestedInput
+    spaces?: SpaceUpdateManyWithoutCalenderEntityNestedInput
+    zones?: ZoneUpdateManyWithoutCalenderEntityNestedInput
   }
 
   export type CalenderEntityUncheckedUpdateWithoutEmployeesInput = {
@@ -46116,8 +48708,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buildings?: BuildingUncheckedUpdateManyWithoutCalenderEntityNestedInput
     complexes?: ComplexUncheckedUpdateManyWithoutCalenderEntityNestedInput
-    units?: UnitUncheckedUpdateManyWithoutCalenderEntityNestedInput
-    rooms?: RoomUncheckedUpdateManyWithoutCalenderEntityNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutCalenderEntityNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutCalenderEntityNestedInput
   }
 
   export type TeamUpsertWithWhereUniqueWithoutSupervisorInput = {
@@ -46240,6 +48832,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -46284,7 +48877,7 @@ export namespace Prisma {
     site: ComplexCreateNestedOneWithoutMaintenancesInput
     company?: CompanyCreateNestedOneWithoutMaintenancesInput
     floor?: FloorCreateNestedOneWithoutMaintenancesInput
-    room?: RoomCreateNestedOneWithoutMaintenancesInput
+    space?: SpaceCreateNestedOneWithoutMaintenancesInput
     assignee?: EmployeeCreateNestedOneWithoutAssignedMaintenancesInput
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
@@ -46301,6 +48894,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
     processStatus?: $Enums.Status
     register?: string | null
@@ -46328,7 +48922,7 @@ export namespace Prisma {
     subCategory?: string | null
     companyId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -46378,7 +48972,7 @@ export namespace Prisma {
     asset?: AssetCreateNestedOneWithoutPreventivesInput
     building?: BuildingCreateNestedOneWithoutPreventivesInput
     floor?: FloorCreateNestedOneWithoutPreventivesInput
-    room?: RoomCreateNestedOneWithoutPreventivesInput
+    space?: SpaceCreateNestedOneWithoutPreventivesInput
   }
 
   export type PreventiveUncheckedCreateWithoutTeamInput = {
@@ -46396,7 +48990,7 @@ export namespace Prisma {
     assetId?: string | null
     buildingId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -46547,8 +49141,8 @@ export namespace Prisma {
     calenderEntity?: CalenderEntityCreateNestedOneWithoutBuildingsInput
     photos?: FileCreateNestedManyWithoutBuildingsInput
     floors?: FloorCreateNestedManyWithoutBuildingInput
-    units?: UnitCreateNestedManyWithoutBuildingInput
-    rooms?: RoomCreateNestedManyWithoutBuildingInput
+    spaces?: SpaceCreateNestedManyWithoutBuildingInput
+    zones?: ZoneCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveCreateNestedManyWithoutBuildingInput
   }
 
@@ -46577,8 +49171,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutBuildingsInput
     floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
-    units?: UnitUncheckedCreateNestedManyWithoutBuildingInput
-    rooms?: RoomUncheckedCreateNestedManyWithoutBuildingInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutBuildingInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
   }
 
@@ -46667,8 +49261,8 @@ export namespace Prisma {
     complex: ComplexCreateNestedOneWithoutBuildingsInput
     photos?: FileCreateNestedManyWithoutBuildingsInput
     floors?: FloorCreateNestedManyWithoutBuildingInput
-    units?: UnitCreateNestedManyWithoutBuildingInput
-    rooms?: RoomCreateNestedManyWithoutBuildingInput
+    spaces?: SpaceCreateNestedManyWithoutBuildingInput
+    zones?: ZoneCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveCreateNestedManyWithoutBuildingInput
   }
 
@@ -46697,8 +49291,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutBuildingsInput
     floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
-    units?: UnitUncheckedCreateNestedManyWithoutBuildingInput
-    rooms?: RoomUncheckedCreateNestedManyWithoutBuildingInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutBuildingInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutBuildingInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
   }
 
@@ -46739,10 +49333,11 @@ export namespace Prisma {
     buildings?: BuildingCreateNestedManyWithoutComplexInput
     photos?: FileCreateNestedManyWithoutComplexesInput
     floors?: FloorCreateNestedManyWithoutComplexInput
-    units?: UnitCreateNestedManyWithoutComplexInput
-    rooms?: RoomCreateNestedManyWithoutComplexInput
+    spaces?: SpaceCreateNestedManyWithoutComplexInput
+    zones?: ZoneCreateNestedManyWithoutComplexInput
     maintenances?: MaintenanceCreateNestedManyWithoutSiteInput
     preventives?: PreventiveCreateNestedManyWithoutSiteInput
+    site?: SiteCreateNestedOneWithoutComplexesInput
   }
 
   export type ComplexUncheckedCreateWithoutCalenderEntityInput = {
@@ -46769,11 +49364,12 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    siteId?: string | null
     buildings?: BuildingUncheckedCreateNestedManyWithoutComplexInput
     photos?: FileUncheckedCreateNestedManyWithoutComplexesInput
     floors?: FloorUncheckedCreateNestedManyWithoutComplexInput
-    units?: UnitUncheckedCreateNestedManyWithoutComplexInput
-    rooms?: RoomUncheckedCreateNestedManyWithoutComplexInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutComplexInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutComplexInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSiteInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutSiteInput
   }
@@ -46788,151 +49384,155 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UnitCreateWithoutCalenderEntityInput = {
+  export type SpaceCreateWithoutCalenderEntityInput = {
     id?: string
-    code: string
     name: string
-    availability?: $Enums.Availability
+    code: string
+    use?: $Enums.RoomUse
     status?: $Enums.ServiceStatus
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
-    totalRooms?: number | null
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
     glazedArea?: number | null
     cleanableArea?: number | null
     coveredArea?: number | null
     totalNetArea?: number | null
     totalGrossArea?: number | null
-    totalHeatedVolume?: number | null
+    height?: number | null
+    heated?: boolean
     totalVolume?: number | null
-    cadastralArea?: number | null
-    urbanSection?: string | null
-    sheet?: string | null
-    plot?: string | null
-    subordinate?: string | null
-    class?: number | null
-    size?: number | null
-    propertyRightsAndDuties?: string | null
-    cadastralIncome?: Decimal | DecimalJsLike | number | string | null
-    censusArea?: string | null
-    subArea?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    complex?: ComplexCreateNestedOneWithoutUnitsInput
-    building?: BuildingCreateNestedOneWithoutUnitsInput
-    floor: FloorCreateNestedOneWithoutUnitsInput
-    rooms?: RoomCreateNestedManyWithoutUnitInput
-    photos?: FileCreateNestedManyWithoutUnitsInput
+    complex?: ComplexCreateNestedOneWithoutSpacesInput
+    building?: BuildingCreateNestedOneWithoutSpacesInput
+    floor: FloorCreateNestedOneWithoutSpacesInput
+    zone?: ZoneCreateNestedOneWithoutRoomsInput
+    photos?: FileCreateNestedManyWithoutSpacesInput
+    maintenances?: MaintenanceCreateNestedManyWithoutSpaceInput
+    preventives?: PreventiveCreateNestedManyWithoutSpaceInput
+    assets?: AssetCreateNestedManyWithoutSpaceInput
   }
 
-  export type UnitUncheckedCreateWithoutCalenderEntityInput = {
+  export type SpaceUncheckedCreateWithoutCalenderEntityInput = {
     id?: string
-    code: string
     name: string
-    availability?: $Enums.Availability
+    code: string
+    use?: $Enums.RoomUse
     status?: $Enums.ServiceStatus
     complexId?: string | null
     buildingId?: string | null
     floorId: string
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
-    totalRooms?: number | null
+    zoneId?: string | null
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
     glazedArea?: number | null
     cleanableArea?: number | null
     coveredArea?: number | null
     totalNetArea?: number | null
     totalGrossArea?: number | null
-    totalHeatedVolume?: number | null
+    height?: number | null
+    heated?: boolean
     totalVolume?: number | null
-    cadastralArea?: number | null
-    urbanSection?: string | null
-    sheet?: string | null
-    plot?: string | null
-    subordinate?: string | null
-    class?: number | null
-    size?: number | null
-    propertyRightsAndDuties?: string | null
-    cadastralIncome?: Decimal | DecimalJsLike | number | string | null
-    censusArea?: string | null
-    subArea?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    rooms?: RoomUncheckedCreateNestedManyWithoutUnitInput
-    photos?: FileUncheckedCreateNestedManyWithoutUnitsInput
+    photos?: FileUncheckedCreateNestedManyWithoutSpacesInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSpaceInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutSpaceInput
+    assets?: AssetUncheckedCreateNestedManyWithoutSpaceInput
   }
 
-  export type UnitCreateOrConnectWithoutCalenderEntityInput = {
-    where: UnitWhereUniqueInput
-    create: XOR<UnitCreateWithoutCalenderEntityInput, UnitUncheckedCreateWithoutCalenderEntityInput>
+  export type SpaceCreateOrConnectWithoutCalenderEntityInput = {
+    where: SpaceWhereUniqueInput
+    create: XOR<SpaceCreateWithoutCalenderEntityInput, SpaceUncheckedCreateWithoutCalenderEntityInput>
   }
 
-  export type UnitCreateManyCalenderEntityInputEnvelope = {
-    data: UnitCreateManyCalenderEntityInput | UnitCreateManyCalenderEntityInput[]
+  export type SpaceCreateManyCalenderEntityInputEnvelope = {
+    data: SpaceCreateManyCalenderEntityInput | SpaceCreateManyCalenderEntityInput[]
     skipDuplicates?: boolean
   }
 
-  export type RoomCreateWithoutCalenderEntityInput = {
+  export type ZoneCreateWithoutCalenderEntityInput = {
     id?: string
-    name: string
     code: string
-    use?: $Enums.RoomUse
+    name: string
+    type?: string | null
+    availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
-    condition?: $Enums.Condition
-    criticality?: $Enums.Criticality
+    address?: string | null
+    city?: string | null
+    zipCode?: string | null
+    totalRooms?: number | null
     glazedArea?: number | null
     cleanableArea?: number | null
     coveredArea?: number | null
     totalNetArea?: number | null
     totalGrossArea?: number | null
-    height?: number | null
-    heated?: boolean
+    totalHeatedVolume?: number | null
     totalVolume?: number | null
+    cadastralArea?: number | null
+    urbanSection?: string | null
+    sheet?: string | null
+    plot?: string | null
+    subordinate?: string | null
+    class?: number | null
+    size?: number | null
+    propertyRightsAndDuties?: string | null
+    cadastralIncome?: Decimal | DecimalJsLike | number | string | null
+    censusArea?: string | null
+    subArea?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    complex?: ComplexCreateNestedOneWithoutRoomsInput
-    building?: BuildingCreateNestedOneWithoutRoomsInput
-    floor: FloorCreateNestedOneWithoutRoomsInput
-    unit?: UnitCreateNestedOneWithoutRoomsInput
-    photos?: FileCreateNestedManyWithoutRoomsInput
-    maintenances?: MaintenanceCreateNestedManyWithoutRoomInput
-    preventives?: PreventiveCreateNestedManyWithoutRoomInput
+    complex?: ComplexCreateNestedOneWithoutZonesInput
+    building?: BuildingCreateNestedOneWithoutZonesInput
+    floor: FloorCreateNestedOneWithoutZonesInput
+    rooms?: SpaceCreateNestedManyWithoutZoneInput
+    photos?: FileCreateNestedManyWithoutZonesInput
   }
 
-  export type RoomUncheckedCreateWithoutCalenderEntityInput = {
+  export type ZoneUncheckedCreateWithoutCalenderEntityInput = {
     id?: string
-    name: string
     code: string
-    use?: $Enums.RoomUse
+    name: string
+    type?: string | null
+    availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
     complexId?: string | null
     buildingId?: string | null
     floorId: string
-    unitId?: string | null
-    condition?: $Enums.Condition
-    criticality?: $Enums.Criticality
+    address?: string | null
+    city?: string | null
+    zipCode?: string | null
+    totalRooms?: number | null
     glazedArea?: number | null
     cleanableArea?: number | null
     coveredArea?: number | null
     totalNetArea?: number | null
     totalGrossArea?: number | null
-    height?: number | null
-    heated?: boolean
+    totalHeatedVolume?: number | null
     totalVolume?: number | null
+    cadastralArea?: number | null
+    urbanSection?: string | null
+    sheet?: string | null
+    plot?: string | null
+    subordinate?: string | null
+    class?: number | null
+    size?: number | null
+    propertyRightsAndDuties?: string | null
+    cadastralIncome?: Decimal | DecimalJsLike | number | string | null
+    censusArea?: string | null
+    subArea?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    photos?: FileUncheckedCreateNestedManyWithoutRoomsInput
-    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutRoomInput
-    preventives?: PreventiveUncheckedCreateNestedManyWithoutRoomInput
+    rooms?: SpaceUncheckedCreateNestedManyWithoutZoneInput
+    photos?: FileUncheckedCreateNestedManyWithoutZonesInput
   }
 
-  export type RoomCreateOrConnectWithoutCalenderEntityInput = {
-    where: RoomWhereUniqueInput
-    create: XOR<RoomCreateWithoutCalenderEntityInput, RoomUncheckedCreateWithoutCalenderEntityInput>
+  export type ZoneCreateOrConnectWithoutCalenderEntityInput = {
+    where: ZoneWhereUniqueInput
+    create: XOR<ZoneCreateWithoutCalenderEntityInput, ZoneUncheckedCreateWithoutCalenderEntityInput>
   }
 
-  export type RoomCreateManyCalenderEntityInputEnvelope = {
-    data: RoomCreateManyCalenderEntityInput | RoomCreateManyCalenderEntityInput[]
+  export type ZoneCreateManyCalenderEntityInputEnvelope = {
+    data: ZoneCreateManyCalenderEntityInput | ZoneCreateManyCalenderEntityInput[]
     skipDuplicates?: boolean
   }
 
@@ -47004,36 +49604,36 @@ export namespace Prisma {
     data: XOR<ComplexUpdateManyMutationInput, ComplexUncheckedUpdateManyWithoutCalenderEntityInput>
   }
 
-  export type UnitUpsertWithWhereUniqueWithoutCalenderEntityInput = {
-    where: UnitWhereUniqueInput
-    update: XOR<UnitUpdateWithoutCalenderEntityInput, UnitUncheckedUpdateWithoutCalenderEntityInput>
-    create: XOR<UnitCreateWithoutCalenderEntityInput, UnitUncheckedCreateWithoutCalenderEntityInput>
+  export type SpaceUpsertWithWhereUniqueWithoutCalenderEntityInput = {
+    where: SpaceWhereUniqueInput
+    update: XOR<SpaceUpdateWithoutCalenderEntityInput, SpaceUncheckedUpdateWithoutCalenderEntityInput>
+    create: XOR<SpaceCreateWithoutCalenderEntityInput, SpaceUncheckedCreateWithoutCalenderEntityInput>
   }
 
-  export type UnitUpdateWithWhereUniqueWithoutCalenderEntityInput = {
-    where: UnitWhereUniqueInput
-    data: XOR<UnitUpdateWithoutCalenderEntityInput, UnitUncheckedUpdateWithoutCalenderEntityInput>
+  export type SpaceUpdateWithWhereUniqueWithoutCalenderEntityInput = {
+    where: SpaceWhereUniqueInput
+    data: XOR<SpaceUpdateWithoutCalenderEntityInput, SpaceUncheckedUpdateWithoutCalenderEntityInput>
   }
 
-  export type UnitUpdateManyWithWhereWithoutCalenderEntityInput = {
-    where: UnitScalarWhereInput
-    data: XOR<UnitUpdateManyMutationInput, UnitUncheckedUpdateManyWithoutCalenderEntityInput>
+  export type SpaceUpdateManyWithWhereWithoutCalenderEntityInput = {
+    where: SpaceScalarWhereInput
+    data: XOR<SpaceUpdateManyMutationInput, SpaceUncheckedUpdateManyWithoutCalenderEntityInput>
   }
 
-  export type RoomUpsertWithWhereUniqueWithoutCalenderEntityInput = {
-    where: RoomWhereUniqueInput
-    update: XOR<RoomUpdateWithoutCalenderEntityInput, RoomUncheckedUpdateWithoutCalenderEntityInput>
-    create: XOR<RoomCreateWithoutCalenderEntityInput, RoomUncheckedCreateWithoutCalenderEntityInput>
+  export type ZoneUpsertWithWhereUniqueWithoutCalenderEntityInput = {
+    where: ZoneWhereUniqueInput
+    update: XOR<ZoneUpdateWithoutCalenderEntityInput, ZoneUncheckedUpdateWithoutCalenderEntityInput>
+    create: XOR<ZoneCreateWithoutCalenderEntityInput, ZoneUncheckedCreateWithoutCalenderEntityInput>
   }
 
-  export type RoomUpdateWithWhereUniqueWithoutCalenderEntityInput = {
-    where: RoomWhereUniqueInput
-    data: XOR<RoomUpdateWithoutCalenderEntityInput, RoomUncheckedUpdateWithoutCalenderEntityInput>
+  export type ZoneUpdateWithWhereUniqueWithoutCalenderEntityInput = {
+    where: ZoneWhereUniqueInput
+    data: XOR<ZoneUpdateWithoutCalenderEntityInput, ZoneUncheckedUpdateWithoutCalenderEntityInput>
   }
 
-  export type RoomUpdateManyWithWhereWithoutCalenderEntityInput = {
-    where: RoomScalarWhereInput
-    data: XOR<RoomUpdateManyMutationInput, RoomUncheckedUpdateManyWithoutCalenderEntityInput>
+  export type ZoneUpdateManyWithWhereWithoutCalenderEntityInput = {
+    where: ZoneScalarWhereInput
+    data: XOR<ZoneUpdateManyMutationInput, ZoneUncheckedUpdateManyWithoutCalenderEntityInput>
   }
 
   export type EmployeeUpsertWithWhereUniqueWithoutCalenderEntityInput = {
@@ -47142,9 +49742,10 @@ export namespace Prisma {
     buildings?: BuildingCreateNestedManyWithoutComplexInput
     photos?: FileCreateNestedManyWithoutComplexesInput
     floors?: FloorCreateNestedManyWithoutComplexInput
-    units?: UnitCreateNestedManyWithoutComplexInput
-    rooms?: RoomCreateNestedManyWithoutComplexInput
+    spaces?: SpaceCreateNestedManyWithoutComplexInput
+    zones?: ZoneCreateNestedManyWithoutComplexInput
     preventives?: PreventiveCreateNestedManyWithoutSiteInput
+    site?: SiteCreateNestedOneWithoutComplexesInput
   }
 
   export type ComplexUncheckedCreateWithoutMaintenancesInput = {
@@ -47172,11 +49773,12 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    siteId?: string | null
     buildings?: BuildingUncheckedCreateNestedManyWithoutComplexInput
     photos?: FileUncheckedCreateNestedManyWithoutComplexesInput
     floors?: FloorUncheckedCreateNestedManyWithoutComplexInput
-    units?: UnitUncheckedCreateNestedManyWithoutComplexInput
-    rooms?: RoomUncheckedCreateNestedManyWithoutComplexInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutComplexInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutComplexInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutSiteInput
   }
 
@@ -47256,6 +49858,7 @@ export namespace Prisma {
     code: string
     name: string
     level: number
+    type?: string | null
     status?: $Enums.ServiceStatus
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
@@ -47272,8 +49875,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     complex: ComplexCreateNestedOneWithoutFloorsInput
     building: BuildingCreateNestedOneWithoutFloorsInput
-    rooms?: RoomCreateNestedManyWithoutFloorInput
-    units?: UnitCreateNestedManyWithoutFloorInput
+    spaces?: SpaceCreateNestedManyWithoutFloorInput
+    zones?: ZoneCreateNestedManyWithoutFloorInput
     preventives?: PreventiveCreateNestedManyWithoutFloorInput
   }
 
@@ -47282,6 +49885,7 @@ export namespace Prisma {
     code: string
     name: string
     level: number
+    type?: string | null
     status?: $Enums.ServiceStatus
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
@@ -47298,8 +49902,8 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    rooms?: RoomUncheckedCreateNestedManyWithoutFloorInput
-    units?: UnitUncheckedCreateNestedManyWithoutFloorInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutFloorInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutFloorInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutFloorInput
   }
 
@@ -47308,7 +49912,7 @@ export namespace Prisma {
     create: XOR<FloorCreateWithoutMaintenancesInput, FloorUncheckedCreateWithoutMaintenancesInput>
   }
 
-  export type RoomCreateWithoutMaintenancesInput = {
+  export type SpaceCreateWithoutMaintenancesInput = {
     id?: string
     name: string
     code: string
@@ -47326,16 +49930,17 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    calenderEntity?: CalenderEntityCreateNestedOneWithoutRoomsInput
-    complex?: ComplexCreateNestedOneWithoutRoomsInput
-    building?: BuildingCreateNestedOneWithoutRoomsInput
-    floor: FloorCreateNestedOneWithoutRoomsInput
-    unit?: UnitCreateNestedOneWithoutRoomsInput
-    photos?: FileCreateNestedManyWithoutRoomsInput
-    preventives?: PreventiveCreateNestedManyWithoutRoomInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutSpacesInput
+    complex?: ComplexCreateNestedOneWithoutSpacesInput
+    building?: BuildingCreateNestedOneWithoutSpacesInput
+    floor: FloorCreateNestedOneWithoutSpacesInput
+    zone?: ZoneCreateNestedOneWithoutRoomsInput
+    photos?: FileCreateNestedManyWithoutSpacesInput
+    preventives?: PreventiveCreateNestedManyWithoutSpaceInput
+    assets?: AssetCreateNestedManyWithoutSpaceInput
   }
 
-  export type RoomUncheckedCreateWithoutMaintenancesInput = {
+  export type SpaceUncheckedCreateWithoutMaintenancesInput = {
     id?: string
     name: string
     code: string
@@ -47345,7 +49950,7 @@ export namespace Prisma {
     complexId?: string | null
     buildingId?: string | null
     floorId: string
-    unitId?: string | null
+    zoneId?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     glazedArea?: number | null
@@ -47358,13 +49963,14 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    photos?: FileUncheckedCreateNestedManyWithoutRoomsInput
-    preventives?: PreventiveUncheckedCreateNestedManyWithoutRoomInput
+    photos?: FileUncheckedCreateNestedManyWithoutSpacesInput
+    preventives?: PreventiveUncheckedCreateNestedManyWithoutSpaceInput
+    assets?: AssetUncheckedCreateNestedManyWithoutSpaceInput
   }
 
-  export type RoomCreateOrConnectWithoutMaintenancesInput = {
-    where: RoomWhereUniqueInput
-    create: XOR<RoomCreateWithoutMaintenancesInput, RoomUncheckedCreateWithoutMaintenancesInput>
+  export type SpaceCreateOrConnectWithoutMaintenancesInput = {
+    where: SpaceWhereUniqueInput
+    create: XOR<SpaceCreateWithoutMaintenancesInput, SpaceUncheckedCreateWithoutMaintenancesInput>
   }
 
   export type EmployeeCreateWithoutAssignedMaintenancesInput = {
@@ -47402,9 +50008,13 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
+    tag?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     category: AssetCategoryCreateNestedOneWithoutAssetsInput
+    parentSystem?: AssetCreateNestedOneWithoutChildAssetsInput
+    childAssets?: AssetCreateNestedManyWithoutParentSystemInput
+    space?: SpaceCreateNestedOneWithoutAssetsInput
     preventives?: PreventiveCreateNestedManyWithoutAssetInput
   }
 
@@ -47413,8 +50023,12 @@ export namespace Prisma {
     name: string
     description?: string | null
     categoryId: string
+    tag?: string | null
+    parentSystemId?: string | null
+    spaceId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    childAssets?: AssetUncheckedCreateNestedManyWithoutParentSystemInput
     preventives?: PreventiveUncheckedCreateNestedManyWithoutAssetInput
   }
 
@@ -47426,8 +50040,8 @@ export namespace Prisma {
   export type FileCreateWithoutMaintenanceInput = {
     id?: string
     url: string
-    rooms?: RoomCreateNestedManyWithoutPhotosInput
-    units?: UnitCreateNestedManyWithoutPhotosInput
+    spaces?: SpaceCreateNestedManyWithoutPhotosInput
+    zones?: ZoneCreateNestedManyWithoutPhotosInput
     buildings?: BuildingCreateNestedManyWithoutPhotosInput
     complexes?: ComplexCreateNestedManyWithoutPhotosInput
   }
@@ -47435,8 +50049,8 @@ export namespace Prisma {
   export type FileUncheckedCreateWithoutMaintenanceInput = {
     id?: string
     url: string
-    rooms?: RoomUncheckedCreateNestedManyWithoutPhotosInput
-    units?: UnitUncheckedCreateNestedManyWithoutPhotosInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutPhotosInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutPhotosInput
     buildings?: BuildingUncheckedCreateNestedManyWithoutPhotosInput
     complexes?: ComplexUncheckedCreateNestedManyWithoutPhotosInput
   }
@@ -47564,9 +50178,10 @@ export namespace Prisma {
     buildings?: BuildingUpdateManyWithoutComplexNestedInput
     photos?: FileUpdateManyWithoutComplexesNestedInput
     floors?: FloorUpdateManyWithoutComplexNestedInput
-    units?: UnitUpdateManyWithoutComplexNestedInput
-    rooms?: RoomUpdateManyWithoutComplexNestedInput
+    spaces?: SpaceUpdateManyWithoutComplexNestedInput
+    zones?: ZoneUpdateManyWithoutComplexNestedInput
     preventives?: PreventiveUpdateManyWithoutSiteNestedInput
+    site?: SiteUpdateOneWithoutComplexesNestedInput
   }
 
   export type ComplexUncheckedUpdateWithoutMaintenancesInput = {
@@ -47594,11 +50209,12 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
     buildings?: BuildingUncheckedUpdateManyWithoutComplexNestedInput
     photos?: FileUncheckedUpdateManyWithoutComplexesNestedInput
     floors?: FloorUncheckedUpdateManyWithoutComplexNestedInput
-    units?: UnitUncheckedUpdateManyWithoutComplexNestedInput
-    rooms?: RoomUncheckedUpdateManyWithoutComplexNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutComplexNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutComplexNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutSiteNestedInput
   }
 
@@ -47696,6 +50312,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
@@ -47712,8 +50329,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     complex?: ComplexUpdateOneRequiredWithoutFloorsNestedInput
     building?: BuildingUpdateOneRequiredWithoutFloorsNestedInput
-    rooms?: RoomUpdateManyWithoutFloorNestedInput
-    units?: UnitUpdateManyWithoutFloorNestedInput
+    spaces?: SpaceUpdateManyWithoutFloorNestedInput
+    zones?: ZoneUpdateManyWithoutFloorNestedInput
     preventives?: PreventiveUpdateManyWithoutFloorNestedInput
   }
 
@@ -47722,6 +50339,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
@@ -47738,23 +50356,23 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    rooms?: RoomUncheckedUpdateManyWithoutFloorNestedInput
-    units?: UnitUncheckedUpdateManyWithoutFloorNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutFloorNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutFloorNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutFloorNestedInput
   }
 
-  export type RoomUpsertWithoutMaintenancesInput = {
-    update: XOR<RoomUpdateWithoutMaintenancesInput, RoomUncheckedUpdateWithoutMaintenancesInput>
-    create: XOR<RoomCreateWithoutMaintenancesInput, RoomUncheckedCreateWithoutMaintenancesInput>
-    where?: RoomWhereInput
+  export type SpaceUpsertWithoutMaintenancesInput = {
+    update: XOR<SpaceUpdateWithoutMaintenancesInput, SpaceUncheckedUpdateWithoutMaintenancesInput>
+    create: XOR<SpaceCreateWithoutMaintenancesInput, SpaceUncheckedCreateWithoutMaintenancesInput>
+    where?: SpaceWhereInput
   }
 
-  export type RoomUpdateToOneWithWhereWithoutMaintenancesInput = {
-    where?: RoomWhereInput
-    data: XOR<RoomUpdateWithoutMaintenancesInput, RoomUncheckedUpdateWithoutMaintenancesInput>
+  export type SpaceUpdateToOneWithWhereWithoutMaintenancesInput = {
+    where?: SpaceWhereInput
+    data: XOR<SpaceUpdateWithoutMaintenancesInput, SpaceUncheckedUpdateWithoutMaintenancesInput>
   }
 
-  export type RoomUpdateWithoutMaintenancesInput = {
+  export type SpaceUpdateWithoutMaintenancesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
@@ -47772,16 +50390,17 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    calenderEntity?: CalenderEntityUpdateOneWithoutRoomsNestedInput
-    complex?: ComplexUpdateOneWithoutRoomsNestedInput
-    building?: BuildingUpdateOneWithoutRoomsNestedInput
-    floor?: FloorUpdateOneRequiredWithoutRoomsNestedInput
-    unit?: UnitUpdateOneWithoutRoomsNestedInput
-    photos?: FileUpdateManyWithoutRoomsNestedInput
-    preventives?: PreventiveUpdateManyWithoutRoomNestedInput
+    calenderEntity?: CalenderEntityUpdateOneWithoutSpacesNestedInput
+    complex?: ComplexUpdateOneWithoutSpacesNestedInput
+    building?: BuildingUpdateOneWithoutSpacesNestedInput
+    floor?: FloorUpdateOneRequiredWithoutSpacesNestedInput
+    zone?: ZoneUpdateOneWithoutRoomsNestedInput
+    photos?: FileUpdateManyWithoutSpacesNestedInput
+    preventives?: PreventiveUpdateManyWithoutSpaceNestedInput
+    assets?: AssetUpdateManyWithoutSpaceNestedInput
   }
 
-  export type RoomUncheckedUpdateWithoutMaintenancesInput = {
+  export type SpaceUncheckedUpdateWithoutMaintenancesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
@@ -47791,7 +50410,7 @@ export namespace Prisma {
     complexId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: StringFieldUpdateOperationsInput | string
-    unitId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -47804,8 +50423,9 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    photos?: FileUncheckedUpdateManyWithoutRoomsNestedInput
-    preventives?: PreventiveUncheckedUpdateManyWithoutRoomNestedInput
+    photos?: FileUncheckedUpdateManyWithoutSpacesNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutSpaceNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutSpaceNestedInput
   }
 
   export type EmployeeUpsertWithoutAssignedMaintenancesInput = {
@@ -47860,9 +50480,13 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: AssetCategoryUpdateOneRequiredWithoutAssetsNestedInput
+    parentSystem?: AssetUpdateOneWithoutChildAssetsNestedInput
+    childAssets?: AssetUpdateManyWithoutParentSystemNestedInput
+    space?: SpaceUpdateOneWithoutAssetsNestedInput
     preventives?: PreventiveUpdateManyWithoutAssetNestedInput
   }
 
@@ -47871,8 +50495,12 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    parentSystemId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    childAssets?: AssetUncheckedUpdateManyWithoutParentSystemNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutAssetNestedInput
   }
 
@@ -47920,9 +50548,10 @@ export namespace Prisma {
     buildings?: BuildingCreateNestedManyWithoutComplexInput
     photos?: FileCreateNestedManyWithoutComplexesInput
     floors?: FloorCreateNestedManyWithoutComplexInput
-    units?: UnitCreateNestedManyWithoutComplexInput
-    rooms?: RoomCreateNestedManyWithoutComplexInput
+    spaces?: SpaceCreateNestedManyWithoutComplexInput
+    zones?: ZoneCreateNestedManyWithoutComplexInput
     maintenances?: MaintenanceCreateNestedManyWithoutSiteInput
+    site?: SiteCreateNestedOneWithoutComplexesInput
   }
 
   export type ComplexUncheckedCreateWithoutPreventivesInput = {
@@ -47950,11 +50579,12 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    siteId?: string | null
     buildings?: BuildingUncheckedCreateNestedManyWithoutComplexInput
     photos?: FileUncheckedCreateNestedManyWithoutComplexesInput
     floors?: FloorUncheckedCreateNestedManyWithoutComplexInput
-    units?: UnitUncheckedCreateNestedManyWithoutComplexInput
-    rooms?: RoomUncheckedCreateNestedManyWithoutComplexInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutComplexInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutComplexInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSiteInput
   }
 
@@ -47967,9 +50597,13 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
+    tag?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     category: AssetCategoryCreateNestedOneWithoutAssetsInput
+    parentSystem?: AssetCreateNestedOneWithoutChildAssetsInput
+    childAssets?: AssetCreateNestedManyWithoutParentSystemInput
+    space?: SpaceCreateNestedOneWithoutAssetsInput
     maintenances?: MaintenanceCreateNestedManyWithoutAssetInput
   }
 
@@ -47978,8 +50612,12 @@ export namespace Prisma {
     name: string
     description?: string | null
     categoryId: string
+    tag?: string | null
+    parentSystemId?: string | null
+    spaceId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    childAssets?: AssetUncheckedCreateNestedManyWithoutParentSystemInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
   }
 
@@ -48014,8 +50652,8 @@ export namespace Prisma {
     calenderEntity?: CalenderEntityCreateNestedOneWithoutBuildingsInput
     photos?: FileCreateNestedManyWithoutBuildingsInput
     floors?: FloorCreateNestedManyWithoutBuildingInput
-    units?: UnitCreateNestedManyWithoutBuildingInput
-    rooms?: RoomCreateNestedManyWithoutBuildingInput
+    spaces?: SpaceCreateNestedManyWithoutBuildingInput
+    zones?: ZoneCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingUncheckedCreateWithoutPreventivesInput = {
@@ -48044,8 +50682,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutBuildingsInput
     floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
-    units?: UnitUncheckedCreateNestedManyWithoutBuildingInput
-    rooms?: RoomUncheckedCreateNestedManyWithoutBuildingInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutBuildingInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutBuildingInput
   }
 
   export type BuildingCreateOrConnectWithoutPreventivesInput = {
@@ -48058,6 +50696,7 @@ export namespace Prisma {
     code: string
     name: string
     level: number
+    type?: string | null
     status?: $Enums.ServiceStatus
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
@@ -48074,8 +50713,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     complex: ComplexCreateNestedOneWithoutFloorsInput
     building: BuildingCreateNestedOneWithoutFloorsInput
-    rooms?: RoomCreateNestedManyWithoutFloorInput
-    units?: UnitCreateNestedManyWithoutFloorInput
+    spaces?: SpaceCreateNestedManyWithoutFloorInput
+    zones?: ZoneCreateNestedManyWithoutFloorInput
     maintenances?: MaintenanceCreateNestedManyWithoutFloorInput
   }
 
@@ -48084,6 +50723,7 @@ export namespace Prisma {
     code: string
     name: string
     level: number
+    type?: string | null
     status?: $Enums.ServiceStatus
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
@@ -48100,8 +50740,8 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    rooms?: RoomUncheckedCreateNestedManyWithoutFloorInput
-    units?: UnitUncheckedCreateNestedManyWithoutFloorInput
+    spaces?: SpaceUncheckedCreateNestedManyWithoutFloorInput
+    zones?: ZoneUncheckedCreateNestedManyWithoutFloorInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutFloorInput
   }
 
@@ -48110,7 +50750,7 @@ export namespace Prisma {
     create: XOR<FloorCreateWithoutPreventivesInput, FloorUncheckedCreateWithoutPreventivesInput>
   }
 
-  export type RoomCreateWithoutPreventivesInput = {
+  export type SpaceCreateWithoutPreventivesInput = {
     id?: string
     name: string
     code: string
@@ -48128,16 +50768,17 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    calenderEntity?: CalenderEntityCreateNestedOneWithoutRoomsInput
-    complex?: ComplexCreateNestedOneWithoutRoomsInput
-    building?: BuildingCreateNestedOneWithoutRoomsInput
-    floor: FloorCreateNestedOneWithoutRoomsInput
-    unit?: UnitCreateNestedOneWithoutRoomsInput
-    photos?: FileCreateNestedManyWithoutRoomsInput
-    maintenances?: MaintenanceCreateNestedManyWithoutRoomInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutSpacesInput
+    complex?: ComplexCreateNestedOneWithoutSpacesInput
+    building?: BuildingCreateNestedOneWithoutSpacesInput
+    floor: FloorCreateNestedOneWithoutSpacesInput
+    zone?: ZoneCreateNestedOneWithoutRoomsInput
+    photos?: FileCreateNestedManyWithoutSpacesInput
+    maintenances?: MaintenanceCreateNestedManyWithoutSpaceInput
+    assets?: AssetCreateNestedManyWithoutSpaceInput
   }
 
-  export type RoomUncheckedCreateWithoutPreventivesInput = {
+  export type SpaceUncheckedCreateWithoutPreventivesInput = {
     id?: string
     name: string
     code: string
@@ -48147,7 +50788,7 @@ export namespace Prisma {
     complexId?: string | null
     buildingId?: string | null
     floorId: string
-    unitId?: string | null
+    zoneId?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     glazedArea?: number | null
@@ -48160,13 +50801,14 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    photos?: FileUncheckedCreateNestedManyWithoutRoomsInput
-    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutRoomInput
+    photos?: FileUncheckedCreateNestedManyWithoutSpacesInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutSpaceInput
+    assets?: AssetUncheckedCreateNestedManyWithoutSpaceInput
   }
 
-  export type RoomCreateOrConnectWithoutPreventivesInput = {
-    where: RoomWhereUniqueInput
-    create: XOR<RoomCreateWithoutPreventivesInput, RoomUncheckedCreateWithoutPreventivesInput>
+  export type SpaceCreateOrConnectWithoutPreventivesInput = {
+    where: SpaceWhereUniqueInput
+    create: XOR<SpaceCreateWithoutPreventivesInput, SpaceUncheckedCreateWithoutPreventivesInput>
   }
 
   export type TeamCreateWithoutPreventivesInput = {
@@ -48237,9 +50879,10 @@ export namespace Prisma {
     buildings?: BuildingUpdateManyWithoutComplexNestedInput
     photos?: FileUpdateManyWithoutComplexesNestedInput
     floors?: FloorUpdateManyWithoutComplexNestedInput
-    units?: UnitUpdateManyWithoutComplexNestedInput
-    rooms?: RoomUpdateManyWithoutComplexNestedInput
+    spaces?: SpaceUpdateManyWithoutComplexNestedInput
+    zones?: ZoneUpdateManyWithoutComplexNestedInput
     maintenances?: MaintenanceUpdateManyWithoutSiteNestedInput
+    site?: SiteUpdateOneWithoutComplexesNestedInput
   }
 
   export type ComplexUncheckedUpdateWithoutPreventivesInput = {
@@ -48267,11 +50910,12 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
     buildings?: BuildingUncheckedUpdateManyWithoutComplexNestedInput
     photos?: FileUncheckedUpdateManyWithoutComplexesNestedInput
     floors?: FloorUncheckedUpdateManyWithoutComplexNestedInput
-    units?: UnitUncheckedUpdateManyWithoutComplexNestedInput
-    rooms?: RoomUncheckedUpdateManyWithoutComplexNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutComplexNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutComplexNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutSiteNestedInput
   }
 
@@ -48290,9 +50934,13 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: AssetCategoryUpdateOneRequiredWithoutAssetsNestedInput
+    parentSystem?: AssetUpdateOneWithoutChildAssetsNestedInput
+    childAssets?: AssetUpdateManyWithoutParentSystemNestedInput
+    space?: SpaceUpdateOneWithoutAssetsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutAssetNestedInput
   }
 
@@ -48301,8 +50949,12 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    parentSystemId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    childAssets?: AssetUncheckedUpdateManyWithoutParentSystemNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
   }
 
@@ -48343,8 +50995,8 @@ export namespace Prisma {
     calenderEntity?: CalenderEntityUpdateOneWithoutBuildingsNestedInput
     photos?: FileUpdateManyWithoutBuildingsNestedInput
     floors?: FloorUpdateManyWithoutBuildingNestedInput
-    units?: UnitUpdateManyWithoutBuildingNestedInput
-    rooms?: RoomUpdateManyWithoutBuildingNestedInput
+    spaces?: SpaceUpdateManyWithoutBuildingNestedInput
+    zones?: ZoneUpdateManyWithoutBuildingNestedInput
   }
 
   export type BuildingUncheckedUpdateWithoutPreventivesInput = {
@@ -48373,8 +51025,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutBuildingsNestedInput
     floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
-    units?: UnitUncheckedUpdateManyWithoutBuildingNestedInput
-    rooms?: RoomUncheckedUpdateManyWithoutBuildingNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutBuildingNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
   export type FloorUpsertWithoutPreventivesInput = {
@@ -48393,6 +51045,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
@@ -48409,8 +51062,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     complex?: ComplexUpdateOneRequiredWithoutFloorsNestedInput
     building?: BuildingUpdateOneRequiredWithoutFloorsNestedInput
-    rooms?: RoomUpdateManyWithoutFloorNestedInput
-    units?: UnitUpdateManyWithoutFloorNestedInput
+    spaces?: SpaceUpdateManyWithoutFloorNestedInput
+    zones?: ZoneUpdateManyWithoutFloorNestedInput
     maintenances?: MaintenanceUpdateManyWithoutFloorNestedInput
   }
 
@@ -48419,6 +51072,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
@@ -48435,23 +51089,23 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    rooms?: RoomUncheckedUpdateManyWithoutFloorNestedInput
-    units?: UnitUncheckedUpdateManyWithoutFloorNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutFloorNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutFloorNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutFloorNestedInput
   }
 
-  export type RoomUpsertWithoutPreventivesInput = {
-    update: XOR<RoomUpdateWithoutPreventivesInput, RoomUncheckedUpdateWithoutPreventivesInput>
-    create: XOR<RoomCreateWithoutPreventivesInput, RoomUncheckedCreateWithoutPreventivesInput>
-    where?: RoomWhereInput
+  export type SpaceUpsertWithoutPreventivesInput = {
+    update: XOR<SpaceUpdateWithoutPreventivesInput, SpaceUncheckedUpdateWithoutPreventivesInput>
+    create: XOR<SpaceCreateWithoutPreventivesInput, SpaceUncheckedCreateWithoutPreventivesInput>
+    where?: SpaceWhereInput
   }
 
-  export type RoomUpdateToOneWithWhereWithoutPreventivesInput = {
-    where?: RoomWhereInput
-    data: XOR<RoomUpdateWithoutPreventivesInput, RoomUncheckedUpdateWithoutPreventivesInput>
+  export type SpaceUpdateToOneWithWhereWithoutPreventivesInput = {
+    where?: SpaceWhereInput
+    data: XOR<SpaceUpdateWithoutPreventivesInput, SpaceUncheckedUpdateWithoutPreventivesInput>
   }
 
-  export type RoomUpdateWithoutPreventivesInput = {
+  export type SpaceUpdateWithoutPreventivesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
@@ -48469,16 +51123,17 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    calenderEntity?: CalenderEntityUpdateOneWithoutRoomsNestedInput
-    complex?: ComplexUpdateOneWithoutRoomsNestedInput
-    building?: BuildingUpdateOneWithoutRoomsNestedInput
-    floor?: FloorUpdateOneRequiredWithoutRoomsNestedInput
-    unit?: UnitUpdateOneWithoutRoomsNestedInput
-    photos?: FileUpdateManyWithoutRoomsNestedInput
-    maintenances?: MaintenanceUpdateManyWithoutRoomNestedInput
+    calenderEntity?: CalenderEntityUpdateOneWithoutSpacesNestedInput
+    complex?: ComplexUpdateOneWithoutSpacesNestedInput
+    building?: BuildingUpdateOneWithoutSpacesNestedInput
+    floor?: FloorUpdateOneRequiredWithoutSpacesNestedInput
+    zone?: ZoneUpdateOneWithoutRoomsNestedInput
+    photos?: FileUpdateManyWithoutSpacesNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutSpaceNestedInput
+    assets?: AssetUpdateManyWithoutSpaceNestedInput
   }
 
-  export type RoomUncheckedUpdateWithoutPreventivesInput = {
+  export type SpaceUncheckedUpdateWithoutPreventivesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
@@ -48488,7 +51143,7 @@ export namespace Prisma {
     complexId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: StringFieldUpdateOperationsInput | string
-    unitId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -48501,8 +51156,9 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    photos?: FileUncheckedUpdateManyWithoutRoomsNestedInput
-    maintenances?: MaintenanceUncheckedUpdateManyWithoutRoomNestedInput
+    photos?: FileUncheckedUpdateManyWithoutSpacesNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutSpaceNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutSpaceNestedInput
   }
 
   export type TeamUpsertWithoutPreventivesInput = {
@@ -48552,7 +51208,7 @@ export namespace Prisma {
     passwordResetToken?: string | null
     passwordExpiresAt?: Date | string | null
     passwordResetAt?: Date | string | null
-    role: RoleCreateNestedOneWithoutUsersInput
+    roles?: RoleCreateNestedManyWithoutUsersInput
     employees?: EmployeeCreateNestedManyWithoutUserInput
   }
 
@@ -48563,12 +51219,12 @@ export namespace Prisma {
     firstName: string
     lastName: string
     status?: $Enums.UserStatus
-    roleId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     passwordResetToken?: string | null
     passwordExpiresAt?: Date | string | null
     passwordResetAt?: Date | string | null
+    roles?: RoleUncheckedCreateNestedManyWithoutUsersInput
     employees?: EmployeeUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -48600,7 +51256,7 @@ export namespace Prisma {
     passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    role?: RoleUpdateOneRequiredWithoutUsersNestedInput
+    roles?: RoleUpdateManyWithoutUsersNestedInput
     employees?: EmployeeUpdateManyWithoutUserNestedInput
   }
 
@@ -48611,12 +51267,12 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-    roleId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    roles?: RoleUncheckedUpdateManyWithoutUsersNestedInput
     employees?: EmployeeUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -48657,6 +51313,35 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RoleUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    permissions?: PermissionUpdateManyWithoutRoleNestedInput
+  }
+
+  export type RoleUncheckedUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    permissions?: PermissionUncheckedUpdateManyWithoutRoleNestedInput
+  }
+
+  export type RoleUncheckedUpdateManyWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -48704,20 +51389,6 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type UserCreateManyRoleInput = {
-    id?: string
-    email: string
-    password: string
-    firstName: string
-    lastName: string
-    status?: $Enums.UserStatus
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    passwordResetToken?: string | null
-    passwordExpiresAt?: Date | string | null
-    passwordResetAt?: Date | string | null
-  }
-
   export type PermissionUpdateWithoutRoleInput = {
     id?: StringFieldUpdateOperationsInput | string
     resource?: StringFieldUpdateOperationsInput | string
@@ -48742,7 +51413,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UserUpdateWithoutRoleInput = {
+  export type UserUpdateWithoutRolesInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -48758,7 +51429,7 @@ export namespace Prisma {
     employees?: EmployeeUpdateManyWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutRoleInput = {
+  export type UserUncheckedUpdateWithoutRolesInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -48774,7 +51445,7 @@ export namespace Prisma {
     employees?: EmployeeUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateManyWithoutRoleInput = {
+  export type UserUncheckedUpdateManyWithoutRolesInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -48786,6 +51457,128 @@ export namespace Prisma {
     passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ComplexCreateManySiteInput = {
+    id?: string
+    code: string
+    name: string
+    availability?: $Enums.Availability
+    status?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
+    address?: string | null
+    city?: string | null
+    zipCode?: string | null
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    totalBuildings?: number | null
+    totalFloors?: number | null
+    totalUnits?: number | null
+    totalRooms?: number | null
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    totalHeatedVolume?: number | null
+    totalVolume?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ComplexUpdateWithoutSiteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
+    totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
+    totalUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    calenderEntity?: CalenderEntityUpdateOneWithoutComplexesNestedInput
+    buildings?: BuildingUpdateManyWithoutComplexNestedInput
+    photos?: FileUpdateManyWithoutComplexesNestedInput
+    floors?: FloorUpdateManyWithoutComplexNestedInput
+    spaces?: SpaceUpdateManyWithoutComplexNestedInput
+    zones?: ZoneUpdateManyWithoutComplexNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutSiteNestedInput
+    preventives?: PreventiveUpdateManyWithoutSiteNestedInput
+  }
+
+  export type ComplexUncheckedUpdateWithoutSiteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
+    totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
+    totalUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    buildings?: BuildingUncheckedUpdateManyWithoutComplexNestedInput
+    photos?: FileUncheckedUpdateManyWithoutComplexesNestedInput
+    floors?: FloorUncheckedUpdateManyWithoutComplexNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutComplexNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutComplexNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutSiteNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutSiteNestedInput
+  }
+
+  export type ComplexUncheckedUpdateManyWithoutSiteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
+    totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
+    totalUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BuildingCreateManyComplexInput = {
@@ -48818,6 +51611,7 @@ export namespace Prisma {
     code: string
     name: string
     level: number
+    type?: string | null
     status?: $Enums.ServiceStatus
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
@@ -48835,10 +51629,35 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type UnitCreateManyComplexInput = {
+  export type SpaceCreateManyComplexInput = {
+    id?: string
+    name: string
+    code: string
+    use?: $Enums.RoomUse
+    status?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
+    buildingId?: string | null
+    floorId: string
+    zoneId?: string | null
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    height?: number | null
+    heated?: boolean
+    totalVolume?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ZoneCreateManyComplexInput = {
     id?: string
     code: string
     name: string
+    type?: string | null
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
     calenderEntityId?: string | null
@@ -48870,30 +51689,6 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type RoomCreateManyComplexInput = {
-    id?: string
-    name: string
-    code: string
-    use?: $Enums.RoomUse
-    status?: $Enums.ServiceStatus
-    calenderEntityId?: string | null
-    buildingId?: string | null
-    floorId: string
-    unitId?: string | null
-    condition?: $Enums.Condition
-    criticality?: $Enums.Criticality
-    glazedArea?: number | null
-    cleanableArea?: number | null
-    coveredArea?: number | null
-    totalNetArea?: number | null
-    totalGrossArea?: number | null
-    height?: number | null
-    heated?: boolean
-    totalVolume?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
   export type MaintenanceCreateManySiteInput = {
     id?: string
     type?: $Enums.MaintenanceType
@@ -48905,6 +51700,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
     processStatus?: $Enums.Status
     register?: string | null
@@ -48932,7 +51728,7 @@ export namespace Prisma {
     companyId?: string | null
     teamId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -48968,7 +51764,7 @@ export namespace Prisma {
     assetId?: string | null
     buildingId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     teamId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -48999,8 +51795,8 @@ export namespace Prisma {
     calenderEntity?: CalenderEntityUpdateOneWithoutBuildingsNestedInput
     photos?: FileUpdateManyWithoutBuildingsNestedInput
     floors?: FloorUpdateManyWithoutBuildingNestedInput
-    units?: UnitUpdateManyWithoutBuildingNestedInput
-    rooms?: RoomUpdateManyWithoutBuildingNestedInput
+    spaces?: SpaceUpdateManyWithoutBuildingNestedInput
+    zones?: ZoneUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
   }
 
@@ -49029,8 +51825,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutBuildingsNestedInput
     floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
-    units?: UnitUncheckedUpdateManyWithoutBuildingNestedInput
-    rooms?: RoomUncheckedUpdateManyWithoutBuildingNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutBuildingNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
@@ -49062,8 +51858,8 @@ export namespace Prisma {
   export type FileUpdateWithoutComplexesInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
-    rooms?: RoomUpdateManyWithoutPhotosNestedInput
-    units?: UnitUpdateManyWithoutPhotosNestedInput
+    spaces?: SpaceUpdateManyWithoutPhotosNestedInput
+    zones?: ZoneUpdateManyWithoutPhotosNestedInput
     buildings?: BuildingUpdateManyWithoutPhotosNestedInput
     maintenance?: MaintenanceUpdateOneWithoutPhotosNestedInput
   }
@@ -49072,8 +51868,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
-    rooms?: RoomUncheckedUpdateManyWithoutPhotosNestedInput
-    units?: UnitUncheckedUpdateManyWithoutPhotosNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutPhotosNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutPhotosNestedInput
     buildings?: BuildingUncheckedUpdateManyWithoutPhotosNestedInput
   }
 
@@ -49088,6 +51884,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
@@ -49103,8 +51900,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     building?: BuildingUpdateOneRequiredWithoutFloorsNestedInput
-    rooms?: RoomUpdateManyWithoutFloorNestedInput
-    units?: UnitUpdateManyWithoutFloorNestedInput
+    spaces?: SpaceUpdateManyWithoutFloorNestedInput
+    zones?: ZoneUpdateManyWithoutFloorNestedInput
     maintenances?: MaintenanceUpdateManyWithoutFloorNestedInput
     preventives?: PreventiveUpdateManyWithoutFloorNestedInput
   }
@@ -49114,6 +51911,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
@@ -49129,8 +51927,8 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    rooms?: RoomUncheckedUpdateManyWithoutFloorNestedInput
-    units?: UnitUncheckedUpdateManyWithoutFloorNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutFloorNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutFloorNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutFloorNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutFloorNestedInput
   }
@@ -49140,6 +51938,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
@@ -49157,10 +51956,91 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UnitUpdateWithoutComplexInput = {
+  export type SpaceUpdateWithoutComplexInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    heated?: BoolFieldUpdateOperationsInput | boolean
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    calenderEntity?: CalenderEntityUpdateOneWithoutSpacesNestedInput
+    building?: BuildingUpdateOneWithoutSpacesNestedInput
+    floor?: FloorUpdateOneRequiredWithoutSpacesNestedInput
+    zone?: ZoneUpdateOneWithoutRoomsNestedInput
+    photos?: FileUpdateManyWithoutSpacesNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutSpaceNestedInput
+    preventives?: PreventiveUpdateManyWithoutSpaceNestedInput
+    assets?: AssetUpdateManyWithoutSpaceNestedInput
+  }
+
+  export type SpaceUncheckedUpdateWithoutComplexInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: StringFieldUpdateOperationsInput | string
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    heated?: BoolFieldUpdateOperationsInput | boolean
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutSpacesNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutSpaceNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutSpaceNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutSpaceNestedInput
+  }
+
+  export type SpaceUncheckedUpdateManyWithoutComplexInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: StringFieldUpdateOperationsInput | string
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    heated?: BoolFieldUpdateOperationsInput | boolean
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ZoneUpdateWithoutComplexInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49187,17 +52067,18 @@ export namespace Prisma {
     subArea?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    calenderEntity?: CalenderEntityUpdateOneWithoutUnitsNestedInput
-    building?: BuildingUpdateOneWithoutUnitsNestedInput
-    floor?: FloorUpdateOneRequiredWithoutUnitsNestedInput
-    rooms?: RoomUpdateManyWithoutUnitNestedInput
-    photos?: FileUpdateManyWithoutUnitsNestedInput
+    calenderEntity?: CalenderEntityUpdateOneWithoutZonesNestedInput
+    building?: BuildingUpdateOneWithoutZonesNestedInput
+    floor?: FloorUpdateOneRequiredWithoutZonesNestedInput
+    rooms?: SpaceUpdateManyWithoutZoneNestedInput
+    photos?: FileUpdateManyWithoutZonesNestedInput
   }
 
-  export type UnitUncheckedUpdateWithoutComplexInput = {
+  export type ZoneUncheckedUpdateWithoutComplexInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49227,14 +52108,15 @@ export namespace Prisma {
     subArea?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    rooms?: RoomUncheckedUpdateManyWithoutUnitNestedInput
-    photos?: FileUncheckedUpdateManyWithoutUnitsNestedInput
+    rooms?: SpaceUncheckedUpdateManyWithoutZoneNestedInput
+    photos?: FileUncheckedUpdateManyWithoutZonesNestedInput
   }
 
-  export type UnitUncheckedUpdateManyWithoutComplexInput = {
+  export type ZoneUncheckedUpdateManyWithoutComplexInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49262,84 +52144,6 @@ export namespace Prisma {
     cadastralIncome?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     censusArea?: NullableStringFieldUpdateOperationsInput | string | null
     subArea?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type RoomUpdateWithoutComplexInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
-    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
-    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    height?: NullableIntFieldUpdateOperationsInput | number | null
-    heated?: BoolFieldUpdateOperationsInput | boolean
-    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    calenderEntity?: CalenderEntityUpdateOneWithoutRoomsNestedInput
-    building?: BuildingUpdateOneWithoutRoomsNestedInput
-    floor?: FloorUpdateOneRequiredWithoutRoomsNestedInput
-    unit?: UnitUpdateOneWithoutRoomsNestedInput
-    photos?: FileUpdateManyWithoutRoomsNestedInput
-    maintenances?: MaintenanceUpdateManyWithoutRoomNestedInput
-    preventives?: PreventiveUpdateManyWithoutRoomNestedInput
-  }
-
-  export type RoomUncheckedUpdateWithoutComplexInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
-    floorId?: StringFieldUpdateOperationsInput | string
-    unitId?: NullableStringFieldUpdateOperationsInput | string | null
-    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
-    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
-    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    height?: NullableIntFieldUpdateOperationsInput | number | null
-    heated?: BoolFieldUpdateOperationsInput | boolean
-    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    photos?: FileUncheckedUpdateManyWithoutRoomsNestedInput
-    maintenances?: MaintenanceUncheckedUpdateManyWithoutRoomNestedInput
-    preventives?: PreventiveUncheckedUpdateManyWithoutRoomNestedInput
-  }
-
-  export type RoomUncheckedUpdateManyWithoutComplexInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
-    floorId?: StringFieldUpdateOperationsInput | string
-    unitId?: NullableStringFieldUpdateOperationsInput | string | null
-    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
-    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
-    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    height?: NullableIntFieldUpdateOperationsInput | number | null
-    heated?: BoolFieldUpdateOperationsInput | boolean
-    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -49355,6 +52159,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49399,7 +52204,7 @@ export namespace Prisma {
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
-    room?: RoomUpdateOneWithoutMaintenancesNestedInput
+    space?: SpaceUpdateOneWithoutMaintenancesNestedInput
     assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
@@ -49416,6 +52221,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49443,7 +52249,7 @@ export namespace Prisma {
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -49477,6 +52283,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49504,7 +52311,7 @@ export namespace Prisma {
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -49542,7 +52349,7 @@ export namespace Prisma {
     asset?: AssetUpdateOneWithoutPreventivesNestedInput
     building?: BuildingUpdateOneWithoutPreventivesNestedInput
     floor?: FloorUpdateOneWithoutPreventivesNestedInput
-    room?: RoomUpdateOneWithoutPreventivesNestedInput
+    space?: SpaceUpdateOneWithoutPreventivesNestedInput
     team?: TeamUpdateOneWithoutPreventivesNestedInput
   }
 
@@ -49560,7 +52367,7 @@ export namespace Prisma {
     assetId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -49580,7 +52387,7 @@ export namespace Prisma {
     assetId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -49591,6 +52398,7 @@ export namespace Prisma {
     code: string
     name: string
     level: number
+    type?: string | null
     status?: $Enums.ServiceStatus
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
@@ -49608,10 +52416,35 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type UnitCreateManyBuildingInput = {
+  export type SpaceCreateManyBuildingInput = {
+    id?: string
+    name: string
+    code: string
+    use?: $Enums.RoomUse
+    status?: $Enums.ServiceStatus
+    calenderEntityId?: string | null
+    complexId?: string | null
+    floorId: string
+    zoneId?: string | null
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    height?: number | null
+    heated?: boolean
+    totalVolume?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ZoneCreateManyBuildingInput = {
     id?: string
     code: string
     name: string
+    type?: string | null
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
     calenderEntityId?: string | null
@@ -49643,30 +52476,6 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type RoomCreateManyBuildingInput = {
-    id?: string
-    name: string
-    code: string
-    use?: $Enums.RoomUse
-    status?: $Enums.ServiceStatus
-    calenderEntityId?: string | null
-    complexId?: string | null
-    floorId: string
-    unitId?: string | null
-    condition?: $Enums.Condition
-    criticality?: $Enums.Criticality
-    glazedArea?: number | null
-    cleanableArea?: number | null
-    coveredArea?: number | null
-    totalNetArea?: number | null
-    totalGrossArea?: number | null
-    height?: number | null
-    heated?: boolean
-    totalVolume?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
   export type PreventiveCreateManyBuildingInput = {
     id?: string
     code: string
@@ -49681,7 +52490,7 @@ export namespace Prisma {
     siteId: string
     assetId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     teamId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -49690,8 +52499,8 @@ export namespace Prisma {
   export type FileUpdateWithoutBuildingsInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
-    rooms?: RoomUpdateManyWithoutPhotosNestedInput
-    units?: UnitUpdateManyWithoutPhotosNestedInput
+    spaces?: SpaceUpdateManyWithoutPhotosNestedInput
+    zones?: ZoneUpdateManyWithoutPhotosNestedInput
     complexes?: ComplexUpdateManyWithoutPhotosNestedInput
     maintenance?: MaintenanceUpdateOneWithoutPhotosNestedInput
   }
@@ -49700,8 +52509,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
-    rooms?: RoomUncheckedUpdateManyWithoutPhotosNestedInput
-    units?: UnitUncheckedUpdateManyWithoutPhotosNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutPhotosNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutPhotosNestedInput
     complexes?: ComplexUncheckedUpdateManyWithoutPhotosNestedInput
   }
 
@@ -49716,6 +52525,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
@@ -49731,8 +52541,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     complex?: ComplexUpdateOneRequiredWithoutFloorsNestedInput
-    rooms?: RoomUpdateManyWithoutFloorNestedInput
-    units?: UnitUpdateManyWithoutFloorNestedInput
+    spaces?: SpaceUpdateManyWithoutFloorNestedInput
+    zones?: ZoneUpdateManyWithoutFloorNestedInput
     maintenances?: MaintenanceUpdateManyWithoutFloorNestedInput
     preventives?: PreventiveUpdateManyWithoutFloorNestedInput
   }
@@ -49742,6 +52552,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
@@ -49757,8 +52568,8 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    rooms?: RoomUncheckedUpdateManyWithoutFloorNestedInput
-    units?: UnitUncheckedUpdateManyWithoutFloorNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutFloorNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutFloorNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutFloorNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutFloorNestedInput
   }
@@ -49768,6 +52579,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
@@ -49785,10 +52597,91 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UnitUpdateWithoutBuildingInput = {
+  export type SpaceUpdateWithoutBuildingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    heated?: BoolFieldUpdateOperationsInput | boolean
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    calenderEntity?: CalenderEntityUpdateOneWithoutSpacesNestedInput
+    complex?: ComplexUpdateOneWithoutSpacesNestedInput
+    floor?: FloorUpdateOneRequiredWithoutSpacesNestedInput
+    zone?: ZoneUpdateOneWithoutRoomsNestedInput
+    photos?: FileUpdateManyWithoutSpacesNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutSpaceNestedInput
+    preventives?: PreventiveUpdateManyWithoutSpaceNestedInput
+    assets?: AssetUpdateManyWithoutSpaceNestedInput
+  }
+
+  export type SpaceUncheckedUpdateWithoutBuildingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    complexId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: StringFieldUpdateOperationsInput | string
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    heated?: BoolFieldUpdateOperationsInput | boolean
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutSpacesNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutSpaceNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutSpaceNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutSpaceNestedInput
+  }
+
+  export type SpaceUncheckedUpdateManyWithoutBuildingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    complexId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: StringFieldUpdateOperationsInput | string
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    heated?: BoolFieldUpdateOperationsInput | boolean
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ZoneUpdateWithoutBuildingInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49815,17 +52708,18 @@ export namespace Prisma {
     subArea?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    calenderEntity?: CalenderEntityUpdateOneWithoutUnitsNestedInput
-    complex?: ComplexUpdateOneWithoutUnitsNestedInput
-    floor?: FloorUpdateOneRequiredWithoutUnitsNestedInput
-    rooms?: RoomUpdateManyWithoutUnitNestedInput
-    photos?: FileUpdateManyWithoutUnitsNestedInput
+    calenderEntity?: CalenderEntityUpdateOneWithoutZonesNestedInput
+    complex?: ComplexUpdateOneWithoutZonesNestedInput
+    floor?: FloorUpdateOneRequiredWithoutZonesNestedInput
+    rooms?: SpaceUpdateManyWithoutZoneNestedInput
+    photos?: FileUpdateManyWithoutZonesNestedInput
   }
 
-  export type UnitUncheckedUpdateWithoutBuildingInput = {
+  export type ZoneUncheckedUpdateWithoutBuildingInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49855,14 +52749,15 @@ export namespace Prisma {
     subArea?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    rooms?: RoomUncheckedUpdateManyWithoutUnitNestedInput
-    photos?: FileUncheckedUpdateManyWithoutUnitsNestedInput
+    rooms?: SpaceUncheckedUpdateManyWithoutZoneNestedInput
+    photos?: FileUncheckedUpdateManyWithoutZonesNestedInput
   }
 
-  export type UnitUncheckedUpdateManyWithoutBuildingInput = {
+  export type ZoneUncheckedUpdateManyWithoutBuildingInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49890,84 +52785,6 @@ export namespace Prisma {
     cadastralIncome?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     censusArea?: NullableStringFieldUpdateOperationsInput | string | null
     subArea?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type RoomUpdateWithoutBuildingInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
-    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
-    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    height?: NullableIntFieldUpdateOperationsInput | number | null
-    heated?: BoolFieldUpdateOperationsInput | boolean
-    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    calenderEntity?: CalenderEntityUpdateOneWithoutRoomsNestedInput
-    complex?: ComplexUpdateOneWithoutRoomsNestedInput
-    floor?: FloorUpdateOneRequiredWithoutRoomsNestedInput
-    unit?: UnitUpdateOneWithoutRoomsNestedInput
-    photos?: FileUpdateManyWithoutRoomsNestedInput
-    maintenances?: MaintenanceUpdateManyWithoutRoomNestedInput
-    preventives?: PreventiveUpdateManyWithoutRoomNestedInput
-  }
-
-  export type RoomUncheckedUpdateWithoutBuildingInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    complexId?: NullableStringFieldUpdateOperationsInput | string | null
-    floorId?: StringFieldUpdateOperationsInput | string
-    unitId?: NullableStringFieldUpdateOperationsInput | string | null
-    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
-    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
-    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    height?: NullableIntFieldUpdateOperationsInput | number | null
-    heated?: BoolFieldUpdateOperationsInput | boolean
-    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    photos?: FileUncheckedUpdateManyWithoutRoomsNestedInput
-    maintenances?: MaintenanceUncheckedUpdateManyWithoutRoomNestedInput
-    preventives?: PreventiveUncheckedUpdateManyWithoutRoomNestedInput
-  }
-
-  export type RoomUncheckedUpdateManyWithoutBuildingInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    complexId?: NullableStringFieldUpdateOperationsInput | string | null
-    floorId?: StringFieldUpdateOperationsInput | string
-    unitId?: NullableStringFieldUpdateOperationsInput | string | null
-    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
-    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
-    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    height?: NullableIntFieldUpdateOperationsInput | number | null
-    heated?: BoolFieldUpdateOperationsInput | boolean
-    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -49988,7 +52805,7 @@ export namespace Prisma {
     site?: ComplexUpdateOneRequiredWithoutPreventivesNestedInput
     asset?: AssetUpdateOneWithoutPreventivesNestedInput
     floor?: FloorUpdateOneWithoutPreventivesNestedInput
-    room?: RoomUpdateOneWithoutPreventivesNestedInput
+    space?: SpaceUpdateOneWithoutPreventivesNestedInput
     team?: TeamUpdateOneWithoutPreventivesNestedInput
   }
 
@@ -50006,7 +52823,7 @@ export namespace Prisma {
     siteId?: StringFieldUpdateOperationsInput | string
     assetId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -50026,13 +52843,13 @@ export namespace Prisma {
     siteId?: StringFieldUpdateOperationsInput | string
     assetId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type RoomCreateManyFloorInput = {
+  export type SpaceCreateManyFloorInput = {
     id?: string
     name: string
     code: string
@@ -50041,7 +52858,7 @@ export namespace Prisma {
     calenderEntityId?: string | null
     complexId?: string | null
     buildingId?: string | null
-    unitId?: string | null
+    zoneId?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     glazedArea?: number | null
@@ -50056,10 +52873,11 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type UnitCreateManyFloorInput = {
+  export type ZoneCreateManyFloorInput = {
     id?: string
     code: string
     name: string
+    type?: string | null
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
     calenderEntityId?: string | null
@@ -50102,6 +52920,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
     processStatus?: $Enums.Status
     register?: string | null
@@ -50129,7 +52948,7 @@ export namespace Prisma {
     subCategory?: string | null
     companyId?: string | null
     teamId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -50165,13 +52984,13 @@ export namespace Prisma {
     siteId: string
     assetId?: string | null
     buildingId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     teamId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type RoomUpdateWithoutFloorInput = {
+  export type SpaceUpdateWithoutFloorInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
@@ -50189,43 +53008,17 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    calenderEntity?: CalenderEntityUpdateOneWithoutRoomsNestedInput
-    complex?: ComplexUpdateOneWithoutRoomsNestedInput
-    building?: BuildingUpdateOneWithoutRoomsNestedInput
-    unit?: UnitUpdateOneWithoutRoomsNestedInput
-    photos?: FileUpdateManyWithoutRoomsNestedInput
-    maintenances?: MaintenanceUpdateManyWithoutRoomNestedInput
-    preventives?: PreventiveUpdateManyWithoutRoomNestedInput
+    calenderEntity?: CalenderEntityUpdateOneWithoutSpacesNestedInput
+    complex?: ComplexUpdateOneWithoutSpacesNestedInput
+    building?: BuildingUpdateOneWithoutSpacesNestedInput
+    zone?: ZoneUpdateOneWithoutRoomsNestedInput
+    photos?: FileUpdateManyWithoutSpacesNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutSpaceNestedInput
+    preventives?: PreventiveUpdateManyWithoutSpaceNestedInput
+    assets?: AssetUpdateManyWithoutSpaceNestedInput
   }
 
-  export type RoomUncheckedUpdateWithoutFloorInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    complexId?: NullableStringFieldUpdateOperationsInput | string | null
-    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
-    unitId?: NullableStringFieldUpdateOperationsInput | string | null
-    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
-    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
-    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    height?: NullableIntFieldUpdateOperationsInput | number | null
-    heated?: BoolFieldUpdateOperationsInput | boolean
-    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    photos?: FileUncheckedUpdateManyWithoutRoomsNestedInput
-    maintenances?: MaintenanceUncheckedUpdateManyWithoutRoomNestedInput
-    preventives?: PreventiveUncheckedUpdateManyWithoutRoomNestedInput
-  }
-
-  export type RoomUncheckedUpdateManyWithoutFloorInput = {
+  export type SpaceUncheckedUpdateWithoutFloorInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
@@ -50234,7 +53027,35 @@ export namespace Prisma {
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     complexId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
-    unitId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    heated?: BoolFieldUpdateOperationsInput | boolean
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutSpacesNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutSpaceNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutSpaceNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutSpaceNestedInput
+  }
+
+  export type SpaceUncheckedUpdateManyWithoutFloorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    complexId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -50249,10 +53070,11 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UnitUpdateWithoutFloorInput = {
+  export type ZoneUpdateWithoutFloorInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50279,17 +53101,18 @@ export namespace Prisma {
     subArea?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    calenderEntity?: CalenderEntityUpdateOneWithoutUnitsNestedInput
-    complex?: ComplexUpdateOneWithoutUnitsNestedInput
-    building?: BuildingUpdateOneWithoutUnitsNestedInput
-    rooms?: RoomUpdateManyWithoutUnitNestedInput
-    photos?: FileUpdateManyWithoutUnitsNestedInput
+    calenderEntity?: CalenderEntityUpdateOneWithoutZonesNestedInput
+    complex?: ComplexUpdateOneWithoutZonesNestedInput
+    building?: BuildingUpdateOneWithoutZonesNestedInput
+    rooms?: SpaceUpdateManyWithoutZoneNestedInput
+    photos?: FileUpdateManyWithoutZonesNestedInput
   }
 
-  export type UnitUncheckedUpdateWithoutFloorInput = {
+  export type ZoneUncheckedUpdateWithoutFloorInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50319,14 +53142,15 @@ export namespace Prisma {
     subArea?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    rooms?: RoomUncheckedUpdateManyWithoutUnitNestedInput
-    photos?: FileUncheckedUpdateManyWithoutUnitsNestedInput
+    rooms?: SpaceUncheckedUpdateManyWithoutZoneNestedInput
+    photos?: FileUncheckedUpdateManyWithoutZonesNestedInput
   }
 
-  export type UnitUncheckedUpdateManyWithoutFloorInput = {
+  export type ZoneUncheckedUpdateManyWithoutFloorInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50369,6 +53193,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50413,7 +53238,7 @@ export namespace Prisma {
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
-    room?: RoomUpdateOneWithoutMaintenancesNestedInput
+    space?: SpaceUpdateOneWithoutMaintenancesNestedInput
     assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
@@ -50430,6 +53255,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50457,7 +53283,7 @@ export namespace Prisma {
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -50491,6 +53317,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50518,7 +53345,7 @@ export namespace Prisma {
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -50556,7 +53383,7 @@ export namespace Prisma {
     site?: ComplexUpdateOneRequiredWithoutPreventivesNestedInput
     asset?: AssetUpdateOneWithoutPreventivesNestedInput
     building?: BuildingUpdateOneWithoutPreventivesNestedInput
-    room?: RoomUpdateOneWithoutPreventivesNestedInput
+    space?: SpaceUpdateOneWithoutPreventivesNestedInput
     team?: TeamUpdateOneWithoutPreventivesNestedInput
   }
 
@@ -50574,7 +53401,7 @@ export namespace Prisma {
     siteId?: StringFieldUpdateOperationsInput | string
     assetId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -50594,13 +53421,13 @@ export namespace Prisma {
     siteId?: StringFieldUpdateOperationsInput | string
     assetId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type RoomCreateManyUnitInput = {
+  export type SpaceCreateManyZoneInput = {
     id?: string
     name: string
     code: string
@@ -50624,7 +53451,7 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type RoomUpdateWithoutUnitInput = {
+  export type SpaceUpdateWithoutZoneInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
@@ -50642,43 +53469,17 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    calenderEntity?: CalenderEntityUpdateOneWithoutRoomsNestedInput
-    complex?: ComplexUpdateOneWithoutRoomsNestedInput
-    building?: BuildingUpdateOneWithoutRoomsNestedInput
-    floor?: FloorUpdateOneRequiredWithoutRoomsNestedInput
-    photos?: FileUpdateManyWithoutRoomsNestedInput
-    maintenances?: MaintenanceUpdateManyWithoutRoomNestedInput
-    preventives?: PreventiveUpdateManyWithoutRoomNestedInput
+    calenderEntity?: CalenderEntityUpdateOneWithoutSpacesNestedInput
+    complex?: ComplexUpdateOneWithoutSpacesNestedInput
+    building?: BuildingUpdateOneWithoutSpacesNestedInput
+    floor?: FloorUpdateOneRequiredWithoutSpacesNestedInput
+    photos?: FileUpdateManyWithoutSpacesNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutSpaceNestedInput
+    preventives?: PreventiveUpdateManyWithoutSpaceNestedInput
+    assets?: AssetUpdateManyWithoutSpaceNestedInput
   }
 
-  export type RoomUncheckedUpdateWithoutUnitInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    complexId?: NullableStringFieldUpdateOperationsInput | string | null
-    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
-    floorId?: StringFieldUpdateOperationsInput | string
-    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
-    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
-    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    height?: NullableIntFieldUpdateOperationsInput | number | null
-    heated?: BoolFieldUpdateOperationsInput | boolean
-    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    photos?: FileUncheckedUpdateManyWithoutRoomsNestedInput
-    maintenances?: MaintenanceUncheckedUpdateManyWithoutRoomNestedInput
-    preventives?: PreventiveUncheckedUpdateManyWithoutRoomNestedInput
-  }
-
-  export type RoomUncheckedUpdateManyWithoutUnitInput = {
+  export type SpaceUncheckedUpdateWithoutZoneInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
@@ -50700,33 +53501,61 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutSpacesNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutSpaceNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutSpaceNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutSpaceNestedInput
   }
 
-  export type FileUpdateWithoutUnitsInput = {
+  export type SpaceUncheckedUpdateManyWithoutZoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    complexId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: StringFieldUpdateOperationsInput | string
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    heated?: BoolFieldUpdateOperationsInput | boolean
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FileUpdateWithoutZonesInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
-    rooms?: RoomUpdateManyWithoutPhotosNestedInput
+    spaces?: SpaceUpdateManyWithoutPhotosNestedInput
     buildings?: BuildingUpdateManyWithoutPhotosNestedInput
     complexes?: ComplexUpdateManyWithoutPhotosNestedInput
     maintenance?: MaintenanceUpdateOneWithoutPhotosNestedInput
   }
 
-  export type FileUncheckedUpdateWithoutUnitsInput = {
+  export type FileUncheckedUpdateWithoutZonesInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
-    rooms?: RoomUncheckedUpdateManyWithoutPhotosNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutPhotosNestedInput
     buildings?: BuildingUncheckedUpdateManyWithoutPhotosNestedInput
     complexes?: ComplexUncheckedUpdateManyWithoutPhotosNestedInput
   }
 
-  export type FileUncheckedUpdateManyWithoutUnitsInput = {
+  export type FileUncheckedUpdateManyWithoutZonesInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type MaintenanceCreateManyRoomInput = {
+  export type MaintenanceCreateManySpaceInput = {
     id?: string
     type?: $Enums.MaintenanceType
     code: string
@@ -50737,6 +53566,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
     processStatus?: $Enums.Status
     register?: string | null
@@ -50786,7 +53616,7 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type PreventiveCreateManyRoomInput = {
+  export type PreventiveCreateManySpaceInput = {
     id?: string
     code: string
     name: string
@@ -50806,31 +53636,42 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type FileUpdateWithoutRoomsInput = {
+  export type AssetCreateManySpaceInput = {
+    id?: string
+    name: string
+    description?: string | null
+    categoryId: string
+    tag?: string | null
+    parentSystemId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FileUpdateWithoutSpacesInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
-    units?: UnitUpdateManyWithoutPhotosNestedInput
+    zones?: ZoneUpdateManyWithoutPhotosNestedInput
     buildings?: BuildingUpdateManyWithoutPhotosNestedInput
     complexes?: ComplexUpdateManyWithoutPhotosNestedInput
     maintenance?: MaintenanceUpdateOneWithoutPhotosNestedInput
   }
 
-  export type FileUncheckedUpdateWithoutRoomsInput = {
+  export type FileUncheckedUpdateWithoutSpacesInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
-    units?: UnitUncheckedUpdateManyWithoutPhotosNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutPhotosNestedInput
     buildings?: BuildingUncheckedUpdateManyWithoutPhotosNestedInput
     complexes?: ComplexUncheckedUpdateManyWithoutPhotosNestedInput
   }
 
-  export type FileUncheckedUpdateManyWithoutRoomsInput = {
+  export type FileUncheckedUpdateManyWithoutSpacesInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type MaintenanceUpdateWithoutRoomInput = {
+  export type MaintenanceUpdateWithoutSpaceInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
     code?: StringFieldUpdateOperationsInput | string
@@ -50841,6 +53682,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50891,7 +53733,7 @@ export namespace Prisma {
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
   }
 
-  export type MaintenanceUncheckedUpdateWithoutRoomInput = {
+  export type MaintenanceUncheckedUpdateWithoutSpaceInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
     code?: StringFieldUpdateOperationsInput | string
@@ -50902,6 +53744,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50952,7 +53795,7 @@ export namespace Prisma {
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
-  export type MaintenanceUncheckedUpdateManyWithoutRoomInput = {
+  export type MaintenanceUncheckedUpdateManyWithoutSpaceInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
     code?: StringFieldUpdateOperationsInput | string
@@ -50963,6 +53806,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51012,7 +53856,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PreventiveUpdateWithoutRoomInput = {
+  export type PreventiveUpdateWithoutSpaceInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -51032,7 +53876,7 @@ export namespace Prisma {
     team?: TeamUpdateOneWithoutPreventivesNestedInput
   }
 
-  export type PreventiveUncheckedUpdateWithoutRoomInput = {
+  export type PreventiveUncheckedUpdateWithoutSpaceInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -51052,7 +53896,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PreventiveUncheckedUpdateManyWithoutRoomInput = {
+  export type PreventiveUncheckedUpdateManyWithoutSpaceInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -51068,6 +53912,45 @@ export namespace Prisma {
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssetUpdateWithoutSpaceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: AssetCategoryUpdateOneRequiredWithoutAssetsNestedInput
+    parentSystem?: AssetUpdateOneWithoutChildAssetsNestedInput
+    childAssets?: AssetUpdateManyWithoutParentSystemNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutAssetNestedInput
+    preventives?: PreventiveUpdateManyWithoutAssetNestedInput
+  }
+
+  export type AssetUncheckedUpdateWithoutSpaceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryId?: StringFieldUpdateOperationsInput | string
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    parentSystemId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    childAssets?: AssetUncheckedUpdateManyWithoutParentSystemNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutAssetNestedInput
+  }
+
+  export type AssetUncheckedUpdateManyWithoutSpaceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryId?: StringFieldUpdateOperationsInput | string
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    parentSystemId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -51076,6 +53959,9 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
+    tag?: string | null
+    parentSystemId?: string | null
+    spaceId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -51084,8 +53970,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    parentSystem?: AssetUpdateOneWithoutChildAssetsNestedInput
+    childAssets?: AssetUpdateManyWithoutParentSystemNestedInput
+    space?: SpaceUpdateOneWithoutAssetsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutAssetNestedInput
     preventives?: PreventiveUpdateManyWithoutAssetNestedInput
   }
@@ -51094,8 +53984,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    parentSystemId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    childAssets?: AssetUncheckedUpdateManyWithoutParentSystemNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutAssetNestedInput
   }
@@ -51104,8 +53998,22 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    parentSystemId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssetCreateManyParentSystemInput = {
+    id?: string
+    name: string
+    description?: string | null
+    categoryId: string
+    tag?: string | null
+    spaceId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type MaintenanceCreateManyAssetInput = {
@@ -51119,6 +54027,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
     processStatus?: $Enums.Status
     register?: string | null
@@ -51147,7 +54056,7 @@ export namespace Prisma {
     companyId?: string | null
     teamId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -51182,10 +54091,49 @@ export namespace Prisma {
     siteId: string
     buildingId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     teamId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type AssetUpdateWithoutParentSystemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: AssetCategoryUpdateOneRequiredWithoutAssetsNestedInput
+    childAssets?: AssetUpdateManyWithoutParentSystemNestedInput
+    space?: SpaceUpdateOneWithoutAssetsNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutAssetNestedInput
+    preventives?: PreventiveUpdateManyWithoutAssetNestedInput
+  }
+
+  export type AssetUncheckedUpdateWithoutParentSystemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryId?: StringFieldUpdateOperationsInput | string
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    childAssets?: AssetUncheckedUpdateManyWithoutParentSystemNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutAssetNestedInput
+  }
+
+  export type AssetUncheckedUpdateManyWithoutParentSystemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryId?: StringFieldUpdateOperationsInput | string
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MaintenanceUpdateWithoutAssetInput = {
@@ -51199,6 +54147,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51244,7 +54193,7 @@ export namespace Prisma {
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
-    room?: RoomUpdateOneWithoutMaintenancesNestedInput
+    space?: SpaceUpdateOneWithoutMaintenancesNestedInput
     assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
   }
@@ -51260,6 +54209,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51288,7 +54238,7 @@ export namespace Prisma {
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -51321,6 +54271,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51349,7 +54300,7 @@ export namespace Prisma {
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -51386,7 +54337,7 @@ export namespace Prisma {
     site?: ComplexUpdateOneRequiredWithoutPreventivesNestedInput
     building?: BuildingUpdateOneWithoutPreventivesNestedInput
     floor?: FloorUpdateOneWithoutPreventivesNestedInput
-    room?: RoomUpdateOneWithoutPreventivesNestedInput
+    space?: SpaceUpdateOneWithoutPreventivesNestedInput
     team?: TeamUpdateOneWithoutPreventivesNestedInput
   }
 
@@ -51404,7 +54355,7 @@ export namespace Prisma {
     siteId?: StringFieldUpdateOperationsInput | string
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -51424,13 +54375,13 @@ export namespace Prisma {
     siteId?: StringFieldUpdateOperationsInput | string
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type RoomUpdateWithoutPhotosInput = {
+  export type SpaceUpdateWithoutPhotosInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
@@ -51448,43 +54399,17 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    calenderEntity?: CalenderEntityUpdateOneWithoutRoomsNestedInput
-    complex?: ComplexUpdateOneWithoutRoomsNestedInput
-    building?: BuildingUpdateOneWithoutRoomsNestedInput
-    floor?: FloorUpdateOneRequiredWithoutRoomsNestedInput
-    unit?: UnitUpdateOneWithoutRoomsNestedInput
-    maintenances?: MaintenanceUpdateManyWithoutRoomNestedInput
-    preventives?: PreventiveUpdateManyWithoutRoomNestedInput
+    calenderEntity?: CalenderEntityUpdateOneWithoutSpacesNestedInput
+    complex?: ComplexUpdateOneWithoutSpacesNestedInput
+    building?: BuildingUpdateOneWithoutSpacesNestedInput
+    floor?: FloorUpdateOneRequiredWithoutSpacesNestedInput
+    zone?: ZoneUpdateOneWithoutRoomsNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutSpaceNestedInput
+    preventives?: PreventiveUpdateManyWithoutSpaceNestedInput
+    assets?: AssetUpdateManyWithoutSpaceNestedInput
   }
 
-  export type RoomUncheckedUpdateWithoutPhotosInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    complexId?: NullableStringFieldUpdateOperationsInput | string | null
-    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
-    floorId?: StringFieldUpdateOperationsInput | string
-    unitId?: NullableStringFieldUpdateOperationsInput | string | null
-    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
-    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
-    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    height?: NullableIntFieldUpdateOperationsInput | number | null
-    heated?: BoolFieldUpdateOperationsInput | boolean
-    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    maintenances?: MaintenanceUncheckedUpdateManyWithoutRoomNestedInput
-    preventives?: PreventiveUncheckedUpdateManyWithoutRoomNestedInput
-  }
-
-  export type RoomUncheckedUpdateManyWithoutPhotosInput = {
+  export type SpaceUncheckedUpdateWithoutPhotosInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
@@ -51494,7 +54419,35 @@ export namespace Prisma {
     complexId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: StringFieldUpdateOperationsInput | string
-    unitId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    heated?: BoolFieldUpdateOperationsInput | boolean
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutSpaceNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutSpaceNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutSpaceNestedInput
+  }
+
+  export type SpaceUncheckedUpdateManyWithoutPhotosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    complexId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: StringFieldUpdateOperationsInput | string
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -51509,10 +54462,11 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UnitUpdateWithoutPhotosInput = {
+  export type ZoneUpdateWithoutPhotosInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51539,17 +54493,18 @@ export namespace Prisma {
     subArea?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    calenderEntity?: CalenderEntityUpdateOneWithoutUnitsNestedInput
-    complex?: ComplexUpdateOneWithoutUnitsNestedInput
-    building?: BuildingUpdateOneWithoutUnitsNestedInput
-    floor?: FloorUpdateOneRequiredWithoutUnitsNestedInput
-    rooms?: RoomUpdateManyWithoutUnitNestedInput
+    calenderEntity?: CalenderEntityUpdateOneWithoutZonesNestedInput
+    complex?: ComplexUpdateOneWithoutZonesNestedInput
+    building?: BuildingUpdateOneWithoutZonesNestedInput
+    floor?: FloorUpdateOneRequiredWithoutZonesNestedInput
+    rooms?: SpaceUpdateManyWithoutZoneNestedInput
   }
 
-  export type UnitUncheckedUpdateWithoutPhotosInput = {
+  export type ZoneUncheckedUpdateWithoutPhotosInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51580,13 +54535,14 @@ export namespace Prisma {
     subArea?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    rooms?: RoomUncheckedUpdateManyWithoutUnitNestedInput
+    rooms?: SpaceUncheckedUpdateManyWithoutZoneNestedInput
   }
 
-  export type UnitUncheckedUpdateManyWithoutPhotosInput = {
+  export type ZoneUncheckedUpdateManyWithoutPhotosInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51644,8 +54600,8 @@ export namespace Prisma {
     complex?: ComplexUpdateOneRequiredWithoutBuildingsNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutBuildingsNestedInput
     floors?: FloorUpdateManyWithoutBuildingNestedInput
-    units?: UnitUpdateManyWithoutBuildingNestedInput
-    rooms?: RoomUpdateManyWithoutBuildingNestedInput
+    spaces?: SpaceUpdateManyWithoutBuildingNestedInput
+    zones?: ZoneUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
   }
 
@@ -51674,8 +54630,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
-    units?: UnitUncheckedUpdateManyWithoutBuildingNestedInput
-    rooms?: RoomUncheckedUpdateManyWithoutBuildingNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutBuildingNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
@@ -51732,10 +54688,11 @@ export namespace Prisma {
     calenderEntity?: CalenderEntityUpdateOneWithoutComplexesNestedInput
     buildings?: BuildingUpdateManyWithoutComplexNestedInput
     floors?: FloorUpdateManyWithoutComplexNestedInput
-    units?: UnitUpdateManyWithoutComplexNestedInput
-    rooms?: RoomUpdateManyWithoutComplexNestedInput
+    spaces?: SpaceUpdateManyWithoutComplexNestedInput
+    zones?: ZoneUpdateManyWithoutComplexNestedInput
     maintenances?: MaintenanceUpdateManyWithoutSiteNestedInput
     preventives?: PreventiveUpdateManyWithoutSiteNestedInput
+    site?: SiteUpdateOneWithoutComplexesNestedInput
   }
 
   export type ComplexUncheckedUpdateWithoutPhotosInput = {
@@ -51763,10 +54720,11 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
     buildings?: BuildingUncheckedUpdateManyWithoutComplexNestedInput
     floors?: FloorUncheckedUpdateManyWithoutComplexNestedInput
-    units?: UnitUncheckedUpdateManyWithoutComplexNestedInput
-    rooms?: RoomUncheckedUpdateManyWithoutComplexNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutComplexNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutComplexNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutSiteNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutSiteNestedInput
   }
@@ -51796,6 +54754,7 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type EmployeeCreateManyCompanyInput = {
@@ -51818,6 +54777,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
     processStatus?: $Enums.Status
     register?: string | null
@@ -51845,7 +54805,7 @@ export namespace Prisma {
     subCategory?: string | null
     teamId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -51913,6 +54873,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51957,7 +54918,7 @@ export namespace Prisma {
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
-    room?: RoomUpdateOneWithoutMaintenancesNestedInput
+    space?: SpaceUpdateOneWithoutMaintenancesNestedInput
     assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
@@ -51974,6 +54935,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52001,7 +54963,7 @@ export namespace Prisma {
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -52035,6 +54997,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52062,7 +55025,7 @@ export namespace Prisma {
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -52105,6 +55068,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: $Enums.Status
     register?: string | null
     activityIdTimer?: string | null
@@ -52132,7 +55096,7 @@ export namespace Prisma {
     companyId?: string | null
     teamId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -52165,6 +55129,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
     processStatus?: $Enums.Status
     register?: string | null
@@ -52192,7 +55157,7 @@ export namespace Prisma {
     companyId?: string | null
     teamId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -52225,6 +55190,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
     processStatus?: $Enums.Status
     register?: string | null
@@ -52253,7 +55219,7 @@ export namespace Prisma {
     companyId?: string | null
     teamId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -52319,6 +55285,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52363,7 +55330,7 @@ export namespace Prisma {
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
-    room?: RoomUpdateOneWithoutMaintenancesNestedInput
+    space?: SpaceUpdateOneWithoutMaintenancesNestedInput
     assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
@@ -52380,6 +55347,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52407,7 +55375,7 @@ export namespace Prisma {
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -52441,6 +55409,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52468,7 +55437,7 @@ export namespace Prisma {
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -52501,6 +55470,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52545,7 +55515,7 @@ export namespace Prisma {
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
-    room?: RoomUpdateOneWithoutMaintenancesNestedInput
+    space?: SpaceUpdateOneWithoutMaintenancesNestedInput
     assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
@@ -52562,6 +55532,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52589,7 +55560,7 @@ export namespace Prisma {
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -52623,6 +55594,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52650,7 +55622,7 @@ export namespace Prisma {
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -52683,6 +55655,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52728,7 +55701,7 @@ export namespace Prisma {
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     team?: TeamUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
-    room?: RoomUpdateOneWithoutMaintenancesNestedInput
+    space?: SpaceUpdateOneWithoutMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
   }
@@ -52744,6 +55717,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52772,7 +55746,7 @@ export namespace Prisma {
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -52805,6 +55779,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52833,7 +55808,7 @@ export namespace Prisma {
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -52865,6 +55840,7 @@ export namespace Prisma {
     action?: string | null
     message?: string | null
     processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: string | null
     processStatus?: $Enums.Status
     register?: string | null
@@ -52892,7 +55868,7 @@ export namespace Prisma {
     subCategory?: string | null
     companyId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
@@ -52929,7 +55905,7 @@ export namespace Prisma {
     assetId?: string | null
     buildingId?: string | null
     floorId?: string | null
-    roomId?: string | null
+    spaceId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -52945,6 +55921,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
     activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52989,7 +55966,7 @@ export namespace Prisma {
     site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
     company?: CompanyUpdateOneWithoutMaintenancesNestedInput
     floor?: FloorUpdateOneWithoutMaintenancesNestedInput
-    room?: RoomUpdateOneWithoutMaintenancesNestedInput
+    space?: SpaceUpdateOneWithoutMaintenancesNestedInput
     assignee?: EmployeeUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
@@ -53006,6 +55983,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
@@ -53033,7 +56011,7 @@ export namespace Prisma {
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -53067,6 +56045,7 @@ export namespace Prisma {
     action?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     performerId?: NullableStringFieldUpdateOperationsInput | string | null
     processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     register?: NullableStringFieldUpdateOperationsInput | string | null
@@ -53094,7 +56073,7 @@ export namespace Prisma {
     subCategory?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -53133,7 +56112,7 @@ export namespace Prisma {
     asset?: AssetUpdateOneWithoutPreventivesNestedInput
     building?: BuildingUpdateOneWithoutPreventivesNestedInput
     floor?: FloorUpdateOneWithoutPreventivesNestedInput
-    room?: RoomUpdateOneWithoutPreventivesNestedInput
+    space?: SpaceUpdateOneWithoutPreventivesNestedInput
   }
 
   export type PreventiveUncheckedUpdateWithoutTeamInput = {
@@ -53151,7 +56130,7 @@ export namespace Prisma {
     assetId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -53171,7 +56150,7 @@ export namespace Prisma {
     assetId?: NullableStringFieldUpdateOperationsInput | string | null
     buildingId?: NullableStringFieldUpdateOperationsInput | string | null
     floorId?: NullableStringFieldUpdateOperationsInput | string | null
-    roomId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -53286,8 +56265,8 @@ export namespace Prisma {
     calenderEntity?: CalenderEntityUpdateOneWithoutBuildingsNestedInput
     photos?: FileUpdateManyWithoutBuildingsNestedInput
     floors?: FloorUpdateManyWithoutBuildingNestedInput
-    units?: UnitUpdateManyWithoutBuildingNestedInput
-    rooms?: RoomUpdateManyWithoutBuildingNestedInput
+    spaces?: SpaceUpdateManyWithoutBuildingNestedInput
+    zones?: ZoneUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
   }
 
@@ -53316,8 +56295,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutBuildingsNestedInput
     floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
-    units?: UnitUncheckedUpdateManyWithoutBuildingNestedInput
-    rooms?: RoomUncheckedUpdateManyWithoutBuildingNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutBuildingNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
@@ -53395,12 +56374,38 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    siteId?: string | null
   }
 
-  export type UnitCreateManyCalenderEntityInput = {
+  export type SpaceCreateManyCalenderEntityInput = {
+    id?: string
+    name: string
+    code: string
+    use?: $Enums.RoomUse
+    status?: $Enums.ServiceStatus
+    complexId?: string | null
+    buildingId?: string | null
+    floorId: string
+    zoneId?: string | null
+    condition?: $Enums.Condition
+    criticality?: $Enums.Criticality
+    glazedArea?: number | null
+    cleanableArea?: number | null
+    coveredArea?: number | null
+    totalNetArea?: number | null
+    totalGrossArea?: number | null
+    height?: number | null
+    heated?: boolean
+    totalVolume?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ZoneCreateManyCalenderEntityInput = {
     id?: string
     code: string
     name: string
+    type?: string | null
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
     complexId?: string | null
@@ -53428,30 +56433,6 @@ export namespace Prisma {
     cadastralIncome?: Decimal | DecimalJsLike | number | string | null
     censusArea?: string | null
     subArea?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type RoomCreateManyCalenderEntityInput = {
-    id?: string
-    name: string
-    code: string
-    use?: $Enums.RoomUse
-    status?: $Enums.ServiceStatus
-    complexId?: string | null
-    buildingId?: string | null
-    floorId: string
-    unitId?: string | null
-    condition?: $Enums.Condition
-    criticality?: $Enums.Criticality
-    glazedArea?: number | null
-    cleanableArea?: number | null
-    coveredArea?: number | null
-    totalNetArea?: number | null
-    totalGrossArea?: number | null
-    height?: number | null
-    heated?: boolean
-    totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -53490,8 +56471,8 @@ export namespace Prisma {
     complex?: ComplexUpdateOneRequiredWithoutBuildingsNestedInput
     photos?: FileUpdateManyWithoutBuildingsNestedInput
     floors?: FloorUpdateManyWithoutBuildingNestedInput
-    units?: UnitUpdateManyWithoutBuildingNestedInput
-    rooms?: RoomUpdateManyWithoutBuildingNestedInput
+    spaces?: SpaceUpdateManyWithoutBuildingNestedInput
+    zones?: ZoneUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
   }
 
@@ -53520,8 +56501,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutBuildingsNestedInput
     floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
-    units?: UnitUncheckedUpdateManyWithoutBuildingNestedInput
-    rooms?: RoomUncheckedUpdateManyWithoutBuildingNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutBuildingNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutBuildingNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
   }
 
@@ -53577,10 +56558,11 @@ export namespace Prisma {
     buildings?: BuildingUpdateManyWithoutComplexNestedInput
     photos?: FileUpdateManyWithoutComplexesNestedInput
     floors?: FloorUpdateManyWithoutComplexNestedInput
-    units?: UnitUpdateManyWithoutComplexNestedInput
-    rooms?: RoomUpdateManyWithoutComplexNestedInput
+    spaces?: SpaceUpdateManyWithoutComplexNestedInput
+    zones?: ZoneUpdateManyWithoutComplexNestedInput
     maintenances?: MaintenanceUpdateManyWithoutSiteNestedInput
     preventives?: PreventiveUpdateManyWithoutSiteNestedInput
+    site?: SiteUpdateOneWithoutComplexesNestedInput
   }
 
   export type ComplexUncheckedUpdateWithoutCalenderEntityInput = {
@@ -53607,11 +56589,12 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
     buildings?: BuildingUncheckedUpdateManyWithoutComplexNestedInput
     photos?: FileUncheckedUpdateManyWithoutComplexesNestedInput
     floors?: FloorUncheckedUpdateManyWithoutComplexNestedInput
-    units?: UnitUncheckedUpdateManyWithoutComplexNestedInput
-    rooms?: RoomUncheckedUpdateManyWithoutComplexNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutComplexNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutComplexNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutSiteNestedInput
     preventives?: PreventiveUncheckedUpdateManyWithoutSiteNestedInput
   }
@@ -53640,12 +56623,94 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type UnitUpdateWithoutCalenderEntityInput = {
+  export type SpaceUpdateWithoutCalenderEntityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    heated?: BoolFieldUpdateOperationsInput | boolean
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    complex?: ComplexUpdateOneWithoutSpacesNestedInput
+    building?: BuildingUpdateOneWithoutSpacesNestedInput
+    floor?: FloorUpdateOneRequiredWithoutSpacesNestedInput
+    zone?: ZoneUpdateOneWithoutRoomsNestedInput
+    photos?: FileUpdateManyWithoutSpacesNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutSpaceNestedInput
+    preventives?: PreventiveUpdateManyWithoutSpaceNestedInput
+    assets?: AssetUpdateManyWithoutSpaceNestedInput
+  }
+
+  export type SpaceUncheckedUpdateWithoutCalenderEntityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    complexId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: StringFieldUpdateOperationsInput | string
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    heated?: BoolFieldUpdateOperationsInput | boolean
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutSpacesNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutSpaceNestedInput
+    preventives?: PreventiveUncheckedUpdateManyWithoutSpaceNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutSpaceNestedInput
+  }
+
+  export type SpaceUncheckedUpdateManyWithoutCalenderEntityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
+    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    complexId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: StringFieldUpdateOperationsInput | string
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
+    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    heated?: BoolFieldUpdateOperationsInput | boolean
+    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ZoneUpdateWithoutCalenderEntityInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -53672,17 +56737,18 @@ export namespace Prisma {
     subArea?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    complex?: ComplexUpdateOneWithoutUnitsNestedInput
-    building?: BuildingUpdateOneWithoutUnitsNestedInput
-    floor?: FloorUpdateOneRequiredWithoutUnitsNestedInput
-    rooms?: RoomUpdateManyWithoutUnitNestedInput
-    photos?: FileUpdateManyWithoutUnitsNestedInput
+    complex?: ComplexUpdateOneWithoutZonesNestedInput
+    building?: BuildingUpdateOneWithoutZonesNestedInput
+    floor?: FloorUpdateOneRequiredWithoutZonesNestedInput
+    rooms?: SpaceUpdateManyWithoutZoneNestedInput
+    photos?: FileUpdateManyWithoutZonesNestedInput
   }
 
-  export type UnitUncheckedUpdateWithoutCalenderEntityInput = {
+  export type ZoneUncheckedUpdateWithoutCalenderEntityInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     complexId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -53712,14 +56778,15 @@ export namespace Prisma {
     subArea?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    rooms?: RoomUncheckedUpdateManyWithoutUnitNestedInput
-    photos?: FileUncheckedUpdateManyWithoutUnitsNestedInput
+    rooms?: SpaceUncheckedUpdateManyWithoutZoneNestedInput
+    photos?: FileUncheckedUpdateManyWithoutZonesNestedInput
   }
 
-  export type UnitUncheckedUpdateManyWithoutCalenderEntityInput = {
+  export type ZoneUncheckedUpdateManyWithoutCalenderEntityInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     complexId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -53747,84 +56814,6 @@ export namespace Prisma {
     cadastralIncome?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     censusArea?: NullableStringFieldUpdateOperationsInput | string | null
     subArea?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type RoomUpdateWithoutCalenderEntityInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
-    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
-    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    height?: NullableIntFieldUpdateOperationsInput | number | null
-    heated?: BoolFieldUpdateOperationsInput | boolean
-    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    complex?: ComplexUpdateOneWithoutRoomsNestedInput
-    building?: BuildingUpdateOneWithoutRoomsNestedInput
-    floor?: FloorUpdateOneRequiredWithoutRoomsNestedInput
-    unit?: UnitUpdateOneWithoutRoomsNestedInput
-    photos?: FileUpdateManyWithoutRoomsNestedInput
-    maintenances?: MaintenanceUpdateManyWithoutRoomNestedInput
-    preventives?: PreventiveUpdateManyWithoutRoomNestedInput
-  }
-
-  export type RoomUncheckedUpdateWithoutCalenderEntityInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    complexId?: NullableStringFieldUpdateOperationsInput | string | null
-    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
-    floorId?: StringFieldUpdateOperationsInput | string
-    unitId?: NullableStringFieldUpdateOperationsInput | string | null
-    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
-    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
-    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    height?: NullableIntFieldUpdateOperationsInput | number | null
-    heated?: BoolFieldUpdateOperationsInput | boolean
-    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    photos?: FileUncheckedUpdateManyWithoutRoomsNestedInput
-    maintenances?: MaintenanceUncheckedUpdateManyWithoutRoomNestedInput
-    preventives?: PreventiveUncheckedUpdateManyWithoutRoomNestedInput
-  }
-
-  export type RoomUncheckedUpdateManyWithoutCalenderEntityInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    use?: EnumRoomUseFieldUpdateOperationsInput | $Enums.RoomUse
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    complexId?: NullableStringFieldUpdateOperationsInput | string | null
-    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
-    floorId?: StringFieldUpdateOperationsInput | string
-    unitId?: NullableStringFieldUpdateOperationsInput | string | null
-    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
-    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
-    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    height?: NullableIntFieldUpdateOperationsInput | number | null
-    heated?: BoolFieldUpdateOperationsInput | boolean
-    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -53872,8 +56861,8 @@ export namespace Prisma {
   export type FileUpdateWithoutMaintenanceInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
-    rooms?: RoomUpdateManyWithoutPhotosNestedInput
-    units?: UnitUpdateManyWithoutPhotosNestedInput
+    spaces?: SpaceUpdateManyWithoutPhotosNestedInput
+    zones?: ZoneUpdateManyWithoutPhotosNestedInput
     buildings?: BuildingUpdateManyWithoutPhotosNestedInput
     complexes?: ComplexUpdateManyWithoutPhotosNestedInput
   }
@@ -53881,8 +56870,8 @@ export namespace Prisma {
   export type FileUncheckedUpdateWithoutMaintenanceInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
-    rooms?: RoomUncheckedUpdateManyWithoutPhotosNestedInput
-    units?: UnitUncheckedUpdateManyWithoutPhotosNestedInput
+    spaces?: SpaceUncheckedUpdateManyWithoutPhotosNestedInput
+    zones?: ZoneUncheckedUpdateManyWithoutPhotosNestedInput
     buildings?: BuildingUncheckedUpdateManyWithoutPhotosNestedInput
     complexes?: ComplexUncheckedUpdateManyWithoutPhotosNestedInput
   }

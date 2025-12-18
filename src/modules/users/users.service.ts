@@ -1,6 +1,6 @@
-import prisma from '../../lib/prisma';
-import { NotFoundError } from '../../errors';
-import { UserStatus } from '../../generated/prisma';
+import prisma from "../../lib/prisma";
+import { NotFoundError } from "../../errors";
+import { UserStatus } from "../../generated/prisma";
 
 export class UsersService {
   async findAll(options: {
@@ -15,17 +15,17 @@ export class UsersService {
 
     const where: any = {};
     if (options.status) where.status = options.status;
-    if (options.role) where.role = { name: options.role };
+    if (options.role) where.roles = { some: { name: options.role } };
 
     const [users, total] = await Promise.all([
       prisma.user.findMany({
         where,
-        include: { role: true },
+        include: { roles: true },
         skip,
         take: limit,
-        orderBy: { createdAt: 'desc' }
+        orderBy: { createdAt: "desc" },
       }),
-      prisma.user.count({ where })
+      prisma.user.count({ where }),
     ]);
 
     // Remove passwords
@@ -37,36 +37,51 @@ export class UsersService {
         page,
         limit,
         total,
-        totalPages: Math.ceil(total / limit)
-      }
+        totalPages: Math.ceil(total / limit),
+      },
     };
   }
 
   async findById(id: string) {
     const user = await prisma.user.findUnique({
       where: { id },
-      include: { role: true }
+      include: { roles: true },
     });
 
     if (!user) {
-      throw new NotFoundError('User');
+      throw new NotFoundError("User");
     }
 
     const { password, ...userWithoutPassword } = user;
     return userWithoutPassword;
   }
 
-  async update(id: string, data: {
-    firstName?: string;
-    lastName?: string;
-    email?: string;
-    status?: UserStatus;
-    roleId?: string;
-  }) {
+  async update(
+    id: string,
+    data: {
+      firstName?: string;
+      lastName?: string;
+      email?: string;
+      status?: UserStatus;
+      roles?: string[]; // Array of Role IDs
+    }
+  ) {
+    const { roles, ...userData } = data;
+
+    // Prepare update data
+    const updateData: any = { ...userData };
+
+    if (roles) {
+      updateData.roles = {
+        set: [], // Clear existing relations
+        connect: roles.map((id) => ({ id })), // Connect new roles
+      };
+    }
+
     const user = await prisma.user.update({
       where: { id },
-      data,
-      include: { role: true }
+      data: updateData,
+      include: { roles: true },
     });
 
     const { password, ...userWithoutPassword } = user;
@@ -75,7 +90,7 @@ export class UsersService {
 
   async delete(id: string) {
     await prisma.user.delete({
-      where: { id }
+      where: { id },
     });
   }
 }
