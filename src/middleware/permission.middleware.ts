@@ -24,7 +24,7 @@ export const requirePermission = (
       const permission = await prisma.permission.findUnique({
         where: {
           roleId_resource: {
-            roleId: req.user.roleId,
+            roleId: req.user.roles,
             resource
           }
         }

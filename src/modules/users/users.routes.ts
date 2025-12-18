@@ -3,7 +3,6 @@ import { UsersController } from './users.controller';
 import { authenticate } from '../../middleware/auth.middleware';
 import { requireRole } from '../../middleware/rbac.middleware';
 import { requirePermission } from '../../middleware/permission.middleware';
-import { RoleName } from '../../generated/prisma';
 
 const router = Router();
 const usersController = new UsersController();
@@ -88,7 +87,7 @@ router.use(authenticate);
  */
 router.get(
   '/',
-  requireRole([RoleName.ADMIN]),
+  requireRole(["ADMIN"]),
   requirePermission('User', 'READ'),
   usersController.getAll
 );
@@ -211,7 +210,7 @@ router.get(
  */
 router.put(
   '/:id',
-  requireRole([RoleName.ADMIN]),
+  requireRole(["ADMIN"]),
   requirePermission('User', 'WRITE'),
   usersController.update
 );
@@ -255,7 +254,7 @@ router.put(
  */
 router.delete(
   '/:id',
-  requireRole([RoleName.ADMIN]),
+  requireRole(["ADMIN"]),
   requirePermission('User', 'WRITE'),
   usersController.delete
 );

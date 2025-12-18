@@ -12,11 +12,20 @@ import authRoutes from "./modules/auth/auth.routes";
 import userRoutes from "./modules/users/users.routes";
 import roleRoutes from "./modules/roles/roles.routes";
 import permissionRoutes from "./modules/permissions/permissions.routes";
-import complexesRoutes from "./modules/sites/routes/complexes.routes";
-import buildingsRoutes from "./modules/sites/routes/buildings.routes";
-import floorsRoutes from "./modules/sites/routes/floors.routes";
-import unitsRoutes from "./modules/sites/routes/units.routes";
-import roomsRoutes from "./modules/sites/routes/rooms.routes";
+// import complexesRoutes from "./modules/sites/routes/complexes.routes";
+// import buildingsRoutes from "./modules/sites/routes/buildings.routes";
+// import floorsRoutes from "./modules/sites/routes/floors.routes";
+// import unitsRoutes from "./modules/sites/routes/units.routes";
+// import roomsRoutes from "./modules/sites/routes/rooms.routes";
+
+import siteRoutes from "./modules/location/routes/sites.routes";
+import complexeRoutes from "./modules/location/routes/complexes.routes";
+import buildingRoutes from "./modules/location/routes/buildings.routes";
+import floorRoutes from "./modules/location/routes/floors.routes";
+import zoneRoutes from "./modules/location/routes/zones.routes";
+import spaceRoutes from "./modules/location/routes/spaces.routes";
+
+
 import swaggerSpec from "./swagger";
 import swagger from "swagger-ui-express";
 import assetCategoryRoutes from "./modules/assets/routes/asset-category.routes";
@@ -81,12 +90,13 @@ app.use(`/api/${API_VERSION}/companies`, apiRateLimiter, companiesRoutes);
 app.use(`/api/${API_VERSION}/employees`, apiRateLimiter, employeesRoutes);
 app.use(`/api/${API_VERSION}/teams`, apiRateLimiter, teamsRoutes);
 app.use(`/api/${API_VERSION}/maintenance`, apiRateLimiter, maintenanceRoutes);
-// SITES
-app.use(`/api/${API_VERSION}/complexes`, apiRateLimiter, complexesRoutes);
-app.use(`/api/${API_VERSION}/buildings`, apiRateLimiter, buildingsRoutes);
-app.use(`/api/${API_VERSION}/floors`, apiRateLimiter, floorsRoutes);
-app.use(`/api/${API_VERSION}/units`, apiRateLimiter, unitsRoutes);
-app.use(`/api/${API_VERSION}/rooms`, apiRateLimiter, roomsRoutes);
+// LOCATIONS
+app.use(`/api/${API_VERSION}/sites`, apiRateLimiter, siteRoutes);
+app.use(`/api/${API_VERSION}/complexes`, apiRateLimiter, complexeRoutes);
+app.use(`/api/${API_VERSION}/buildings`, apiRateLimiter, buildingRoutes);
+app.use(`/api/${API_VERSION}/floors`, apiRateLimiter, floorRoutes);
+app.use(`/api/${API_VERSION}/zones`, apiRateLimiter, zoneRoutes);
+app.use(`/api/${API_VERSION}/spaces`, apiRateLimiter, spaceRoutes);
 // ASSETS
 app.use(
   `/api/${API_VERSION}/asset-categories`,

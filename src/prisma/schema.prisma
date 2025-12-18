@@ -457,6 +457,12 @@ model Space {
 // categories - devices, finishings, items, machineries
 // subcategories - devices: burglar devices, electrical devices, climate control devices etc.
 // asset - door, window, siren, etc.
+
+model AssetType {
+  id   String @id @default(uuid())
+  name String @unique
+}
+
 model AssetCategory {
   id          String            @id @default(uuid())
   name        String            @unique
