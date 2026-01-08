@@ -6,9 +6,14 @@ import bulkUserQueue from "../jobs/queues/bulkUser.queue";
 const authService = new AuthService();
 
 export class AuthController {
-  async bulkRegistration(req:Request, res:Response, next:NextFunction) {
+  bulkRegistration = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    console.log("Getting here @bulkRegistration controller");
     try {
-      if(!req.file){
+      if (!req.file) {
         return res.status(400).json({
           success: false,
           error: {
@@ -17,6 +22,7 @@ export class AuthController {
           },
         });
       }
+      console.log("File: ", req.file);
       await bulkUserQueue.add("process-users", {
         filePath: req.file.path,
         originalName: req.file.originalname,
@@ -27,12 +33,11 @@ export class AuthController {
       res.status(202).json({
         success: true,
         message: "File uploaded successfully. Processing Started",
-      })
-      
+      });
     } catch (error) {
-      next(error)
+      next(error);
     }
-  }
+  };
   async register(req: Request, res: Response, next: NextFunction) {
     try {
       const result = await authService.register(req.body);

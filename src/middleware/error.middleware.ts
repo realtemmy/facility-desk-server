@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import multer from 'multer';
 import { AppError } from '../errors';
 import { formatErrorResponse } from '../utils/error-response.util';
 
@@ -35,6 +36,12 @@ export const errorMiddleware = (
   if (err.name === 'PrismaClientKnownRequestError') {
     return res.status(400).json(
       formatErrorResponse('Database operation failed', 'DATABASE_ERROR')
+    );
+  }
+
+  if(err instanceof multer.MulterError){
+    return res.status(400).json(
+      formatErrorResponse('File upload failed', 'FILE_UPLOAD_FAILED')
     );
   }
 
