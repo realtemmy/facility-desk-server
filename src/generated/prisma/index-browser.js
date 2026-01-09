@@ -162,11 +162,11 @@ exports.Prisma.PermissionScalarFieldEnum = {
 exports.Prisma.SiteScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  address: 'address',
   climateZone: 'climateZone',
   description: 'description',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  addressId: 'addressId'
 };
 
 exports.Prisma.ComplexScalarFieldEnum = {
@@ -176,9 +176,7 @@ exports.Prisma.ComplexScalarFieldEnum = {
   availability: 'availability',
   status: 'status',
   calenderEntityId: 'calenderEntityId',
-  address: 'address',
-  city: 'city',
-  zipCode: 'zipCode',
+  secondaryAddress: 'secondaryAddress',
   condition: 'condition',
   criticality: 'criticality',
   totalBuildings: 'totalBuildings',
@@ -216,7 +214,7 @@ exports.Prisma.BuildingScalarFieldEnum = {
   totalGrossArea: 'totalGrossArea',
   totalHeatedVolume: 'totalHeatedVolume',
   totalVolume: 'totalVolume',
-  addressId: 'addressId',
+  subAddress: 'subAddress',
   complexId: 'complexId',
   calenderEntityId: 'calenderEntityId',
   createdAt: 'createdAt',
@@ -584,6 +582,45 @@ exports.CompanyType = exports.$Enums.CompanyType = {
   CORPORATE_GROUP: 'CORPORATE_GROUP',
   CUSTOMER: 'CUSTOMER',
   SUPPLIER: 'SUPPLIER'
+};
+
+exports.State = exports.$Enums.State = {
+  Abia: 'Abia',
+  Adamawa: 'Adamawa',
+  AkwaIbom: 'AkwaIbom',
+  Anambra: 'Anambra',
+  Bauchi: 'Bauchi',
+  Bayelsa: 'Bayelsa',
+  Benue: 'Benue',
+  Borno: 'Borno',
+  CrossRiver: 'CrossRiver',
+  Delta: 'Delta',
+  Ebonyi: 'Ebonyi',
+  Edo: 'Edo',
+  Ekiti: 'Ekiti',
+  Enugu: 'Enugu',
+  Gombe: 'Gombe',
+  Imo: 'Imo',
+  Jigawa: 'Jigawa',
+  Kaduna: 'Kaduna',
+  Kano: 'Kano',
+  Katsina: 'Katsina',
+  Kebbi: 'Kebbi',
+  Kogi: 'Kogi',
+  Kwara: 'Kwara',
+  Lagos: 'Lagos',
+  Nasarawa: 'Nasarawa',
+  Niger: 'Niger',
+  Ogun: 'Ogun',
+  Ondo: 'Ondo',
+  Osun: 'Osun',
+  Oyo: 'Oyo',
+  Plateau: 'Plateau',
+  Rivers: 'Rivers',
+  Sokoto: 'Sokoto',
+  Taraba: 'Taraba',
+  Yobe: 'Yobe',
+  Zamfara: 'Zamfara'
 };
 
 exports.MaintenanceType = exports.$Enums.MaintenanceType = {

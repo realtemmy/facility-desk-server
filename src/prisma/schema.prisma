@@ -203,7 +203,7 @@ model Role {
 model Permission {
   id          String      @id @default(uuid())
   roleId      String
-  resource    String      
+  resource    String
   accessLevel AccessLevel @default(NONE)
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
@@ -219,7 +219,7 @@ model Permission {
 model Site {
   id          String  @id @default(uuid())
   name        String
-  address     String?
+  address     Address @relation(fields: [addressId], references: [id])
   climateZone String?
   description String?
 
@@ -227,6 +227,7 @@ model Site {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  addressId String
 
   @@map("sites")
 }
@@ -241,9 +242,7 @@ model Complex {
   calenderEntity   CalenderEntity? @relation(fields: [calenderEntityId], references: [id], onDelete: Cascade)
 
   // Location
-  address String?
-  city    String?
-  zipCode String?
+  secondaryAddress String? // eg Second get entrance
 
   // Maintenance Date
   condition   Condition   @default(GOOD)
@@ -307,8 +306,7 @@ model Building {
   totalVolume       Float?
 
   // Location
-  address   Address @relation(fields: [addressId], references: [id])
-  addressId String
+  subAddress String? // eg Building B, 100 Main St
 
   complexId String
   complex   Complex @relation(fields: [complexId], references: [id], onDelete: Cascade)
@@ -543,7 +541,7 @@ model Company {
   name        String
   description String
 
-  address   Address @relation(fields: [addressId], references: [id])
+  address   Address @relation(fields: [addressId], references: [id], onDelete: Cascade)
   addressId String
 
   phone            String?
@@ -580,15 +578,15 @@ model Team {
 }
 
 model Address {
-  id        String     @id @default(uuid())
+  id        String    @id @default(uuid())
   street    String
   city      String
-  state     String
-  zipCode   String
+  state     State     @default(Lagos)
+  zipCode   String?
   latitude  Float?
   longitude Float?
   companies Company[]
-  buildings Building[]
+  sites     Site[]
 
   @@map("addresses")
 }
@@ -764,4 +762,43 @@ model RefreshToken {
   @@index([token])
   @@index([userId])
   @@map("refresh_tokens")
+}
+
+enum State {
+  Abia
+  Adamawa
+  AkwaIbom
+  Anambra
+  Bauchi
+  Bayelsa
+  Benue
+  Borno
+  CrossRiver
+  Delta
+  Ebonyi
+  Edo
+  Ekiti
+  Enugu
+  Gombe
+  Imo
+  Jigawa
+  Kaduna
+  Kano
+  Katsina
+  Kebbi
+  Kogi
+  Kwara
+  Lagos
+  Nasarawa
+  Niger
+  Ogun
+  Ondo
+  Osun
+  Oyo
+  Plateau
+  Rivers
+  Sokoto
+  Taraba
+  Yobe
+  Zamfara
 }

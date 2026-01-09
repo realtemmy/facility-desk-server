@@ -1,6 +1,6 @@
 import prisma from "../../lib/prisma";
-import { NotFoundError } from "../../errors";
-import { CompanyType, Prisma } from "../../generated/prisma";
+import { ConflictError, NotFoundError } from "../../errors";
+import { CompanyType, Prisma, State } from "../../generated/prisma";
 
 export class CompaniesService {
   async findAll(options: {
@@ -70,7 +70,7 @@ export class CompaniesService {
     address: {
       street: string;
       city: string;
-      state: string;
+      state: State;
       zipCode: string;
     };
   }) {
@@ -81,7 +81,7 @@ export class CompaniesService {
       where: { code: data.code },
     });
     if (existing) {
-      throw new Error("Company with this code already exists");
+      return new ConflictError("Company with this code already exists");
     }
 
     const company = await prisma.company.create({
@@ -110,7 +110,7 @@ export class CompaniesService {
       address?: {
         street?: string;
         city?: string;
-        state?: string;
+        state?: State;
         zipCode?: string;
       };
     }

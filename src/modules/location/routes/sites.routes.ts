@@ -1,13 +1,17 @@
 import { Router } from "express";
 import { SitesController } from "../controllers/sites.controller";
+import { requirePermission } from "../../../middleware/permission.middleware";
 
 const router = Router();
 const controller = new SitesController();
 
-router.post("/", controller.create);
-router.get("/", controller.findAll);
-router.get("/:id", controller.findOne);
-router.patch("/:id", controller.update);
-router.delete("/:id", controller.remove);
+router.route("/")
+    .post(requirePermission("Site", "WRITE"), controller.create)
+    .get(controller.findAll);
+
+router.route("/:id")
+    .get(requirePermission("Site", "READ"), controller.findOne)
+    .patch(requirePermission("Site", "WRITE"), controller.update)
+    .delete(requirePermission("Site", "WRITE"), controller.remove);
 
 export default router;

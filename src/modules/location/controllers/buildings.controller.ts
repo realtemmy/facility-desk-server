@@ -56,8 +56,8 @@ export class BuildingsController {
         name: req.body.name,
         mainUse: req.body.mainUse,
         availability: req.body.availability,
+        subAddress: req.body.subAddress,
         status: req.body.status,
-        address: req.body.address,
         condition: req.body.condition,
         criticality: req.body.criticality,
         calenderEntityId: req.body.calenderEntityId,
@@ -72,7 +72,6 @@ export class BuildingsController {
         totalHeatedVolume: req.body.totalHeatedVolume,
         totalVolume: req.body.totalVolume,
         complexId: req.body.complexId,
-        photoIds: req.body.photoIds,
       });
       res.status(200).json({
         success: true,

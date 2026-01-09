@@ -25,7 +25,7 @@ export interface CreateBuildingDto {
   availability?: Availability;
   status?: ServiceStatus;
 
-  address: AddressDto;
+  subAddress: string;
 
   condition?: Condition;
   criticality?: Criticality;
@@ -49,31 +49,7 @@ export interface CreateBuildingDto {
 /**
  * DTO for updating an existing building
  */
-export interface UpdateBuildingDto {
-  name: string;
-  mainUse?: MainUse;
-  availability?: Availability;
-  status?: ServiceStatus;
-  address: AddressDto;
-
-  condition?: Condition;
-  criticality?: Criticality;
-
-  totalFloors?: number;
-  totalUnits?: number;
-  totalRooms?: number;
-  glazedArea?: number;
-  cleanableArea?: number;
-  coveredArea?: number;
-  totalNetArea?: number;
-  totalGrossArea?: number;
-  totalHeatedVolume?: number;
-  totalVolume?: number;
-
-  complexId: string;
-  calenderEntityId?: string;
-  photoIds?: string[];
-}
+export interface UpdateBuildingDto extends Omit<CreateBuildingDto, "code" | "photoIds"> {}
 
 /**
  * DTO for building response
@@ -84,8 +60,8 @@ export interface BuildingResponseDto {
   mainUse?: MainUse;
   availability?: Availability;
   status?: ServiceStatus;
- 
-  address: AddressDto;
+
+  subAddress: string;
 
   condition?: Condition;
   criticality?: Criticality;

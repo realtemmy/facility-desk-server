@@ -52,9 +52,6 @@ export class BuildingsService {
         take: limit,
         skip: (page - 1) * limit,
         orderBy: { [sortBy]: sortOrder },
-        include: {
-          address: true,
-        },
       }),
     ]);
 
@@ -73,7 +70,6 @@ export class BuildingsService {
     const building = await prisma.building.findUnique({
       where: { id },
       include: {
-        address: true,
         complex: {
           select: {
             id: true,
@@ -110,7 +106,7 @@ export class BuildingsService {
   }
 
   async create(data: CreateBuildingDto): Promise<BuildingResponseDto> {
-    const { photoIds, address, complexId, calenderEntityId, ...buildingData } =
+    const { photoIds, subAddress, complexId, calenderEntityId, ...buildingData } =
       data;
 
     // Check if complex exists
@@ -125,9 +121,7 @@ export class BuildingsService {
         complex: {
           connect: { id: complexId },
         },
-        address: {
-          create: address,
-        },
+        subAddress,
         ...(calenderEntityId && {
           calenderEntity: {
             connect: { id: calenderEntityId },
@@ -138,9 +132,6 @@ export class BuildingsService {
             connect: photoIds.map((id) => ({ id })),
           },
         }),
-      },
-      include: {
-        address: true,
       },
     });
 
@@ -162,7 +153,7 @@ export class BuildingsService {
       }
     }
 
-    const { address, complexId, calenderEntityId, ...rest } = data;
+    const { complexId, calenderEntityId, ...rest } = data;
 
     const updated = await prisma.building.update({
       where: { id },
@@ -178,14 +169,8 @@ export class BuildingsService {
             connect: { id: calenderEntityId },
           },
         }),
-        ...(address && {
-          address: {
-            update: address,
-          },
-        }),
       },
       include: {
-        address: true,
         complex: {
           select: {
             id: true,

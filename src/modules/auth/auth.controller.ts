@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { AuthService } from "./auth.service";
 import { cookieOptions } from "../../utils/cookie.util";
-import bulkUserQueue from "../jobs/queues/bulkUser.queue";
+
+import bulkUploadQueue from "../jobs/queues/bulkUpload.queue";
 
 const authService = new AuthService();
 
@@ -22,7 +23,7 @@ export class AuthController {
         });
       }
       console.log("File: ", req.file);
-      await bulkUserQueue.add("process-users", {
+      await bulkUploadQueue.add("process-users", {
         filePath: req.file.path,
         originalName: req.file.originalname,
         mimetype: req.file.mimetype,

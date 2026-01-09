@@ -307,6 +307,48 @@ export const Priority: {
 
 export type Priority = (typeof Priority)[keyof typeof Priority]
 
+
+export const State: {
+  Abia: 'Abia',
+  Adamawa: 'Adamawa',
+  AkwaIbom: 'AkwaIbom',
+  Anambra: 'Anambra',
+  Bauchi: 'Bauchi',
+  Bayelsa: 'Bayelsa',
+  Benue: 'Benue',
+  Borno: 'Borno',
+  CrossRiver: 'CrossRiver',
+  Delta: 'Delta',
+  Ebonyi: 'Ebonyi',
+  Edo: 'Edo',
+  Ekiti: 'Ekiti',
+  Enugu: 'Enugu',
+  Gombe: 'Gombe',
+  Imo: 'Imo',
+  Jigawa: 'Jigawa',
+  Kaduna: 'Kaduna',
+  Kano: 'Kano',
+  Katsina: 'Katsina',
+  Kebbi: 'Kebbi',
+  Kogi: 'Kogi',
+  Kwara: 'Kwara',
+  Lagos: 'Lagos',
+  Nasarawa: 'Nasarawa',
+  Niger: 'Niger',
+  Ogun: 'Ogun',
+  Ondo: 'Ondo',
+  Osun: 'Osun',
+  Oyo: 'Oyo',
+  Plateau: 'Plateau',
+  Rivers: 'Rivers',
+  Sokoto: 'Sokoto',
+  Taraba: 'Taraba',
+  Yobe: 'Yobe',
+  Zamfara: 'Zamfara'
+};
+
+export type State = (typeof State)[keyof typeof State]
+
 }
 
 export type AccessLevel = $Enums.AccessLevel
@@ -380,6 +422,10 @@ export const AssetCategoryType: typeof $Enums.AssetCategoryType
 export type Priority = $Enums.Priority
 
 export const Priority: typeof $Enums.Priority
+
+export type State = $Enums.State
+
+export const State: typeof $Enums.State
 
 /**
  * ##  Prisma Client ʲˢ
@@ -3629,12 +3675,12 @@ export namespace Prisma {
 
   export type AddressCountOutputType = {
     companies: number
-    buildings: number
+    sites: number
   }
 
   export type AddressCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     companies?: boolean | AddressCountOutputTypeCountCompaniesArgs
-    buildings?: boolean | AddressCountOutputTypeCountBuildingsArgs
+    sites?: boolean | AddressCountOutputTypeCountSitesArgs
   }
 
   // Custom InputTypes
@@ -3658,8 +3704,8 @@ export namespace Prisma {
   /**
    * AddressCountOutputType without action
    */
-  export type AddressCountOutputTypeCountBuildingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: BuildingWhereInput
+  export type AddressCountOutputTypeCountSitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SiteWhereInput
   }
 
 
@@ -7466,31 +7512,31 @@ export namespace Prisma {
   export type SiteMinAggregateOutputType = {
     id: string | null
     name: string | null
-    address: string | null
     climateZone: string | null
     description: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    addressId: string | null
   }
 
   export type SiteMaxAggregateOutputType = {
     id: string | null
     name: string | null
-    address: string | null
     climateZone: string | null
     description: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    addressId: string | null
   }
 
   export type SiteCountAggregateOutputType = {
     id: number
     name: number
-    address: number
     climateZone: number
     description: number
     createdAt: number
     updatedAt: number
+    addressId: number
     _all: number
   }
 
@@ -7498,31 +7544,31 @@ export namespace Prisma {
   export type SiteMinAggregateInputType = {
     id?: true
     name?: true
-    address?: true
     climateZone?: true
     description?: true
     createdAt?: true
     updatedAt?: true
+    addressId?: true
   }
 
   export type SiteMaxAggregateInputType = {
     id?: true
     name?: true
-    address?: true
     climateZone?: true
     description?: true
     createdAt?: true
     updatedAt?: true
+    addressId?: true
   }
 
   export type SiteCountAggregateInputType = {
     id?: true
     name?: true
-    address?: true
     climateZone?: true
     description?: true
     createdAt?: true
     updatedAt?: true
+    addressId?: true
     _all?: true
   }
 
@@ -7601,11 +7647,11 @@ export namespace Prisma {
   export type SiteGroupByOutputType = {
     id: string
     name: string
-    address: string | null
     climateZone: string | null
     description: string | null
     createdAt: Date
     updatedAt: Date
+    addressId: string
     _count: SiteCountAggregateOutputType | null
     _min: SiteMinAggregateOutputType | null
     _max: SiteMaxAggregateOutputType | null
@@ -7628,11 +7674,12 @@ export namespace Prisma {
   export type SiteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    address?: boolean
     climateZone?: boolean
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    addressId?: boolean
+    address?: boolean | AddressDefaultArgs<ExtArgs>
     complexes?: boolean | Site$complexesArgs<ExtArgs>
     _count?: boolean | SiteCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["site"]>
@@ -7640,54 +7687,62 @@ export namespace Prisma {
   export type SiteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    address?: boolean
     climateZone?: boolean
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    addressId?: boolean
+    address?: boolean | AddressDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["site"]>
 
   export type SiteSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    address?: boolean
     climateZone?: boolean
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    addressId?: boolean
+    address?: boolean | AddressDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["site"]>
 
   export type SiteSelectScalar = {
     id?: boolean
     name?: boolean
-    address?: boolean
     climateZone?: boolean
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    addressId?: boolean
   }
 
-  export type SiteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "address" | "climateZone" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["site"]>
+  export type SiteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "climateZone" | "description" | "createdAt" | "updatedAt" | "addressId", ExtArgs["result"]["site"]>
   export type SiteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    address?: boolean | AddressDefaultArgs<ExtArgs>
     complexes?: boolean | Site$complexesArgs<ExtArgs>
     _count?: boolean | SiteCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type SiteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type SiteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type SiteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    address?: boolean | AddressDefaultArgs<ExtArgs>
+  }
+  export type SiteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    address?: boolean | AddressDefaultArgs<ExtArgs>
+  }
 
   export type $SitePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Site"
     objects: {
+      address: Prisma.$AddressPayload<ExtArgs>
       complexes: Prisma.$ComplexPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
-      address: string | null
       climateZone: string | null
       description: string | null
       createdAt: Date
       updatedAt: Date
+      addressId: string
     }, ExtArgs["result"]["site"]>
     composites: {}
   }
@@ -8082,6 +8137,7 @@ export namespace Prisma {
    */
   export interface Prisma__SiteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    address<T extends AddressDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AddressDefaultArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     complexes<T extends Site$complexesArgs<ExtArgs> = {}>(args?: Subset<T, Site$complexesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComplexPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -8114,11 +8170,11 @@ export namespace Prisma {
   interface SiteFieldRefs {
     readonly id: FieldRef<"Site", 'String'>
     readonly name: FieldRef<"Site", 'String'>
-    readonly address: FieldRef<"Site", 'String'>
     readonly climateZone: FieldRef<"Site", 'String'>
     readonly description: FieldRef<"Site", 'String'>
     readonly createdAt: FieldRef<"Site", 'DateTime'>
     readonly updatedAt: FieldRef<"Site", 'DateTime'>
+    readonly addressId: FieldRef<"Site", 'String'>
   }
     
 
@@ -8368,6 +8424,10 @@ export namespace Prisma {
      */
     data: SiteCreateManyInput | SiteCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -8438,6 +8498,10 @@ export namespace Prisma {
      * Limit how many Sites to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -8596,9 +8660,7 @@ export namespace Prisma {
     availability: $Enums.Availability | null
     status: $Enums.ServiceStatus | null
     calenderEntityId: string | null
-    address: string | null
-    city: string | null
-    zipCode: string | null
+    secondaryAddress: string | null
     condition: $Enums.Condition | null
     criticality: $Enums.Criticality | null
     totalBuildings: number | null
@@ -8624,9 +8686,7 @@ export namespace Prisma {
     availability: $Enums.Availability | null
     status: $Enums.ServiceStatus | null
     calenderEntityId: string | null
-    address: string | null
-    city: string | null
-    zipCode: string | null
+    secondaryAddress: string | null
     condition: $Enums.Condition | null
     criticality: $Enums.Criticality | null
     totalBuildings: number | null
@@ -8652,9 +8712,7 @@ export namespace Prisma {
     availability: number
     status: number
     calenderEntityId: number
-    address: number
-    city: number
-    zipCode: number
+    secondaryAddress: number
     condition: number
     criticality: number
     totalBuildings: number
@@ -8710,9 +8768,7 @@ export namespace Prisma {
     availability?: true
     status?: true
     calenderEntityId?: true
-    address?: true
-    city?: true
-    zipCode?: true
+    secondaryAddress?: true
     condition?: true
     criticality?: true
     totalBuildings?: true
@@ -8738,9 +8794,7 @@ export namespace Prisma {
     availability?: true
     status?: true
     calenderEntityId?: true
-    address?: true
-    city?: true
-    zipCode?: true
+    secondaryAddress?: true
     condition?: true
     criticality?: true
     totalBuildings?: true
@@ -8766,9 +8820,7 @@ export namespace Prisma {
     availability?: true
     status?: true
     calenderEntityId?: true
-    address?: true
-    city?: true
-    zipCode?: true
+    secondaryAddress?: true
     condition?: true
     criticality?: true
     totalBuildings?: true
@@ -8881,9 +8933,7 @@ export namespace Prisma {
     availability: $Enums.Availability
     status: $Enums.ServiceStatus
     calenderEntityId: string | null
-    address: string | null
-    city: string | null
-    zipCode: string | null
+    secondaryAddress: string | null
     condition: $Enums.Condition
     criticality: $Enums.Criticality
     totalBuildings: number | null
@@ -8928,9 +8978,7 @@ export namespace Prisma {
     availability?: boolean
     status?: boolean
     calenderEntityId?: boolean
-    address?: boolean
-    city?: boolean
-    zipCode?: boolean
+    secondaryAddress?: boolean
     condition?: boolean
     criticality?: boolean
     totalBuildings?: boolean
@@ -8966,9 +9014,7 @@ export namespace Prisma {
     availability?: boolean
     status?: boolean
     calenderEntityId?: boolean
-    address?: boolean
-    city?: boolean
-    zipCode?: boolean
+    secondaryAddress?: boolean
     condition?: boolean
     criticality?: boolean
     totalBuildings?: boolean
@@ -8996,9 +9042,7 @@ export namespace Prisma {
     availability?: boolean
     status?: boolean
     calenderEntityId?: boolean
-    address?: boolean
-    city?: boolean
-    zipCode?: boolean
+    secondaryAddress?: boolean
     condition?: boolean
     criticality?: boolean
     totalBuildings?: boolean
@@ -9026,9 +9070,7 @@ export namespace Prisma {
     availability?: boolean
     status?: boolean
     calenderEntityId?: boolean
-    address?: boolean
-    city?: boolean
-    zipCode?: boolean
+    secondaryAddress?: boolean
     condition?: boolean
     criticality?: boolean
     totalBuildings?: boolean
@@ -9047,7 +9089,7 @@ export namespace Prisma {
     siteId?: boolean
   }
 
-  export type ComplexOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "availability" | "status" | "calenderEntityId" | "address" | "city" | "zipCode" | "condition" | "criticality" | "totalBuildings" | "totalFloors" | "totalUnits" | "totalRooms" | "glazedArea" | "cleanableArea" | "coveredArea" | "totalNetArea" | "totalGrossArea" | "totalHeatedVolume" | "totalVolume" | "createdAt" | "updatedAt" | "siteId", ExtArgs["result"]["complex"]>
+  export type ComplexOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "availability" | "status" | "calenderEntityId" | "secondaryAddress" | "condition" | "criticality" | "totalBuildings" | "totalFloors" | "totalUnits" | "totalRooms" | "glazedArea" | "cleanableArea" | "coveredArea" | "totalNetArea" | "totalGrossArea" | "totalHeatedVolume" | "totalVolume" | "createdAt" | "updatedAt" | "siteId", ExtArgs["result"]["complex"]>
   export type ComplexInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     calenderEntity?: boolean | Complex$calenderEntityArgs<ExtArgs>
     buildings?: boolean | Complex$buildingsArgs<ExtArgs>
@@ -9089,9 +9131,7 @@ export namespace Prisma {
       availability: $Enums.Availability
       status: $Enums.ServiceStatus
       calenderEntityId: string | null
-      address: string | null
-      city: string | null
-      zipCode: string | null
+      secondaryAddress: string | null
       condition: $Enums.Condition
       criticality: $Enums.Criticality
       totalBuildings: number | null
@@ -9546,9 +9586,7 @@ export namespace Prisma {
     readonly availability: FieldRef<"Complex", 'Availability'>
     readonly status: FieldRef<"Complex", 'ServiceStatus'>
     readonly calenderEntityId: FieldRef<"Complex", 'String'>
-    readonly address: FieldRef<"Complex", 'String'>
-    readonly city: FieldRef<"Complex", 'String'>
-    readonly zipCode: FieldRef<"Complex", 'String'>
+    readonly secondaryAddress: FieldRef<"Complex", 'String'>
     readonly condition: FieldRef<"Complex", 'Condition'>
     readonly criticality: FieldRef<"Complex", 'Criticality'>
     readonly totalBuildings: FieldRef<"Complex", 'Int'>
@@ -10242,7 +10280,7 @@ export namespace Prisma {
     totalGrossArea: number | null
     totalHeatedVolume: number | null
     totalVolume: number | null
-    addressId: string | null
+    subAddress: string | null
     complexId: string | null
     calenderEntityId: string | null
     createdAt: Date | null
@@ -10268,7 +10306,7 @@ export namespace Prisma {
     totalGrossArea: number | null
     totalHeatedVolume: number | null
     totalVolume: number | null
-    addressId: string | null
+    subAddress: string | null
     complexId: string | null
     calenderEntityId: string | null
     createdAt: Date | null
@@ -10294,7 +10332,7 @@ export namespace Prisma {
     totalGrossArea: number
     totalHeatedVolume: number
     totalVolume: number
-    addressId: number
+    subAddress: number
     complexId: number
     calenderEntityId: number
     createdAt: number
@@ -10348,7 +10386,7 @@ export namespace Prisma {
     totalGrossArea?: true
     totalHeatedVolume?: true
     totalVolume?: true
-    addressId?: true
+    subAddress?: true
     complexId?: true
     calenderEntityId?: true
     createdAt?: true
@@ -10374,7 +10412,7 @@ export namespace Prisma {
     totalGrossArea?: true
     totalHeatedVolume?: true
     totalVolume?: true
-    addressId?: true
+    subAddress?: true
     complexId?: true
     calenderEntityId?: true
     createdAt?: true
@@ -10400,7 +10438,7 @@ export namespace Prisma {
     totalGrossArea?: true
     totalHeatedVolume?: true
     totalVolume?: true
-    addressId?: true
+    subAddress?: true
     complexId?: true
     calenderEntityId?: true
     createdAt?: true
@@ -10513,7 +10551,7 @@ export namespace Prisma {
     totalGrossArea: number | null
     totalHeatedVolume: number | null
     totalVolume: number | null
-    addressId: string
+    subAddress: string | null
     complexId: string
     calenderEntityId: string | null
     createdAt: Date
@@ -10558,12 +10596,11 @@ export namespace Prisma {
     totalGrossArea?: boolean
     totalHeatedVolume?: boolean
     totalVolume?: boolean
-    addressId?: boolean
+    subAddress?: boolean
     complexId?: boolean
     calenderEntityId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    address?: boolean | AddressDefaultArgs<ExtArgs>
     complex?: boolean | ComplexDefaultArgs<ExtArgs>
     calenderEntity?: boolean | Building$calenderEntityArgs<ExtArgs>
     photos?: boolean | Building$photosArgs<ExtArgs>
@@ -10594,12 +10631,11 @@ export namespace Prisma {
     totalGrossArea?: boolean
     totalHeatedVolume?: boolean
     totalVolume?: boolean
-    addressId?: boolean
+    subAddress?: boolean
     complexId?: boolean
     calenderEntityId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    address?: boolean | AddressDefaultArgs<ExtArgs>
     complex?: boolean | ComplexDefaultArgs<ExtArgs>
     calenderEntity?: boolean | Building$calenderEntityArgs<ExtArgs>
   }, ExtArgs["result"]["building"]>
@@ -10623,12 +10659,11 @@ export namespace Prisma {
     totalGrossArea?: boolean
     totalHeatedVolume?: boolean
     totalVolume?: boolean
-    addressId?: boolean
+    subAddress?: boolean
     complexId?: boolean
     calenderEntityId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    address?: boolean | AddressDefaultArgs<ExtArgs>
     complex?: boolean | ComplexDefaultArgs<ExtArgs>
     calenderEntity?: boolean | Building$calenderEntityArgs<ExtArgs>
   }, ExtArgs["result"]["building"]>
@@ -10652,16 +10687,15 @@ export namespace Prisma {
     totalGrossArea?: boolean
     totalHeatedVolume?: boolean
     totalVolume?: boolean
-    addressId?: boolean
+    subAddress?: boolean
     complexId?: boolean
     calenderEntityId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type BuildingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "code" | "mainUse" | "availability" | "status" | "condition" | "criticality" | "totalFloors" | "totalUnits" | "totalRooms" | "glazedArea" | "cleanableArea" | "coveredArea" | "totalNetArea" | "totalGrossArea" | "totalHeatedVolume" | "totalVolume" | "addressId" | "complexId" | "calenderEntityId" | "createdAt" | "updatedAt", ExtArgs["result"]["building"]>
+  export type BuildingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "code" | "mainUse" | "availability" | "status" | "condition" | "criticality" | "totalFloors" | "totalUnits" | "totalRooms" | "glazedArea" | "cleanableArea" | "coveredArea" | "totalNetArea" | "totalGrossArea" | "totalHeatedVolume" | "totalVolume" | "subAddress" | "complexId" | "calenderEntityId" | "createdAt" | "updatedAt", ExtArgs["result"]["building"]>
   export type BuildingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    address?: boolean | AddressDefaultArgs<ExtArgs>
     complex?: boolean | ComplexDefaultArgs<ExtArgs>
     calenderEntity?: boolean | Building$calenderEntityArgs<ExtArgs>
     photos?: boolean | Building$photosArgs<ExtArgs>
@@ -10673,12 +10707,10 @@ export namespace Prisma {
     _count?: boolean | BuildingCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BuildingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    address?: boolean | AddressDefaultArgs<ExtArgs>
     complex?: boolean | ComplexDefaultArgs<ExtArgs>
     calenderEntity?: boolean | Building$calenderEntityArgs<ExtArgs>
   }
   export type BuildingIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    address?: boolean | AddressDefaultArgs<ExtArgs>
     complex?: boolean | ComplexDefaultArgs<ExtArgs>
     calenderEntity?: boolean | Building$calenderEntityArgs<ExtArgs>
   }
@@ -10686,7 +10718,6 @@ export namespace Prisma {
   export type $BuildingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Building"
     objects: {
-      address: Prisma.$AddressPayload<ExtArgs>
       complex: Prisma.$ComplexPayload<ExtArgs>
       calenderEntity: Prisma.$CalenderEntityPayload<ExtArgs> | null
       photos: Prisma.$FilePayload<ExtArgs>[]
@@ -10715,7 +10746,7 @@ export namespace Prisma {
       totalGrossArea: number | null
       totalHeatedVolume: number | null
       totalVolume: number | null
-      addressId: string
+      subAddress: string | null
       complexId: string
       calenderEntityId: string | null
       createdAt: Date
@@ -11114,7 +11145,6 @@ export namespace Prisma {
    */
   export interface Prisma__BuildingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    address<T extends AddressDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AddressDefaultArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     complex<T extends ComplexDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ComplexDefaultArgs<ExtArgs>>): Prisma__ComplexClient<$Result.GetResult<Prisma.$ComplexPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     calenderEntity<T extends Building$calenderEntityArgs<ExtArgs> = {}>(args?: Subset<T, Building$calenderEntityArgs<ExtArgs>>): Prisma__CalenderEntityClient<$Result.GetResult<Prisma.$CalenderEntityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     photos<T extends Building$photosArgs<ExtArgs> = {}>(args?: Subset<T, Building$photosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -11170,7 +11200,7 @@ export namespace Prisma {
     readonly totalGrossArea: FieldRef<"Building", 'Float'>
     readonly totalHeatedVolume: FieldRef<"Building", 'Float'>
     readonly totalVolume: FieldRef<"Building", 'Float'>
-    readonly addressId: FieldRef<"Building", 'String'>
+    readonly subAddress: FieldRef<"Building", 'String'>
     readonly complexId: FieldRef<"Building", 'String'>
     readonly calenderEntityId: FieldRef<"Building", 'String'>
     readonly createdAt: FieldRef<"Building", 'DateTime'>
@@ -23291,7 +23321,7 @@ export namespace Prisma {
     id: string | null
     street: string | null
     city: string | null
-    state: string | null
+    state: $Enums.State | null
     zipCode: string | null
     latitude: number | null
     longitude: number | null
@@ -23301,7 +23331,7 @@ export namespace Prisma {
     id: string | null
     street: string | null
     city: string | null
-    state: string | null
+    state: $Enums.State | null
     zipCode: string | null
     latitude: number | null
     longitude: number | null
@@ -23450,8 +23480,8 @@ export namespace Prisma {
     id: string
     street: string
     city: string
-    state: string
-    zipCode: string
+    state: $Enums.State
+    zipCode: string | null
     latitude: number | null
     longitude: number | null
     _count: AddressCountAggregateOutputType | null
@@ -23484,7 +23514,7 @@ export namespace Prisma {
     latitude?: boolean
     longitude?: boolean
     companies?: boolean | Address$companiesArgs<ExtArgs>
-    buildings?: boolean | Address$buildingsArgs<ExtArgs>
+    sites?: boolean | Address$sitesArgs<ExtArgs>
     _count?: boolean | AddressCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["address"]>
 
@@ -23521,7 +23551,7 @@ export namespace Prisma {
   export type AddressOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "street" | "city" | "state" | "zipCode" | "latitude" | "longitude", ExtArgs["result"]["address"]>
   export type AddressInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     companies?: boolean | Address$companiesArgs<ExtArgs>
-    buildings?: boolean | Address$buildingsArgs<ExtArgs>
+    sites?: boolean | Address$sitesArgs<ExtArgs>
     _count?: boolean | AddressCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AddressIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -23531,14 +23561,14 @@ export namespace Prisma {
     name: "Address"
     objects: {
       companies: Prisma.$CompanyPayload<ExtArgs>[]
-      buildings: Prisma.$BuildingPayload<ExtArgs>[]
+      sites: Prisma.$SitePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       street: string
       city: string
-      state: string
-      zipCode: string
+      state: $Enums.State
+      zipCode: string | null
       latitude: number | null
       longitude: number | null
     }, ExtArgs["result"]["address"]>
@@ -23936,7 +23966,7 @@ export namespace Prisma {
   export interface Prisma__AddressClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     companies<T extends Address$companiesArgs<ExtArgs> = {}>(args?: Subset<T, Address$companiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    buildings<T extends Address$buildingsArgs<ExtArgs> = {}>(args?: Subset<T, Address$buildingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BuildingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sites<T extends Address$sitesArgs<ExtArgs> = {}>(args?: Subset<T, Address$sitesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -23969,7 +23999,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Address", 'String'>
     readonly street: FieldRef<"Address", 'String'>
     readonly city: FieldRef<"Address", 'String'>
-    readonly state: FieldRef<"Address", 'String'>
+    readonly state: FieldRef<"Address", 'State'>
     readonly zipCode: FieldRef<"Address", 'String'>
     readonly latitude: FieldRef<"Address", 'Float'>
     readonly longitude: FieldRef<"Address", 'Float'>
@@ -24385,27 +24415,27 @@ export namespace Prisma {
   }
 
   /**
-   * Address.buildings
+   * Address.sites
    */
-  export type Address$buildingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Address$sitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Building
+     * Select specific fields to fetch from the Site
      */
-    select?: BuildingSelect<ExtArgs> | null
+    select?: SiteSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Building
+     * Omit specific fields from the Site
      */
-    omit?: BuildingOmit<ExtArgs> | null
+    omit?: SiteOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: BuildingInclude<ExtArgs> | null
-    where?: BuildingWhereInput
-    orderBy?: BuildingOrderByWithRelationInput | BuildingOrderByWithRelationInput[]
-    cursor?: BuildingWhereUniqueInput
+    include?: SiteInclude<ExtArgs> | null
+    where?: SiteWhereInput
+    orderBy?: SiteOrderByWithRelationInput | SiteOrderByWithRelationInput[]
+    cursor?: SiteWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: BuildingScalarFieldEnum | BuildingScalarFieldEnum[]
+    distinct?: SiteScalarFieldEnum | SiteScalarFieldEnum[]
   }
 
   /**
@@ -31217,11 +31247,11 @@ export namespace Prisma {
   export const SiteScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    address: 'address',
     climateZone: 'climateZone',
     description: 'description',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    addressId: 'addressId'
   };
 
   export type SiteScalarFieldEnum = (typeof SiteScalarFieldEnum)[keyof typeof SiteScalarFieldEnum]
@@ -31234,9 +31264,7 @@ export namespace Prisma {
     availability: 'availability',
     status: 'status',
     calenderEntityId: 'calenderEntityId',
-    address: 'address',
-    city: 'city',
-    zipCode: 'zipCode',
+    secondaryAddress: 'secondaryAddress',
     condition: 'condition',
     criticality: 'criticality',
     totalBuildings: 'totalBuildings',
@@ -31277,7 +31305,7 @@ export namespace Prisma {
     totalGrossArea: 'totalGrossArea',
     totalHeatedVolume: 'totalHeatedVolume',
     totalVolume: 'totalVolume',
-    addressId: 'addressId',
+    subAddress: 'subAddress',
     complexId: 'complexId',
     calenderEntityId: 'calenderEntityId',
     createdAt: 'createdAt',
@@ -31870,6 +31898,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'State'
+   */
+  export type EnumStateFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'State'>
+    
+
+
+  /**
+   * Reference to a field of type 'State[]'
+   */
+  export type ListEnumStateFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'State[]'>
+    
+
+
+  /**
    * Reference to a field of type 'MaintenanceType'
    */
   export type EnumMaintenanceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MaintenanceType'>
@@ -32236,22 +32278,24 @@ export namespace Prisma {
     NOT?: SiteWhereInput | SiteWhereInput[]
     id?: StringFilter<"Site"> | string
     name?: StringFilter<"Site"> | string
-    address?: StringNullableFilter<"Site"> | string | null
     climateZone?: StringNullableFilter<"Site"> | string | null
     description?: StringNullableFilter<"Site"> | string | null
     createdAt?: DateTimeFilter<"Site"> | Date | string
     updatedAt?: DateTimeFilter<"Site"> | Date | string
+    addressId?: StringFilter<"Site"> | string
+    address?: XOR<AddressScalarRelationFilter, AddressWhereInput>
     complexes?: ComplexListRelationFilter
   }
 
   export type SiteOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    address?: SortOrderInput | SortOrder
     climateZone?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    addressId?: SortOrder
+    address?: AddressOrderByWithRelationInput
     complexes?: ComplexOrderByRelationAggregateInput
   }
 
@@ -32261,22 +32305,23 @@ export namespace Prisma {
     OR?: SiteWhereInput[]
     NOT?: SiteWhereInput | SiteWhereInput[]
     name?: StringFilter<"Site"> | string
-    address?: StringNullableFilter<"Site"> | string | null
     climateZone?: StringNullableFilter<"Site"> | string | null
     description?: StringNullableFilter<"Site"> | string | null
     createdAt?: DateTimeFilter<"Site"> | Date | string
     updatedAt?: DateTimeFilter<"Site"> | Date | string
+    addressId?: StringFilter<"Site"> | string
+    address?: XOR<AddressScalarRelationFilter, AddressWhereInput>
     complexes?: ComplexListRelationFilter
   }, "id">
 
   export type SiteOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    address?: SortOrderInput | SortOrder
     climateZone?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    addressId?: SortOrder
     _count?: SiteCountOrderByAggregateInput
     _max?: SiteMaxOrderByAggregateInput
     _min?: SiteMinOrderByAggregateInput
@@ -32288,11 +32333,11 @@ export namespace Prisma {
     NOT?: SiteScalarWhereWithAggregatesInput | SiteScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Site"> | string
     name?: StringWithAggregatesFilter<"Site"> | string
-    address?: StringNullableWithAggregatesFilter<"Site"> | string | null
     climateZone?: StringNullableWithAggregatesFilter<"Site"> | string | null
     description?: StringNullableWithAggregatesFilter<"Site"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Site"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Site"> | Date | string
+    addressId?: StringWithAggregatesFilter<"Site"> | string
   }
 
   export type ComplexWhereInput = {
@@ -32305,9 +32350,7 @@ export namespace Prisma {
     availability?: EnumAvailabilityFilter<"Complex"> | $Enums.Availability
     status?: EnumServiceStatusFilter<"Complex"> | $Enums.ServiceStatus
     calenderEntityId?: StringNullableFilter<"Complex"> | string | null
-    address?: StringNullableFilter<"Complex"> | string | null
-    city?: StringNullableFilter<"Complex"> | string | null
-    zipCode?: StringNullableFilter<"Complex"> | string | null
+    secondaryAddress?: StringNullableFilter<"Complex"> | string | null
     condition?: EnumConditionFilter<"Complex"> | $Enums.Condition
     criticality?: EnumCriticalityFilter<"Complex"> | $Enums.Criticality
     totalBuildings?: IntNullableFilter<"Complex"> | number | null
@@ -32342,9 +32385,7 @@ export namespace Prisma {
     availability?: SortOrder
     status?: SortOrder
     calenderEntityId?: SortOrderInput | SortOrder
-    address?: SortOrderInput | SortOrder
-    city?: SortOrderInput | SortOrder
-    zipCode?: SortOrderInput | SortOrder
+    secondaryAddress?: SortOrderInput | SortOrder
     condition?: SortOrder
     criticality?: SortOrder
     totalBuildings?: SortOrderInput | SortOrder
@@ -32382,9 +32423,7 @@ export namespace Prisma {
     availability?: EnumAvailabilityFilter<"Complex"> | $Enums.Availability
     status?: EnumServiceStatusFilter<"Complex"> | $Enums.ServiceStatus
     calenderEntityId?: StringNullableFilter<"Complex"> | string | null
-    address?: StringNullableFilter<"Complex"> | string | null
-    city?: StringNullableFilter<"Complex"> | string | null
-    zipCode?: StringNullableFilter<"Complex"> | string | null
+    secondaryAddress?: StringNullableFilter<"Complex"> | string | null
     condition?: EnumConditionFilter<"Complex"> | $Enums.Condition
     criticality?: EnumCriticalityFilter<"Complex"> | $Enums.Criticality
     totalBuildings?: IntNullableFilter<"Complex"> | number | null
@@ -32419,9 +32458,7 @@ export namespace Prisma {
     availability?: SortOrder
     status?: SortOrder
     calenderEntityId?: SortOrderInput | SortOrder
-    address?: SortOrderInput | SortOrder
-    city?: SortOrderInput | SortOrder
-    zipCode?: SortOrderInput | SortOrder
+    secondaryAddress?: SortOrderInput | SortOrder
     condition?: SortOrder
     criticality?: SortOrder
     totalBuildings?: SortOrderInput | SortOrder
@@ -32455,9 +32492,7 @@ export namespace Prisma {
     availability?: EnumAvailabilityWithAggregatesFilter<"Complex"> | $Enums.Availability
     status?: EnumServiceStatusWithAggregatesFilter<"Complex"> | $Enums.ServiceStatus
     calenderEntityId?: StringNullableWithAggregatesFilter<"Complex"> | string | null
-    address?: StringNullableWithAggregatesFilter<"Complex"> | string | null
-    city?: StringNullableWithAggregatesFilter<"Complex"> | string | null
-    zipCode?: StringNullableWithAggregatesFilter<"Complex"> | string | null
+    secondaryAddress?: StringNullableWithAggregatesFilter<"Complex"> | string | null
     condition?: EnumConditionWithAggregatesFilter<"Complex"> | $Enums.Condition
     criticality?: EnumCriticalityWithAggregatesFilter<"Complex"> | $Enums.Criticality
     totalBuildings?: IntNullableWithAggregatesFilter<"Complex"> | number | null
@@ -32498,12 +32533,11 @@ export namespace Prisma {
     totalGrossArea?: FloatNullableFilter<"Building"> | number | null
     totalHeatedVolume?: FloatNullableFilter<"Building"> | number | null
     totalVolume?: FloatNullableFilter<"Building"> | number | null
-    addressId?: StringFilter<"Building"> | string
+    subAddress?: StringNullableFilter<"Building"> | string | null
     complexId?: StringFilter<"Building"> | string
     calenderEntityId?: StringNullableFilter<"Building"> | string | null
     createdAt?: DateTimeFilter<"Building"> | Date | string
     updatedAt?: DateTimeFilter<"Building"> | Date | string
-    address?: XOR<AddressScalarRelationFilter, AddressWhereInput>
     complex?: XOR<ComplexScalarRelationFilter, ComplexWhereInput>
     calenderEntity?: XOR<CalenderEntityNullableScalarRelationFilter, CalenderEntityWhereInput> | null
     photos?: FileListRelationFilter
@@ -32533,12 +32567,11 @@ export namespace Prisma {
     totalGrossArea?: SortOrderInput | SortOrder
     totalHeatedVolume?: SortOrderInput | SortOrder
     totalVolume?: SortOrderInput | SortOrder
-    addressId?: SortOrder
+    subAddress?: SortOrderInput | SortOrder
     complexId?: SortOrder
     calenderEntityId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    address?: AddressOrderByWithRelationInput
     complex?: ComplexOrderByWithRelationInput
     calenderEntity?: CalenderEntityOrderByWithRelationInput
     photos?: FileOrderByRelationAggregateInput
@@ -32572,12 +32605,11 @@ export namespace Prisma {
     totalGrossArea?: FloatNullableFilter<"Building"> | number | null
     totalHeatedVolume?: FloatNullableFilter<"Building"> | number | null
     totalVolume?: FloatNullableFilter<"Building"> | number | null
-    addressId?: StringFilter<"Building"> | string
+    subAddress?: StringNullableFilter<"Building"> | string | null
     complexId?: StringFilter<"Building"> | string
     calenderEntityId?: StringNullableFilter<"Building"> | string | null
     createdAt?: DateTimeFilter<"Building"> | Date | string
     updatedAt?: DateTimeFilter<"Building"> | Date | string
-    address?: XOR<AddressScalarRelationFilter, AddressWhereInput>
     complex?: XOR<ComplexScalarRelationFilter, ComplexWhereInput>
     calenderEntity?: XOR<CalenderEntityNullableScalarRelationFilter, CalenderEntityWhereInput> | null
     photos?: FileListRelationFilter
@@ -32607,7 +32639,7 @@ export namespace Prisma {
     totalGrossArea?: SortOrderInput | SortOrder
     totalHeatedVolume?: SortOrderInput | SortOrder
     totalVolume?: SortOrderInput | SortOrder
-    addressId?: SortOrder
+    subAddress?: SortOrderInput | SortOrder
     complexId?: SortOrder
     calenderEntityId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -32641,7 +32673,7 @@ export namespace Prisma {
     totalGrossArea?: FloatNullableWithAggregatesFilter<"Building"> | number | null
     totalHeatedVolume?: FloatNullableWithAggregatesFilter<"Building"> | number | null
     totalVolume?: FloatNullableWithAggregatesFilter<"Building"> | number | null
-    addressId?: StringWithAggregatesFilter<"Building"> | string
+    subAddress?: StringNullableWithAggregatesFilter<"Building"> | string | null
     complexId?: StringWithAggregatesFilter<"Building"> | string
     calenderEntityId?: StringNullableWithAggregatesFilter<"Building"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Building"> | Date | string
@@ -33612,12 +33644,12 @@ export namespace Prisma {
     id?: StringFilter<"Address"> | string
     street?: StringFilter<"Address"> | string
     city?: StringFilter<"Address"> | string
-    state?: StringFilter<"Address"> | string
-    zipCode?: StringFilter<"Address"> | string
+    state?: EnumStateFilter<"Address"> | $Enums.State
+    zipCode?: StringNullableFilter<"Address"> | string | null
     latitude?: FloatNullableFilter<"Address"> | number | null
     longitude?: FloatNullableFilter<"Address"> | number | null
     companies?: CompanyListRelationFilter
-    buildings?: BuildingListRelationFilter
+    sites?: SiteListRelationFilter
   }
 
   export type AddressOrderByWithRelationInput = {
@@ -33625,11 +33657,11 @@ export namespace Prisma {
     street?: SortOrder
     city?: SortOrder
     state?: SortOrder
-    zipCode?: SortOrder
+    zipCode?: SortOrderInput | SortOrder
     latitude?: SortOrderInput | SortOrder
     longitude?: SortOrderInput | SortOrder
     companies?: CompanyOrderByRelationAggregateInput
-    buildings?: BuildingOrderByRelationAggregateInput
+    sites?: SiteOrderByRelationAggregateInput
   }
 
   export type AddressWhereUniqueInput = Prisma.AtLeast<{
@@ -33639,12 +33671,12 @@ export namespace Prisma {
     NOT?: AddressWhereInput | AddressWhereInput[]
     street?: StringFilter<"Address"> | string
     city?: StringFilter<"Address"> | string
-    state?: StringFilter<"Address"> | string
-    zipCode?: StringFilter<"Address"> | string
+    state?: EnumStateFilter<"Address"> | $Enums.State
+    zipCode?: StringNullableFilter<"Address"> | string | null
     latitude?: FloatNullableFilter<"Address"> | number | null
     longitude?: FloatNullableFilter<"Address"> | number | null
     companies?: CompanyListRelationFilter
-    buildings?: BuildingListRelationFilter
+    sites?: SiteListRelationFilter
   }, "id">
 
   export type AddressOrderByWithAggregationInput = {
@@ -33652,7 +33684,7 @@ export namespace Prisma {
     street?: SortOrder
     city?: SortOrder
     state?: SortOrder
-    zipCode?: SortOrder
+    zipCode?: SortOrderInput | SortOrder
     latitude?: SortOrderInput | SortOrder
     longitude?: SortOrderInput | SortOrder
     _count?: AddressCountOrderByAggregateInput
@@ -33669,8 +33701,8 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Address"> | string
     street?: StringWithAggregatesFilter<"Address"> | string
     city?: StringWithAggregatesFilter<"Address"> | string
-    state?: StringWithAggregatesFilter<"Address"> | string
-    zipCode?: StringWithAggregatesFilter<"Address"> | string
+    state?: EnumStateWithAggregatesFilter<"Address"> | $Enums.State
+    zipCode?: StringNullableWithAggregatesFilter<"Address"> | string | null
     latitude?: FloatNullableWithAggregatesFilter<"Address"> | number | null
     longitude?: FloatNullableWithAggregatesFilter<"Address"> | number | null
   }
@@ -34645,61 +34677,60 @@ export namespace Prisma {
   export type SiteCreateInput = {
     id?: string
     name: string
-    address?: string | null
     climateZone?: string | null
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    address: AddressCreateNestedOneWithoutSitesInput
     complexes?: ComplexCreateNestedManyWithoutSiteInput
   }
 
   export type SiteUncheckedCreateInput = {
     id?: string
     name: string
-    address?: string | null
     climateZone?: string | null
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    addressId: string
     complexes?: ComplexUncheckedCreateNestedManyWithoutSiteInput
   }
 
   export type SiteUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    address?: NullableStringFieldUpdateOperationsInput | string | null
     climateZone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    address?: AddressUpdateOneRequiredWithoutSitesNestedInput
     complexes?: ComplexUpdateManyWithoutSiteNestedInput
   }
 
   export type SiteUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    address?: NullableStringFieldUpdateOperationsInput | string | null
     climateZone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    addressId?: StringFieldUpdateOperationsInput | string
     complexes?: ComplexUncheckedUpdateManyWithoutSiteNestedInput
   }
 
   export type SiteCreateManyInput = {
     id?: string
     name: string
-    address?: string | null
     climateZone?: string | null
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    addressId: string
   }
 
   export type SiteUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    address?: NullableStringFieldUpdateOperationsInput | string | null
     climateZone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34709,11 +34740,11 @@ export namespace Prisma {
   export type SiteUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    address?: NullableStringFieldUpdateOperationsInput | string | null
     climateZone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    addressId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ComplexCreateInput = {
@@ -34722,9 +34753,7 @@ export namespace Prisma {
     name: string
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
+    secondaryAddress?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     totalBuildings?: number | null
@@ -34758,9 +34787,7 @@ export namespace Prisma {
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
     calenderEntityId?: string | null
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
+    secondaryAddress?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     totalBuildings?: number | null
@@ -34792,9 +34819,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryAddress?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
@@ -34828,9 +34853,7 @@ export namespace Prisma {
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryAddress?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
@@ -34863,9 +34886,7 @@ export namespace Prisma {
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
     calenderEntityId?: string | null
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
+    secondaryAddress?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     totalBuildings?: number | null
@@ -34890,9 +34911,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryAddress?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
@@ -34917,9 +34936,7 @@ export namespace Prisma {
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryAddress?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
@@ -34957,9 +34974,9 @@ export namespace Prisma {
     totalGrossArea?: number | null
     totalHeatedVolume?: number | null
     totalVolume?: number | null
+    subAddress?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    address: AddressCreateNestedOneWithoutBuildingsInput
     complex: ComplexCreateNestedOneWithoutBuildingsInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutBuildingsInput
     photos?: FileCreateNestedManyWithoutBuildingsInput
@@ -34989,7 +35006,7 @@ export namespace Prisma {
     totalGrossArea?: number | null
     totalHeatedVolume?: number | null
     totalVolume?: number | null
-    addressId: string
+    subAddress?: string | null
     complexId: string
     calenderEntityId?: string | null
     createdAt?: Date | string
@@ -35021,9 +35038,9 @@ export namespace Prisma {
     totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
     totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    subAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    address?: AddressUpdateOneRequiredWithoutBuildingsNestedInput
     complex?: ComplexUpdateOneRequiredWithoutBuildingsNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutBuildingsNestedInput
     photos?: FileUpdateManyWithoutBuildingsNestedInput
@@ -35053,7 +35070,7 @@ export namespace Prisma {
     totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
     totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    addressId?: StringFieldUpdateOperationsInput | string
+    subAddress?: NullableStringFieldUpdateOperationsInput | string | null
     complexId?: StringFieldUpdateOperationsInput | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -35085,7 +35102,7 @@ export namespace Prisma {
     totalGrossArea?: number | null
     totalHeatedVolume?: number | null
     totalVolume?: number | null
-    addressId: string
+    subAddress?: string | null
     complexId: string
     calenderEntityId?: string | null
     createdAt?: Date | string
@@ -35111,6 +35128,7 @@ export namespace Prisma {
     totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
     totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    subAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -35134,7 +35152,7 @@ export namespace Prisma {
     totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
     totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    addressId?: StringFieldUpdateOperationsInput | string
+    subAddress?: NullableStringFieldUpdateOperationsInput | string | null
     complexId?: StringFieldUpdateOperationsInput | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36228,56 +36246,56 @@ export namespace Prisma {
     id?: string
     street: string
     city: string
-    state: string
-    zipCode: string
+    state?: $Enums.State
+    zipCode?: string | null
     latitude?: number | null
     longitude?: number | null
     companies?: CompanyCreateNestedManyWithoutAddressInput
-    buildings?: BuildingCreateNestedManyWithoutAddressInput
+    sites?: SiteCreateNestedManyWithoutAddressInput
   }
 
   export type AddressUncheckedCreateInput = {
     id?: string
     street: string
     city: string
-    state: string
-    zipCode: string
+    state?: $Enums.State
+    zipCode?: string | null
     latitude?: number | null
     longitude?: number | null
     companies?: CompanyUncheckedCreateNestedManyWithoutAddressInput
-    buildings?: BuildingUncheckedCreateNestedManyWithoutAddressInput
+    sites?: SiteUncheckedCreateNestedManyWithoutAddressInput
   }
 
   export type AddressUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     street?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
-    state?: StringFieldUpdateOperationsInput | string
-    zipCode?: StringFieldUpdateOperationsInput | string
+    state?: EnumStateFieldUpdateOperationsInput | $Enums.State
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     companies?: CompanyUpdateManyWithoutAddressNestedInput
-    buildings?: BuildingUpdateManyWithoutAddressNestedInput
+    sites?: SiteUpdateManyWithoutAddressNestedInput
   }
 
   export type AddressUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     street?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
-    state?: StringFieldUpdateOperationsInput | string
-    zipCode?: StringFieldUpdateOperationsInput | string
+    state?: EnumStateFieldUpdateOperationsInput | $Enums.State
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     companies?: CompanyUncheckedUpdateManyWithoutAddressNestedInput
-    buildings?: BuildingUncheckedUpdateManyWithoutAddressNestedInput
+    sites?: SiteUncheckedUpdateManyWithoutAddressNestedInput
   }
 
   export type AddressCreateManyInput = {
     id?: string
     street: string
     city: string
-    state: string
-    zipCode: string
+    state?: $Enums.State
+    zipCode?: string | null
     latitude?: number | null
     longitude?: number | null
   }
@@ -36286,8 +36304,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     street?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
-    state?: StringFieldUpdateOperationsInput | string
-    zipCode?: StringFieldUpdateOperationsInput | string
+    state?: EnumStateFieldUpdateOperationsInput | $Enums.State
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
   }
@@ -36296,8 +36314,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     street?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
-    state?: StringFieldUpdateOperationsInput | string
-    zipCode?: StringFieldUpdateOperationsInput | string
+    state?: EnumStateFieldUpdateOperationsInput | $Enums.State
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
   }
@@ -37446,6 +37464,11 @@ export namespace Prisma {
     _max?: NestedEnumAccessLevelFilter<$PrismaModel>
   }
 
+  export type AddressScalarRelationFilter = {
+    is?: AddressWhereInput
+    isNot?: AddressWhereInput
+  }
+
   export type ComplexListRelationFilter = {
     every?: ComplexWhereInput
     some?: ComplexWhereInput
@@ -37459,31 +37482,31 @@ export namespace Prisma {
   export type SiteCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    address?: SortOrder
     climateZone?: SortOrder
     description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    addressId?: SortOrder
   }
 
   export type SiteMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    address?: SortOrder
     climateZone?: SortOrder
     description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    addressId?: SortOrder
   }
 
   export type SiteMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    address?: SortOrder
     climateZone?: SortOrder
     description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    addressId?: SortOrder
   }
 
   export type EnumAvailabilityFilter<$PrismaModel = never> = {
@@ -37601,9 +37624,7 @@ export namespace Prisma {
     availability?: SortOrder
     status?: SortOrder
     calenderEntityId?: SortOrder
-    address?: SortOrder
-    city?: SortOrder
-    zipCode?: SortOrder
+    secondaryAddress?: SortOrder
     condition?: SortOrder
     criticality?: SortOrder
     totalBuildings?: SortOrder
@@ -37643,9 +37664,7 @@ export namespace Prisma {
     availability?: SortOrder
     status?: SortOrder
     calenderEntityId?: SortOrder
-    address?: SortOrder
-    city?: SortOrder
-    zipCode?: SortOrder
+    secondaryAddress?: SortOrder
     condition?: SortOrder
     criticality?: SortOrder
     totalBuildings?: SortOrder
@@ -37671,9 +37690,7 @@ export namespace Prisma {
     availability?: SortOrder
     status?: SortOrder
     calenderEntityId?: SortOrder
-    address?: SortOrder
-    city?: SortOrder
-    zipCode?: SortOrder
+    secondaryAddress?: SortOrder
     condition?: SortOrder
     criticality?: SortOrder
     totalBuildings?: SortOrder
@@ -37775,11 +37792,6 @@ export namespace Prisma {
     not?: NestedEnumMainUseFilter<$PrismaModel> | $Enums.MainUse
   }
 
-  export type AddressScalarRelationFilter = {
-    is?: AddressWhereInput
-    isNot?: AddressWhereInput
-  }
-
   export type ComplexScalarRelationFilter = {
     is?: ComplexWhereInput
     isNot?: ComplexWhereInput
@@ -37809,7 +37821,7 @@ export namespace Prisma {
     totalGrossArea?: SortOrder
     totalHeatedVolume?: SortOrder
     totalVolume?: SortOrder
-    addressId?: SortOrder
+    subAddress?: SortOrder
     complexId?: SortOrder
     calenderEntityId?: SortOrder
     createdAt?: SortOrder
@@ -37848,7 +37860,7 @@ export namespace Prisma {
     totalGrossArea?: SortOrder
     totalHeatedVolume?: SortOrder
     totalVolume?: SortOrder
-    addressId?: SortOrder
+    subAddress?: SortOrder
     complexId?: SortOrder
     calenderEntityId?: SortOrder
     createdAt?: SortOrder
@@ -37874,7 +37886,7 @@ export namespace Prisma {
     totalGrossArea?: SortOrder
     totalHeatedVolume?: SortOrder
     totalVolume?: SortOrder
-    addressId?: SortOrder
+    subAddress?: SortOrder
     complexId?: SortOrder
     calenderEntityId?: SortOrder
     createdAt?: SortOrder
@@ -38593,13 +38605,30 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type EnumStateFilter<$PrismaModel = never> = {
+    equals?: $Enums.State | EnumStateFieldRefInput<$PrismaModel>
+    in?: $Enums.State[] | ListEnumStateFieldRefInput<$PrismaModel>
+    notIn?: $Enums.State[] | ListEnumStateFieldRefInput<$PrismaModel>
+    not?: NestedEnumStateFilter<$PrismaModel> | $Enums.State
+  }
+
   export type CompanyListRelationFilter = {
     every?: CompanyWhereInput
     some?: CompanyWhereInput
     none?: CompanyWhereInput
   }
 
+  export type SiteListRelationFilter = {
+    every?: SiteWhereInput
+    some?: SiteWhereInput
+    none?: SiteWhereInput
+  }
+
   export type CompanyOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SiteOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -38641,6 +38670,16 @@ export namespace Prisma {
   export type AddressSumOrderByAggregateInput = {
     latitude?: SortOrder
     longitude?: SortOrder
+  }
+
+  export type EnumStateWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.State | EnumStateFieldRefInput<$PrismaModel>
+    in?: $Enums.State[] | ListEnumStateFieldRefInput<$PrismaModel>
+    notIn?: $Enums.State[] | ListEnumStateFieldRefInput<$PrismaModel>
+    not?: NestedEnumStateWithAggregatesFilter<$PrismaModel> | $Enums.State
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStateFilter<$PrismaModel>
+    _max?: NestedEnumStateFilter<$PrismaModel>
   }
 
   export type ContractCountOrderByAggregateInput = {
@@ -39627,6 +39666,12 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPermissionsInput, UserUpdateWithoutPermissionsInput>, UserUncheckedUpdateWithoutPermissionsInput>
   }
 
+  export type AddressCreateNestedOneWithoutSitesInput = {
+    create?: XOR<AddressCreateWithoutSitesInput, AddressUncheckedCreateWithoutSitesInput>
+    connectOrCreate?: AddressCreateOrConnectWithoutSitesInput
+    connect?: AddressWhereUniqueInput
+  }
+
   export type ComplexCreateNestedManyWithoutSiteInput = {
     create?: XOR<ComplexCreateWithoutSiteInput, ComplexUncheckedCreateWithoutSiteInput> | ComplexCreateWithoutSiteInput[] | ComplexUncheckedCreateWithoutSiteInput[]
     connectOrCreate?: ComplexCreateOrConnectWithoutSiteInput | ComplexCreateOrConnectWithoutSiteInput[]
@@ -39639,6 +39684,14 @@ export namespace Prisma {
     connectOrCreate?: ComplexCreateOrConnectWithoutSiteInput | ComplexCreateOrConnectWithoutSiteInput[]
     createMany?: ComplexCreateManySiteInputEnvelope
     connect?: ComplexWhereUniqueInput | ComplexWhereUniqueInput[]
+  }
+
+  export type AddressUpdateOneRequiredWithoutSitesNestedInput = {
+    create?: XOR<AddressCreateWithoutSitesInput, AddressUncheckedCreateWithoutSitesInput>
+    connectOrCreate?: AddressCreateOrConnectWithoutSitesInput
+    upsert?: AddressUpsertWithoutSitesInput
+    connect?: AddressWhereUniqueInput
+    update?: XOR<XOR<AddressUpdateToOneWithWhereWithoutSitesInput, AddressUpdateWithoutSitesInput>, AddressUncheckedUpdateWithoutSitesInput>
   }
 
   export type ComplexUpdateManyWithoutSiteNestedInput = {
@@ -40019,12 +40072,6 @@ export namespace Prisma {
     deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
   }
 
-  export type AddressCreateNestedOneWithoutBuildingsInput = {
-    create?: XOR<AddressCreateWithoutBuildingsInput, AddressUncheckedCreateWithoutBuildingsInput>
-    connectOrCreate?: AddressCreateOrConnectWithoutBuildingsInput
-    connect?: AddressWhereUniqueInput
-  }
-
   export type ComplexCreateNestedOneWithoutBuildingsInput = {
     create?: XOR<ComplexCreateWithoutBuildingsInput, ComplexUncheckedCreateWithoutBuildingsInput>
     connectOrCreate?: ComplexCreateOrConnectWithoutBuildingsInput
@@ -40121,14 +40168,6 @@ export namespace Prisma {
 
   export type EnumMainUseFieldUpdateOperationsInput = {
     set?: $Enums.MainUse
-  }
-
-  export type AddressUpdateOneRequiredWithoutBuildingsNestedInput = {
-    create?: XOR<AddressCreateWithoutBuildingsInput, AddressUncheckedCreateWithoutBuildingsInput>
-    connectOrCreate?: AddressCreateOrConnectWithoutBuildingsInput
-    upsert?: AddressUpsertWithoutBuildingsInput
-    connect?: AddressWhereUniqueInput
-    update?: XOR<XOR<AddressUpdateToOneWithWhereWithoutBuildingsInput, AddressUpdateWithoutBuildingsInput>, AddressUncheckedUpdateWithoutBuildingsInput>
   }
 
   export type ComplexUpdateOneRequiredWithoutBuildingsNestedInput = {
@@ -41546,11 +41585,11 @@ export namespace Prisma {
     connect?: CompanyWhereUniqueInput | CompanyWhereUniqueInput[]
   }
 
-  export type BuildingCreateNestedManyWithoutAddressInput = {
-    create?: XOR<BuildingCreateWithoutAddressInput, BuildingUncheckedCreateWithoutAddressInput> | BuildingCreateWithoutAddressInput[] | BuildingUncheckedCreateWithoutAddressInput[]
-    connectOrCreate?: BuildingCreateOrConnectWithoutAddressInput | BuildingCreateOrConnectWithoutAddressInput[]
-    createMany?: BuildingCreateManyAddressInputEnvelope
-    connect?: BuildingWhereUniqueInput | BuildingWhereUniqueInput[]
+  export type SiteCreateNestedManyWithoutAddressInput = {
+    create?: XOR<SiteCreateWithoutAddressInput, SiteUncheckedCreateWithoutAddressInput> | SiteCreateWithoutAddressInput[] | SiteUncheckedCreateWithoutAddressInput[]
+    connectOrCreate?: SiteCreateOrConnectWithoutAddressInput | SiteCreateOrConnectWithoutAddressInput[]
+    createMany?: SiteCreateManyAddressInputEnvelope
+    connect?: SiteWhereUniqueInput | SiteWhereUniqueInput[]
   }
 
   export type CompanyUncheckedCreateNestedManyWithoutAddressInput = {
@@ -41560,11 +41599,15 @@ export namespace Prisma {
     connect?: CompanyWhereUniqueInput | CompanyWhereUniqueInput[]
   }
 
-  export type BuildingUncheckedCreateNestedManyWithoutAddressInput = {
-    create?: XOR<BuildingCreateWithoutAddressInput, BuildingUncheckedCreateWithoutAddressInput> | BuildingCreateWithoutAddressInput[] | BuildingUncheckedCreateWithoutAddressInput[]
-    connectOrCreate?: BuildingCreateOrConnectWithoutAddressInput | BuildingCreateOrConnectWithoutAddressInput[]
-    createMany?: BuildingCreateManyAddressInputEnvelope
-    connect?: BuildingWhereUniqueInput | BuildingWhereUniqueInput[]
+  export type SiteUncheckedCreateNestedManyWithoutAddressInput = {
+    create?: XOR<SiteCreateWithoutAddressInput, SiteUncheckedCreateWithoutAddressInput> | SiteCreateWithoutAddressInput[] | SiteUncheckedCreateWithoutAddressInput[]
+    connectOrCreate?: SiteCreateOrConnectWithoutAddressInput | SiteCreateOrConnectWithoutAddressInput[]
+    createMany?: SiteCreateManyAddressInputEnvelope
+    connect?: SiteWhereUniqueInput | SiteWhereUniqueInput[]
+  }
+
+  export type EnumStateFieldUpdateOperationsInput = {
+    set?: $Enums.State
   }
 
   export type CompanyUpdateManyWithoutAddressNestedInput = {
@@ -41581,18 +41624,18 @@ export namespace Prisma {
     deleteMany?: CompanyScalarWhereInput | CompanyScalarWhereInput[]
   }
 
-  export type BuildingUpdateManyWithoutAddressNestedInput = {
-    create?: XOR<BuildingCreateWithoutAddressInput, BuildingUncheckedCreateWithoutAddressInput> | BuildingCreateWithoutAddressInput[] | BuildingUncheckedCreateWithoutAddressInput[]
-    connectOrCreate?: BuildingCreateOrConnectWithoutAddressInput | BuildingCreateOrConnectWithoutAddressInput[]
-    upsert?: BuildingUpsertWithWhereUniqueWithoutAddressInput | BuildingUpsertWithWhereUniqueWithoutAddressInput[]
-    createMany?: BuildingCreateManyAddressInputEnvelope
-    set?: BuildingWhereUniqueInput | BuildingWhereUniqueInput[]
-    disconnect?: BuildingWhereUniqueInput | BuildingWhereUniqueInput[]
-    delete?: BuildingWhereUniqueInput | BuildingWhereUniqueInput[]
-    connect?: BuildingWhereUniqueInput | BuildingWhereUniqueInput[]
-    update?: BuildingUpdateWithWhereUniqueWithoutAddressInput | BuildingUpdateWithWhereUniqueWithoutAddressInput[]
-    updateMany?: BuildingUpdateManyWithWhereWithoutAddressInput | BuildingUpdateManyWithWhereWithoutAddressInput[]
-    deleteMany?: BuildingScalarWhereInput | BuildingScalarWhereInput[]
+  export type SiteUpdateManyWithoutAddressNestedInput = {
+    create?: XOR<SiteCreateWithoutAddressInput, SiteUncheckedCreateWithoutAddressInput> | SiteCreateWithoutAddressInput[] | SiteUncheckedCreateWithoutAddressInput[]
+    connectOrCreate?: SiteCreateOrConnectWithoutAddressInput | SiteCreateOrConnectWithoutAddressInput[]
+    upsert?: SiteUpsertWithWhereUniqueWithoutAddressInput | SiteUpsertWithWhereUniqueWithoutAddressInput[]
+    createMany?: SiteCreateManyAddressInputEnvelope
+    set?: SiteWhereUniqueInput | SiteWhereUniqueInput[]
+    disconnect?: SiteWhereUniqueInput | SiteWhereUniqueInput[]
+    delete?: SiteWhereUniqueInput | SiteWhereUniqueInput[]
+    connect?: SiteWhereUniqueInput | SiteWhereUniqueInput[]
+    update?: SiteUpdateWithWhereUniqueWithoutAddressInput | SiteUpdateWithWhereUniqueWithoutAddressInput[]
+    updateMany?: SiteUpdateManyWithWhereWithoutAddressInput | SiteUpdateManyWithWhereWithoutAddressInput[]
+    deleteMany?: SiteScalarWhereInput | SiteScalarWhereInput[]
   }
 
   export type CompanyUncheckedUpdateManyWithoutAddressNestedInput = {
@@ -41609,18 +41652,18 @@ export namespace Prisma {
     deleteMany?: CompanyScalarWhereInput | CompanyScalarWhereInput[]
   }
 
-  export type BuildingUncheckedUpdateManyWithoutAddressNestedInput = {
-    create?: XOR<BuildingCreateWithoutAddressInput, BuildingUncheckedCreateWithoutAddressInput> | BuildingCreateWithoutAddressInput[] | BuildingUncheckedCreateWithoutAddressInput[]
-    connectOrCreate?: BuildingCreateOrConnectWithoutAddressInput | BuildingCreateOrConnectWithoutAddressInput[]
-    upsert?: BuildingUpsertWithWhereUniqueWithoutAddressInput | BuildingUpsertWithWhereUniqueWithoutAddressInput[]
-    createMany?: BuildingCreateManyAddressInputEnvelope
-    set?: BuildingWhereUniqueInput | BuildingWhereUniqueInput[]
-    disconnect?: BuildingWhereUniqueInput | BuildingWhereUniqueInput[]
-    delete?: BuildingWhereUniqueInput | BuildingWhereUniqueInput[]
-    connect?: BuildingWhereUniqueInput | BuildingWhereUniqueInput[]
-    update?: BuildingUpdateWithWhereUniqueWithoutAddressInput | BuildingUpdateWithWhereUniqueWithoutAddressInput[]
-    updateMany?: BuildingUpdateManyWithWhereWithoutAddressInput | BuildingUpdateManyWithWhereWithoutAddressInput[]
-    deleteMany?: BuildingScalarWhereInput | BuildingScalarWhereInput[]
+  export type SiteUncheckedUpdateManyWithoutAddressNestedInput = {
+    create?: XOR<SiteCreateWithoutAddressInput, SiteUncheckedCreateWithoutAddressInput> | SiteCreateWithoutAddressInput[] | SiteUncheckedCreateWithoutAddressInput[]
+    connectOrCreate?: SiteCreateOrConnectWithoutAddressInput | SiteCreateOrConnectWithoutAddressInput[]
+    upsert?: SiteUpsertWithWhereUniqueWithoutAddressInput | SiteUpsertWithWhereUniqueWithoutAddressInput[]
+    createMany?: SiteCreateManyAddressInputEnvelope
+    set?: SiteWhereUniqueInput | SiteWhereUniqueInput[]
+    disconnect?: SiteWhereUniqueInput | SiteWhereUniqueInput[]
+    delete?: SiteWhereUniqueInput | SiteWhereUniqueInput[]
+    connect?: SiteWhereUniqueInput | SiteWhereUniqueInput[]
+    update?: SiteUpdateWithWhereUniqueWithoutAddressInput | SiteUpdateWithWhereUniqueWithoutAddressInput[]
+    updateMany?: SiteUpdateManyWithWhereWithoutAddressInput | SiteUpdateManyWithWhereWithoutAddressInput[]
+    deleteMany?: SiteScalarWhereInput | SiteScalarWhereInput[]
   }
 
   export type BuildingCreateNestedManyWithoutCalenderEntityInput = {
@@ -42590,6 +42633,23 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumCompanyTypeFilter<$PrismaModel>
     _max?: NestedEnumCompanyTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumStateFilter<$PrismaModel = never> = {
+    equals?: $Enums.State | EnumStateFieldRefInput<$PrismaModel>
+    in?: $Enums.State[] | ListEnumStateFieldRefInput<$PrismaModel>
+    notIn?: $Enums.State[] | ListEnumStateFieldRefInput<$PrismaModel>
+    not?: NestedEnumStateFilter<$PrismaModel> | $Enums.State
+  }
+
+  export type NestedEnumStateWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.State | EnumStateFieldRefInput<$PrismaModel>
+    in?: $Enums.State[] | ListEnumStateFieldRefInput<$PrismaModel>
+    notIn?: $Enums.State[] | ListEnumStateFieldRefInput<$PrismaModel>
+    not?: NestedEnumStateWithAggregatesFilter<$PrismaModel> | $Enums.State
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStateFilter<$PrismaModel>
+    _max?: NestedEnumStateFilter<$PrismaModel>
   }
 
   export type NestedEnumMaintenanceTypeFilter<$PrismaModel = never> = {
@@ -43963,15 +44023,40 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
   }
 
+  export type AddressCreateWithoutSitesInput = {
+    id?: string
+    street: string
+    city: string
+    state?: $Enums.State
+    zipCode?: string | null
+    latitude?: number | null
+    longitude?: number | null
+    companies?: CompanyCreateNestedManyWithoutAddressInput
+  }
+
+  export type AddressUncheckedCreateWithoutSitesInput = {
+    id?: string
+    street: string
+    city: string
+    state?: $Enums.State
+    zipCode?: string | null
+    latitude?: number | null
+    longitude?: number | null
+    companies?: CompanyUncheckedCreateNestedManyWithoutAddressInput
+  }
+
+  export type AddressCreateOrConnectWithoutSitesInput = {
+    where: AddressWhereUniqueInput
+    create: XOR<AddressCreateWithoutSitesInput, AddressUncheckedCreateWithoutSitesInput>
+  }
+
   export type ComplexCreateWithoutSiteInput = {
     id?: string
     code: string
     name: string
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
+    secondaryAddress?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     totalBuildings?: number | null
@@ -44004,9 +44089,7 @@ export namespace Prisma {
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
     calenderEntityId?: string | null
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
+    secondaryAddress?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     totalBuildings?: number | null
@@ -44041,6 +44124,39 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AddressUpsertWithoutSitesInput = {
+    update: XOR<AddressUpdateWithoutSitesInput, AddressUncheckedUpdateWithoutSitesInput>
+    create: XOR<AddressCreateWithoutSitesInput, AddressUncheckedCreateWithoutSitesInput>
+    where?: AddressWhereInput
+  }
+
+  export type AddressUpdateToOneWithWhereWithoutSitesInput = {
+    where?: AddressWhereInput
+    data: XOR<AddressUpdateWithoutSitesInput, AddressUncheckedUpdateWithoutSitesInput>
+  }
+
+  export type AddressUpdateWithoutSitesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    street?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    state?: EnumStateFieldUpdateOperationsInput | $Enums.State
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    companies?: CompanyUpdateManyWithoutAddressNestedInput
+  }
+
+  export type AddressUncheckedUpdateWithoutSitesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    street?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    state?: EnumStateFieldUpdateOperationsInput | $Enums.State
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    companies?: CompanyUncheckedUpdateManyWithoutAddressNestedInput
+  }
+
   export type ComplexUpsertWithWhereUniqueWithoutSiteInput = {
     where: ComplexWhereUniqueInput
     update: XOR<ComplexUpdateWithoutSiteInput, ComplexUncheckedUpdateWithoutSiteInput>
@@ -44067,9 +44183,7 @@ export namespace Prisma {
     availability?: EnumAvailabilityFilter<"Complex"> | $Enums.Availability
     status?: EnumServiceStatusFilter<"Complex"> | $Enums.ServiceStatus
     calenderEntityId?: StringNullableFilter<"Complex"> | string | null
-    address?: StringNullableFilter<"Complex"> | string | null
-    city?: StringNullableFilter<"Complex"> | string | null
-    zipCode?: StringNullableFilter<"Complex"> | string | null
+    secondaryAddress?: StringNullableFilter<"Complex"> | string | null
     condition?: EnumConditionFilter<"Complex"> | $Enums.Condition
     criticality?: EnumCriticalityFilter<"Complex"> | $Enums.Criticality
     totalBuildings?: IntNullableFilter<"Complex"> | number | null
@@ -44134,9 +44248,9 @@ export namespace Prisma {
     totalGrossArea?: number | null
     totalHeatedVolume?: number | null
     totalVolume?: number | null
+    subAddress?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    address: AddressCreateNestedOneWithoutBuildingsInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutBuildingsInput
     photos?: FileCreateNestedManyWithoutBuildingsInput
     floors?: FloorCreateNestedManyWithoutBuildingInput
@@ -44165,7 +44279,7 @@ export namespace Prisma {
     totalGrossArea?: number | null
     totalHeatedVolume?: number | null
     totalVolume?: number | null
-    addressId: string
+    subAddress?: string | null
     calenderEntityId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -44615,21 +44729,21 @@ export namespace Prisma {
   export type SiteCreateWithoutComplexesInput = {
     id?: string
     name: string
-    address?: string | null
     climateZone?: string | null
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    address: AddressCreateNestedOneWithoutSitesInput
   }
 
   export type SiteUncheckedCreateWithoutComplexesInput = {
     id?: string
     name: string
-    address?: string | null
     climateZone?: string | null
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    addressId: string
   }
 
   export type SiteCreateOrConnectWithoutComplexesInput = {
@@ -44708,7 +44822,7 @@ export namespace Prisma {
     totalGrossArea?: FloatNullableFilter<"Building"> | number | null
     totalHeatedVolume?: FloatNullableFilter<"Building"> | number | null
     totalVolume?: FloatNullableFilter<"Building"> | number | null
-    addressId?: StringFilter<"Building"> | string
+    subAddress?: StringNullableFilter<"Building"> | string | null
     complexId?: StringFilter<"Building"> | string
     calenderEntityId?: StringNullableFilter<"Building"> | string | null
     createdAt?: DateTimeFilter<"Building"> | Date | string
@@ -44953,48 +45067,21 @@ export namespace Prisma {
   export type SiteUpdateWithoutComplexesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    address?: NullableStringFieldUpdateOperationsInput | string | null
     climateZone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    address?: AddressUpdateOneRequiredWithoutSitesNestedInput
   }
 
   export type SiteUncheckedUpdateWithoutComplexesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    address?: NullableStringFieldUpdateOperationsInput | string | null
     climateZone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AddressCreateWithoutBuildingsInput = {
-    id?: string
-    street: string
-    city: string
-    state: string
-    zipCode: string
-    latitude?: number | null
-    longitude?: number | null
-    companies?: CompanyCreateNestedManyWithoutAddressInput
-  }
-
-  export type AddressUncheckedCreateWithoutBuildingsInput = {
-    id?: string
-    street: string
-    city: string
-    state: string
-    zipCode: string
-    latitude?: number | null
-    longitude?: number | null
-    companies?: CompanyUncheckedCreateNestedManyWithoutAddressInput
-  }
-
-  export type AddressCreateOrConnectWithoutBuildingsInput = {
-    where: AddressWhereUniqueInput
-    create: XOR<AddressCreateWithoutBuildingsInput, AddressUncheckedCreateWithoutBuildingsInput>
+    addressId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ComplexCreateWithoutBuildingsInput = {
@@ -45003,9 +45090,7 @@ export namespace Prisma {
     name: string
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
+    secondaryAddress?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     totalBuildings?: number | null
@@ -45038,9 +45123,7 @@ export namespace Prisma {
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
     calenderEntityId?: string | null
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
+    secondaryAddress?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     totalBuildings?: number | null
@@ -45522,39 +45605,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type AddressUpsertWithoutBuildingsInput = {
-    update: XOR<AddressUpdateWithoutBuildingsInput, AddressUncheckedUpdateWithoutBuildingsInput>
-    create: XOR<AddressCreateWithoutBuildingsInput, AddressUncheckedCreateWithoutBuildingsInput>
-    where?: AddressWhereInput
-  }
-
-  export type AddressUpdateToOneWithWhereWithoutBuildingsInput = {
-    where?: AddressWhereInput
-    data: XOR<AddressUpdateWithoutBuildingsInput, AddressUncheckedUpdateWithoutBuildingsInput>
-  }
-
-  export type AddressUpdateWithoutBuildingsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    street?: StringFieldUpdateOperationsInput | string
-    city?: StringFieldUpdateOperationsInput | string
-    state?: StringFieldUpdateOperationsInput | string
-    zipCode?: StringFieldUpdateOperationsInput | string
-    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
-    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
-    companies?: CompanyUpdateManyWithoutAddressNestedInput
-  }
-
-  export type AddressUncheckedUpdateWithoutBuildingsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    street?: StringFieldUpdateOperationsInput | string
-    city?: StringFieldUpdateOperationsInput | string
-    state?: StringFieldUpdateOperationsInput | string
-    zipCode?: StringFieldUpdateOperationsInput | string
-    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
-    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
-    companies?: CompanyUncheckedUpdateManyWithoutAddressNestedInput
-  }
-
   export type ComplexUpsertWithoutBuildingsInput = {
     update: XOR<ComplexUpdateWithoutBuildingsInput, ComplexUncheckedUpdateWithoutBuildingsInput>
     create: XOR<ComplexCreateWithoutBuildingsInput, ComplexUncheckedCreateWithoutBuildingsInput>
@@ -45572,9 +45622,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryAddress?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
@@ -45607,9 +45655,7 @@ export namespace Prisma {
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryAddress?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
@@ -45769,9 +45815,7 @@ export namespace Prisma {
     name: string
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
+    secondaryAddress?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     totalBuildings?: number | null
@@ -45804,9 +45848,7 @@ export namespace Prisma {
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
     calenderEntityId?: string | null
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
+    secondaryAddress?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     totalBuildings?: number | null
@@ -45855,9 +45897,9 @@ export namespace Prisma {
     totalGrossArea?: number | null
     totalHeatedVolume?: number | null
     totalVolume?: number | null
+    subAddress?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    address: AddressCreateNestedOneWithoutBuildingsInput
     complex: ComplexCreateNestedOneWithoutBuildingsInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutBuildingsInput
     photos?: FileCreateNestedManyWithoutBuildingsInput
@@ -45886,7 +45928,7 @@ export namespace Prisma {
     totalGrossArea?: number | null
     totalHeatedVolume?: number | null
     totalVolume?: number | null
-    addressId: string
+    subAddress?: string | null
     complexId: string
     calenderEntityId?: string | null
     createdAt?: Date | string
@@ -46258,9 +46300,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryAddress?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
@@ -46293,9 +46333,7 @@ export namespace Prisma {
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryAddress?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
@@ -46350,9 +46388,9 @@ export namespace Prisma {
     totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
     totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    subAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    address?: AddressUpdateOneRequiredWithoutBuildingsNestedInput
     complex?: ComplexUpdateOneRequiredWithoutBuildingsNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutBuildingsNestedInput
     photos?: FileUpdateManyWithoutBuildingsNestedInput
@@ -46381,7 +46419,7 @@ export namespace Prisma {
     totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
     totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    addressId?: StringFieldUpdateOperationsInput | string
+    subAddress?: NullableStringFieldUpdateOperationsInput | string | null
     complexId?: StringFieldUpdateOperationsInput | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -46490,9 +46528,7 @@ export namespace Prisma {
     name: string
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
+    secondaryAddress?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     totalBuildings?: number | null
@@ -46525,9 +46561,7 @@ export namespace Prisma {
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
     calenderEntityId?: string | null
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
+    secondaryAddress?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     totalBuildings?: number | null
@@ -46576,9 +46610,9 @@ export namespace Prisma {
     totalGrossArea?: number | null
     totalHeatedVolume?: number | null
     totalVolume?: number | null
+    subAddress?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    address: AddressCreateNestedOneWithoutBuildingsInput
     complex: ComplexCreateNestedOneWithoutBuildingsInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutBuildingsInput
     photos?: FileCreateNestedManyWithoutBuildingsInput
@@ -46607,7 +46641,7 @@ export namespace Prisma {
     totalGrossArea?: number | null
     totalHeatedVolume?: number | null
     totalVolume?: number | null
-    addressId: string
+    subAddress?: string | null
     complexId: string
     calenderEntityId?: string | null
     createdAt?: Date | string
@@ -46822,9 +46856,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryAddress?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
@@ -46857,9 +46889,7 @@ export namespace Prisma {
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryAddress?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
@@ -46914,9 +46944,9 @@ export namespace Prisma {
     totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
     totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    subAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    address?: AddressUpdateOneRequiredWithoutBuildingsNestedInput
     complex?: ComplexUpdateOneRequiredWithoutBuildingsNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutBuildingsNestedInput
     photos?: FileUpdateManyWithoutBuildingsNestedInput
@@ -46945,7 +46975,7 @@ export namespace Prisma {
     totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
     totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    addressId?: StringFieldUpdateOperationsInput | string
+    subAddress?: NullableStringFieldUpdateOperationsInput | string | null
     complexId?: StringFieldUpdateOperationsInput | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -47087,9 +47117,7 @@ export namespace Prisma {
     name: string
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
+    secondaryAddress?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     totalBuildings?: number | null
@@ -47122,9 +47150,7 @@ export namespace Prisma {
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
     calenderEntityId?: string | null
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
+    secondaryAddress?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     totalBuildings?: number | null
@@ -47173,9 +47199,9 @@ export namespace Prisma {
     totalGrossArea?: number | null
     totalHeatedVolume?: number | null
     totalVolume?: number | null
+    subAddress?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    address: AddressCreateNestedOneWithoutBuildingsInput
     complex: ComplexCreateNestedOneWithoutBuildingsInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutBuildingsInput
     photos?: FileCreateNestedManyWithoutBuildingsInput
@@ -47204,7 +47230,7 @@ export namespace Prisma {
     totalGrossArea?: number | null
     totalHeatedVolume?: number | null
     totalVolume?: number | null
-    addressId: string
+    subAddress?: string | null
     complexId: string
     calenderEntityId?: string | null
     createdAt?: Date | string
@@ -47658,9 +47684,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryAddress?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
@@ -47693,9 +47717,7 @@ export namespace Prisma {
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryAddress?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
@@ -47750,9 +47772,9 @@ export namespace Prisma {
     totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
     totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    subAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    address?: AddressUpdateOneRequiredWithoutBuildingsNestedInput
     complex?: ComplexUpdateOneRequiredWithoutBuildingsNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutBuildingsNestedInput
     photos?: FileUpdateManyWithoutBuildingsNestedInput
@@ -47781,7 +47803,7 @@ export namespace Prisma {
     totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
     totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    addressId?: StringFieldUpdateOperationsInput | string
+    subAddress?: NullableStringFieldUpdateOperationsInput | string | null
     complexId?: StringFieldUpdateOperationsInput | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -48763,9 +48785,9 @@ export namespace Prisma {
     totalGrossArea?: number | null
     totalHeatedVolume?: number | null
     totalVolume?: number | null
+    subAddress?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    address: AddressCreateNestedOneWithoutBuildingsInput
     complex: ComplexCreateNestedOneWithoutBuildingsInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutBuildingsInput
     floors?: FloorCreateNestedManyWithoutBuildingInput
@@ -48794,7 +48816,7 @@ export namespace Prisma {
     totalGrossArea?: number | null
     totalHeatedVolume?: number | null
     totalVolume?: number | null
-    addressId: string
+    subAddress?: string | null
     complexId: string
     calenderEntityId?: string | null
     createdAt?: Date | string
@@ -48817,9 +48839,7 @@ export namespace Prisma {
     name: string
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
+    secondaryAddress?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     totalBuildings?: number | null
@@ -48852,9 +48872,7 @@ export namespace Prisma {
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
     calenderEntityId?: string | null
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
+    secondaryAddress?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     totalBuildings?: number | null
@@ -49220,22 +49238,22 @@ export namespace Prisma {
     id?: string
     street: string
     city: string
-    state: string
-    zipCode: string
+    state?: $Enums.State
+    zipCode?: string | null
     latitude?: number | null
     longitude?: number | null
-    buildings?: BuildingCreateNestedManyWithoutAddressInput
+    sites?: SiteCreateNestedManyWithoutAddressInput
   }
 
   export type AddressUncheckedCreateWithoutCompaniesInput = {
     id?: string
     street: string
     city: string
-    state: string
-    zipCode: string
+    state?: $Enums.State
+    zipCode?: string | null
     latitude?: number | null
     longitude?: number | null
-    buildings?: BuildingUncheckedCreateNestedManyWithoutAddressInput
+    sites?: SiteUncheckedCreateNestedManyWithoutAddressInput
   }
 
   export type AddressCreateOrConnectWithoutCompaniesInput = {
@@ -49456,22 +49474,22 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     street?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
-    state?: StringFieldUpdateOperationsInput | string
-    zipCode?: StringFieldUpdateOperationsInput | string
+    state?: EnumStateFieldUpdateOperationsInput | $Enums.State
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
-    buildings?: BuildingUpdateManyWithoutAddressNestedInput
+    sites?: SiteUpdateManyWithoutAddressNestedInput
   }
 
   export type AddressUncheckedUpdateWithoutCompaniesInput = {
     id?: StringFieldUpdateOperationsInput | string
     street?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
-    state?: StringFieldUpdateOperationsInput | string
-    zipCode?: StringFieldUpdateOperationsInput | string
+    state?: EnumStateFieldUpdateOperationsInput | $Enums.State
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
-    buildings?: BuildingUncheckedUpdateManyWithoutAddressNestedInput
+    sites?: SiteUncheckedUpdateManyWithoutAddressNestedInput
   }
 
   export type UserUpsertWithWhereUniqueWithoutCompanyInput = {
@@ -49959,75 +49977,33 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type BuildingCreateWithoutAddressInput = {
+  export type SiteCreateWithoutAddressInput = {
     id?: string
     name: string
-    code: string
-    mainUse?: $Enums.MainUse
-    availability?: $Enums.Availability
-    status?: $Enums.ServiceStatus
-    condition?: $Enums.Condition
-    criticality?: $Enums.Criticality
-    totalFloors?: number | null
-    totalUnits?: number | null
-    totalRooms?: number | null
-    glazedArea?: number | null
-    cleanableArea?: number | null
-    coveredArea?: number | null
-    totalNetArea?: number | null
-    totalGrossArea?: number | null
-    totalHeatedVolume?: number | null
-    totalVolume?: number | null
+    climateZone?: string | null
+    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    complex: ComplexCreateNestedOneWithoutBuildingsInput
-    calenderEntity?: CalenderEntityCreateNestedOneWithoutBuildingsInput
-    photos?: FileCreateNestedManyWithoutBuildingsInput
-    floors?: FloorCreateNestedManyWithoutBuildingInput
-    spaces?: SpaceCreateNestedManyWithoutBuildingInput
-    zones?: ZoneCreateNestedManyWithoutBuildingInput
-    preventives?: PreventiveCreateNestedManyWithoutBuildingInput
-    maintenances?: MaintenanceCreateNestedManyWithoutBuildingInput
+    complexes?: ComplexCreateNestedManyWithoutSiteInput
   }
 
-  export type BuildingUncheckedCreateWithoutAddressInput = {
+  export type SiteUncheckedCreateWithoutAddressInput = {
     id?: string
     name: string
-    code: string
-    mainUse?: $Enums.MainUse
-    availability?: $Enums.Availability
-    status?: $Enums.ServiceStatus
-    condition?: $Enums.Condition
-    criticality?: $Enums.Criticality
-    totalFloors?: number | null
-    totalUnits?: number | null
-    totalRooms?: number | null
-    glazedArea?: number | null
-    cleanableArea?: number | null
-    coveredArea?: number | null
-    totalNetArea?: number | null
-    totalGrossArea?: number | null
-    totalHeatedVolume?: number | null
-    totalVolume?: number | null
-    complexId: string
-    calenderEntityId?: string | null
+    climateZone?: string | null
+    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    photos?: FileUncheckedCreateNestedManyWithoutBuildingsInput
-    floors?: FloorUncheckedCreateNestedManyWithoutBuildingInput
-    spaces?: SpaceUncheckedCreateNestedManyWithoutBuildingInput
-    zones?: ZoneUncheckedCreateNestedManyWithoutBuildingInput
-    preventives?: PreventiveUncheckedCreateNestedManyWithoutBuildingInput
-    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutBuildingInput
+    complexes?: ComplexUncheckedCreateNestedManyWithoutSiteInput
   }
 
-  export type BuildingCreateOrConnectWithoutAddressInput = {
-    where: BuildingWhereUniqueInput
-    create: XOR<BuildingCreateWithoutAddressInput, BuildingUncheckedCreateWithoutAddressInput>
+  export type SiteCreateOrConnectWithoutAddressInput = {
+    where: SiteWhereUniqueInput
+    create: XOR<SiteCreateWithoutAddressInput, SiteUncheckedCreateWithoutAddressInput>
   }
 
-  export type BuildingCreateManyAddressInputEnvelope = {
-    data: BuildingCreateManyAddressInput | BuildingCreateManyAddressInput[]
+  export type SiteCreateManyAddressInputEnvelope = {
+    data: SiteCreateManyAddressInput | SiteCreateManyAddressInput[]
     skipDuplicates?: boolean
   }
 
@@ -50065,20 +50041,33 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Company"> | Date | string
   }
 
-  export type BuildingUpsertWithWhereUniqueWithoutAddressInput = {
-    where: BuildingWhereUniqueInput
-    update: XOR<BuildingUpdateWithoutAddressInput, BuildingUncheckedUpdateWithoutAddressInput>
-    create: XOR<BuildingCreateWithoutAddressInput, BuildingUncheckedCreateWithoutAddressInput>
+  export type SiteUpsertWithWhereUniqueWithoutAddressInput = {
+    where: SiteWhereUniqueInput
+    update: XOR<SiteUpdateWithoutAddressInput, SiteUncheckedUpdateWithoutAddressInput>
+    create: XOR<SiteCreateWithoutAddressInput, SiteUncheckedCreateWithoutAddressInput>
   }
 
-  export type BuildingUpdateWithWhereUniqueWithoutAddressInput = {
-    where: BuildingWhereUniqueInput
-    data: XOR<BuildingUpdateWithoutAddressInput, BuildingUncheckedUpdateWithoutAddressInput>
+  export type SiteUpdateWithWhereUniqueWithoutAddressInput = {
+    where: SiteWhereUniqueInput
+    data: XOR<SiteUpdateWithoutAddressInput, SiteUncheckedUpdateWithoutAddressInput>
   }
 
-  export type BuildingUpdateManyWithWhereWithoutAddressInput = {
-    where: BuildingScalarWhereInput
-    data: XOR<BuildingUpdateManyMutationInput, BuildingUncheckedUpdateManyWithoutAddressInput>
+  export type SiteUpdateManyWithWhereWithoutAddressInput = {
+    where: SiteScalarWhereInput
+    data: XOR<SiteUpdateManyMutationInput, SiteUncheckedUpdateManyWithoutAddressInput>
+  }
+
+  export type SiteScalarWhereInput = {
+    AND?: SiteScalarWhereInput | SiteScalarWhereInput[]
+    OR?: SiteScalarWhereInput[]
+    NOT?: SiteScalarWhereInput | SiteScalarWhereInput[]
+    id?: StringFilter<"Site"> | string
+    name?: StringFilter<"Site"> | string
+    climateZone?: StringNullableFilter<"Site"> | string | null
+    description?: StringNullableFilter<"Site"> | string | null
+    createdAt?: DateTimeFilter<"Site"> | Date | string
+    updatedAt?: DateTimeFilter<"Site"> | Date | string
+    addressId?: StringFilter<"Site"> | string
   }
 
   export type BuildingCreateWithoutCalenderEntityInput = {
@@ -50100,9 +50089,9 @@ export namespace Prisma {
     totalGrossArea?: number | null
     totalHeatedVolume?: number | null
     totalVolume?: number | null
+    subAddress?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    address: AddressCreateNestedOneWithoutBuildingsInput
     complex: ComplexCreateNestedOneWithoutBuildingsInput
     photos?: FileCreateNestedManyWithoutBuildingsInput
     floors?: FloorCreateNestedManyWithoutBuildingInput
@@ -50131,7 +50120,7 @@ export namespace Prisma {
     totalGrossArea?: number | null
     totalHeatedVolume?: number | null
     totalVolume?: number | null
-    addressId: string
+    subAddress?: string | null
     complexId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -50159,9 +50148,7 @@ export namespace Prisma {
     name: string
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
+    secondaryAddress?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     totalBuildings?: number | null
@@ -50193,9 +50180,7 @@ export namespace Prisma {
     name: string
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
+    secondaryAddress?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     totalBuildings?: number | null
@@ -50645,9 +50630,7 @@ export namespace Prisma {
     name: string
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
+    secondaryAddress?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     totalBuildings?: number | null
@@ -50680,9 +50663,7 @@ export namespace Prisma {
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
     calenderEntityId?: string | null
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
+    secondaryAddress?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     totalBuildings?: number | null
@@ -50768,9 +50749,9 @@ export namespace Prisma {
     totalGrossArea?: number | null
     totalHeatedVolume?: number | null
     totalVolume?: number | null
+    subAddress?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    address: AddressCreateNestedOneWithoutBuildingsInput
     complex: ComplexCreateNestedOneWithoutBuildingsInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutBuildingsInput
     photos?: FileCreateNestedManyWithoutBuildingsInput
@@ -50799,7 +50780,7 @@ export namespace Prisma {
     totalGrossArea?: number | null
     totalHeatedVolume?: number | null
     totalVolume?: number | null
-    addressId: string
+    subAddress?: string | null
     complexId: string
     calenderEntityId?: string | null
     createdAt?: Date | string
@@ -51228,9 +51209,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryAddress?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
@@ -51263,9 +51242,7 @@ export namespace Prisma {
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryAddress?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
@@ -51363,9 +51340,9 @@ export namespace Prisma {
     totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
     totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    subAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    address?: AddressUpdateOneRequiredWithoutBuildingsNestedInput
     complex?: ComplexUpdateOneRequiredWithoutBuildingsNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutBuildingsNestedInput
     photos?: FileUpdateManyWithoutBuildingsNestedInput
@@ -51394,7 +51371,7 @@ export namespace Prisma {
     totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
     totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    addressId?: StringFieldUpdateOperationsInput | string
+    subAddress?: NullableStringFieldUpdateOperationsInput | string | null
     complexId?: StringFieldUpdateOperationsInput | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -51699,9 +51676,7 @@ export namespace Prisma {
     name: string
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
+    secondaryAddress?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     totalBuildings?: number | null
@@ -51734,9 +51709,7 @@ export namespace Prisma {
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
     calenderEntityId?: string | null
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
+    secondaryAddress?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     totalBuildings?: number | null
@@ -51818,9 +51791,9 @@ export namespace Prisma {
     totalGrossArea?: number | null
     totalHeatedVolume?: number | null
     totalVolume?: number | null
+    subAddress?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    address: AddressCreateNestedOneWithoutBuildingsInput
     complex: ComplexCreateNestedOneWithoutBuildingsInput
     calenderEntity?: CalenderEntityCreateNestedOneWithoutBuildingsInput
     photos?: FileCreateNestedManyWithoutBuildingsInput
@@ -51849,7 +51822,7 @@ export namespace Prisma {
     totalGrossArea?: number | null
     totalHeatedVolume?: number | null
     totalVolume?: number | null
-    addressId: string
+    subAddress?: string | null
     complexId: string
     calenderEntityId?: string | null
     createdAt?: Date | string
@@ -52034,9 +52007,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryAddress?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
@@ -52069,9 +52040,7 @@ export namespace Prisma {
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryAddress?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
@@ -52165,9 +52134,9 @@ export namespace Prisma {
     totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
     totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    subAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    address?: AddressUpdateOneRequiredWithoutBuildingsNestedInput
     complex?: ComplexUpdateOneRequiredWithoutBuildingsNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutBuildingsNestedInput
     photos?: FileUpdateManyWithoutBuildingsNestedInput
@@ -52196,7 +52165,7 @@ export namespace Prisma {
     totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
     totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    addressId?: StringFieldUpdateOperationsInput | string
+    subAddress?: NullableStringFieldUpdateOperationsInput | string | null
     complexId?: StringFieldUpdateOperationsInput | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -53531,9 +53500,7 @@ export namespace Prisma {
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
     calenderEntityId?: string | null
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
+    secondaryAddress?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     totalBuildings?: number | null
@@ -53557,9 +53524,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryAddress?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
@@ -53592,9 +53557,7 @@ export namespace Prisma {
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryAddress?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
@@ -53626,9 +53589,7 @@ export namespace Prisma {
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryAddress?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
@@ -53665,7 +53626,7 @@ export namespace Prisma {
     totalGrossArea?: number | null
     totalHeatedVolume?: number | null
     totalVolume?: number | null
-    addressId: string
+    subAddress?: string | null
     calenderEntityId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -53855,9 +53816,9 @@ export namespace Prisma {
     totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
     totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    subAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    address?: AddressUpdateOneRequiredWithoutBuildingsNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutBuildingsNestedInput
     photos?: FileUpdateManyWithoutBuildingsNestedInput
     floors?: FloorUpdateManyWithoutBuildingNestedInput
@@ -53886,7 +53847,7 @@ export namespace Prisma {
     totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
     totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    addressId?: StringFieldUpdateOperationsInput | string
+    subAddress?: NullableStringFieldUpdateOperationsInput | string | null
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -53917,7 +53878,7 @@ export namespace Prisma {
     totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
     totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    addressId?: StringFieldUpdateOperationsInput | string
+    subAddress?: NullableStringFieldUpdateOperationsInput | string | null
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -56927,9 +56888,9 @@ export namespace Prisma {
     totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
     totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    subAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    address?: AddressUpdateOneRequiredWithoutBuildingsNestedInput
     complex?: ComplexUpdateOneRequiredWithoutBuildingsNestedInput
     calenderEntity?: CalenderEntityUpdateOneWithoutBuildingsNestedInput
     floors?: FloorUpdateManyWithoutBuildingNestedInput
@@ -56958,7 +56919,7 @@ export namespace Prisma {
     totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
     totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    addressId?: StringFieldUpdateOperationsInput | string
+    subAddress?: NullableStringFieldUpdateOperationsInput | string | null
     complexId?: StringFieldUpdateOperationsInput | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -56989,7 +56950,7 @@ export namespace Prisma {
     totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
     totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    addressId?: StringFieldUpdateOperationsInput | string
+    subAddress?: NullableStringFieldUpdateOperationsInput | string | null
     complexId?: StringFieldUpdateOperationsInput | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -57002,9 +56963,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryAddress?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
@@ -57037,9 +56996,7 @@ export namespace Prisma {
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryAddress?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
@@ -57071,9 +57028,7 @@ export namespace Prisma {
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryAddress?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
@@ -57848,27 +57803,11 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type BuildingCreateManyAddressInput = {
+  export type SiteCreateManyAddressInput = {
     id?: string
     name: string
-    code: string
-    mainUse?: $Enums.MainUse
-    availability?: $Enums.Availability
-    status?: $Enums.ServiceStatus
-    condition?: $Enums.Condition
-    criticality?: $Enums.Criticality
-    totalFloors?: number | null
-    totalUnits?: number | null
-    totalRooms?: number | null
-    glazedArea?: number | null
-    cleanableArea?: number | null
-    coveredArea?: number | null
-    totalNetArea?: number | null
-    totalGrossArea?: number | null
-    totalHeatedVolume?: number | null
-    totalVolume?: number | null
-    complexId: string
-    calenderEntityId?: string | null
+    climateZone?: string | null
+    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -57919,89 +57858,31 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type BuildingUpdateWithoutAddressInput = {
+  export type SiteUpdateWithoutAddressInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    mainUse?: EnumMainUseFieldUpdateOperationsInput | $Enums.MainUse
-    availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
-    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
-    totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
-    totalUnits?: NullableIntFieldUpdateOperationsInput | number | null
-    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
-    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    climateZone?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    complex?: ComplexUpdateOneRequiredWithoutBuildingsNestedInput
-    calenderEntity?: CalenderEntityUpdateOneWithoutBuildingsNestedInput
-    photos?: FileUpdateManyWithoutBuildingsNestedInput
-    floors?: FloorUpdateManyWithoutBuildingNestedInput
-    spaces?: SpaceUpdateManyWithoutBuildingNestedInput
-    zones?: ZoneUpdateManyWithoutBuildingNestedInput
-    preventives?: PreventiveUpdateManyWithoutBuildingNestedInput
-    maintenances?: MaintenanceUpdateManyWithoutBuildingNestedInput
+    complexes?: ComplexUpdateManyWithoutSiteNestedInput
   }
 
-  export type BuildingUncheckedUpdateWithoutAddressInput = {
+  export type SiteUncheckedUpdateWithoutAddressInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    mainUse?: EnumMainUseFieldUpdateOperationsInput | $Enums.MainUse
-    availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
-    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
-    totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
-    totalUnits?: NullableIntFieldUpdateOperationsInput | number | null
-    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
-    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    complexId?: StringFieldUpdateOperationsInput | string
-    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    climateZone?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    photos?: FileUncheckedUpdateManyWithoutBuildingsNestedInput
-    floors?: FloorUncheckedUpdateManyWithoutBuildingNestedInput
-    spaces?: SpaceUncheckedUpdateManyWithoutBuildingNestedInput
-    zones?: ZoneUncheckedUpdateManyWithoutBuildingNestedInput
-    preventives?: PreventiveUncheckedUpdateManyWithoutBuildingNestedInput
-    maintenances?: MaintenanceUncheckedUpdateManyWithoutBuildingNestedInput
+    complexes?: ComplexUncheckedUpdateManyWithoutSiteNestedInput
   }
 
-  export type BuildingUncheckedUpdateManyWithoutAddressInput = {
+  export type SiteUncheckedUpdateManyWithoutAddressInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    mainUse?: EnumMainUseFieldUpdateOperationsInput | $Enums.MainUse
-    availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
-    status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
-    criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
-    totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
-    totalUnits?: NullableIntFieldUpdateOperationsInput | number | null
-    totalRooms?: NullableIntFieldUpdateOperationsInput | number | null
-    glazedArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    cleanableArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    coveredArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalNetArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    complexId?: StringFieldUpdateOperationsInput | string
-    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    climateZone?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -58025,7 +57906,7 @@ export namespace Prisma {
     totalGrossArea?: number | null
     totalHeatedVolume?: number | null
     totalVolume?: number | null
-    addressId: string
+    subAddress?: string | null
     complexId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -58037,9 +57918,7 @@ export namespace Prisma {
     name: string
     availability?: $Enums.Availability
     status?: $Enums.ServiceStatus
-    address?: string | null
-    city?: string | null
-    zipCode?: string | null
+    secondaryAddress?: string | null
     condition?: $Enums.Condition
     criticality?: $Enums.Criticality
     totalBuildings?: number | null
@@ -58156,9 +58035,9 @@ export namespace Prisma {
     totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
     totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
+    subAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    address?: AddressUpdateOneRequiredWithoutBuildingsNestedInput
     complex?: ComplexUpdateOneRequiredWithoutBuildingsNestedInput
     photos?: FileUpdateManyWithoutBuildingsNestedInput
     floors?: FloorUpdateManyWithoutBuildingNestedInput
@@ -58187,7 +58066,7 @@ export namespace Prisma {
     totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
     totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    addressId?: StringFieldUpdateOperationsInput | string
+    subAddress?: NullableStringFieldUpdateOperationsInput | string | null
     complexId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -58218,7 +58097,7 @@ export namespace Prisma {
     totalGrossArea?: NullableFloatFieldUpdateOperationsInput | number | null
     totalHeatedVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
-    addressId?: StringFieldUpdateOperationsInput | string
+    subAddress?: NullableStringFieldUpdateOperationsInput | string | null
     complexId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -58230,9 +58109,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryAddress?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
@@ -58264,9 +58141,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryAddress?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
@@ -58298,9 +58173,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     availability?: EnumAvailabilityFieldUpdateOperationsInput | $Enums.Availability
     status?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    secondaryAddress?: NullableStringFieldUpdateOperationsInput | string | null
     condition?: EnumConditionFieldUpdateOperationsInput | $Enums.Condition
     criticality?: EnumCriticalityFieldUpdateOperationsInput | $Enums.Criticality
     totalBuildings?: NullableIntFieldUpdateOperationsInput | number | null
