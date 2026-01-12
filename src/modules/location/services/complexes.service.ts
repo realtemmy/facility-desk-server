@@ -37,7 +37,8 @@ export class ComplexesService {
       ];
     }
 
-    const [count, complexes] = await prisma.$transaction([
+    // Use Promise.all instead of transaction to avoid P2028 timeout
+    const [count, complexes] = await Promise.all([
       prisma.complex.count({ where: whereClause }),
       prisma.complex.findMany({
         where: whereClause,
@@ -84,6 +85,12 @@ export class ComplexesService {
             name: true,
           },
         },
+        site: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
         photos: {
           select: {
             id: true,
@@ -104,16 +111,14 @@ export class ComplexesService {
   }
 
   async create(data: CreateComplexDto): Promise<ComplexResponseDto> {
-    const { photoIds, ...complexData } = data;
+    const { photoIds, siteId, ...complexData } = data;
+    const site = await prisma.site.findUnique({ where: { id: siteId } });
+    if (!site) throw new NotFoundError("Site");
 
     const complex = await prisma.complex.create({
       data: {
         ...complexData,
-        ...(photoIds && {
-          photos: {
-            connect: photoIds.map((id) => ({ id })),
-          },
-        }),
+        siteId,
       },
       include: {
         buildings: {
@@ -142,6 +147,12 @@ export class ComplexesService {
     const {} = data;
     const complex = await prisma.complex.findUnique({ where: { id } });
     if (!complex) throw new NotFoundError("Complex");
+
+    // Check for siteId
+    if (data.siteId) {
+      const site = await prisma.site.findUnique({ where: { id: data.siteId } });
+      if (!site) throw new NotFoundError("Site");
+    }
 
     const updated = await prisma.complex.update({
       where: { id },

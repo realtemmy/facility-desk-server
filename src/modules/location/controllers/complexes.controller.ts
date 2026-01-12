@@ -6,9 +6,9 @@ import bulkUploadQueue from "../../jobs/queues/bulkUpload.queue";
 const complexesService = new ComplexesService();
 
 export class ComplexesController {
-  async bulkComplexes (req:Request, res:Response, next: NextFunction) {
-    if(!req.file) {
-      return next(new NotFoundError("File"))
+  async bulkComplexes(req: Request, res: Response, next: NextFunction) {
+    if (!req.file) {
+      return next(new NotFoundError("File"));
     }
 
     await bulkUploadQueue.add("process-complexes", {
@@ -28,6 +28,7 @@ export class ComplexesController {
       const complexes = await complexesService.findAll(req.query);
       res.status(200).json({
         success: true,
+        length: complexes.data.length,
         data: complexes,
       });
     } catch (error) {
@@ -79,6 +80,7 @@ export class ComplexesController {
         status: req.body.status,
         condition: req.body.condition,
         criticality: req.body.criticality,
+        siteId: req.body.siteId,
       });
       res.status(200).json({
         success: true,

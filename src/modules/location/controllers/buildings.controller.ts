@@ -30,6 +30,7 @@ export class BuildingsController {
       const buildings = await buildingsService.findAll(req.query);
       res.status(200).json({
         success: true,
+        length: buildings.data.length,
         data: buildings,
       });
     } catch (error) {

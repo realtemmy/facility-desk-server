@@ -219,7 +219,7 @@ model Permission {
 model Site {
   id          String  @id @default(uuid())
   name        String
-  address     Address @relation(fields: [addressId], references: [id])
+  address     Address @relation(fields: [addressId], references: [id], onDelete: Cascade)
   climateZone String?
   description String?
 
@@ -227,7 +227,7 @@ model Site {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  addressId String
+  addressId String   @unique
 
   @@map("sites")
 }
@@ -273,17 +273,18 @@ model Complex {
   maintenances Maintenance[]
   preventives  Preventive[]
 
-  siteId String?
-  site   Site?   @relation(fields: [siteId], references: [id])
+  siteId String
+  site   Site   @relation(fields: [siteId], references: [id], onDelete: Cascade)
 
+  @@unique([name, siteId])
   @@map("complexes")
 }
 
-// MOve address to Site?
+// Move address to Site?
 model Building {
   id   String @id @default(uuid())
   name String
-  code String
+  code String @unique
 
   mainUse      MainUse       @default(RESIDENTIAL)
   availability Availability  @default(IN_USE)
@@ -324,7 +325,7 @@ model Building {
   preventives  Preventive[]
   maintenances Maintenance[]
 
-  @@unique([complexId, code])
+  @@unique([complexId, name])
   @@map("buildings")
 }
 
@@ -541,7 +542,7 @@ model Company {
   name        String
   description String
 
-  address   Address @relation(fields: [addressId], references: [id])
+  address   Address @relation(fields: [addressId], references: [id], onDelete: Cascade)
   addressId String
 
   phone            String?
@@ -588,6 +589,7 @@ model Address {
   companies Company[]
   sites     Site[]
 
+  @@unique([street, city, state, zipCode])
   @@map("addresses")
 }
 
@@ -765,6 +767,7 @@ model RefreshToken {
 }
 
 enum State {
+  Fct
   Abia
   Adamawa
   AkwaIbom

@@ -309,6 +309,7 @@ export type Priority = (typeof Priority)[keyof typeof Priority]
 
 
 export const State: {
+  Fct: 'Fct',
   Abia: 'Abia',
   Adamawa: 'Adamawa',
   AkwaIbom: 'AkwaIbom',
@@ -8949,7 +8950,7 @@ export namespace Prisma {
     totalVolume: number | null
     createdAt: Date
     updatedAt: Date
-    siteId: string | null
+    siteId: string
     _count: ComplexCountAggregateOutputType | null
     _avg: ComplexAvgAggregateOutputType | null
     _sum: ComplexSumAggregateOutputType | null
@@ -9003,7 +9004,7 @@ export namespace Prisma {
     zones?: boolean | Complex$zonesArgs<ExtArgs>
     maintenances?: boolean | Complex$maintenancesArgs<ExtArgs>
     preventives?: boolean | Complex$preventivesArgs<ExtArgs>
-    site?: boolean | Complex$siteArgs<ExtArgs>
+    site?: boolean | SiteDefaultArgs<ExtArgs>
     _count?: boolean | ComplexCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["complex"]>
 
@@ -9032,7 +9033,7 @@ export namespace Prisma {
     updatedAt?: boolean
     siteId?: boolean
     calenderEntity?: boolean | Complex$calenderEntityArgs<ExtArgs>
-    site?: boolean | Complex$siteArgs<ExtArgs>
+    site?: boolean | SiteDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["complex"]>
 
   export type ComplexSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9060,7 +9061,7 @@ export namespace Prisma {
     updatedAt?: boolean
     siteId?: boolean
     calenderEntity?: boolean | Complex$calenderEntityArgs<ExtArgs>
-    site?: boolean | Complex$siteArgs<ExtArgs>
+    site?: boolean | SiteDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["complex"]>
 
   export type ComplexSelectScalar = {
@@ -9099,16 +9100,16 @@ export namespace Prisma {
     zones?: boolean | Complex$zonesArgs<ExtArgs>
     maintenances?: boolean | Complex$maintenancesArgs<ExtArgs>
     preventives?: boolean | Complex$preventivesArgs<ExtArgs>
-    site?: boolean | Complex$siteArgs<ExtArgs>
+    site?: boolean | SiteDefaultArgs<ExtArgs>
     _count?: boolean | ComplexCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ComplexIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     calenderEntity?: boolean | Complex$calenderEntityArgs<ExtArgs>
-    site?: boolean | Complex$siteArgs<ExtArgs>
+    site?: boolean | SiteDefaultArgs<ExtArgs>
   }
   export type ComplexIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     calenderEntity?: boolean | Complex$calenderEntityArgs<ExtArgs>
-    site?: boolean | Complex$siteArgs<ExtArgs>
+    site?: boolean | SiteDefaultArgs<ExtArgs>
   }
 
   export type $ComplexPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9122,7 +9123,7 @@ export namespace Prisma {
       zones: Prisma.$ZonePayload<ExtArgs>[]
       maintenances: Prisma.$MaintenancePayload<ExtArgs>[]
       preventives: Prisma.$PreventivePayload<ExtArgs>[]
-      site: Prisma.$SitePayload<ExtArgs> | null
+      site: Prisma.$SitePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9147,7 +9148,7 @@ export namespace Prisma {
       totalVolume: number | null
       createdAt: Date
       updatedAt: Date
-      siteId: string | null
+      siteId: string
     }, ExtArgs["result"]["complex"]>
     composites: {}
   }
@@ -9550,7 +9551,7 @@ export namespace Prisma {
     zones<T extends Complex$zonesArgs<ExtArgs> = {}>(args?: Subset<T, Complex$zonesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     maintenances<T extends Complex$maintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Complex$maintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     preventives<T extends Complex$preventivesArgs<ExtArgs> = {}>(args?: Subset<T, Complex$preventivesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreventivePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    site<T extends Complex$siteArgs<ExtArgs> = {}>(args?: Subset<T, Complex$siteArgs<ExtArgs>>): Prisma__SiteClient<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    site<T extends SiteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SiteDefaultArgs<ExtArgs>>): Prisma__SiteClient<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10183,25 +10184,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PreventiveScalarFieldEnum | PreventiveScalarFieldEnum[]
-  }
-
-  /**
-   * Complex.site
-   */
-  export type Complex$siteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Site
-     */
-    select?: SiteSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Site
-     */
-    omit?: SiteOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SiteInclude<ExtArgs> | null
-    where?: SiteWhereInput
   }
 
   /**
@@ -32301,6 +32283,7 @@ export namespace Prisma {
 
   export type SiteWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    addressId?: string
     AND?: SiteWhereInput | SiteWhereInput[]
     OR?: SiteWhereInput[]
     NOT?: SiteWhereInput | SiteWhereInput[]
@@ -32309,10 +32292,9 @@ export namespace Prisma {
     description?: StringNullableFilter<"Site"> | string | null
     createdAt?: DateTimeFilter<"Site"> | Date | string
     updatedAt?: DateTimeFilter<"Site"> | Date | string
-    addressId?: StringFilter<"Site"> | string
     address?: XOR<AddressScalarRelationFilter, AddressWhereInput>
     complexes?: ComplexListRelationFilter
-  }, "id">
+  }, "id" | "addressId">
 
   export type SiteOrderByWithAggregationInput = {
     id?: SortOrder
@@ -32366,7 +32348,7 @@ export namespace Prisma {
     totalVolume?: FloatNullableFilter<"Complex"> | number | null
     createdAt?: DateTimeFilter<"Complex"> | Date | string
     updatedAt?: DateTimeFilter<"Complex"> | Date | string
-    siteId?: StringNullableFilter<"Complex"> | string | null
+    siteId?: StringFilter<"Complex"> | string
     calenderEntity?: XOR<CalenderEntityNullableScalarRelationFilter, CalenderEntityWhereInput> | null
     buildings?: BuildingListRelationFilter
     photos?: FileListRelationFilter
@@ -32375,7 +32357,7 @@ export namespace Prisma {
     zones?: ZoneListRelationFilter
     maintenances?: MaintenanceListRelationFilter
     preventives?: PreventiveListRelationFilter
-    site?: XOR<SiteNullableScalarRelationFilter, SiteWhereInput> | null
+    site?: XOR<SiteScalarRelationFilter, SiteWhereInput>
   }
 
   export type ComplexOrderByWithRelationInput = {
@@ -32401,7 +32383,7 @@ export namespace Prisma {
     totalVolume?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    siteId?: SortOrderInput | SortOrder
+    siteId?: SortOrder
     calenderEntity?: CalenderEntityOrderByWithRelationInput
     buildings?: BuildingOrderByRelationAggregateInput
     photos?: FileOrderByRelationAggregateInput
@@ -32416,6 +32398,7 @@ export namespace Prisma {
   export type ComplexWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     code?: string
+    name_siteId?: ComplexNameSiteIdCompoundUniqueInput
     AND?: ComplexWhereInput | ComplexWhereInput[]
     OR?: ComplexWhereInput[]
     NOT?: ComplexWhereInput | ComplexWhereInput[]
@@ -32439,7 +32422,7 @@ export namespace Prisma {
     totalVolume?: FloatNullableFilter<"Complex"> | number | null
     createdAt?: DateTimeFilter<"Complex"> | Date | string
     updatedAt?: DateTimeFilter<"Complex"> | Date | string
-    siteId?: StringNullableFilter<"Complex"> | string | null
+    siteId?: StringFilter<"Complex"> | string
     calenderEntity?: XOR<CalenderEntityNullableScalarRelationFilter, CalenderEntityWhereInput> | null
     buildings?: BuildingListRelationFilter
     photos?: FileListRelationFilter
@@ -32448,8 +32431,8 @@ export namespace Prisma {
     zones?: ZoneListRelationFilter
     maintenances?: MaintenanceListRelationFilter
     preventives?: PreventiveListRelationFilter
-    site?: XOR<SiteNullableScalarRelationFilter, SiteWhereInput> | null
-  }, "id" | "code">
+    site?: XOR<SiteScalarRelationFilter, SiteWhereInput>
+  }, "id" | "code" | "name_siteId">
 
   export type ComplexOrderByWithAggregationInput = {
     id?: SortOrder
@@ -32474,7 +32457,7 @@ export namespace Prisma {
     totalVolume?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    siteId?: SortOrderInput | SortOrder
+    siteId?: SortOrder
     _count?: ComplexCountOrderByAggregateInput
     _avg?: ComplexAvgOrderByAggregateInput
     _max?: ComplexMaxOrderByAggregateInput
@@ -32508,7 +32491,7 @@ export namespace Prisma {
     totalVolume?: FloatNullableWithAggregatesFilter<"Complex"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"Complex"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Complex"> | Date | string
-    siteId?: StringNullableWithAggregatesFilter<"Complex"> | string | null
+    siteId?: StringWithAggregatesFilter<"Complex"> | string
   }
 
   export type BuildingWhereInput = {
@@ -32584,12 +32567,12 @@ export namespace Prisma {
 
   export type BuildingWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    complexId_code?: BuildingComplexIdCodeCompoundUniqueInput
+    code?: string
+    complexId_name?: BuildingComplexIdNameCompoundUniqueInput
     AND?: BuildingWhereInput | BuildingWhereInput[]
     OR?: BuildingWhereInput[]
     NOT?: BuildingWhereInput | BuildingWhereInput[]
     name?: StringFilter<"Building"> | string
-    code?: StringFilter<"Building"> | string
     mainUse?: EnumMainUseFilter<"Building"> | $Enums.MainUse
     availability?: EnumAvailabilityFilter<"Building"> | $Enums.Availability
     status?: EnumServiceStatusFilter<"Building"> | $Enums.ServiceStatus
@@ -32618,7 +32601,7 @@ export namespace Prisma {
     zones?: ZoneListRelationFilter
     preventives?: PreventiveListRelationFilter
     maintenances?: MaintenanceListRelationFilter
-  }, "id" | "complexId_code">
+  }, "id" | "code" | "complexId_name">
 
   export type BuildingOrderByWithAggregationInput = {
     id?: SortOrder
@@ -33666,6 +33649,7 @@ export namespace Prisma {
 
   export type AddressWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    street_city_state_zipCode?: AddressStreetCityStateZipCodeCompoundUniqueInput
     AND?: AddressWhereInput | AddressWhereInput[]
     OR?: AddressWhereInput[]
     NOT?: AddressWhereInput | AddressWhereInput[]
@@ -33677,7 +33661,7 @@ export namespace Prisma {
     longitude?: FloatNullableFilter<"Address"> | number | null
     companies?: CompanyListRelationFilter
     sites?: SiteListRelationFilter
-  }, "id">
+  }, "id" | "street_city_state_zipCode">
 
   export type AddressOrderByWithAggregationInput = {
     id?: SortOrder
@@ -34777,7 +34761,7 @@ export namespace Prisma {
     zones?: ZoneCreateNestedManyWithoutComplexInput
     maintenances?: MaintenanceCreateNestedManyWithoutSiteInput
     preventives?: PreventiveCreateNestedManyWithoutSiteInput
-    site?: SiteCreateNestedOneWithoutComplexesInput
+    site: SiteCreateNestedOneWithoutComplexesInput
   }
 
   export type ComplexUncheckedCreateInput = {
@@ -34803,7 +34787,7 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    siteId?: string | null
+    siteId: string
     buildings?: BuildingUncheckedCreateNestedManyWithoutComplexInput
     photos?: FileUncheckedCreateNestedManyWithoutComplexesInput
     floors?: FloorUncheckedCreateNestedManyWithoutComplexInput
@@ -34843,7 +34827,7 @@ export namespace Prisma {
     zones?: ZoneUpdateManyWithoutComplexNestedInput
     maintenances?: MaintenanceUpdateManyWithoutSiteNestedInput
     preventives?: PreventiveUpdateManyWithoutSiteNestedInput
-    site?: SiteUpdateOneWithoutComplexesNestedInput
+    site?: SiteUpdateOneRequiredWithoutComplexesNestedInput
   }
 
   export type ComplexUncheckedUpdateInput = {
@@ -34869,7 +34853,7 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    siteId?: NullableStringFieldUpdateOperationsInput | string | null
+    siteId?: StringFieldUpdateOperationsInput | string
     buildings?: BuildingUncheckedUpdateManyWithoutComplexNestedInput
     photos?: FileUncheckedUpdateManyWithoutComplexesNestedInput
     floors?: FloorUncheckedUpdateManyWithoutComplexNestedInput
@@ -34902,7 +34886,7 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    siteId?: string | null
+    siteId: string
   }
 
   export type ComplexUpdateManyMutationInput = {
@@ -34952,7 +34936,7 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    siteId?: NullableStringFieldUpdateOperationsInput | string | null
+    siteId?: StringFieldUpdateOperationsInput | string
   }
 
   export type BuildingCreateInput = {
@@ -37588,9 +37572,9 @@ export namespace Prisma {
     none?: PreventiveWhereInput
   }
 
-  export type SiteNullableScalarRelationFilter = {
-    is?: SiteWhereInput | null
-    isNot?: SiteWhereInput | null
+  export type SiteScalarRelationFilter = {
+    is?: SiteWhereInput
+    isNot?: SiteWhereInput
   }
 
   export type BuildingOrderByRelationAggregateInput = {
@@ -37615,6 +37599,11 @@ export namespace Prisma {
 
   export type PreventiveOrderByRelationAggregateInput = {
     _count?: SortOrder
+  }
+
+  export type ComplexNameSiteIdCompoundUniqueInput = {
+    name: string
+    siteId: string
   }
 
   export type ComplexCountOrderByAggregateInput = {
@@ -37797,9 +37786,9 @@ export namespace Prisma {
     isNot?: ComplexWhereInput
   }
 
-  export type BuildingComplexIdCodeCompoundUniqueInput = {
+  export type BuildingComplexIdNameCompoundUniqueInput = {
     complexId: string
-    code: string
+    name: string
   }
 
   export type BuildingCountOrderByAggregateInput = {
@@ -38630,6 +38619,13 @@ export namespace Prisma {
 
   export type SiteOrderByRelationAggregateInput = {
     _count?: SortOrder
+  }
+
+  export type AddressStreetCityStateZipCodeCompoundUniqueInput = {
+    street: string
+    city: string
+    state: $Enums.State
+    zipCode: string
   }
 
   export type AddressCountOrderByAggregateInput = {
@@ -39965,12 +39961,10 @@ export namespace Prisma {
     deleteMany?: PreventiveScalarWhereInput | PreventiveScalarWhereInput[]
   }
 
-  export type SiteUpdateOneWithoutComplexesNestedInput = {
+  export type SiteUpdateOneRequiredWithoutComplexesNestedInput = {
     create?: XOR<SiteCreateWithoutComplexesInput, SiteUncheckedCreateWithoutComplexesInput>
     connectOrCreate?: SiteCreateOrConnectWithoutComplexesInput
     upsert?: SiteUpsertWithoutComplexesInput
-    disconnect?: SiteWhereInput | boolean
-    delete?: SiteWhereInput | boolean
     connect?: SiteWhereUniqueInput
     update?: XOR<XOR<SiteUpdateToOneWithWhereWithoutComplexesInput, SiteUpdateWithoutComplexesInput>, SiteUncheckedUpdateWithoutComplexesInput>
   }
@@ -44199,7 +44193,7 @@ export namespace Prisma {
     totalVolume?: FloatNullableFilter<"Complex"> | number | null
     createdAt?: DateTimeFilter<"Complex"> | Date | string
     updatedAt?: DateTimeFilter<"Complex"> | Date | string
-    siteId?: StringNullableFilter<"Complex"> | string | null
+    siteId?: StringFilter<"Complex"> | string
   }
 
   export type CalenderEntityCreateWithoutComplexesInput = {
@@ -45113,7 +45107,7 @@ export namespace Prisma {
     zones?: ZoneCreateNestedManyWithoutComplexInput
     maintenances?: MaintenanceCreateNestedManyWithoutSiteInput
     preventives?: PreventiveCreateNestedManyWithoutSiteInput
-    site?: SiteCreateNestedOneWithoutComplexesInput
+    site: SiteCreateNestedOneWithoutComplexesInput
   }
 
   export type ComplexUncheckedCreateWithoutBuildingsInput = {
@@ -45139,7 +45133,7 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    siteId?: string | null
+    siteId: string
     photos?: FileUncheckedCreateNestedManyWithoutComplexesInput
     floors?: FloorUncheckedCreateNestedManyWithoutComplexInput
     spaces?: SpaceUncheckedCreateNestedManyWithoutComplexInput
@@ -45645,7 +45639,7 @@ export namespace Prisma {
     zones?: ZoneUpdateManyWithoutComplexNestedInput
     maintenances?: MaintenanceUpdateManyWithoutSiteNestedInput
     preventives?: PreventiveUpdateManyWithoutSiteNestedInput
-    site?: SiteUpdateOneWithoutComplexesNestedInput
+    site?: SiteUpdateOneRequiredWithoutComplexesNestedInput
   }
 
   export type ComplexUncheckedUpdateWithoutBuildingsInput = {
@@ -45671,7 +45665,7 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    siteId?: NullableStringFieldUpdateOperationsInput | string | null
+    siteId?: StringFieldUpdateOperationsInput | string
     photos?: FileUncheckedUpdateManyWithoutComplexesNestedInput
     floors?: FloorUncheckedUpdateManyWithoutComplexNestedInput
     spaces?: SpaceUncheckedUpdateManyWithoutComplexNestedInput
@@ -45838,7 +45832,7 @@ export namespace Prisma {
     zones?: ZoneCreateNestedManyWithoutComplexInput
     maintenances?: MaintenanceCreateNestedManyWithoutSiteInput
     preventives?: PreventiveCreateNestedManyWithoutSiteInput
-    site?: SiteCreateNestedOneWithoutComplexesInput
+    site: SiteCreateNestedOneWithoutComplexesInput
   }
 
   export type ComplexUncheckedCreateWithoutFloorsInput = {
@@ -45864,7 +45858,7 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    siteId?: string | null
+    siteId: string
     buildings?: BuildingUncheckedCreateNestedManyWithoutComplexInput
     photos?: FileUncheckedCreateNestedManyWithoutComplexesInput
     spaces?: SpaceUncheckedCreateNestedManyWithoutComplexInput
@@ -46323,7 +46317,7 @@ export namespace Prisma {
     zones?: ZoneUpdateManyWithoutComplexNestedInput
     maintenances?: MaintenanceUpdateManyWithoutSiteNestedInput
     preventives?: PreventiveUpdateManyWithoutSiteNestedInput
-    site?: SiteUpdateOneWithoutComplexesNestedInput
+    site?: SiteUpdateOneRequiredWithoutComplexesNestedInput
   }
 
   export type ComplexUncheckedUpdateWithoutFloorsInput = {
@@ -46349,7 +46343,7 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    siteId?: NullableStringFieldUpdateOperationsInput | string | null
+    siteId?: StringFieldUpdateOperationsInput | string
     buildings?: BuildingUncheckedUpdateManyWithoutComplexNestedInput
     photos?: FileUncheckedUpdateManyWithoutComplexesNestedInput
     spaces?: SpaceUncheckedUpdateManyWithoutComplexNestedInput
@@ -46551,7 +46545,7 @@ export namespace Prisma {
     spaces?: SpaceCreateNestedManyWithoutComplexInput
     maintenances?: MaintenanceCreateNestedManyWithoutSiteInput
     preventives?: PreventiveCreateNestedManyWithoutSiteInput
-    site?: SiteCreateNestedOneWithoutComplexesInput
+    site: SiteCreateNestedOneWithoutComplexesInput
   }
 
   export type ComplexUncheckedCreateWithoutZonesInput = {
@@ -46577,7 +46571,7 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    siteId?: string | null
+    siteId: string
     buildings?: BuildingUncheckedCreateNestedManyWithoutComplexInput
     photos?: FileUncheckedCreateNestedManyWithoutComplexesInput
     floors?: FloorUncheckedCreateNestedManyWithoutComplexInput
@@ -46879,7 +46873,7 @@ export namespace Prisma {
     spaces?: SpaceUpdateManyWithoutComplexNestedInput
     maintenances?: MaintenanceUpdateManyWithoutSiteNestedInput
     preventives?: PreventiveUpdateManyWithoutSiteNestedInput
-    site?: SiteUpdateOneWithoutComplexesNestedInput
+    site?: SiteUpdateOneRequiredWithoutComplexesNestedInput
   }
 
   export type ComplexUncheckedUpdateWithoutZonesInput = {
@@ -46905,7 +46899,7 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    siteId?: NullableStringFieldUpdateOperationsInput | string | null
+    siteId?: StringFieldUpdateOperationsInput | string
     buildings?: BuildingUncheckedUpdateManyWithoutComplexNestedInput
     photos?: FileUncheckedUpdateManyWithoutComplexesNestedInput
     floors?: FloorUncheckedUpdateManyWithoutComplexNestedInput
@@ -47140,7 +47134,7 @@ export namespace Prisma {
     zones?: ZoneCreateNestedManyWithoutComplexInput
     maintenances?: MaintenanceCreateNestedManyWithoutSiteInput
     preventives?: PreventiveCreateNestedManyWithoutSiteInput
-    site?: SiteCreateNestedOneWithoutComplexesInput
+    site: SiteCreateNestedOneWithoutComplexesInput
   }
 
   export type ComplexUncheckedCreateWithoutSpacesInput = {
@@ -47166,7 +47160,7 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    siteId?: string | null
+    siteId: string
     buildings?: BuildingUncheckedCreateNestedManyWithoutComplexInput
     photos?: FileUncheckedCreateNestedManyWithoutComplexesInput
     floors?: FloorUncheckedCreateNestedManyWithoutComplexInput
@@ -47707,7 +47701,7 @@ export namespace Prisma {
     zones?: ZoneUpdateManyWithoutComplexNestedInput
     maintenances?: MaintenanceUpdateManyWithoutSiteNestedInput
     preventives?: PreventiveUpdateManyWithoutSiteNestedInput
-    site?: SiteUpdateOneWithoutComplexesNestedInput
+    site?: SiteUpdateOneRequiredWithoutComplexesNestedInput
   }
 
   export type ComplexUncheckedUpdateWithoutSpacesInput = {
@@ -47733,7 +47727,7 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    siteId?: NullableStringFieldUpdateOperationsInput | string | null
+    siteId?: StringFieldUpdateOperationsInput | string
     buildings?: BuildingUncheckedUpdateManyWithoutComplexNestedInput
     photos?: FileUncheckedUpdateManyWithoutComplexesNestedInput
     floors?: FloorUncheckedUpdateManyWithoutComplexNestedInput
@@ -48862,7 +48856,7 @@ export namespace Prisma {
     zones?: ZoneCreateNestedManyWithoutComplexInput
     maintenances?: MaintenanceCreateNestedManyWithoutSiteInput
     preventives?: PreventiveCreateNestedManyWithoutSiteInput
-    site?: SiteCreateNestedOneWithoutComplexesInput
+    site: SiteCreateNestedOneWithoutComplexesInput
   }
 
   export type ComplexUncheckedCreateWithoutPhotosInput = {
@@ -48888,7 +48882,7 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    siteId?: string | null
+    siteId: string
     buildings?: BuildingUncheckedCreateNestedManyWithoutComplexInput
     floors?: FloorUncheckedCreateNestedManyWithoutComplexInput
     spaces?: SpaceUncheckedCreateNestedManyWithoutComplexInput
@@ -50171,7 +50165,7 @@ export namespace Prisma {
     zones?: ZoneCreateNestedManyWithoutComplexInput
     maintenances?: MaintenanceCreateNestedManyWithoutSiteInput
     preventives?: PreventiveCreateNestedManyWithoutSiteInput
-    site?: SiteCreateNestedOneWithoutComplexesInput
+    site: SiteCreateNestedOneWithoutComplexesInput
   }
 
   export type ComplexUncheckedCreateWithoutCalenderEntityInput = {
@@ -50196,7 +50190,7 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    siteId?: string | null
+    siteId: string
     buildings?: BuildingUncheckedCreateNestedManyWithoutComplexInput
     photos?: FileUncheckedCreateNestedManyWithoutComplexesInput
     floors?: FloorUncheckedCreateNestedManyWithoutComplexInput
@@ -50653,7 +50647,7 @@ export namespace Prisma {
     spaces?: SpaceCreateNestedManyWithoutComplexInput
     zones?: ZoneCreateNestedManyWithoutComplexInput
     preventives?: PreventiveCreateNestedManyWithoutSiteInput
-    site?: SiteCreateNestedOneWithoutComplexesInput
+    site: SiteCreateNestedOneWithoutComplexesInput
   }
 
   export type ComplexUncheckedCreateWithoutMaintenancesInput = {
@@ -50679,7 +50673,7 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    siteId?: string | null
+    siteId: string
     buildings?: BuildingUncheckedCreateNestedManyWithoutComplexInput
     photos?: FileUncheckedCreateNestedManyWithoutComplexesInput
     floors?: FloorUncheckedCreateNestedManyWithoutComplexInput
@@ -51232,7 +51226,7 @@ export namespace Prisma {
     spaces?: SpaceUpdateManyWithoutComplexNestedInput
     zones?: ZoneUpdateManyWithoutComplexNestedInput
     preventives?: PreventiveUpdateManyWithoutSiteNestedInput
-    site?: SiteUpdateOneWithoutComplexesNestedInput
+    site?: SiteUpdateOneRequiredWithoutComplexesNestedInput
   }
 
   export type ComplexUncheckedUpdateWithoutMaintenancesInput = {
@@ -51258,7 +51252,7 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    siteId?: NullableStringFieldUpdateOperationsInput | string | null
+    siteId?: StringFieldUpdateOperationsInput | string
     buildings?: BuildingUncheckedUpdateManyWithoutComplexNestedInput
     photos?: FileUncheckedUpdateManyWithoutComplexesNestedInput
     floors?: FloorUncheckedUpdateManyWithoutComplexNestedInput
@@ -51699,7 +51693,7 @@ export namespace Prisma {
     spaces?: SpaceCreateNestedManyWithoutComplexInput
     zones?: ZoneCreateNestedManyWithoutComplexInput
     maintenances?: MaintenanceCreateNestedManyWithoutSiteInput
-    site?: SiteCreateNestedOneWithoutComplexesInput
+    site: SiteCreateNestedOneWithoutComplexesInput
   }
 
   export type ComplexUncheckedCreateWithoutPreventivesInput = {
@@ -51725,7 +51719,7 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    siteId?: string | null
+    siteId: string
     buildings?: BuildingUncheckedCreateNestedManyWithoutComplexInput
     photos?: FileUncheckedCreateNestedManyWithoutComplexesInput
     floors?: FloorUncheckedCreateNestedManyWithoutComplexInput
@@ -52030,7 +52024,7 @@ export namespace Prisma {
     spaces?: SpaceUpdateManyWithoutComplexNestedInput
     zones?: ZoneUpdateManyWithoutComplexNestedInput
     maintenances?: MaintenanceUpdateManyWithoutSiteNestedInput
-    site?: SiteUpdateOneWithoutComplexesNestedInput
+    site?: SiteUpdateOneRequiredWithoutComplexesNestedInput
   }
 
   export type ComplexUncheckedUpdateWithoutPreventivesInput = {
@@ -52056,7 +52050,7 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    siteId?: NullableStringFieldUpdateOperationsInput | string | null
+    siteId?: StringFieldUpdateOperationsInput | string
     buildings?: BuildingUncheckedUpdateManyWithoutComplexNestedInput
     photos?: FileUncheckedUpdateManyWithoutComplexesNestedInput
     floors?: FloorUncheckedUpdateManyWithoutComplexNestedInput
@@ -56986,7 +56980,7 @@ export namespace Prisma {
     zones?: ZoneUpdateManyWithoutComplexNestedInput
     maintenances?: MaintenanceUpdateManyWithoutSiteNestedInput
     preventives?: PreventiveUpdateManyWithoutSiteNestedInput
-    site?: SiteUpdateOneWithoutComplexesNestedInput
+    site?: SiteUpdateOneRequiredWithoutComplexesNestedInput
   }
 
   export type ComplexUncheckedUpdateWithoutPhotosInput = {
@@ -57012,7 +57006,7 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    siteId?: NullableStringFieldUpdateOperationsInput | string | null
+    siteId?: StringFieldUpdateOperationsInput | string
     buildings?: BuildingUncheckedUpdateManyWithoutComplexNestedInput
     floors?: FloorUncheckedUpdateManyWithoutComplexNestedInput
     spaces?: SpaceUncheckedUpdateManyWithoutComplexNestedInput
@@ -57044,7 +57038,7 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    siteId?: NullableStringFieldUpdateOperationsInput | string | null
+    siteId?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserCreateManyCompanyInput = {
@@ -57934,7 +57928,7 @@ export namespace Prisma {
     totalVolume?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    siteId?: string | null
+    siteId: string
   }
 
   export type SpaceCreateManyCalenderEntityInput = {
@@ -58132,7 +58126,7 @@ export namespace Prisma {
     zones?: ZoneUpdateManyWithoutComplexNestedInput
     maintenances?: MaintenanceUpdateManyWithoutSiteNestedInput
     preventives?: PreventiveUpdateManyWithoutSiteNestedInput
-    site?: SiteUpdateOneWithoutComplexesNestedInput
+    site?: SiteUpdateOneRequiredWithoutComplexesNestedInput
   }
 
   export type ComplexUncheckedUpdateWithoutCalenderEntityInput = {
@@ -58157,7 +58151,7 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    siteId?: NullableStringFieldUpdateOperationsInput | string | null
+    siteId?: StringFieldUpdateOperationsInput | string
     buildings?: BuildingUncheckedUpdateManyWithoutComplexNestedInput
     photos?: FileUncheckedUpdateManyWithoutComplexesNestedInput
     floors?: FloorUncheckedUpdateManyWithoutComplexNestedInput
@@ -58189,7 +58183,7 @@ export namespace Prisma {
     totalVolume?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    siteId?: NullableStringFieldUpdateOperationsInput | string | null
+    siteId?: StringFieldUpdateOperationsInput | string
   }
 
   export type SpaceUpdateWithoutCalenderEntityInput = {

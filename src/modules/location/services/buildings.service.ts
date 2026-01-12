@@ -45,7 +45,7 @@ export class BuildingsService {
       ];
     }
 
-    const [count, buildings] = await prisma.$transaction([
+    const [count, buildings] = await Promise.all([
       prisma.building.count({ where: whereClause }),
       prisma.building.findMany({
         where: whereClause,

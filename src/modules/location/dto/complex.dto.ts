@@ -13,7 +13,7 @@ export interface CreateComplexDto {
   name: string;
   availability?: Availability;
   status?: ServiceStatus;
-  siteId?: string;
+  siteId: string;
   calenderEntityId?: string;
   address?: string;
   city?: string;

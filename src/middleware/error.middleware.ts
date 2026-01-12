@@ -1,7 +1,7 @@
-import { Request, Response, NextFunction } from 'express';
-import multer from 'multer';
-import { AppError } from '../errors';
-import { formatErrorResponse } from '../utils/error-response.util';
+import { Request, Response, NextFunction } from "express";
+import multer from "multer";
+import { AppError } from "../errors";
+import { formatErrorResponse } from "../utils/error-response.util";
 
 export const errorMiddleware = (
   err: Error,
@@ -10,48 +10,52 @@ export const errorMiddleware = (
   next: NextFunction
 ) => {
   // Log error for debugging
-  console.error('Error:', err);
+  console.error("Error:", err);
 
   // Handle known AppError instances
   if (err instanceof AppError) {
-    return res.status(err.statusCode).json(
-      formatErrorResponse(err.message, err.code, err.details)
-    );
+    return res
+      .status(err.statusCode)
+      .json(formatErrorResponse(err.message, err.code, err.details));
   }
+
+  // console.log("Error Message: ", err.message);
 
   // Handle JWT errors
-  if (err.name === 'JsonWebTokenError') {
-    return res.status(401).json(
-      formatErrorResponse('Invalid token', 'INVALID_TOKEN')
-    );
+  if (err.name === "JsonWebTokenError") {
+    return res
+      .status(401)
+      .json(formatErrorResponse("Invalid token", "INVALID_TOKEN"));
   }
 
-  if (err.name === 'TokenExpiredError') {
-    return res.status(401).json(
-      formatErrorResponse('Token expired', 'TOKEN_EXPIRED')
-    );
+  if (err.name === "TokenExpiredError") {
+    return res
+      .status(401)
+      .json(formatErrorResponse("Token expired", "TOKEN_EXPIRED"));
   }
 
   // Handle Prisma errors
-  if (err.name === 'PrismaClientKnownRequestError') {
-    return res.status(400).json(
-      formatErrorResponse('Database operation failed', 'DATABASE_ERROR')
-    );
+  if (err.name === "PrismaClientKnownRequestError") {
+    return res
+      .status(400)
+      .json(formatErrorResponse("Database operation failed", "DATABASE_ERROR"));
   }
 
-  if(err instanceof multer.MulterError){
-    return res.status(400).json(
-      formatErrorResponse('File upload failed', 'FILE_UPLOAD_FAILED')
-    );
+  if (err instanceof multer.MulterError) {
+    return res
+      .status(400)
+      .json(formatErrorResponse("File upload failed", "FILE_UPLOAD_FAILED"));
   }
 
   // Default to 500 server error
-  res.status(500).json(
-    formatErrorResponse(
-      process.env.NODE_ENV === 'production'
-        ? 'Internal server error'
-        : err.message,
-      'INTERNAL_ERROR'
-    )
-  );
+  res
+    .status(500)
+    .json(
+      formatErrorResponse(
+        process.env.NODE_ENV === "production"
+          ? "Internal server error"
+          : err.message,
+        "INTERNAL_ERROR"
+      )
+    );
 };

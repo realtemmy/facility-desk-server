@@ -585,6 +585,7 @@ exports.CompanyType = exports.$Enums.CompanyType = {
 };
 
 exports.State = exports.$Enums.State = {
+  Fct: 'Fct',
   Abia: 'Abia',
   Adamawa: 'Adamawa',
   AkwaIbom: 'AkwaIbom',

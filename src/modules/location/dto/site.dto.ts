@@ -2,7 +2,14 @@ import { z } from "zod";
 
 export const createSiteSchema = z.object({
   name: z.string().min(1, "Name is required"),
-  addressId: z.string(),
+  address: z.object({
+    street: z.string(),
+    city: z.string(),
+    state: z.string(),
+    zipCode: z.string(),
+    latitude: z.number().optional(),
+    longitude: z.number().optional(),
+  }),
   climateZone: z.string().optional(),
   description: z.string().optional(),
 });
