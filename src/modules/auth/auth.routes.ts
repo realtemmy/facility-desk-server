@@ -105,6 +105,43 @@ router.post(
   authController.register
 );
 
+/**
+ * @swagger
+ * /api/v1/auth/register/bulk:
+ *   post:
+ *     summary: Bulk register users via file upload
+ *     description: Upload a file (CSV/Excel/JSON) to register multiple users at once. processing happens in the background via BullMQ.
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *                 description: Excel (.xlsx, .xls), CSV, or JSON file containing user data
+ *     responses:
+ *       200:
+ *         description: File uploaded successfully for processing
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "File uploaded successfully. Processing started."
+ *       400:
+ *         description: Invalid file type or missing file
+ */
 router.post(
   "/register/bulk",
   upload.single("file"),

@@ -35,6 +35,11 @@ A comprehensive Role-Based Access Control (RBAC) system for facility desk manage
   - SQL injection prevention via Prisma
   - Bcrypt password hashing (12 rounds)
 
+- **Background Processing**
+  - **BullMQ & Redis**: efficient background job processing for heavy tasks.
+  - **Bulk Uploads**: Asynchronous processing for bulk user, site, and asset creation from files (Excel, CSV, JSON).
+
+
 - **API Documentation**
   - **Swagger UI**: Interactive API documentation available at `http://localhost:3000/api/v1/docs`
 
@@ -158,6 +163,12 @@ This interactive interface allows you to test all endpoints including Auth, User
 - `GET /api/v1/users`: List users
 - `GET /api/v1/roles`: List available roles
 - `PUT /api/v1/users/:id`: Update user (assign role here)
+- `POST /api/v1/auth/register/bulk`: Bulk register users (File Upload)
+
+#### Teams & Companies
+- `GET /api/v1/teams`: List teams
+- `GET /api/v1/companies`: List companies
+
 
 ## Database Schema Highlights
 
