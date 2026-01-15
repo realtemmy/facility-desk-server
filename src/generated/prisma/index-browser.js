@@ -463,6 +463,33 @@ exports.Prisma.PreventiveScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.WarehouseScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  addressId: 'addressId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.StockScalarFieldEnum = {
+  id: 'id',
+  quantity: 'quantity',
+  assetId: 'assetId',
+  warehouseId: 'warehouseId'
+};
+
+exports.Prisma.StockMovementScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  quantity: 'quantity',
+  assetId: 'assetId',
+  warehouseId: 'warehouseId',
+  targetWarehouseId: 'targetWarehouseId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.RefreshTokenScalarFieldEnum = {
   id: 'id',
   token: 'token',
@@ -652,6 +679,12 @@ exports.Frequency = exports.$Enums.Frequency = {
   CUSTOM: 'CUSTOM'
 };
 
+exports.StockMovementType = exports.$Enums.StockMovementType = {
+  LOAD: 'LOAD',
+  UNLOAD: 'UNLOAD',
+  TRANSFER: 'TRANSFER'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Role: 'Role',
@@ -673,6 +706,9 @@ exports.Prisma.ModelName = {
   CalenderEntity: 'CalenderEntity',
   Maintenance: 'Maintenance',
   Preventive: 'Preventive',
+  Warehouse: 'Warehouse',
+  Stock: 'Stock',
+  StockMovement: 'StockMovement',
   RefreshToken: 'RefreshToken'
 };
 

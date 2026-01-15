@@ -52,6 +52,8 @@ export const initPreventiveScheduler = () => {
             // Add a default admin employee/user to the database, ie a default Max MiGold admin account.
           },
         });
+
+        // Update Preventive nextRun etc
       }
     } catch (error) {
       console.error("Error in preventive scheduler:", error);

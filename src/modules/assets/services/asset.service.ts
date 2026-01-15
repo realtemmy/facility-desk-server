@@ -34,29 +34,13 @@ export class AssetService {
       ];
     }
 
-    const [count, assets] = await prisma.$transaction([
+    const [count, assets] = await Promise.all([
       prisma.asset.count({ where: whereClause }),
       prisma.asset.findMany({
         where: whereClause,
         take: limit,
         skip: (page - 1) * limit,
         orderBy: { [sortBy]: sortOrder },
-        include: {
-          category: {
-            select: {
-              id: true,
-              name: true,
-              type: true,
-            },
-          },
-          space: {
-            select: {
-              id: true,
-              code: true,
-              name: true,
-            },
-          },
-        },
       }),
     ]);
 

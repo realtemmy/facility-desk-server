@@ -114,3 +114,22 @@ WRITE - Can Create, update and delete
 READ - Can view data
 Start using conflict error
 Create permission for Zone, Space etc or just a general permission for location?
+
+Warehouses: Main store, Electrical store, Mechanical store, Floor specific store etc.
+Warehouses track: Which item is in the warehouse, and how many of it is in the warehouse.
+
+
+Stock(Inventory)
+Stock = Item + Quantity + Location (Warehouse)
+
+Suppliers(Vendors/Companies that supply)
+data: name, email, phone, address, items they supply, price, etc
+used for: purchase request, reordering, cost tracking
+
+Stock movements:
+- Load: When materials enters the warehouse(purchase, donations, return from maintenance)
+- Unload: When materials leaves the warehouse(maintenance, disposal, damage, theft, transfer to another warehouse)
+ keeps track of logs( who moved, when and to maintenance activities)
+
+
+ An asset is what you maintain; an item is what you consume to maintain it.
