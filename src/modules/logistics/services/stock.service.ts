@@ -8,9 +8,7 @@ import {
 import { BadRequestError, NotFoundError } from "../../../errors";
 
 export class StockService {
-  /**
-   * Get current stocks with optional filters
-   */
+
   async getStocks(filters: StockFilterDto & { page?: number; limit?: number }) {
     const { warehouseId, itemId, page = 1, limit = 10 } = filters;
     const skip = (page - 1) * limit;

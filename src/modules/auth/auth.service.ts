@@ -11,7 +11,7 @@ import { AuthResponse, UserResponse } from "./dto/auth-response.dto";
 
 export class AuthService {
   async register(
-    data: RegisterDto
+    data: RegisterDto,
   ): Promise<AuthResponse & { refreshToken: string }> {
     // Check if user exists
     const existingUser = await prisma.user.findUnique({
@@ -52,7 +52,7 @@ export class AuthService {
     // Generate tokens
     const { accessToken, refreshToken } = await this.generateTokens(
       user.id,
-      user.email
+      user.email,
     );
 
     // Remove password from response
@@ -66,7 +66,7 @@ export class AuthService {
   }
 
   async login(
-    data: LoginDto
+    data: LoginDto,
   ): Promise<AuthResponse & { refreshToken: string }> {
     // Find user
     const user = await prisma.user.findUnique({
@@ -93,7 +93,7 @@ export class AuthService {
     // Generate tokens
     const { accessToken, refreshToken } = await this.generateTokens(
       user.id,
-      user.email
+      user.email,
     );
 
     // Remove password
@@ -107,7 +107,7 @@ export class AuthService {
   }
 
   async refresh(
-    refreshToken: string
+    refreshToken: string,
   ): Promise<{ accessToken: string; refreshToken: string }> {
     // Check if token exists in database
     const storedToken = await prisma.refreshToken.findUnique({
@@ -161,7 +161,7 @@ export class AuthService {
 
     const { accessToken, refreshToken } = await this.generateTokens(
       user.id,
-      user.email
+      user.email,
     );
 
     return {
@@ -170,6 +170,38 @@ export class AuthService {
       refreshToken,
     };
   }
+
+  async userPermissions(userId: string) {
+    const permissions = await prisma.user.findUnique({
+      where: { id: userId },
+      include: { permissions: true },
+    });
+    return permissions?.permissions;
+  }
+
+  async addPermissions(userId: string, permissions: string[]) {
+    // Make sure all strings are valid permission Id's
+    const validPermissions = await prisma.permission.findMany({
+      where: { id: { in: permissions } },
+    });
+
+    if (validPermissions.length !== permissions.length) {
+      throw new AuthError("Invalid permissions");
+    }
+    const user = await prisma.user.update({
+      where: { id: userId },
+      data: { permissions: { connect: permissions.map((p) => ({ id: p })) } },
+    });
+    return user;
+  }
+
+  // async updateUser (userId: string, data: UpdateUserDto) {
+  //   const user = await prisma.user.update({
+  //     where: { id: userId },
+  //     data,
+  //   });
+  //   return user;
+  // }
 
   async logout(refreshToken: string): Promise<void> {
     // Delete refresh token from database

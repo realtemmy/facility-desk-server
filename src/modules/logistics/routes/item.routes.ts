@@ -1,16 +1,19 @@
 import { Router } from "express";
 import { ItemController } from "../controllers/item.controller";
-// import { requireAuth, requirePermission } from "../../../middleware/auth"; // Uncomment when auth is ready
+import { authenticate } from "../../../middleware/auth.middleware";
+import { requirePermission } from "../../../middleware/permission.middleware";
 
 const router = Router();
 const controller = new ItemController();
 
-// Add middleware as needed, e.g. router.use(requireAuth);
+router.use(authenticate);
+router.route("/")
+  .post(requirePermission("Items", "WRITE"), controller.create)
+  .get(controller.getAll);
 
-router.post("/", controller.create);
-router.get("/", controller.getAll);
-router.get("/:id", controller.getOne);
-router.patch("/:id", controller.update);
-router.delete("/:id", controller.delete);
+router.route("/:id")
+  .get(controller.getOne)
+  .patch(requirePermission("Items", "WRITE"), controller.update)
+  .delete(requirePermission("Items", "WRITE"), controller.delete);
 
 export default router;

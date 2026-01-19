@@ -12,11 +12,6 @@ import authRoutes from "./modules/auth/auth.routes";
 import userRoutes from "./modules/users/users.routes";
 import roleRoutes from "./modules/roles/roles.routes";
 import permissionRoutes from "./modules/permissions/permissions.routes";
-// import complexesRoutes from "./modules/sites/routes/complexes.routes";
-// import buildingsRoutes from "./modules/sites/routes/buildings.routes";
-// import floorsRoutes from "./modules/sites/routes/floors.routes";
-// import unitsRoutes from "./modules/sites/routes/units.routes";
-// import roomsRoutes from "./modules/sites/routes/rooms.routes";
 
 import siteRoutes from "./modules/location/routes/sites.routes";
 import complexeRoutes from "./modules/location/routes/complexes.routes";
@@ -32,6 +27,7 @@ import assetRoutes from "./modules/assets/routes/asset.routes";
 import companiesRoutes from "./modules/companies/companies.routes";
 import itemRoutes from "./modules/logistics/routes/item.routes";
 import stockRoutes from "./modules/logistics/routes/stock.routes";
+import warehouseRoutes from "./modules/logistics/routes/warehouse.routes";
 
 import teamsRoutes from "./modules/teams/teams.routes";
 import maintenanceRoutes from "./modules/maintenance/maintenance.routes";
@@ -104,7 +100,8 @@ app.use(`/api/${API_VERSION}/assets`, apiRateLimiter, assetRoutes);
 
 // LOGISTICS
 app.use(`/api/${API_VERSION}/logistics/items`, apiRateLimiter, itemRoutes);
-app.use(`/api/${API_VERSION}/logistics`, apiRateLimiter, stockRoutes);
+app.use(`/api/${API_VERSION}/logistics/warehouses`, apiRateLimiter, warehouseRoutes);
+app.use(`/api/${API_VERSION}/logistics/stocks`, apiRateLimiter, stockRoutes);
 
 // 404 handler
 app.use((req: Request, res: Response) => {

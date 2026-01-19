@@ -5,6 +5,7 @@ import { validate } from "../../middleware/validate.middleware";
 import { authRateLimiter } from "../../middleware/rate-limit.middleware";
 import { authenticate } from "../../middleware/auth.middleware";
 import { upload } from "../../middleware/upload";
+import { requireRole } from "../../middleware/rbac.middleware";
 
 const router = Router();
 const authController = new AuthController();
@@ -102,7 +103,7 @@ router.post(
   "/register",
   authRateLimiter,
   validate(registerValidation),
-  authController.register
+  authController.register,
 );
 
 /**
@@ -145,7 +146,7 @@ router.post(
 router.post(
   "/register/bulk",
   upload.single("file"),
-  authController.bulkRegistration
+  authController.bulkRegistration,
 );
 
 /**
@@ -217,7 +218,7 @@ router.post(
   "/login",
   authRateLimiter,
   validate(loginValidation),
-  authController.login
+  authController.login,
 );
 
 /**
@@ -305,6 +306,13 @@ router.post("/refresh", authController.refresh);
  *               $ref: '#/components/schemas/Error'
  */
 router.get("/me", authenticate, authController.me);
+
+router.post(
+  "/permissions",
+  authenticate,
+  requireRole(["Admin"]),
+  authController.addPermissions,
+);
 
 /**
  * @swagger

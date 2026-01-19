@@ -10,7 +10,10 @@ export class ItemController {
     try {
       const data = createItemSchema.parse(req.body);
       const item = await itemService.create(data);
-      res.status(201).json(item);
+      res.status(201).json({
+        status: true,
+        data: item,
+      });
     } catch (error) {
       next(error);
     }
@@ -25,7 +28,11 @@ export class ItemController {
         page: page ? Number(page) : undefined,
         limit: limit ? Number(limit) : undefined,
       });
-      res.json(result);
+      res.status(200).json({
+        status: true,
+        data: result.items,
+        pagination: result.pagination,
+      });
     } catch (error) {
       next(error);
     }

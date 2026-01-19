@@ -17,7 +17,8 @@ export class WarehouseController {
 
       res.status(200).json({
         success: true,
-        data: result,
+        data: result.warehouses,
+        pagination: result.pagination,
       });
     } catch (error) {
       next(error);
@@ -30,7 +31,7 @@ export class WarehouseController {
 
       res.status(200).json({
         success: true,
-        data: { warehouse },
+        data: warehouse,
       });
     } catch (error) {
       next(error);
@@ -58,7 +59,7 @@ export class WarehouseController {
 
       res.status(200).json({
         success: true,
-        data: { warehouse },
+        data: warehouse,
       });
     } catch (error) {
       next(error);

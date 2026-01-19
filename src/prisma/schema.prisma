@@ -614,13 +614,14 @@ model Team {
 }
 
 model Address {
-  id         String      @id @default(uuid())
-  street     String
-  city       String
-  state      State       @default(Lagos)
-  zipCode    String?
-  latitude   Float?
-  longitude  Float?
+  id        String  @id @default(uuid())
+  street    String
+  city      String
+  state     State   @default(Lagos)
+  zipCode   String?
+  latitude  Float?
+  longitude Float?
+
   companies  Company[]
   sites      Site[]
   warehouses Warehouse[]
@@ -790,24 +791,27 @@ model Preventive {
 }
 
 model Warehouse {
-  id                     String          @id @default(uuid())
+  id          String  @id @default(uuid())
   // status         WarehouseStatus         Abandoned, Active, Inactive
-  name                   String
-  description            String?
-  address                Address         @relation(fields: [addressId], references: [id], onDelete: Cascade)
-  addressId              String
-  createdAt              DateTime        @default(now())
-  updatedAt              DateTime        @updatedAt
+  name        String
+  description String?
+
+  address   Address @relation(fields: [addressId], references: [id], onDelete: Cascade)
+  addressId String
+
   stocks                 Stock[]
   stockMovements         StockMovement[] @relation("WarehouseStockMovements")
   incomingStockMovements StockMovement[] @relation("TargetWarehouseStockMovements")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("warehouses")
 }
 
 model Item {
   id            String  @id @default(uuid())
-  name          String
+  name          String  @unique
   description   String?
   code          String  @unique
   category      String?
@@ -841,7 +845,7 @@ model Stock {
 
 model StockMovement {
   id       String            @id @default(uuid())
-  type     StockMovementType @default(LOAD)
+  type     StockMovementType @default(LOAD) // transfering stsocks should be done using prisma transactions
   quantity Int               @default(0)
 
   itemId String

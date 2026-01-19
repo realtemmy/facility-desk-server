@@ -116,6 +116,45 @@ export class AuthController {
     } catch (error) {}
   }
 
+  async addPermissions(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = req.user?.id;
+      const result = await authService.addPermissions(userId!, req.body.permissions);
+      res.status(200).json({
+        success: true,
+        data: result,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  // async updateUser(req: Request, res: Response, next: NextFunction) {
+  //   try {
+  //     const userId = req.user?.id;
+  //     const result = await authService.updateUser(userId!, req.body);
+  //     res.status(200).json({
+  //       success: true,
+  //       data: result,
+  //     });
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
+
+  async permissions(req:Request, res:Response, next: NextFunction) {
+    const userId = req.user?.id;
+    try {
+      const permissions = await authService.userPermissions(userId!);
+      res.status(200).json({
+        success: true,
+        data: permissions,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async logout(req: Request, res: Response, next: NextFunction) {
     try {
       const refreshToken = req.cookies.refresh_token;

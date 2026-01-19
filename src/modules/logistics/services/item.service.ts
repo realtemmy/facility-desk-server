@@ -42,13 +42,6 @@ export class ItemService {
         skip,
         take: limit,
         orderBy: { createdAt: "desc" },
-        include: {
-          stocks: {
-            include: {
-              warehouse: true,
-            },
-          },
-        },
       }),
       prisma.item.count({ where }),
     ]);
