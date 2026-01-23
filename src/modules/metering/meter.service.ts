@@ -2,18 +2,13 @@ import prisma from "../../lib/prisma";
 import { Prisma } from "../../generated/prisma";
 
 export class MeterService {
-  /**
-   * Create a new Meter
-   */
+
   async create(data: Prisma.MeterCreateInput) {
     return await prisma.meter.create({
       data,
     });
   }
 
-  /**
-   * Find all meters, optionally filtering by type or entity
-   */
   async findAll() {
     return await prisma.meter.findMany({
       include: {
@@ -26,9 +21,6 @@ export class MeterService {
     });
   }
 
-  /**
-   * Find one meter by ID
-   */
   async findOne(id: string) {
     return await prisma.meter.findUnique({
       where: { id },
@@ -42,19 +34,12 @@ export class MeterService {
     });
   }
 
-  /**
-   * Update a meter
-   */
   async update(id: string, data: Prisma.MeterUpdateInput) {
     return await prisma.meter.update({
       where: { id },
       data,
     });
   }
-
-  /**
-   * Delete a meter
-   */
   async delete(id: string) {
     return await prisma.meter.delete({
       where: { id },

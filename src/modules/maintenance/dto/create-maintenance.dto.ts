@@ -19,6 +19,7 @@ export interface CreateMaintenanceDto {
   register?: string;
   // Location
   siteId: string;
+  costCenterId?: string;
   assetId?: string;
   buildingId?: string;
   floorId?: string;

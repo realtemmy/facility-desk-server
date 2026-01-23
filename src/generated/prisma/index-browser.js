@@ -137,7 +137,8 @@ exports.Prisma.UserScalarFieldEnum = {
   employeeType: 'employeeType',
   companyId: 'companyId',
   serviceStatus: 'serviceStatus',
-  calenderEntityId: 'calenderEntityId'
+  calenderEntityId: 'calenderEntityId',
+  costCenterId: 'costCenterId'
 };
 
 exports.Prisma.RoleScalarFieldEnum = {
@@ -218,7 +219,8 @@ exports.Prisma.BuildingScalarFieldEnum = {
   complexId: 'complexId',
   calenderEntityId: 'calenderEntityId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  costCenterId: 'costCenterId'
 };
 
 exports.Prisma.FloorScalarFieldEnum = {
@@ -321,7 +323,8 @@ exports.Prisma.AssetScalarFieldEnum = {
   parentSystemId: 'parentSystemId',
   spaceId: 'spaceId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  costCenterId: 'costCenterId'
 };
 
 exports.Prisma.FileScalarFieldEnum = {
@@ -406,6 +409,7 @@ exports.Prisma.MaintenanceScalarFieldEnum = {
   requesterId: 'requesterId',
   priority: 'priority',
   siteId: 'siteId',
+  costCenterId: 'costCenterId',
   outcome: 'outcome',
   dueAssignedEnd: 'dueAssignedEnd',
   execStart: 'execStart',
@@ -459,6 +463,7 @@ exports.Prisma.PreventiveScalarFieldEnum = {
   assetId: 'assetId',
   buildingId: 'buildingId',
   floorId: 'floorId',
+  zoneId: 'zoneId',
   spaceId: 'spaceId',
   teamId: 'teamId',
   createdAt: 'createdAt',
@@ -559,6 +564,49 @@ exports.Prisma.MeterMaintenanceTriggerScalarFieldEnum = {
   lastTriggerReading: 'lastTriggerReading',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CostCenterScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  description: 'description',
+  budgetLimit: 'budgetLimit',
+  budgetSpent: 'budgetSpent',
+  fiscalYear: 'fiscalYear',
+  validFrom: 'validFrom',
+  validTo: 'validTo',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PurchaseRequestScalarFieldEnum = {
+  id: 'id',
+  description: 'description',
+  status: 'status',
+  requesterId: 'requesterId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PurchaseOrderScalarFieldEnum = {
+  id: 'id',
+  poNumber: 'poNumber',
+  status: 'status',
+  supplierId: 'supplierId',
+  costCenterId: 'costCenterId',
+  totalAmount: 'totalAmount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PurchaseOrderItemScalarFieldEnum = {
+  id: 'id',
+  purchaseOrderId: 'purchaseOrderId',
+  itemId: 'itemId',
+  quantity: 'quantity',
+  unitPrice: 'unitPrice',
+  totalPrice: 'totalPrice'
 };
 
 exports.Prisma.SortOrder = {
@@ -806,7 +854,11 @@ exports.Prisma.ModelName = {
   RefreshToken: 'RefreshToken',
   Meter: 'Meter',
   MeterReading: 'MeterReading',
-  MeterMaintenanceTrigger: 'MeterMaintenanceTrigger'
+  MeterMaintenanceTrigger: 'MeterMaintenanceTrigger',
+  CostCenter: 'CostCenter',
+  PurchaseRequest: 'PurchaseRequest',
+  PurchaseOrder: 'PurchaseOrder',
+  PurchaseOrderItem: 'PurchaseOrderItem'
 };
 
 /**

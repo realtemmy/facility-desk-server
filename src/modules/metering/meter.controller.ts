@@ -23,7 +23,10 @@ export const getMeters = async (
 ) => {
   try {
     const meters = await meterService.findAll();
-    res.json(meters);
+    res.status(200).json({
+      status: true,
+      data: meters
+    });
   } catch (error) {
     next(error);
   }
@@ -39,7 +42,10 @@ export const getMeterById = async (
     if (!meter) {
       return res.status(404).json({ message: "Meter not found" });
     }
-    res.json(meter);
+    res.status(200).json({
+      status: true,
+      data: meter,
+    });
   } catch (error) {
     next(error);
   }
@@ -52,7 +58,10 @@ export const updateMeter = async (
 ) => {
   try {
     const meter = await meterService.update(req.params.id, req.body);
-    res.json(meter);
+    res.status(200).json({
+      status: true,
+      data: meter,
+    });
   } catch (error) {
     next(error);
   }
@@ -65,7 +74,10 @@ export const deleteMeter = async (
 ) => {
   try {
     await meterService.delete(req.params.id);
-    res.status(204).send();
+    res.status(204).json({
+      status: true,
+      data: null,
+    });
   } catch (error) {
     next(error);
   }

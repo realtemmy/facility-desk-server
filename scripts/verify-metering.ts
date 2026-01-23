@@ -83,7 +83,7 @@ async function main() {
   });
 
   let count = await prisma.maintenance.count({
-    where: { description: { contains: "Oil Change" } },
+    where: { prevMaintenanceConfigId: preventive.id },
   });
   if (count !== 0) throw new Error("❌ Maintenance created prematurely!");
   console.log("✅ Verification Passed: No maintenance created.");
@@ -98,7 +98,7 @@ async function main() {
   });
 
   count = await prisma.maintenance.count({
-    where: { description: { contains: "Oil Change" } },
+    where: { prevMaintenanceConfigId: preventive.id },
   });
   if (count !== 1) throw new Error(`❌ Expected 1 Maintenance, found ${count}`);
 
@@ -114,9 +114,22 @@ main()
   .catch((e) => {
     console.error("❌ Verification Failed:");
     const fs = require("fs");
-    fs.writeFileSync("error.log", JSON.stringify(e, null, 2));
-    if (e.meta) console.error("Meta:", e.meta);
-    console.error(e);
+    fs.writeFileSync(
+      "error.log",
+      JSON.stringify(
+        {
+          message: e instanceof Error ? e.message : String(e),
+          stack: e instanceof Error ? e.stack : undefined,
+          meta: (e as any).meta,
+          full: e,
+        },
+        null,
+        2,
+      ),
+    );
+    if ((e as any).meta) console.error("Meta:", (e as any).meta);
+    if (e instanceof Error) console.error(e.message, e.stack);
+    else console.error(e);
     process.exit(1);
   })
   .finally(async () => {

@@ -1,5 +1,12 @@
 import prisma from "../../lib/prisma";
-import { Prisma } from "../../generated/prisma";
+import {
+  MeterMaintenanceTrigger,
+  MeterReading,
+  Prisma,
+} from "../../generated/prisma";
+import { MaintenanceService } from "../maintenance/maintenance.service";
+
+const maintenanceService = new MaintenanceService();
 
 export class ReadingService {
   /**
@@ -19,9 +26,7 @@ export class ReadingService {
     return reading;
   }
 
-  /**
-   * Process Maintenance Triggers for a given reading
-   */
+  // Process Maintenance Triggers for a given reading
   private async processTriggers(reading: any) {
     // Fetch active triggers for this meter
     const triggers = await prisma.meterMaintenanceTrigger.findMany({
@@ -31,9 +36,9 @@ export class ReadingService {
 
     for (const trigger of triggers) {
       if (reading.meter.type === "CUMULATIVE") {
-        await this.handleCumulativeTrigger(trigger, reading);
+        await this.handleCumulativeTrigger(trigger, reading); // e.g units consumed
       } else if (reading.meter.type === "GAUGE") {
-        await this.handleGaugeTrigger(trigger, reading);
+        await this.handleGaugeTrigger(trigger, reading); // e.g fuel level/temperature
       }
     }
   }
@@ -53,8 +58,7 @@ export class ReadingService {
 
       await this.spawnMaintenance(trigger);
 
-      // Update last trigger reading (Snap to the multiple or current?)
-      // Usually, we just mark that we triggered at 'current'.
+      // Update last trigger reading to current
       await prisma.meterMaintenanceTrigger.update({
         where: { id: trigger.id },
         data: { lastTriggerReading: current },
@@ -62,7 +66,10 @@ export class ReadingService {
     }
   }
 
-  private async handleGaugeTrigger(trigger: any, reading: any) {
+  private async handleGaugeTrigger(
+    trigger: MeterMaintenanceTrigger,
+    reading: MeterReading,
+  ) {
     const current = Number(reading.value);
     const threshold = Number(trigger.triggerValue);
     let shouldTrigger = false;
@@ -74,38 +81,23 @@ export class ReadingService {
     }
 
     if (shouldTrigger) {
-      // Debounce: Check if there is already a PENDING/IN_PROGRESS maintenance
-      // generated from this preventive for this asset/meter?
-      // For simplicity now, we just spawn. In prod, check active works.
-      await this.spawnMaintenance(trigger);
+      const existingMaintenance = await prisma.maintenance.findFirst({
+        where: {
+          prevMaintenanceConfigId: trigger.preventiveId,
+          processStatus: {
+            in: ["PENDING", "IN_PROGRESS"],
+          },
+        },
+      });
+
+      if (!existingMaintenance) {
+        await this.spawnMaintenance(trigger);
+      }
     }
   }
 
-  private async spawnMaintenance(trigger: any) {
+  private async spawnMaintenance(trigger: MeterMaintenanceTrigger) {
     // Use the Preventive template to create a Maintenance
-    // This logic mimics what the Scheduler would do.
-    // Ideally, extract this to MaintenanceService.createFromPreventive(id)
-
-    // For now, direct creation:
-    const prev = trigger.preventive;
-
-    await prisma.maintenance.create({
-      data: {
-        code: `M-AUTO-${Date.now()}`, // Simple Code Gen
-        description: `Auto-Triggered: ${prev.name}`,
-        type: "PREDICTIVE", // or PREVENTIVE
-        processStatus: "PENDING",
-        priority: prev.priority,
-        siteId: prev.siteId,
-        buildingId: prev.buildingId,
-        floorId: prev.floorId,
-        // zone: prev.zoneId ? { connect: { id: prev.zoneId } } : undefined,
-        spaceId: prev.spaceId,
-        assetId: prev.assetId,
-        teamId: prev.teamId,
-        // Link config
-        prevMaintenanceConfigId: prev.id,
-      },
-    });
+    await maintenanceService.createFromPreventive(trigger.preventiveId);
   }
 }

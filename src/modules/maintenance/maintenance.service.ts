@@ -9,6 +9,9 @@ import {
 import { CreateMaintenanceDto } from "./dto/create-maintenance.dto";
 import { UpdateMaintenanceDto } from "./dto/update-maintenance.dto";
 import { MaintenanceQueryDto } from "./dto/maintenance-query.dto";
+import { CostCenterService } from "../finance/cost-center.service";
+
+const costCenterService = new CostCenterService();
 
 export class MaintenanceService {
   private generateCode(type: MaintenanceType): string {
@@ -43,8 +46,23 @@ export class MaintenanceService {
       assigneeId,
       teamId,
       metadata,
+      costCenterId,
       ...rest
     } = data;
+
+    // Budget Check
+    const resolvedCostCenterId =
+      await costCenterService.resolveCostCenterForMaintenance({
+        costCenterId,
+        assetId,
+        buildingId,
+        requesterId,
+      });
+
+    if (resolvedCostCenterId) {
+      // Check if budget is exceeded (blocking)
+      await costCenterService.checkBudgetAvailability(resolvedCostCenterId, 0);
+    }
 
     const finalType = type || MaintenanceType.CORRECTIVE;
     const code = this.generateCode(finalType);
@@ -72,6 +90,9 @@ export class MaintenanceService {
       }),
       ...(assigneeId && { assignee: { connect: { id: assigneeId } } }),
       ...(teamId && { team: { connect: { id: teamId } } }),
+      ...(resolvedCostCenterId && {
+        costCenter: { connect: { id: resolvedCostCenterId } },
+      }),
 
       startDate: startDate ? new Date(startDate) : undefined,
       endDate: endDate ? new Date(endDate) : undefined,
@@ -84,6 +105,63 @@ export class MaintenanceService {
       include: {
         site: true,
         requester: true,
+      },
+    });
+
+    return maintenance;
+  }
+
+  async createFromPreventive(preventiveId: string) {
+    const preventive = await prisma.preventive.findUnique({
+      where: { id: preventiveId },
+    });
+
+    if (!preventive) {
+      throw new NotFoundError("Preventive Maintenance");
+    }
+
+    // Budget Check for Preventive
+    const resolvedCostCenterId =
+      await costCenterService.resolveCostCenterForMaintenance({
+        assetId: preventive.assetId,
+        buildingId: preventive.buildingId,
+        // teamId: preventive.teamId // TODO: Add logic for team-based cost center?
+      });
+
+    if (resolvedCostCenterId) {
+      await costCenterService.checkBudgetAvailability(resolvedCostCenterId, 0);
+    }
+
+    const maintenance = await prisma.maintenance.create({
+      data: {
+        code: this.generateCode(MaintenanceType.PREVENTIVE),
+        type: MaintenanceType.PREVENTIVE,
+        description: `Auto-Triggered: ${preventive.name}`,
+        processStatus: Status.PENDING,
+        priority: preventive.priority,
+        site: { connect: { id: preventive.siteId } },
+        building: preventive.buildingId
+          ? { connect: { id: preventive.buildingId } }
+          : undefined,
+        asset: preventive.assetId
+          ? { connect: { id: preventive.assetId } }
+          : undefined,
+        floor: preventive.floorId
+          ? { connect: { id: preventive.floorId } }
+          : undefined,
+        zone: preventive.zoneId
+          ? { connect: { id: preventive.zoneId } }
+          : undefined,
+        space: preventive.spaceId
+          ? { connect: { id: preventive.spaceId } }
+          : undefined,
+        team: preventive.teamId
+          ? { connect: { id: preventive.teamId } }
+          : undefined,
+        prevMaintenanceConfigId: preventive.id,
+        costCenter: resolvedCostCenterId
+          ? { connect: { id: resolvedCostCenterId } }
+          : undefined,
       },
     });
 
