@@ -551,7 +551,6 @@ model AssetCategory {
 
 model Asset {
   id          String        @id @default(uuid())
-  assetTag    String?
   name        String
   description String?
   categoryId  String
@@ -854,9 +853,10 @@ model Item {
   stockMovements   StockMovement[]
   maintenanceItems MaintenanceItem[]
 
-  createdAt          DateTime            @default(now())
-  updatedAt          DateTime            @updatedAt
-  purchaseOrderItems PurchaseOrderItem[]
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  purchaseOrderItems   PurchaseOrderItem[]
+  purchaseRequestItems PurchaseRequestItem[]
 
   @@map("items")
 }
@@ -1045,29 +1045,69 @@ model CostCenter {
   assets    Asset[]
   buildings Building[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  purchaseRequests PurchaseRequest[]
 
   @@map("cost_centers")
 }
 
-model PurchaseRequest {
-  id          String @id @default(uuid())
-  description String
-  status      String @default("PENDING") // PENDING, APPROVED, REJECTED, ORDERED
-  requesterId String
-  requester   User   @relation(fields: [requesterId], references: [id])
+enum PurchaseStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model PurchaseRequest {
+  id          String         @id @default(uuid())
+  description String
+  status      PurchaseStatus @default(PENDING) // PENDING, APPROVED, REJECTED
+
+  requesterId  String
+  requester    User       @relation(fields: [requesterId], references: [id])
+  costCenterId String
+  costCenter   CostCenter @relation(fields: [costCenterId], references: [id])
+
+  items PurchaseRequestItem[]
+
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  purchaseOrders PurchaseOrder[]
 
   @@map("purchase_requests")
 }
 
+model PurchaseRequestItem {
+  id String @id @default(uuid())
+
+  purchaseRequestId String
+  purchaseRequest   PurchaseRequest @relation(fields: [purchaseRequestId], references: [id], onDelete: Cascade)
+
+  itemId String
+  item   Item   @relation(fields: [itemId], references: [id])
+
+  quantity Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("purchase_request_items")
+}
+
+enum PurchaseOrderStatus {
+  DRAFT
+  ISSUED
+  PARTIAL_RECEIVED
+  RECEIVED
+  CLOSED
+}
+
 model PurchaseOrder {
-  id       String @id @default(uuid())
-  poNumber String @unique
-  status   String @default("DRAFT") // DRAFT, ISSUED, PARTIAL_RECEIVED, RECEIVED, CLOSED
+  id     String              @id @default(uuid())
+  status PurchaseOrderStatus @default(DRAFT)
+
+  purchaseRequestId String
+  purchaseRequest   PurchaseRequest @relation(fields: [purchaseRequestId], references: [id], onDelete: Cascade)
 
   supplierId String
   supplier   Company @relation(fields: [supplierId], references: [id])

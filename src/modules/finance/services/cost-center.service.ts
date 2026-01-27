@@ -1,7 +1,7 @@
-import prisma from "../../lib/prisma";
-import { CreateCostCenterDto } from "./dto/create-cost-center.dto";
-import { Prisma } from "../../generated/prisma";
-import { BadRequestError, NotFoundError } from "../../errors";
+import prisma from "../../../lib/prisma";
+import { CreateCostCenterDto } from "../dto/cost-center";
+import { Prisma } from "../../../generated/prisma";
+import { BadRequestError, NotFoundError } from "../../../errors";
 
 export class CostCenterService {
   async create(data: CreateCostCenterDto) {
@@ -31,7 +31,7 @@ export class CostCenterService {
    * @param costCenterId
    * @param amount Amount to be spent (default 0, just to check current status)
    */
-  async checkBudgetAvailability(costCenterId: string, amount: number = 0) {
+  async checkBudgetAvailability(costCenterId: string, amount: number = 0): Promise<boolean> {
     const cc = await this.findById(costCenterId);
 
     // If budgetLimit is 0 (or infinite? let's assume 0 means NO budget, or unlimited? usually 0 means 0)
@@ -42,10 +42,10 @@ export class CostCenterService {
     const requested = Number(amount);
 
     if (currentSpent + requested > limit) {
-      throw new BadRequestError(
-        `Budget Limit Exceeded for Cost Center ${cc.code}. Limit: ${limit}, Spent: ${currentSpent}, Requested: ${requested}`,
-      );
+      return false;
     }
+
+    return true;
   }
 
   /**

@@ -32,7 +32,7 @@ import warehouseRoutes from "./modules/logistics/routes/warehouse.routes";
 import teamsRoutes from "./modules/teams/teams.routes";
 import maintenanceRoutes from "./modules/maintenance/maintenance.routes";
 import meteringRoutes from "./modules/metering/metering.routes";
-import financeRoutes from "./modules/finance/finance.routes";
+import financeRoutes from "./modules/finance/routes/finance.routes";
 
 const app: Application = express();
 

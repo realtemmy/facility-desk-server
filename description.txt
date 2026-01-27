@@ -132,6 +132,33 @@ Stock movements:
  keeps track of logs( who moved, when and to maintenance activities)
 
 
- An asset is what you maintain; an item is what you consume to maintain it.
+An asset is what you maintain; an item is what you consume to maintain it.
 
 Create QRCode for assets
+Cache QRCode in memory for assets or CDN
+
+Financial:
+Goal: How much does it actually cost to keep this specific building or machine running?
+Every penny spent must be accounted for and tagged to a specific asset or building.
+- Budget: Where the money is coming from
+- Expense: Where the money is going to
+Purchase request(PR):
+    - Warehouse notices stock is low, or technician needs to repair
+    - They create a PR in the system
+    - Item name, quantity, exxtimated price, reasoning.
+Approval and validation:
+- Checks if there's enough in the budget for for PR
+- If yes goes to manager/admin for approval
+- If no, blocks or flags as over budget
+Purchase order(PO):
+    - Once approved, converts PR to PO
+    - PO is sent to supplier
+    - Estimated cost is now "committed in the budget"
+    - PO is sent to supplier
+    - Supplier sends invoice
+    - Invoice is sent to finance
+    - Finance approves invoice
+    - Invoice is sent to warehouse
+    - Warehouse receives materials
+    - Warehouse updates stock
+    - Warehouse updates movement logs

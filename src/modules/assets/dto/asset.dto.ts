@@ -28,6 +28,7 @@ export interface AssetResponseDto {
   categoryId: string;
   createdAt: Date;
   updatedAt: Date;
+  qrCode?: string | null;
 
   // Related data (optional for expanded responses)
   category?: {

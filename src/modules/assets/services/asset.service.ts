@@ -10,9 +10,7 @@ import {
 } from "../dto/asset.dto";
 
 export class AssetService {
-
   private async generateQrCode(assetId: string): Promise<string> {
-    
     const qrCode = await qrcode.toDataURL(`/assets/${assetId}`);
     return qrCode;
   }
@@ -97,7 +95,9 @@ export class AssetService {
 
     if (!asset) throw new NotFoundError("Asset");
 
-    return asset as AssetResponseDto;
+    const qrCode = await this.generateQrCode(asset.id);
+
+    return { ...asset, qrCode } as AssetResponseDto;
   }
 
   async create(data: CreateAssetDto): Promise<AssetResponseDto> {

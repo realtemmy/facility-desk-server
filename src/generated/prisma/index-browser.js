@@ -316,7 +316,6 @@ exports.Prisma.AssetCategoryScalarFieldEnum = {
 
 exports.Prisma.AssetScalarFieldEnum = {
   id: 'id',
-  assetTag: 'assetTag',
   name: 'name',
   description: 'description',
   categoryId: 'categoryId',
@@ -586,14 +585,24 @@ exports.Prisma.PurchaseRequestScalarFieldEnum = {
   description: 'description',
   status: 'status',
   requesterId: 'requesterId',
+  costCenterId: 'costCenterId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PurchaseRequestItemScalarFieldEnum = {
+  id: 'id',
+  purchaseRequestId: 'purchaseRequestId',
+  itemId: 'itemId',
+  quantity: 'quantity',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
 exports.Prisma.PurchaseOrderScalarFieldEnum = {
   id: 'id',
-  poNumber: 'poNumber',
   status: 'status',
+  purchaseRequestId: 'purchaseRequestId',
   supplierId: 'supplierId',
   costCenterId: 'costCenterId',
   totalAmount: 'totalAmount',
@@ -826,6 +835,20 @@ exports.TriggerCondition = exports.$Enums.TriggerCondition = {
   BELOW_THRESHOLD: 'BELOW_THRESHOLD'
 };
 
+exports.PurchaseStatus = exports.$Enums.PurchaseStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+};
+
+exports.PurchaseOrderStatus = exports.$Enums.PurchaseOrderStatus = {
+  DRAFT: 'DRAFT',
+  ISSUED: 'ISSUED',
+  PARTIAL_RECEIVED: 'PARTIAL_RECEIVED',
+  RECEIVED: 'RECEIVED',
+  CLOSED: 'CLOSED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Role: 'Role',
@@ -858,6 +881,7 @@ exports.Prisma.ModelName = {
   MeterMaintenanceTrigger: 'MeterMaintenanceTrigger',
   CostCenter: 'CostCenter',
   PurchaseRequest: 'PurchaseRequest',
+  PurchaseRequestItem: 'PurchaseRequestItem',
   PurchaseOrder: 'PurchaseOrder',
   PurchaseOrderItem: 'PurchaseOrderItem'
 };
