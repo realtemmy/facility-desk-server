@@ -25,13 +25,69 @@ export class CostCenterService {
     return cc;
   }
 
+  async reserveBudget(costCenterId: string, amount: number) {
+    const cc = await this.findById(costCenterId);
+    const currentSpent = Number(cc.budgetSpent);
+    const limit = Number(cc.budgetLimit);
+    const requested = Number(amount);
+
+    if (currentSpent + requested > limit) {
+      throw new BadRequestError("Budget exceeded");
+    }
+
+    return prisma.costCenter.update({
+      where: { id: costCenterId },
+      data: {
+        budgetCommitted: new Prisma.Decimal(currentSpent + requested),
+      },
+    });
+  }
+
+  async updateBudgetSpent(costCenterId: string, amount: number) {
+    const cc = await this.findById(costCenterId);
+    const currentSpent = Number(cc.budgetSpent);
+    const limit = Number(cc.budgetLimit);
+    const requested = Number(amount);
+
+    if (currentSpent + requested > limit) {
+      throw new BadRequestError("Budget exceeded");
+    }
+
+    return prisma.costCenter.update({
+      where: { id: costCenterId },
+      data: {
+        budgetSpent: new Prisma.Decimal(currentSpent + requested),
+      },
+    });
+  }
+
+  // Listen to webhook for payment.. paystack, flutterwave or mono
+  async budgetPaid(costCenterId: string, amount: number) {
+    const cc = await this.findById(costCenterId);
+    const currentSpent = Number(cc.budgetSpent);
+    const limit = Number(cc.budgetLimit);
+    const requested = Number(amount);
+
+    if (currentSpent + requested > limit) {
+      throw new BadRequestError("Budget exceeded");
+    }
+
+    return prisma.costCenter.update({
+      where: { id: costCenterId },
+      data: {
+        budgetSpent: new Prisma.Decimal(currentSpent + requested),
+        budgetCommitted: new Prisma.Decimal(currentSpent - requested), // Since the money has been paid, it's no longer committed
+      },
+    }); // or use Upsert?
+  }
+
   /**
    * Checks if the Cost Center has enough budget.
    * Throws BadRequestError if budget exceeded.
    * @param costCenterId
    * @param amount Amount to be spent (default 0, just to check current status)
    */
-  async checkBudgetAvailability(costCenterId: string, amount: number = 0): Promise<boolean> {
+  async checkBudgetAvailability(costCenterId: string, amount: number = 0) {
     const cc = await this.findById(costCenterId);
 
     // If budgetLimit is 0 (or infinite? let's assume 0 means NO budget, or unlimited? usually 0 means 0)
@@ -42,10 +98,8 @@ export class CostCenterService {
     const requested = Number(amount);
 
     if (currentSpent + requested > limit) {
-      return false;
+      throw new BadRequestError("Budget exceeded");
     }
-
-    return true;
   }
 
   /**

@@ -18,3 +18,50 @@ export const createCostCenterValidation = [
     .isISO8601()
     .withMessage("Valid To must be a valid date"),
 ];
+
+export const createPurchaseRequestValidation = [
+  body("description").notEmpty().withMessage("Description is required"),
+  body("costCenterId")
+    .isMongoId()
+    .withMessage("Valid Cost Center ID is required"),
+  body("requesterId").isMongoId().withMessage("Valid Requester ID is required"),
+  body("items")
+    .isArray({ min: 1 })
+    .withMessage("Items must be an array with at least one item"),
+  body("items.*.itemId").isMongoId().withMessage("Valid Item ID is required"),
+  body("items.*.quantity").isNumeric().withMessage("Quantity must be a number"),
+];
+
+export const approvePurchaseRequestValidation = [
+  body("costCenterId")
+    .isMongoId()
+    .withMessage("Valid Cost Center ID is required"),
+  body("supplierId").isMongoId().withMessage("Valid Supplier ID is required"),
+  body("totalAmount").isNumeric().withMessage("Total Amount must be a number"),
+  body("purchaseRequestId")
+    .isMongoId()
+    .withMessage("Valid Purchase Request ID is required"),
+  body("items").optional().isArray().withMessage("Items must be an array"),
+  body("items.*.itemId")
+    .optional()
+    .isMongoId()
+    .withMessage("Valid Item ID is required"),
+  body("items.*.quantity")
+    .optional()
+    .isNumeric()
+    .withMessage("Quantity must be a number"),
+  body("items.*.unitPrice")
+    .optional()
+    .isNumeric()
+    .withMessage("Unit Price must be a number"),
+];
+
+export const receivePurchaseOrderValidation = [
+  body("warehouseId").isMongoId().withMessage("Valid Warehouse ID is required"),
+  body("companyId").isMongoId().withMessage("Valid Company ID is required"),
+  body("items")
+    .isArray({ min: 1 })
+    .withMessage("Items must be an array with at least one item"),
+  body("items.*.itemId").isMongoId().withMessage("Valid Item ID is required"),
+  body("items.*.quantity").isNumeric().withMessage("Quantity must be a number"),
+];

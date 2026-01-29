@@ -28,4 +28,13 @@ export class CostCenterController {
       res.status(404).json({ error: "Not Found" });
     }
   }
+
+  async budgetPaid(req: Request, res: Response, next: NextFunction) {
+    try {
+      const cc = await service.budgetPaid(req.params.id, req.body.amount);
+      res.status(200).json({ status: true, data: cc });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

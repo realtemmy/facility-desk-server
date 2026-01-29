@@ -42,7 +42,7 @@ export class ItemController {
     try {
       const { id } = req.params;
       const item = await itemService.getOne(id);
-      res.json(item);
+      res.json({status: true, data: item});
     } catch (error) {
       next(error);
     }
@@ -53,7 +53,7 @@ export class ItemController {
       const { id } = req.params;
       const data = updateItemSchema.parse(req.body);
       const item = await itemService.update(id, data);
-      res.json(item);
+      res.json({status: true, data: item});
     } catch (error) {
       next(error);
     }
@@ -63,7 +63,7 @@ export class ItemController {
     try {
       const { id } = req.params;
       await itemService.delete(id);
-      res.status(204).send();
+      res.status(204).json({status: true, data: null});
     } catch (error) {
       next(error);
     }

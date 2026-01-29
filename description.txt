@@ -145,7 +145,7 @@ Every penny spent must be accounted for and tagged to a specific asset or buildi
 Purchase request(PR):
     - Warehouse notices stock is low, or technician needs to repair
     - They create a PR in the system
-    - Item name, quantity, exxtimated price, reasoning.
+    - Item name, quantity, estimated price, reasoning.
 Approval and validation:
 - Checks if there's enough in the budget for for PR
 - If yes goes to manager/admin for approval

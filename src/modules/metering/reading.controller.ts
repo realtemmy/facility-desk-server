@@ -10,7 +10,7 @@ export const recordReading = async (
 ) => {
   try {
     const reading = await readingService.recordReading(req.body);
-    res.status(201).json(reading);
+    res.status(201).json({status: true, data: reading});
   } catch (error) {
     next(error);
   }

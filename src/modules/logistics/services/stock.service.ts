@@ -1,5 +1,5 @@
 import prisma from "../../../lib/prisma";
-import { Prisma, StockMovementType } from "../../../generated/prisma";
+import { Prisma, StockMovementType, StockReferenceType } from "../../../generated/prisma";
 import {
   CreateStockMovementDto,
   StockFilterDto,
@@ -181,8 +181,18 @@ export class StockService {
         });
 
         if (!currentStock || currentStock.quantity < quantity) {
-          throw new BadRequestError("Insufficient stock for unload");
+          throw new BadRequestError("Insufficient stock in this warehouse");
         }
+
+        await tx.consumedPart.create({
+          data: {
+            referenceId: referenceId || null,
+            referenceType: referenceType || StockReferenceType.MAINTENANCE,
+            itemId,
+            quantity,
+            // usedById: req.user.id // Might not be the person who used it, but the person who logged it
+          }
+        })
 
         const updatedStock = await tx.stock.update({
           where: {

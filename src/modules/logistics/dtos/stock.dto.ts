@@ -11,7 +11,7 @@ export interface CreateStockMovementDto {
   targetWarehouseId?: string; // Required if type is TRANSFER
   notes?: string;
   referenceId?: string;
-  referenceType?: StockReferenceType;
+  referenceType: StockReferenceType;
 }
 
 export interface StockFilterDto {

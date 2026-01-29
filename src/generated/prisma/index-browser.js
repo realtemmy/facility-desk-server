@@ -512,6 +512,17 @@ exports.Prisma.StockMovementScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ConsumedPartScalarFieldEnum = {
+  id: 'id',
+  quantity: 'quantity',
+  referenceId: 'referenceId',
+  referenceType: 'referenceType',
+  itemId: 'itemId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  maintenanceId: 'maintenanceId'
+};
+
 exports.Prisma.MaintenanceItemScalarFieldEnum = {
   id: 'id',
   quantity: 'quantity',
@@ -573,6 +584,7 @@ exports.Prisma.CostCenterScalarFieldEnum = {
   description: 'description',
   budgetLimit: 'budgetLimit',
   budgetSpent: 'budgetSpent',
+  budgetCommitted: 'budgetCommitted',
   fiscalYear: 'fiscalYear',
   validFrom: 'validFrom',
   validTo: 'validTo',
@@ -617,6 +629,22 @@ exports.Prisma.PurchaseOrderItemScalarFieldEnum = {
   quantity: 'quantity',
   unitPrice: 'unitPrice',
   totalPrice: 'totalPrice'
+};
+
+exports.Prisma.GoodsReceiptScalarFieldEnum = {
+  id: 'id',
+  note: 'note',
+  receivedAt: 'receivedAt',
+  purchaseOrderId: 'purchaseOrderId',
+  receiverId: 'receiverId',
+  companyId: 'companyId'
+};
+
+exports.Prisma.GoodsReceiptItemScalarFieldEnum = {
+  id: 'id',
+  goodsReceiptId: 'goodsReceiptId',
+  itemId: 'itemId',
+  quantity: 'quantity'
 };
 
 exports.Prisma.SortOrder = {
@@ -844,7 +872,7 @@ exports.PurchaseStatus = exports.$Enums.PurchaseStatus = {
 exports.PurchaseOrderStatus = exports.$Enums.PurchaseOrderStatus = {
   DRAFT: 'DRAFT',
   ISSUED: 'ISSUED',
-  PARTIAL_RECEIVED: 'PARTIAL_RECEIVED',
+  PARTIALLY_RECEIVED: 'PARTIALLY_RECEIVED',
   RECEIVED: 'RECEIVED',
   CLOSED: 'CLOSED'
 };
@@ -874,6 +902,7 @@ exports.Prisma.ModelName = {
   Item: 'Item',
   Stock: 'Stock',
   StockMovement: 'StockMovement',
+  ConsumedPart: 'ConsumedPart',
   MaintenanceItem: 'MaintenanceItem',
   RefreshToken: 'RefreshToken',
   Meter: 'Meter',
@@ -883,7 +912,9 @@ exports.Prisma.ModelName = {
   PurchaseRequest: 'PurchaseRequest',
   PurchaseRequestItem: 'PurchaseRequestItem',
   PurchaseOrder: 'PurchaseOrder',
-  PurchaseOrderItem: 'PurchaseOrderItem'
+  PurchaseOrderItem: 'PurchaseOrderItem',
+  GoodsReceipt: 'GoodsReceipt',
+  GoodsReceiptItem: 'GoodsReceiptItem'
 };
 
 /**

@@ -9,7 +9,7 @@ import {
 import { CreateMaintenanceDto } from "./dto/create-maintenance.dto";
 import { UpdateMaintenanceDto } from "./dto/update-maintenance.dto";
 import { MaintenanceQueryDto } from "./dto/maintenance-query.dto";
-import { CostCenterService } from "../finance/cost-center.service";
+import { CostCenterService } from "../finance/services/cost-center.service";
 
 const costCenterService = new CostCenterService();
 
