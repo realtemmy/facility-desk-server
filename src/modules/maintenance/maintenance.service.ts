@@ -6,7 +6,7 @@ import {
   Status,
   Prisma,
 } from "../../generated/prisma";
-import { CreateMaintenanceDto } from "./dto/create-maintenance.dto";
+import { CreateMaintenanceDto, LogworkDto } from "./dto/create-maintenance.dto";
 import { UpdateMaintenanceDto } from "./dto/update-maintenance.dto";
 import { MaintenanceQueryDto } from "./dto/maintenance-query.dto";
 import { CostCenterService } from "../finance/services/cost-center.service";
@@ -28,6 +28,79 @@ export class MaintenanceService {
 
     const prefix = prefixMap[type] || "WO";
     return `${prefix}-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+  }
+
+  // async getMaintenanceCost(maintenanceId: string) {
+  //   const ticket = await this.prisma.maintenance.findUnique({
+  //     where: { id: maintenanceId },
+  //     include: {
+  //       maintenanceItems: true, // The Spare Parts
+  //       workLogs: true,      // The Labor (Assume you add this relation to Maintenance model)
+  //     },
+  //   });
+
+  //   // 1. Sum Parts Cost
+  //   const partsCost = ticket.maintenanceItems.reduce(
+  //     (sum, item) => sum + Number(item.cost),
+  //     0,
+  //   );
+
+  //   // 2. Sum Labor Cost (Assuming we fetched workLogs)
+  //   const laborCost = ticket.workLogs.reduce(
+  //     (sum, log) => sum + Number(log.totalCost),
+  //     0
+  //   );
+
+  //   return { partsCost, laborCost, total: partsCost + laborCost };
+  // }
+
+  async logWork(userId: string, data: LogworkDto) {
+    // Calculate duration in minutes
+    const start = new Date(data.startTime);
+    const end = new Date(data.endTime);
+    const durationMinutes = Math.floor(
+      (end.getTime() - start.getTime()) / 60000,
+    );
+
+    if (durationMinutes <= 0)
+      throw new BadRequestError("End time must be greater than start time");
+
+    return await prisma.$transaction(async (tx) => {
+      const technician = await tx.user.findUnique({
+        where: { id: userId },
+      });
+
+      if (!technician) throw new NotFoundError("Technician not found");
+
+      const hours = durationMinutes / 60;
+      const rate = Number(technician.hourlyRate);
+      const cost = hours * rate;
+
+      // Create Work Log
+      const workLog = await tx.workLog.create({
+        data: {
+          maintenanceId: data.maintenanceId,
+          startTime: start,
+          endTime: end,
+          technicianId: userId,
+          description: data.description,
+          durationInMinutes: durationMinutes,
+          currentRate: technician.hourlyRate,
+          totalCost: cost,
+        },
+      });
+
+      await tx.maintenance.update({
+        where: { id: data.maintenanceId },
+        data: {
+          ttLaborCost: {
+            increment: cost,
+          },
+        },
+      });
+
+      return workLog;
+    });
   }
 
   async create(data: CreateMaintenanceDto) {

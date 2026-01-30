@@ -137,8 +137,23 @@ exports.Prisma.UserScalarFieldEnum = {
   employeeType: 'employeeType',
   companyId: 'companyId',
   serviceStatus: 'serviceStatus',
+  hourlyRate: 'hourlyRate',
   calenderEntityId: 'calenderEntityId',
   costCenterId: 'costCenterId'
+};
+
+exports.Prisma.WorkLogScalarFieldEnum = {
+  id: 'id',
+  description: 'description',
+  technicianId: 'technicianId',
+  maintenanceId: 'maintenanceId',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  durationInMinutes: 'durationInMinutes',
+  currentRate: 'currentRate',
+  totalCost: 'totalCost',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.RoleScalarFieldEnum = {
@@ -436,6 +451,7 @@ exports.Prisma.MaintenanceScalarFieldEnum = {
   ttSysSuspension: 'ttSysSuspension',
   ttWorkSuspension: 'ttWorkSuspension',
   ttEstimate: 'ttEstimate',
+  ttLaborCost: 'ttLaborCost',
   prevMaintenanceConfigId: 'prevMaintenanceConfigId',
   automaticConfig: 'automaticConfig',
   jointAccounting: 'jointAccounting',
@@ -887,6 +903,7 @@ exports.PurchaseOrderStatus = exports.$Enums.PurchaseOrderStatus = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  WorkLog: 'WorkLog',
   Role: 'Role',
   Permission: 'Permission',
   Site: 'Site',

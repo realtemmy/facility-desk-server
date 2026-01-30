@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model WorkLog
+ * 
+ */
+export type WorkLog = $Result.DefaultSelection<Prisma.$WorkLogPayload>
+/**
  * Model Role
  * 
  */
@@ -746,6 +751,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.workLog`: Exposes CRUD operations for the **WorkLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more WorkLogs
+    * const workLogs = await prisma.workLog.findMany()
+    * ```
+    */
+  get workLog(): Prisma.WorkLogDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.role`: Exposes CRUD operations for the **Role** model.
@@ -1551,6 +1566,7 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    WorkLog: 'WorkLog',
     Role: 'Role',
     Permission: 'Permission',
     Site: 'Site',
@@ -1603,7 +1619,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "role" | "permission" | "site" | "complex" | "building" | "floor" | "zone" | "space" | "assetType" | "assetCategory" | "asset" | "file" | "company" | "team" | "address" | "contract" | "calenderEntity" | "maintenance" | "preventive" | "preventiveTask" | "maintenanceTask" | "warehouse" | "item" | "stock" | "stockMovement" | "maintenanceItem" | "refreshToken" | "meter" | "meterReading" | "meterMaintenanceTrigger" | "costCenter" | "purchaseRequest" | "purchaseRequestItem" | "purchaseOrder" | "purchaseOrderItem" | "goodsReceipt" | "goodsReceiptItem"
+      modelProps: "user" | "workLog" | "role" | "permission" | "site" | "complex" | "building" | "floor" | "zone" | "space" | "assetType" | "assetCategory" | "asset" | "file" | "company" | "team" | "address" | "contract" | "calenderEntity" | "maintenance" | "preventive" | "preventiveTask" | "maintenanceTask" | "warehouse" | "item" | "stock" | "stockMovement" | "maintenanceItem" | "refreshToken" | "meter" | "meterReading" | "meterMaintenanceTrigger" | "costCenter" | "purchaseRequest" | "purchaseRequestItem" | "purchaseOrder" | "purchaseOrderItem" | "goodsReceipt" | "goodsReceiptItem"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1678,6 +1694,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      WorkLog: {
+        payload: Prisma.$WorkLogPayload<ExtArgs>
+        fields: Prisma.WorkLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.WorkLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WorkLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.WorkLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WorkLogPayload>
+          }
+          findFirst: {
+            args: Prisma.WorkLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WorkLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.WorkLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WorkLogPayload>
+          }
+          findMany: {
+            args: Prisma.WorkLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WorkLogPayload>[]
+          }
+          create: {
+            args: Prisma.WorkLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WorkLogPayload>
+          }
+          createMany: {
+            args: Prisma.WorkLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.WorkLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WorkLogPayload>[]
+          }
+          delete: {
+            args: Prisma.WorkLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WorkLogPayload>
+          }
+          update: {
+            args: Prisma.WorkLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WorkLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.WorkLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.WorkLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.WorkLogUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WorkLogPayload>[]
+          }
+          upsert: {
+            args: Prisma.WorkLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WorkLogPayload>
+          }
+          aggregate: {
+            args: Prisma.WorkLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateWorkLog>
+          }
+          groupBy: {
+            args: Prisma.WorkLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<WorkLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.WorkLogCountArgs<ExtArgs>
+            result: $Utils.Optional<WorkLogCountAggregateOutputType> | number
           }
         }
       }
@@ -4512,6 +4602,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    workLog?: WorkLogOmit
     role?: RoleOmit
     permission?: PermissionOmit
     site?: SiteOmit
@@ -4638,6 +4729,7 @@ export namespace Prisma {
     purchaseRequests: number
     goodsReceipts: number
     maintenanceTasks: number
+    workLogs: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4650,6 +4742,7 @@ export namespace Prisma {
     purchaseRequests?: boolean | UserCountOutputTypeCountPurchaseRequestsArgs
     goodsReceipts?: boolean | UserCountOutputTypeCountGoodsReceiptsArgs
     maintenanceTasks?: boolean | UserCountOutputTypeCountMaintenanceTasksArgs
+    workLogs?: boolean | UserCountOutputTypeCountWorkLogsArgs
   }
 
   // Custom InputTypes
@@ -4724,6 +4817,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountMaintenanceTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MaintenanceTaskWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountWorkLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WorkLogWhereInput
   }
 
 
@@ -5493,12 +5593,14 @@ export namespace Prisma {
     photos: number
     maintenanceItems: number
     maintenanceTasks: number
+    workLogs: number
   }
 
   export type MaintenanceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     photos?: boolean | MaintenanceCountOutputTypeCountPhotosArgs
     maintenanceItems?: boolean | MaintenanceCountOutputTypeCountMaintenanceItemsArgs
     maintenanceTasks?: boolean | MaintenanceCountOutputTypeCountMaintenanceTasksArgs
+    workLogs?: boolean | MaintenanceCountOutputTypeCountWorkLogsArgs
   }
 
   // Custom InputTypes
@@ -5531,6 +5633,13 @@ export namespace Prisma {
    */
   export type MaintenanceCountOutputTypeCountMaintenanceTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MaintenanceTaskWhereInput
+  }
+
+  /**
+   * MaintenanceCountOutputType without action
+   */
+  export type MaintenanceCountOutputTypeCountWorkLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WorkLogWhereInput
   }
 
 
@@ -5936,8 +6045,18 @@ export namespace Prisma {
 
   export type AggregateUser = {
     _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
+  }
+
+  export type UserAvgAggregateOutputType = {
+    hourlyRate: Decimal | null
+  }
+
+  export type UserSumAggregateOutputType = {
+    hourlyRate: Decimal | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -5957,6 +6076,7 @@ export namespace Prisma {
     employeeType: $Enums.EmployeeType | null
     companyId: string | null
     serviceStatus: $Enums.ServiceStatus | null
+    hourlyRate: Decimal | null
     calenderEntityId: string | null
     costCenterId: string | null
   }
@@ -5978,6 +6098,7 @@ export namespace Prisma {
     employeeType: $Enums.EmployeeType | null
     companyId: string | null
     serviceStatus: $Enums.ServiceStatus | null
+    hourlyRate: Decimal | null
     calenderEntityId: string | null
     costCenterId: string | null
   }
@@ -5999,11 +6120,20 @@ export namespace Prisma {
     employeeType: number
     companyId: number
     serviceStatus: number
+    hourlyRate: number
     calenderEntityId: number
     costCenterId: number
     _all: number
   }
 
+
+  export type UserAvgAggregateInputType = {
+    hourlyRate?: true
+  }
+
+  export type UserSumAggregateInputType = {
+    hourlyRate?: true
+  }
 
   export type UserMinAggregateInputType = {
     id?: true
@@ -6022,6 +6152,7 @@ export namespace Prisma {
     employeeType?: true
     companyId?: true
     serviceStatus?: true
+    hourlyRate?: true
     calenderEntityId?: true
     costCenterId?: true
   }
@@ -6043,6 +6174,7 @@ export namespace Prisma {
     employeeType?: true
     companyId?: true
     serviceStatus?: true
+    hourlyRate?: true
     calenderEntityId?: true
     costCenterId?: true
   }
@@ -6064,6 +6196,7 @@ export namespace Prisma {
     employeeType?: true
     companyId?: true
     serviceStatus?: true
+    hourlyRate?: true
     calenderEntityId?: true
     costCenterId?: true
     _all?: true
@@ -6107,6 +6240,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: UserAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMinAggregateInputType
@@ -6137,6 +6282,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserCountAggregateInputType | true
+    _avg?: UserAvgAggregateInputType
+    _sum?: UserSumAggregateInputType
     _min?: UserMinAggregateInputType
     _max?: UserMaxAggregateInputType
   }
@@ -6158,9 +6305,12 @@ export namespace Prisma {
     employeeType: $Enums.EmployeeType | null
     companyId: string | null
     serviceStatus: $Enums.ServiceStatus
+    hourlyRate: Decimal
     calenderEntityId: string | null
     costCenterId: string | null
     _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
@@ -6196,6 +6346,7 @@ export namespace Prisma {
     employeeType?: boolean
     companyId?: boolean
     serviceStatus?: boolean
+    hourlyRate?: boolean
     calenderEntityId?: boolean
     costCenterId?: boolean
     refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
@@ -6211,6 +6362,7 @@ export namespace Prisma {
     purchaseRequests?: boolean | User$purchaseRequestsArgs<ExtArgs>
     goodsReceipts?: boolean | User$goodsReceiptsArgs<ExtArgs>
     maintenanceTasks?: boolean | User$maintenanceTasksArgs<ExtArgs>
+    workLogs?: boolean | User$workLogsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -6231,6 +6383,7 @@ export namespace Prisma {
     employeeType?: boolean
     companyId?: boolean
     serviceStatus?: boolean
+    hourlyRate?: boolean
     calenderEntityId?: boolean
     costCenterId?: boolean
     role?: boolean | RoleDefaultArgs<ExtArgs>
@@ -6256,6 +6409,7 @@ export namespace Prisma {
     employeeType?: boolean
     companyId?: boolean
     serviceStatus?: boolean
+    hourlyRate?: boolean
     calenderEntityId?: boolean
     costCenterId?: boolean
     role?: boolean | RoleDefaultArgs<ExtArgs>
@@ -6281,11 +6435,12 @@ export namespace Prisma {
     employeeType?: boolean
     companyId?: boolean
     serviceStatus?: boolean
+    hourlyRate?: boolean
     calenderEntityId?: boolean
     costCenterId?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "firstName" | "lastName" | "roleId" | "status" | "createdAt" | "updatedAt" | "passwordResetToken" | "passwordExpiresAt" | "passwordResetAt" | "employeeCode" | "employeeType" | "companyId" | "serviceStatus" | "calenderEntityId" | "costCenterId", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "firstName" | "lastName" | "roleId" | "status" | "createdAt" | "updatedAt" | "passwordResetToken" | "passwordExpiresAt" | "passwordResetAt" | "employeeCode" | "employeeType" | "companyId" | "serviceStatus" | "hourlyRate" | "calenderEntityId" | "costCenterId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
     role?: boolean | RoleDefaultArgs<ExtArgs>
@@ -6300,6 +6455,7 @@ export namespace Prisma {
     purchaseRequests?: boolean | User$purchaseRequestsArgs<ExtArgs>
     goodsReceipts?: boolean | User$goodsReceiptsArgs<ExtArgs>
     maintenanceTasks?: boolean | User$maintenanceTasksArgs<ExtArgs>
+    workLogs?: boolean | User$workLogsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6331,6 +6487,7 @@ export namespace Prisma {
       purchaseRequests: Prisma.$PurchaseRequestPayload<ExtArgs>[]
       goodsReceipts: Prisma.$GoodsReceiptPayload<ExtArgs>[]
       maintenanceTasks: Prisma.$MaintenanceTaskPayload<ExtArgs>[]
+      workLogs: Prisma.$WorkLogPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6349,6 +6506,7 @@ export namespace Prisma {
       employeeType: $Enums.EmployeeType | null
       companyId: string | null
       serviceStatus: $Enums.ServiceStatus
+      hourlyRate: Prisma.Decimal
       calenderEntityId: string | null
       costCenterId: string | null
     }, ExtArgs["result"]["user"]>
@@ -6758,6 +6916,7 @@ export namespace Prisma {
     purchaseRequests<T extends User$purchaseRequestsArgs<ExtArgs> = {}>(args?: Subset<T, User$purchaseRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PurchaseRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     goodsReceipts<T extends User$goodsReceiptsArgs<ExtArgs> = {}>(args?: Subset<T, User$goodsReceiptsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GoodsReceiptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     maintenanceTasks<T extends User$maintenanceTasksArgs<ExtArgs> = {}>(args?: Subset<T, User$maintenanceTasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    workLogs<T extends User$workLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$workLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6803,6 +6962,7 @@ export namespace Prisma {
     readonly employeeType: FieldRef<"User", 'EmployeeType'>
     readonly companyId: FieldRef<"User", 'String'>
     readonly serviceStatus: FieldRef<"User", 'ServiceStatus'>
+    readonly hourlyRate: FieldRef<"User", 'Decimal'>
     readonly calenderEntityId: FieldRef<"User", 'String'>
     readonly costCenterId: FieldRef<"User", 'String'>
   }
@@ -7474,6 +7634,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.workLogs
+   */
+  export type User$workLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorkLog
+     */
+    select?: WorkLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkLog
+     */
+    omit?: WorkLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WorkLogInclude<ExtArgs> | null
+    where?: WorkLogWhereInput
+    orderBy?: WorkLogOrderByWithRelationInput | WorkLogOrderByWithRelationInput[]
+    cursor?: WorkLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WorkLogScalarFieldEnum | WorkLogScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7489,6 +7673,1192 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model WorkLog
+   */
+
+  export type AggregateWorkLog = {
+    _count: WorkLogCountAggregateOutputType | null
+    _avg: WorkLogAvgAggregateOutputType | null
+    _sum: WorkLogSumAggregateOutputType | null
+    _min: WorkLogMinAggregateOutputType | null
+    _max: WorkLogMaxAggregateOutputType | null
+  }
+
+  export type WorkLogAvgAggregateOutputType = {
+    durationInMinutes: Decimal | null
+    currentRate: Decimal | null
+    totalCost: Decimal | null
+  }
+
+  export type WorkLogSumAggregateOutputType = {
+    durationInMinutes: Decimal | null
+    currentRate: Decimal | null
+    totalCost: Decimal | null
+  }
+
+  export type WorkLogMinAggregateOutputType = {
+    id: string | null
+    description: string | null
+    technicianId: string | null
+    maintenanceId: string | null
+    startTime: Date | null
+    endTime: Date | null
+    durationInMinutes: Decimal | null
+    currentRate: Decimal | null
+    totalCost: Decimal | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type WorkLogMaxAggregateOutputType = {
+    id: string | null
+    description: string | null
+    technicianId: string | null
+    maintenanceId: string | null
+    startTime: Date | null
+    endTime: Date | null
+    durationInMinutes: Decimal | null
+    currentRate: Decimal | null
+    totalCost: Decimal | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type WorkLogCountAggregateOutputType = {
+    id: number
+    description: number
+    technicianId: number
+    maintenanceId: number
+    startTime: number
+    endTime: number
+    durationInMinutes: number
+    currentRate: number
+    totalCost: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type WorkLogAvgAggregateInputType = {
+    durationInMinutes?: true
+    currentRate?: true
+    totalCost?: true
+  }
+
+  export type WorkLogSumAggregateInputType = {
+    durationInMinutes?: true
+    currentRate?: true
+    totalCost?: true
+  }
+
+  export type WorkLogMinAggregateInputType = {
+    id?: true
+    description?: true
+    technicianId?: true
+    maintenanceId?: true
+    startTime?: true
+    endTime?: true
+    durationInMinutes?: true
+    currentRate?: true
+    totalCost?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type WorkLogMaxAggregateInputType = {
+    id?: true
+    description?: true
+    technicianId?: true
+    maintenanceId?: true
+    startTime?: true
+    endTime?: true
+    durationInMinutes?: true
+    currentRate?: true
+    totalCost?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type WorkLogCountAggregateInputType = {
+    id?: true
+    description?: true
+    technicianId?: true
+    maintenanceId?: true
+    startTime?: true
+    endTime?: true
+    durationInMinutes?: true
+    currentRate?: true
+    totalCost?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type WorkLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WorkLog to aggregate.
+     */
+    where?: WorkLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WorkLogs to fetch.
+     */
+    orderBy?: WorkLogOrderByWithRelationInput | WorkLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: WorkLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WorkLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WorkLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned WorkLogs
+    **/
+    _count?: true | WorkLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: WorkLogAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: WorkLogSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: WorkLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: WorkLogMaxAggregateInputType
+  }
+
+  export type GetWorkLogAggregateType<T extends WorkLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateWorkLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateWorkLog[P]>
+      : GetScalarType<T[P], AggregateWorkLog[P]>
+  }
+
+
+
+
+  export type WorkLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WorkLogWhereInput
+    orderBy?: WorkLogOrderByWithAggregationInput | WorkLogOrderByWithAggregationInput[]
+    by: WorkLogScalarFieldEnum[] | WorkLogScalarFieldEnum
+    having?: WorkLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: WorkLogCountAggregateInputType | true
+    _avg?: WorkLogAvgAggregateInputType
+    _sum?: WorkLogSumAggregateInputType
+    _min?: WorkLogMinAggregateInputType
+    _max?: WorkLogMaxAggregateInputType
+  }
+
+  export type WorkLogGroupByOutputType = {
+    id: string
+    description: string | null
+    technicianId: string
+    maintenanceId: string
+    startTime: Date
+    endTime: Date
+    durationInMinutes: Decimal
+    currentRate: Decimal
+    totalCost: Decimal
+    createdAt: Date
+    updatedAt: Date
+    _count: WorkLogCountAggregateOutputType | null
+    _avg: WorkLogAvgAggregateOutputType | null
+    _sum: WorkLogSumAggregateOutputType | null
+    _min: WorkLogMinAggregateOutputType | null
+    _max: WorkLogMaxAggregateOutputType | null
+  }
+
+  type GetWorkLogGroupByPayload<T extends WorkLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<WorkLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof WorkLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], WorkLogGroupByOutputType[P]>
+            : GetScalarType<T[P], WorkLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type WorkLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    description?: boolean
+    technicianId?: boolean
+    maintenanceId?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    durationInMinutes?: boolean
+    currentRate?: boolean
+    totalCost?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    technician?: boolean | UserDefaultArgs<ExtArgs>
+    maintenance?: boolean | MaintenanceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["workLog"]>
+
+  export type WorkLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    description?: boolean
+    technicianId?: boolean
+    maintenanceId?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    durationInMinutes?: boolean
+    currentRate?: boolean
+    totalCost?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    technician?: boolean | UserDefaultArgs<ExtArgs>
+    maintenance?: boolean | MaintenanceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["workLog"]>
+
+  export type WorkLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    description?: boolean
+    technicianId?: boolean
+    maintenanceId?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    durationInMinutes?: boolean
+    currentRate?: boolean
+    totalCost?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    technician?: boolean | UserDefaultArgs<ExtArgs>
+    maintenance?: boolean | MaintenanceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["workLog"]>
+
+  export type WorkLogSelectScalar = {
+    id?: boolean
+    description?: boolean
+    technicianId?: boolean
+    maintenanceId?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    durationInMinutes?: boolean
+    currentRate?: boolean
+    totalCost?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type WorkLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "description" | "technicianId" | "maintenanceId" | "startTime" | "endTime" | "durationInMinutes" | "currentRate" | "totalCost" | "createdAt" | "updatedAt", ExtArgs["result"]["workLog"]>
+  export type WorkLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    technician?: boolean | UserDefaultArgs<ExtArgs>
+    maintenance?: boolean | MaintenanceDefaultArgs<ExtArgs>
+  }
+  export type WorkLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    technician?: boolean | UserDefaultArgs<ExtArgs>
+    maintenance?: boolean | MaintenanceDefaultArgs<ExtArgs>
+  }
+  export type WorkLogIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    technician?: boolean | UserDefaultArgs<ExtArgs>
+    maintenance?: boolean | MaintenanceDefaultArgs<ExtArgs>
+  }
+
+  export type $WorkLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "WorkLog"
+    objects: {
+      technician: Prisma.$UserPayload<ExtArgs>
+      maintenance: Prisma.$MaintenancePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      description: string | null
+      technicianId: string
+      maintenanceId: string
+      startTime: Date
+      endTime: Date
+      durationInMinutes: Prisma.Decimal
+      currentRate: Prisma.Decimal
+      totalCost: Prisma.Decimal
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["workLog"]>
+    composites: {}
+  }
+
+  type WorkLogGetPayload<S extends boolean | null | undefined | WorkLogDefaultArgs> = $Result.GetResult<Prisma.$WorkLogPayload, S>
+
+  type WorkLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<WorkLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: WorkLogCountAggregateInputType | true
+    }
+
+  export interface WorkLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['WorkLog'], meta: { name: 'WorkLog' } }
+    /**
+     * Find zero or one WorkLog that matches the filter.
+     * @param {WorkLogFindUniqueArgs} args - Arguments to find a WorkLog
+     * @example
+     * // Get one WorkLog
+     * const workLog = await prisma.workLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends WorkLogFindUniqueArgs>(args: SelectSubset<T, WorkLogFindUniqueArgs<ExtArgs>>): Prisma__WorkLogClient<$Result.GetResult<Prisma.$WorkLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one WorkLog that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {WorkLogFindUniqueOrThrowArgs} args - Arguments to find a WorkLog
+     * @example
+     * // Get one WorkLog
+     * const workLog = await prisma.workLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends WorkLogFindUniqueOrThrowArgs>(args: SelectSubset<T, WorkLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WorkLogClient<$Result.GetResult<Prisma.$WorkLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WorkLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WorkLogFindFirstArgs} args - Arguments to find a WorkLog
+     * @example
+     * // Get one WorkLog
+     * const workLog = await prisma.workLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends WorkLogFindFirstArgs>(args?: SelectSubset<T, WorkLogFindFirstArgs<ExtArgs>>): Prisma__WorkLogClient<$Result.GetResult<Prisma.$WorkLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WorkLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WorkLogFindFirstOrThrowArgs} args - Arguments to find a WorkLog
+     * @example
+     * // Get one WorkLog
+     * const workLog = await prisma.workLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends WorkLogFindFirstOrThrowArgs>(args?: SelectSubset<T, WorkLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__WorkLogClient<$Result.GetResult<Prisma.$WorkLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more WorkLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WorkLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all WorkLogs
+     * const workLogs = await prisma.workLog.findMany()
+     * 
+     * // Get first 10 WorkLogs
+     * const workLogs = await prisma.workLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const workLogWithIdOnly = await prisma.workLog.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends WorkLogFindManyArgs>(args?: SelectSubset<T, WorkLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a WorkLog.
+     * @param {WorkLogCreateArgs} args - Arguments to create a WorkLog.
+     * @example
+     * // Create one WorkLog
+     * const WorkLog = await prisma.workLog.create({
+     *   data: {
+     *     // ... data to create a WorkLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends WorkLogCreateArgs>(args: SelectSubset<T, WorkLogCreateArgs<ExtArgs>>): Prisma__WorkLogClient<$Result.GetResult<Prisma.$WorkLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many WorkLogs.
+     * @param {WorkLogCreateManyArgs} args - Arguments to create many WorkLogs.
+     * @example
+     * // Create many WorkLogs
+     * const workLog = await prisma.workLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends WorkLogCreateManyArgs>(args?: SelectSubset<T, WorkLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many WorkLogs and returns the data saved in the database.
+     * @param {WorkLogCreateManyAndReturnArgs} args - Arguments to create many WorkLogs.
+     * @example
+     * // Create many WorkLogs
+     * const workLog = await prisma.workLog.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many WorkLogs and only return the `id`
+     * const workLogWithIdOnly = await prisma.workLog.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends WorkLogCreateManyAndReturnArgs>(args?: SelectSubset<T, WorkLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkLogPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a WorkLog.
+     * @param {WorkLogDeleteArgs} args - Arguments to delete one WorkLog.
+     * @example
+     * // Delete one WorkLog
+     * const WorkLog = await prisma.workLog.delete({
+     *   where: {
+     *     // ... filter to delete one WorkLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends WorkLogDeleteArgs>(args: SelectSubset<T, WorkLogDeleteArgs<ExtArgs>>): Prisma__WorkLogClient<$Result.GetResult<Prisma.$WorkLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one WorkLog.
+     * @param {WorkLogUpdateArgs} args - Arguments to update one WorkLog.
+     * @example
+     * // Update one WorkLog
+     * const workLog = await prisma.workLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends WorkLogUpdateArgs>(args: SelectSubset<T, WorkLogUpdateArgs<ExtArgs>>): Prisma__WorkLogClient<$Result.GetResult<Prisma.$WorkLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more WorkLogs.
+     * @param {WorkLogDeleteManyArgs} args - Arguments to filter WorkLogs to delete.
+     * @example
+     * // Delete a few WorkLogs
+     * const { count } = await prisma.workLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends WorkLogDeleteManyArgs>(args?: SelectSubset<T, WorkLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WorkLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WorkLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many WorkLogs
+     * const workLog = await prisma.workLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends WorkLogUpdateManyArgs>(args: SelectSubset<T, WorkLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WorkLogs and returns the data updated in the database.
+     * @param {WorkLogUpdateManyAndReturnArgs} args - Arguments to update many WorkLogs.
+     * @example
+     * // Update many WorkLogs
+     * const workLog = await prisma.workLog.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more WorkLogs and only return the `id`
+     * const workLogWithIdOnly = await prisma.workLog.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends WorkLogUpdateManyAndReturnArgs>(args: SelectSubset<T, WorkLogUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkLogPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one WorkLog.
+     * @param {WorkLogUpsertArgs} args - Arguments to update or create a WorkLog.
+     * @example
+     * // Update or create a WorkLog
+     * const workLog = await prisma.workLog.upsert({
+     *   create: {
+     *     // ... data to create a WorkLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the WorkLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends WorkLogUpsertArgs>(args: SelectSubset<T, WorkLogUpsertArgs<ExtArgs>>): Prisma__WorkLogClient<$Result.GetResult<Prisma.$WorkLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of WorkLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WorkLogCountArgs} args - Arguments to filter WorkLogs to count.
+     * @example
+     * // Count the number of WorkLogs
+     * const count = await prisma.workLog.count({
+     *   where: {
+     *     // ... the filter for the WorkLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends WorkLogCountArgs>(
+      args?: Subset<T, WorkLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], WorkLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a WorkLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WorkLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends WorkLogAggregateArgs>(args: Subset<T, WorkLogAggregateArgs>): Prisma.PrismaPromise<GetWorkLogAggregateType<T>>
+
+    /**
+     * Group by WorkLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WorkLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends WorkLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: WorkLogGroupByArgs['orderBy'] }
+        : { orderBy?: WorkLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, WorkLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWorkLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the WorkLog model
+   */
+  readonly fields: WorkLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for WorkLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__WorkLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    technician<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    maintenance<T extends MaintenanceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MaintenanceDefaultArgs<ExtArgs>>): Prisma__MaintenanceClient<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the WorkLog model
+   */
+  interface WorkLogFieldRefs {
+    readonly id: FieldRef<"WorkLog", 'String'>
+    readonly description: FieldRef<"WorkLog", 'String'>
+    readonly technicianId: FieldRef<"WorkLog", 'String'>
+    readonly maintenanceId: FieldRef<"WorkLog", 'String'>
+    readonly startTime: FieldRef<"WorkLog", 'DateTime'>
+    readonly endTime: FieldRef<"WorkLog", 'DateTime'>
+    readonly durationInMinutes: FieldRef<"WorkLog", 'Decimal'>
+    readonly currentRate: FieldRef<"WorkLog", 'Decimal'>
+    readonly totalCost: FieldRef<"WorkLog", 'Decimal'>
+    readonly createdAt: FieldRef<"WorkLog", 'DateTime'>
+    readonly updatedAt: FieldRef<"WorkLog", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * WorkLog findUnique
+   */
+  export type WorkLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorkLog
+     */
+    select?: WorkLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkLog
+     */
+    omit?: WorkLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WorkLogInclude<ExtArgs> | null
+    /**
+     * Filter, which WorkLog to fetch.
+     */
+    where: WorkLogWhereUniqueInput
+  }
+
+  /**
+   * WorkLog findUniqueOrThrow
+   */
+  export type WorkLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorkLog
+     */
+    select?: WorkLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkLog
+     */
+    omit?: WorkLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WorkLogInclude<ExtArgs> | null
+    /**
+     * Filter, which WorkLog to fetch.
+     */
+    where: WorkLogWhereUniqueInput
+  }
+
+  /**
+   * WorkLog findFirst
+   */
+  export type WorkLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorkLog
+     */
+    select?: WorkLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkLog
+     */
+    omit?: WorkLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WorkLogInclude<ExtArgs> | null
+    /**
+     * Filter, which WorkLog to fetch.
+     */
+    where?: WorkLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WorkLogs to fetch.
+     */
+    orderBy?: WorkLogOrderByWithRelationInput | WorkLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WorkLogs.
+     */
+    cursor?: WorkLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WorkLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WorkLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WorkLogs.
+     */
+    distinct?: WorkLogScalarFieldEnum | WorkLogScalarFieldEnum[]
+  }
+
+  /**
+   * WorkLog findFirstOrThrow
+   */
+  export type WorkLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorkLog
+     */
+    select?: WorkLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkLog
+     */
+    omit?: WorkLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WorkLogInclude<ExtArgs> | null
+    /**
+     * Filter, which WorkLog to fetch.
+     */
+    where?: WorkLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WorkLogs to fetch.
+     */
+    orderBy?: WorkLogOrderByWithRelationInput | WorkLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WorkLogs.
+     */
+    cursor?: WorkLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WorkLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WorkLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WorkLogs.
+     */
+    distinct?: WorkLogScalarFieldEnum | WorkLogScalarFieldEnum[]
+  }
+
+  /**
+   * WorkLog findMany
+   */
+  export type WorkLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorkLog
+     */
+    select?: WorkLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkLog
+     */
+    omit?: WorkLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WorkLogInclude<ExtArgs> | null
+    /**
+     * Filter, which WorkLogs to fetch.
+     */
+    where?: WorkLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WorkLogs to fetch.
+     */
+    orderBy?: WorkLogOrderByWithRelationInput | WorkLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing WorkLogs.
+     */
+    cursor?: WorkLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WorkLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WorkLogs.
+     */
+    skip?: number
+    distinct?: WorkLogScalarFieldEnum | WorkLogScalarFieldEnum[]
+  }
+
+  /**
+   * WorkLog create
+   */
+  export type WorkLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorkLog
+     */
+    select?: WorkLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkLog
+     */
+    omit?: WorkLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WorkLogInclude<ExtArgs> | null
+    /**
+     * The data needed to create a WorkLog.
+     */
+    data: XOR<WorkLogCreateInput, WorkLogUncheckedCreateInput>
+  }
+
+  /**
+   * WorkLog createMany
+   */
+  export type WorkLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many WorkLogs.
+     */
+    data: WorkLogCreateManyInput | WorkLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * WorkLog createManyAndReturn
+   */
+  export type WorkLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorkLog
+     */
+    select?: WorkLogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkLog
+     */
+    omit?: WorkLogOmit<ExtArgs> | null
+    /**
+     * The data used to create many WorkLogs.
+     */
+    data: WorkLogCreateManyInput | WorkLogCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WorkLogIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * WorkLog update
+   */
+  export type WorkLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorkLog
+     */
+    select?: WorkLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkLog
+     */
+    omit?: WorkLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WorkLogInclude<ExtArgs> | null
+    /**
+     * The data needed to update a WorkLog.
+     */
+    data: XOR<WorkLogUpdateInput, WorkLogUncheckedUpdateInput>
+    /**
+     * Choose, which WorkLog to update.
+     */
+    where: WorkLogWhereUniqueInput
+  }
+
+  /**
+   * WorkLog updateMany
+   */
+  export type WorkLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update WorkLogs.
+     */
+    data: XOR<WorkLogUpdateManyMutationInput, WorkLogUncheckedUpdateManyInput>
+    /**
+     * Filter which WorkLogs to update
+     */
+    where?: WorkLogWhereInput
+    /**
+     * Limit how many WorkLogs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * WorkLog updateManyAndReturn
+   */
+  export type WorkLogUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorkLog
+     */
+    select?: WorkLogSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkLog
+     */
+    omit?: WorkLogOmit<ExtArgs> | null
+    /**
+     * The data used to update WorkLogs.
+     */
+    data: XOR<WorkLogUpdateManyMutationInput, WorkLogUncheckedUpdateManyInput>
+    /**
+     * Filter which WorkLogs to update
+     */
+    where?: WorkLogWhereInput
+    /**
+     * Limit how many WorkLogs to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WorkLogIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * WorkLog upsert
+   */
+  export type WorkLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorkLog
+     */
+    select?: WorkLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkLog
+     */
+    omit?: WorkLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WorkLogInclude<ExtArgs> | null
+    /**
+     * The filter to search for the WorkLog to update in case it exists.
+     */
+    where: WorkLogWhereUniqueInput
+    /**
+     * In case the WorkLog found by the `where` argument doesn't exist, create a new WorkLog with this data.
+     */
+    create: XOR<WorkLogCreateInput, WorkLogUncheckedCreateInput>
+    /**
+     * In case the WorkLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<WorkLogUpdateInput, WorkLogUncheckedUpdateInput>
+  }
+
+  /**
+   * WorkLog delete
+   */
+  export type WorkLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorkLog
+     */
+    select?: WorkLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkLog
+     */
+    omit?: WorkLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WorkLogInclude<ExtArgs> | null
+    /**
+     * Filter which WorkLog to delete.
+     */
+    where: WorkLogWhereUniqueInput
+  }
+
+  /**
+   * WorkLog deleteMany
+   */
+  export type WorkLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WorkLogs to delete
+     */
+    where?: WorkLogWhereInput
+    /**
+     * Limit how many WorkLogs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * WorkLog without action
+   */
+  export type WorkLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorkLog
+     */
+    select?: WorkLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkLog
+     */
+    omit?: WorkLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WorkLogInclude<ExtArgs> | null
   }
 
 
@@ -28748,6 +30118,7 @@ export namespace Prisma {
     ttSysSuspension: Decimal | null
     ttWorkSuspension: Decimal | null
     ttEstimate: Decimal | null
+    ttLaborCost: Decimal | null
   }
 
   export type MaintenanceSumAggregateOutputType = {
@@ -28763,6 +30134,7 @@ export namespace Prisma {
     ttSysSuspension: Decimal | null
     ttWorkSuspension: Decimal | null
     ttEstimate: Decimal | null
+    ttLaborCost: Decimal | null
   }
 
   export type MaintenanceMinAggregateOutputType = {
@@ -28818,6 +30190,7 @@ export namespace Prisma {
     ttSysSuspension: Decimal | null
     ttWorkSuspension: Decimal | null
     ttEstimate: Decimal | null
+    ttLaborCost: Decimal | null
     prevMaintenanceConfigId: string | null
     automaticConfig: boolean | null
     jointAccounting: boolean | null
@@ -28883,6 +30256,7 @@ export namespace Prisma {
     ttSysSuspension: Decimal | null
     ttWorkSuspension: Decimal | null
     ttEstimate: Decimal | null
+    ttLaborCost: Decimal | null
     prevMaintenanceConfigId: string | null
     automaticConfig: boolean | null
     jointAccounting: boolean | null
@@ -28949,6 +30323,7 @@ export namespace Prisma {
     ttSysSuspension: number
     ttWorkSuspension: number
     ttEstimate: number
+    ttLaborCost: number
     prevMaintenanceConfigId: number
     automaticConfig: number
     jointAccounting: number
@@ -28976,6 +30351,7 @@ export namespace Prisma {
     ttSysSuspension?: true
     ttWorkSuspension?: true
     ttEstimate?: true
+    ttLaborCost?: true
   }
 
   export type MaintenanceSumAggregateInputType = {
@@ -28991,6 +30367,7 @@ export namespace Prisma {
     ttSysSuspension?: true
     ttWorkSuspension?: true
     ttEstimate?: true
+    ttLaborCost?: true
   }
 
   export type MaintenanceMinAggregateInputType = {
@@ -29046,6 +30423,7 @@ export namespace Prisma {
     ttSysSuspension?: true
     ttWorkSuspension?: true
     ttEstimate?: true
+    ttLaborCost?: true
     prevMaintenanceConfigId?: true
     automaticConfig?: true
     jointAccounting?: true
@@ -29111,6 +30489,7 @@ export namespace Prisma {
     ttSysSuspension?: true
     ttWorkSuspension?: true
     ttEstimate?: true
+    ttLaborCost?: true
     prevMaintenanceConfigId?: true
     automaticConfig?: true
     jointAccounting?: true
@@ -29177,6 +30556,7 @@ export namespace Prisma {
     ttSysSuspension?: true
     ttWorkSuspension?: true
     ttEstimate?: true
+    ttLaborCost?: true
     prevMaintenanceConfigId?: true
     automaticConfig?: true
     jointAccounting?: true
@@ -29330,6 +30710,7 @@ export namespace Prisma {
     ttSysSuspension: Decimal | null
     ttWorkSuspension: Decimal | null
     ttEstimate: Decimal | null
+    ttLaborCost: Decimal | null
     prevMaintenanceConfigId: string | null
     automaticConfig: boolean
     jointAccounting: boolean
@@ -29415,6 +30796,7 @@ export namespace Prisma {
     ttSysSuspension?: boolean
     ttWorkSuspension?: boolean
     ttEstimate?: boolean
+    ttLaborCost?: boolean
     prevMaintenanceConfigId?: boolean
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -29439,6 +30821,7 @@ export namespace Prisma {
     photos?: boolean | Maintenance$photosArgs<ExtArgs>
     maintenanceItems?: boolean | Maintenance$maintenanceItemsArgs<ExtArgs>
     maintenanceTasks?: boolean | Maintenance$maintenanceTasksArgs<ExtArgs>
+    workLogs?: boolean | Maintenance$workLogsArgs<ExtArgs>
     _count?: boolean | MaintenanceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["maintenance"]>
 
@@ -29496,6 +30879,7 @@ export namespace Prisma {
     ttSysSuspension?: boolean
     ttWorkSuspension?: boolean
     ttEstimate?: boolean
+    ttLaborCost?: boolean
     prevMaintenanceConfigId?: boolean
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -29573,6 +30957,7 @@ export namespace Prisma {
     ttSysSuspension?: boolean
     ttWorkSuspension?: boolean
     ttEstimate?: boolean
+    ttLaborCost?: boolean
     prevMaintenanceConfigId?: boolean
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -29650,6 +31035,7 @@ export namespace Prisma {
     ttSysSuspension?: boolean
     ttWorkSuspension?: boolean
     ttEstimate?: boolean
+    ttLaborCost?: boolean
     prevMaintenanceConfigId?: boolean
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -29662,7 +31048,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type MaintenanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "code" | "description" | "startDate" | "endDate" | "shortDescription" | "action" | "message" | "processNotes" | "metadata" | "performerId" | "performerReference" | "processStatus" | "register" | "activityIdTimer" | "activityStartTime" | "activityEndTime" | "allDeadlines" | "processType" | "ttSysRunning" | "ttWorkRunning" | "sorting" | "requesterId" | "priority" | "siteId" | "costCenterId" | "outcome" | "dueAssignedEnd" | "execStart" | "dueExecEndDate" | "execEndDate" | "dueClosureDate" | "totalExecTime" | "expStartDate" | "suspensionReason" | "category" | "subCategory" | "companyId" | "buildingId" | "teamId" | "floorId" | "zoneId" | "spaceId" | "ttSystemOpening" | "ttWorkOpening" | "ttSystemAssignment" | "ttWorkAssignment" | "ttSystemExecution" | "ttWorkExecution" | "ttSysSuspension" | "ttWorkSuspension" | "ttEstimate" | "prevMaintenanceConfigId" | "automaticConfig" | "jointAccounting" | "hasTasks" | "estimateStatus" | "delayNotification" | "assigneeId" | "assetId" | "createdAt" | "updatedAt", ExtArgs["result"]["maintenance"]>
+  export type MaintenanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "code" | "description" | "startDate" | "endDate" | "shortDescription" | "action" | "message" | "processNotes" | "metadata" | "performerId" | "performerReference" | "processStatus" | "register" | "activityIdTimer" | "activityStartTime" | "activityEndTime" | "allDeadlines" | "processType" | "ttSysRunning" | "ttWorkRunning" | "sorting" | "requesterId" | "priority" | "siteId" | "costCenterId" | "outcome" | "dueAssignedEnd" | "execStart" | "dueExecEndDate" | "execEndDate" | "dueClosureDate" | "totalExecTime" | "expStartDate" | "suspensionReason" | "category" | "subCategory" | "companyId" | "buildingId" | "teamId" | "floorId" | "zoneId" | "spaceId" | "ttSystemOpening" | "ttWorkOpening" | "ttSystemAssignment" | "ttWorkAssignment" | "ttSystemExecution" | "ttWorkExecution" | "ttSysSuspension" | "ttWorkSuspension" | "ttEstimate" | "ttLaborCost" | "prevMaintenanceConfigId" | "automaticConfig" | "jointAccounting" | "hasTasks" | "estimateStatus" | "delayNotification" | "assigneeId" | "assetId" | "createdAt" | "updatedAt", ExtArgs["result"]["maintenance"]>
   export type MaintenanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     requester?: boolean | Maintenance$requesterArgs<ExtArgs>
     site?: boolean | ComplexDefaultArgs<ExtArgs>
@@ -29678,6 +31064,7 @@ export namespace Prisma {
     photos?: boolean | Maintenance$photosArgs<ExtArgs>
     maintenanceItems?: boolean | Maintenance$maintenanceItemsArgs<ExtArgs>
     maintenanceTasks?: boolean | Maintenance$maintenanceTasksArgs<ExtArgs>
+    workLogs?: boolean | Maintenance$workLogsArgs<ExtArgs>
     _count?: boolean | MaintenanceCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MaintenanceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -29724,6 +31111,7 @@ export namespace Prisma {
       photos: Prisma.$FilePayload<ExtArgs>[]
       maintenanceItems: Prisma.$MaintenanceItemPayload<ExtArgs>[]
       maintenanceTasks: Prisma.$MaintenanceTaskPayload<ExtArgs>[]
+      workLogs: Prisma.$WorkLogPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -29779,6 +31167,7 @@ export namespace Prisma {
       ttSysSuspension: Prisma.Decimal | null
       ttWorkSuspension: Prisma.Decimal | null
       ttEstimate: Prisma.Decimal | null
+      ttLaborCost: Prisma.Decimal | null
       prevMaintenanceConfigId: string | null
       automaticConfig: boolean
       jointAccounting: boolean
@@ -30197,6 +31586,7 @@ export namespace Prisma {
     photos<T extends Maintenance$photosArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$photosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     maintenanceItems<T extends Maintenance$maintenanceItemsArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$maintenanceItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     maintenanceTasks<T extends Maintenance$maintenanceTasksArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$maintenanceTasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    workLogs<T extends Maintenance$workLogsArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$workLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -30279,6 +31669,7 @@ export namespace Prisma {
     readonly ttSysSuspension: FieldRef<"Maintenance", 'Decimal'>
     readonly ttWorkSuspension: FieldRef<"Maintenance", 'Decimal'>
     readonly ttEstimate: FieldRef<"Maintenance", 'Decimal'>
+    readonly ttLaborCost: FieldRef<"Maintenance", 'Decimal'>
     readonly prevMaintenanceConfigId: FieldRef<"Maintenance", 'String'>
     readonly automaticConfig: FieldRef<"Maintenance", 'Boolean'>
     readonly jointAccounting: FieldRef<"Maintenance", 'Boolean'>
@@ -30944,6 +32335,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MaintenanceTaskScalarFieldEnum | MaintenanceTaskScalarFieldEnum[]
+  }
+
+  /**
+   * Maintenance.workLogs
+   */
+  export type Maintenance$workLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorkLog
+     */
+    select?: WorkLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkLog
+     */
+    omit?: WorkLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WorkLogInclude<ExtArgs> | null
+    where?: WorkLogWhereInput
+    orderBy?: WorkLogOrderByWithRelationInput | WorkLogOrderByWithRelationInput[]
+    cursor?: WorkLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WorkLogScalarFieldEnum | WorkLogScalarFieldEnum[]
   }
 
   /**
@@ -53382,11 +54797,29 @@ export namespace Prisma {
     employeeType: 'employeeType',
     companyId: 'companyId',
     serviceStatus: 'serviceStatus',
+    hourlyRate: 'hourlyRate',
     calenderEntityId: 'calenderEntityId',
     costCenterId: 'costCenterId'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const WorkLogScalarFieldEnum: {
+    id: 'id',
+    description: 'description',
+    technicianId: 'technicianId',
+    maintenanceId: 'maintenanceId',
+    startTime: 'startTime',
+    endTime: 'endTime',
+    durationInMinutes: 'durationInMinutes',
+    currentRate: 'currentRate',
+    totalCost: 'totalCost',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type WorkLogScalarFieldEnum = (typeof WorkLogScalarFieldEnum)[keyof typeof WorkLogScalarFieldEnum]
 
 
   export const RoleScalarFieldEnum: {
@@ -53735,6 +55168,7 @@ export namespace Prisma {
     ttSysSuspension: 'ttSysSuspension',
     ttWorkSuspension: 'ttWorkSuspension',
     ttEstimate: 'ttEstimate',
+    ttLaborCost: 'ttLaborCost',
     prevMaintenanceConfigId: 'prevMaintenanceConfigId',
     automaticConfig: 'automaticConfig',
     jointAccounting: 'jointAccounting',
@@ -54131,6 +55565,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Decimal'
+   */
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal[]'
+   */
+  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
@@ -54232,20 +55680,6 @@ export namespace Prisma {
    * Reference to a field of type 'MainUse[]'
    */
   export type ListEnumMainUseFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MainUse[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Decimal'
-   */
-  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
-    
-
-
-  /**
-   * Reference to a field of type 'Decimal[]'
-   */
-  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
     
 
 
@@ -54524,6 +55958,7 @@ export namespace Prisma {
     employeeType?: EnumEmployeeTypeNullableFilter<"User"> | $Enums.EmployeeType | null
     companyId?: StringNullableFilter<"User"> | string | null
     serviceStatus?: EnumServiceStatusFilter<"User"> | $Enums.ServiceStatus
+    hourlyRate?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
     calenderEntityId?: StringNullableFilter<"User"> | string | null
     costCenterId?: StringNullableFilter<"User"> | string | null
     refreshTokens?: RefreshTokenListRelationFilter
@@ -54539,6 +55974,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestListRelationFilter
     goodsReceipts?: GoodsReceiptListRelationFilter
     maintenanceTasks?: MaintenanceTaskListRelationFilter
+    workLogs?: WorkLogListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -54558,6 +55994,7 @@ export namespace Prisma {
     employeeType?: SortOrderInput | SortOrder
     companyId?: SortOrderInput | SortOrder
     serviceStatus?: SortOrder
+    hourlyRate?: SortOrder
     calenderEntityId?: SortOrderInput | SortOrder
     costCenterId?: SortOrderInput | SortOrder
     refreshTokens?: RefreshTokenOrderByRelationAggregateInput
@@ -54573,6 +56010,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestOrderByRelationAggregateInput
     goodsReceipts?: GoodsReceiptOrderByRelationAggregateInput
     maintenanceTasks?: MaintenanceTaskOrderByRelationAggregateInput
+    workLogs?: WorkLogOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -54595,6 +56033,7 @@ export namespace Prisma {
     employeeType?: EnumEmployeeTypeNullableFilter<"User"> | $Enums.EmployeeType | null
     companyId?: StringNullableFilter<"User"> | string | null
     serviceStatus?: EnumServiceStatusFilter<"User"> | $Enums.ServiceStatus
+    hourlyRate?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
     calenderEntityId?: StringNullableFilter<"User"> | string | null
     costCenterId?: StringNullableFilter<"User"> | string | null
     refreshTokens?: RefreshTokenListRelationFilter
@@ -54610,6 +56049,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestListRelationFilter
     goodsReceipts?: GoodsReceiptListRelationFilter
     maintenanceTasks?: MaintenanceTaskListRelationFilter
+    workLogs?: WorkLogListRelationFilter
   }, "id" | "email" | "employeeCode">
 
   export type UserOrderByWithAggregationInput = {
@@ -54629,11 +56069,14 @@ export namespace Prisma {
     employeeType?: SortOrderInput | SortOrder
     companyId?: SortOrderInput | SortOrder
     serviceStatus?: SortOrder
+    hourlyRate?: SortOrder
     calenderEntityId?: SortOrderInput | SortOrder
     costCenterId?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
+    _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
+    _sum?: UserSumOrderByAggregateInput
   }
 
   export type UserScalarWhereWithAggregatesInput = {
@@ -54656,8 +56099,99 @@ export namespace Prisma {
     employeeType?: EnumEmployeeTypeNullableWithAggregatesFilter<"User"> | $Enums.EmployeeType | null
     companyId?: StringNullableWithAggregatesFilter<"User"> | string | null
     serviceStatus?: EnumServiceStatusWithAggregatesFilter<"User"> | $Enums.ServiceStatus
+    hourlyRate?: DecimalWithAggregatesFilter<"User"> | Decimal | DecimalJsLike | number | string
     calenderEntityId?: StringNullableWithAggregatesFilter<"User"> | string | null
     costCenterId?: StringNullableWithAggregatesFilter<"User"> | string | null
+  }
+
+  export type WorkLogWhereInput = {
+    AND?: WorkLogWhereInput | WorkLogWhereInput[]
+    OR?: WorkLogWhereInput[]
+    NOT?: WorkLogWhereInput | WorkLogWhereInput[]
+    id?: StringFilter<"WorkLog"> | string
+    description?: StringNullableFilter<"WorkLog"> | string | null
+    technicianId?: StringFilter<"WorkLog"> | string
+    maintenanceId?: StringFilter<"WorkLog"> | string
+    startTime?: DateTimeFilter<"WorkLog"> | Date | string
+    endTime?: DateTimeFilter<"WorkLog"> | Date | string
+    durationInMinutes?: DecimalFilter<"WorkLog"> | Decimal | DecimalJsLike | number | string
+    currentRate?: DecimalFilter<"WorkLog"> | Decimal | DecimalJsLike | number | string
+    totalCost?: DecimalFilter<"WorkLog"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFilter<"WorkLog"> | Date | string
+    updatedAt?: DateTimeFilter<"WorkLog"> | Date | string
+    technician?: XOR<UserScalarRelationFilter, UserWhereInput>
+    maintenance?: XOR<MaintenanceScalarRelationFilter, MaintenanceWhereInput>
+  }
+
+  export type WorkLogOrderByWithRelationInput = {
+    id?: SortOrder
+    description?: SortOrderInput | SortOrder
+    technicianId?: SortOrder
+    maintenanceId?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    durationInMinutes?: SortOrder
+    currentRate?: SortOrder
+    totalCost?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    technician?: UserOrderByWithRelationInput
+    maintenance?: MaintenanceOrderByWithRelationInput
+  }
+
+  export type WorkLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: WorkLogWhereInput | WorkLogWhereInput[]
+    OR?: WorkLogWhereInput[]
+    NOT?: WorkLogWhereInput | WorkLogWhereInput[]
+    description?: StringNullableFilter<"WorkLog"> | string | null
+    technicianId?: StringFilter<"WorkLog"> | string
+    maintenanceId?: StringFilter<"WorkLog"> | string
+    startTime?: DateTimeFilter<"WorkLog"> | Date | string
+    endTime?: DateTimeFilter<"WorkLog"> | Date | string
+    durationInMinutes?: DecimalFilter<"WorkLog"> | Decimal | DecimalJsLike | number | string
+    currentRate?: DecimalFilter<"WorkLog"> | Decimal | DecimalJsLike | number | string
+    totalCost?: DecimalFilter<"WorkLog"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFilter<"WorkLog"> | Date | string
+    updatedAt?: DateTimeFilter<"WorkLog"> | Date | string
+    technician?: XOR<UserScalarRelationFilter, UserWhereInput>
+    maintenance?: XOR<MaintenanceScalarRelationFilter, MaintenanceWhereInput>
+  }, "id">
+
+  export type WorkLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    description?: SortOrderInput | SortOrder
+    technicianId?: SortOrder
+    maintenanceId?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    durationInMinutes?: SortOrder
+    currentRate?: SortOrder
+    totalCost?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: WorkLogCountOrderByAggregateInput
+    _avg?: WorkLogAvgOrderByAggregateInput
+    _max?: WorkLogMaxOrderByAggregateInput
+    _min?: WorkLogMinOrderByAggregateInput
+    _sum?: WorkLogSumOrderByAggregateInput
+  }
+
+  export type WorkLogScalarWhereWithAggregatesInput = {
+    AND?: WorkLogScalarWhereWithAggregatesInput | WorkLogScalarWhereWithAggregatesInput[]
+    OR?: WorkLogScalarWhereWithAggregatesInput[]
+    NOT?: WorkLogScalarWhereWithAggregatesInput | WorkLogScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"WorkLog"> | string
+    description?: StringNullableWithAggregatesFilter<"WorkLog"> | string | null
+    technicianId?: StringWithAggregatesFilter<"WorkLog"> | string
+    maintenanceId?: StringWithAggregatesFilter<"WorkLog"> | string
+    startTime?: DateTimeWithAggregatesFilter<"WorkLog"> | Date | string
+    endTime?: DateTimeWithAggregatesFilter<"WorkLog"> | Date | string
+    durationInMinutes?: DecimalWithAggregatesFilter<"WorkLog"> | Decimal | DecimalJsLike | number | string
+    currentRate?: DecimalWithAggregatesFilter<"WorkLog"> | Decimal | DecimalJsLike | number | string
+    totalCost?: DecimalWithAggregatesFilter<"WorkLog"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeWithAggregatesFilter<"WorkLog"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"WorkLog"> | Date | string
   }
 
   export type RoleWhereInput = {
@@ -56355,6 +57889,7 @@ export namespace Prisma {
     ttSysSuspension?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: StringNullableFilter<"Maintenance"> | string | null
     automaticConfig?: BoolFilter<"Maintenance"> | boolean
     jointAccounting?: BoolFilter<"Maintenance"> | boolean
@@ -56379,6 +57914,7 @@ export namespace Prisma {
     photos?: FileListRelationFilter
     maintenanceItems?: MaintenanceItemListRelationFilter
     maintenanceTasks?: MaintenanceTaskListRelationFilter
+    workLogs?: WorkLogListRelationFilter
   }
 
   export type MaintenanceOrderByWithRelationInput = {
@@ -56435,6 +57971,7 @@ export namespace Prisma {
     ttSysSuspension?: SortOrderInput | SortOrder
     ttWorkSuspension?: SortOrderInput | SortOrder
     ttEstimate?: SortOrderInput | SortOrder
+    ttLaborCost?: SortOrderInput | SortOrder
     prevMaintenanceConfigId?: SortOrderInput | SortOrder
     automaticConfig?: SortOrder
     jointAccounting?: SortOrder
@@ -56459,6 +57996,7 @@ export namespace Prisma {
     photos?: FileOrderByRelationAggregateInput
     maintenanceItems?: MaintenanceItemOrderByRelationAggregateInput
     maintenanceTasks?: MaintenanceTaskOrderByRelationAggregateInput
+    workLogs?: WorkLogOrderByRelationAggregateInput
   }
 
   export type MaintenanceWhereUniqueInput = Prisma.AtLeast<{
@@ -56518,6 +58056,7 @@ export namespace Prisma {
     ttSysSuspension?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: StringNullableFilter<"Maintenance"> | string | null
     automaticConfig?: BoolFilter<"Maintenance"> | boolean
     jointAccounting?: BoolFilter<"Maintenance"> | boolean
@@ -56542,6 +58081,7 @@ export namespace Prisma {
     photos?: FileListRelationFilter
     maintenanceItems?: MaintenanceItemListRelationFilter
     maintenanceTasks?: MaintenanceTaskListRelationFilter
+    workLogs?: WorkLogListRelationFilter
   }, "id" | "code">
 
   export type MaintenanceOrderByWithAggregationInput = {
@@ -56598,6 +58138,7 @@ export namespace Prisma {
     ttSysSuspension?: SortOrderInput | SortOrder
     ttWorkSuspension?: SortOrderInput | SortOrder
     ttEstimate?: SortOrderInput | SortOrder
+    ttLaborCost?: SortOrderInput | SortOrder
     prevMaintenanceConfigId?: SortOrderInput | SortOrder
     automaticConfig?: SortOrder
     jointAccounting?: SortOrder
@@ -56672,6 +58213,7 @@ export namespace Prisma {
     ttSysSuspension?: DecimalNullableWithAggregatesFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: DecimalNullableWithAggregatesFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: DecimalNullableWithAggregatesFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: DecimalNullableWithAggregatesFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     automaticConfig?: BoolWithAggregatesFilter<"Maintenance"> | boolean
     jointAccounting?: BoolWithAggregatesFilter<"Maintenance"> | boolean
@@ -58185,6 +59727,7 @@ export namespace Prisma {
     employeeCode?: string | null
     employeeType?: $Enums.EmployeeType | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     role: RoleCreateNestedOneWithoutUsersInput
     permissions?: PermissionCreateNestedManyWithoutUserInput
@@ -58198,6 +59741,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -58217,6 +59761,7 @@ export namespace Prisma {
     employeeType?: $Enums.EmployeeType | null
     companyId?: string | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     calenderEntityId?: string | null
     costCenterId?: string | null
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -58228,6 +59773,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserUpdateInput = {
@@ -58245,6 +59791,7 @@ export namespace Prisma {
     employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     role?: RoleUpdateOneRequiredWithoutUsersNestedInput
     permissions?: PermissionUpdateManyWithoutUserNestedInput
@@ -58258,6 +59805,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -58277,6 +59825,7 @@ export namespace Prisma {
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     costCenterId?: NullableStringFieldUpdateOperationsInput | string | null
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -58288,6 +59837,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -58307,6 +59857,7 @@ export namespace Prisma {
     employeeType?: $Enums.EmployeeType | null
     companyId?: string | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     calenderEntityId?: string | null
     costCenterId?: string | null
   }
@@ -58326,6 +59877,7 @@ export namespace Prisma {
     employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -58345,8 +59897,105 @@ export namespace Prisma {
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     costCenterId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type WorkLogCreateInput = {
+    id?: string
+    description?: string | null
+    startTime: Date | string
+    endTime: Date | string
+    durationInMinutes: Decimal | DecimalJsLike | number | string
+    currentRate: Decimal | DecimalJsLike | number | string
+    totalCost: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    technician: UserCreateNestedOneWithoutWorkLogsInput
+    maintenance: MaintenanceCreateNestedOneWithoutWorkLogsInput
+  }
+
+  export type WorkLogUncheckedCreateInput = {
+    id?: string
+    description?: string | null
+    technicianId: string
+    maintenanceId: string
+    startTime: Date | string
+    endTime: Date | string
+    durationInMinutes: Decimal | DecimalJsLike | number | string
+    currentRate: Decimal | DecimalJsLike | number | string
+    totalCost: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WorkLogUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationInMinutes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    technician?: UserUpdateOneRequiredWithoutWorkLogsNestedInput
+    maintenance?: MaintenanceUpdateOneRequiredWithoutWorkLogsNestedInput
+  }
+
+  export type WorkLogUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    technicianId?: StringFieldUpdateOperationsInput | string
+    maintenanceId?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationInMinutes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WorkLogCreateManyInput = {
+    id?: string
+    description?: string | null
+    technicianId: string
+    maintenanceId: string
+    startTime: Date | string
+    endTime: Date | string
+    durationInMinutes: Decimal | DecimalJsLike | number | string
+    currentRate: Decimal | DecimalJsLike | number | string
+    totalCost: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WorkLogUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationInMinutes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WorkLogUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    technicianId?: StringFieldUpdateOperationsInput | string
+    maintenanceId?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationInMinutes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RoleCreateInput = {
@@ -60261,6 +61910,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -60283,6 +61933,7 @@ export namespace Prisma {
     photos?: FileCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateInput = {
@@ -60339,6 +61990,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -60352,6 +62004,7 @@ export namespace Prisma {
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUpdateInput = {
@@ -60399,6 +62052,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -60421,6 +62075,7 @@ export namespace Prisma {
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateInput = {
@@ -60477,6 +62132,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -60490,6 +62146,7 @@ export namespace Prisma {
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceCreateManyInput = {
@@ -60546,6 +62203,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -60603,6 +62261,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -60667,6 +62326,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -62256,6 +63916,17 @@ export namespace Prisma {
     not?: NestedEnumServiceStatusFilter<$PrismaModel> | $Enums.ServiceStatus
   }
 
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
   export type RefreshTokenListRelationFilter = {
     every?: RefreshTokenWhereInput
     some?: RefreshTokenWhereInput
@@ -62318,6 +63989,12 @@ export namespace Prisma {
     none?: MaintenanceTaskWhereInput
   }
 
+  export type WorkLogListRelationFilter = {
+    every?: WorkLogWhereInput
+    some?: WorkLogWhereInput
+    none?: WorkLogWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -62351,6 +64028,10 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type WorkLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
@@ -62368,8 +64049,13 @@ export namespace Prisma {
     employeeType?: SortOrder
     companyId?: SortOrder
     serviceStatus?: SortOrder
+    hourlyRate?: SortOrder
     calenderEntityId?: SortOrder
     costCenterId?: SortOrder
+  }
+
+  export type UserAvgOrderByAggregateInput = {
+    hourlyRate?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -62389,6 +64075,7 @@ export namespace Prisma {
     employeeType?: SortOrder
     companyId?: SortOrder
     serviceStatus?: SortOrder
+    hourlyRate?: SortOrder
     calenderEntityId?: SortOrder
     costCenterId?: SortOrder
   }
@@ -62410,8 +64097,13 @@ export namespace Prisma {
     employeeType?: SortOrder
     companyId?: SortOrder
     serviceStatus?: SortOrder
+    hourlyRate?: SortOrder
     calenderEntityId?: SortOrder
     costCenterId?: SortOrder
+  }
+
+  export type UserSumOrderByAggregateInput = {
+    hourlyRate?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -62506,6 +64198,86 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumServiceStatusFilter<$PrismaModel>
     _max?: NestedEnumServiceStatusFilter<$PrismaModel>
+  }
+
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type MaintenanceScalarRelationFilter = {
+    is?: MaintenanceWhereInput
+    isNot?: MaintenanceWhereInput
+  }
+
+  export type WorkLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    description?: SortOrder
+    technicianId?: SortOrder
+    maintenanceId?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    durationInMinutes?: SortOrder
+    currentRate?: SortOrder
+    totalCost?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WorkLogAvgOrderByAggregateInput = {
+    durationInMinutes?: SortOrder
+    currentRate?: SortOrder
+    totalCost?: SortOrder
+  }
+
+  export type WorkLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    description?: SortOrder
+    technicianId?: SortOrder
+    maintenanceId?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    durationInMinutes?: SortOrder
+    currentRate?: SortOrder
+    totalCost?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WorkLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    description?: SortOrder
+    technicianId?: SortOrder
+    maintenanceId?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    durationInMinutes?: SortOrder
+    currentRate?: SortOrder
+    totalCost?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WorkLogSumOrderByAggregateInput = {
+    durationInMinutes?: SortOrder
+    currentRate?: SortOrder
+    totalCost?: SortOrder
   }
 
   export type BoolFilter<$PrismaModel = never> = {
@@ -63722,11 +65494,6 @@ export namespace Prisma {
     _max?: NestedEnumCompanyTypeFilter<$PrismaModel>
   }
 
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
-  }
-
   export type TeamCountOrderByAggregateInput = {
     id?: SortOrder
     code?: SortOrder
@@ -64025,6 +65792,7 @@ export namespace Prisma {
     ttSysSuspension?: SortOrder
     ttWorkSuspension?: SortOrder
     ttEstimate?: SortOrder
+    ttLaborCost?: SortOrder
     prevMaintenanceConfigId?: SortOrder
     automaticConfig?: SortOrder
     jointAccounting?: SortOrder
@@ -64050,6 +65818,7 @@ export namespace Prisma {
     ttSysSuspension?: SortOrder
     ttWorkSuspension?: SortOrder
     ttEstimate?: SortOrder
+    ttLaborCost?: SortOrder
   }
 
   export type MaintenanceMaxOrderByAggregateInput = {
@@ -64105,6 +65874,7 @@ export namespace Prisma {
     ttSysSuspension?: SortOrder
     ttWorkSuspension?: SortOrder
     ttEstimate?: SortOrder
+    ttLaborCost?: SortOrder
     prevMaintenanceConfigId?: SortOrder
     automaticConfig?: SortOrder
     jointAccounting?: SortOrder
@@ -64170,6 +65940,7 @@ export namespace Prisma {
     ttSysSuspension?: SortOrder
     ttWorkSuspension?: SortOrder
     ttEstimate?: SortOrder
+    ttLaborCost?: SortOrder
     prevMaintenanceConfigId?: SortOrder
     automaticConfig?: SortOrder
     jointAccounting?: SortOrder
@@ -64195,6 +65966,7 @@ export namespace Prisma {
     ttSysSuspension?: SortOrder
     ttWorkSuspension?: SortOrder
     ttEstimate?: SortOrder
+    ttLaborCost?: SortOrder
   }
 
   export type EnumMaintenanceTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -64421,11 +66193,6 @@ export namespace Prisma {
     order?: SortOrder
   }
 
-  export type MaintenanceScalarRelationFilter = {
-    is?: MaintenanceWhereInput
-    isNot?: MaintenanceWhereInput
-  }
-
   export type MaintenanceTaskCountOrderByAggregateInput = {
     id?: SortOrder
     description?: SortOrder
@@ -64503,17 +66270,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type DecimalFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-  }
-
   export type PurchaseOrderItemListRelationFilter = {
     every?: PurchaseOrderItemWhereInput
     some?: PurchaseOrderItemWhereInput
@@ -64586,22 +66342,6 @@ export namespace Prisma {
 
   export type ItemSumOrderByAggregateInput = {
     cost?: SortOrder
-  }
-
-  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedDecimalFilter<$PrismaModel>
-    _sum?: NestedDecimalFilter<$PrismaModel>
-    _min?: NestedDecimalFilter<$PrismaModel>
-    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type ItemScalarRelationFilter = {
@@ -65410,6 +67150,13 @@ export namespace Prisma {
     connect?: MaintenanceTaskWhereUniqueInput | MaintenanceTaskWhereUniqueInput[]
   }
 
+  export type WorkLogCreateNestedManyWithoutTechnicianInput = {
+    create?: XOR<WorkLogCreateWithoutTechnicianInput, WorkLogUncheckedCreateWithoutTechnicianInput> | WorkLogCreateWithoutTechnicianInput[] | WorkLogUncheckedCreateWithoutTechnicianInput[]
+    connectOrCreate?: WorkLogCreateOrConnectWithoutTechnicianInput | WorkLogCreateOrConnectWithoutTechnicianInput[]
+    createMany?: WorkLogCreateManyTechnicianInputEnvelope
+    connect?: WorkLogWhereUniqueInput | WorkLogWhereUniqueInput[]
+  }
+
   export type RefreshTokenUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
@@ -65472,6 +67219,13 @@ export namespace Prisma {
     connect?: MaintenanceTaskWhereUniqueInput | MaintenanceTaskWhereUniqueInput[]
   }
 
+  export type WorkLogUncheckedCreateNestedManyWithoutTechnicianInput = {
+    create?: XOR<WorkLogCreateWithoutTechnicianInput, WorkLogUncheckedCreateWithoutTechnicianInput> | WorkLogCreateWithoutTechnicianInput[] | WorkLogUncheckedCreateWithoutTechnicianInput[]
+    connectOrCreate?: WorkLogCreateOrConnectWithoutTechnicianInput | WorkLogCreateOrConnectWithoutTechnicianInput[]
+    createMany?: WorkLogCreateManyTechnicianInputEnvelope
+    connect?: WorkLogWhereUniqueInput | WorkLogWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -65498,6 +67252,14 @@ export namespace Prisma {
 
   export type EnumServiceStatusFieldUpdateOperationsInput = {
     set?: $Enums.ServiceStatus
+  }
+
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
   }
 
   export type RefreshTokenUpdateManyWithoutUserNestedInput = {
@@ -65663,6 +67425,20 @@ export namespace Prisma {
     deleteMany?: MaintenanceTaskScalarWhereInput | MaintenanceTaskScalarWhereInput[]
   }
 
+  export type WorkLogUpdateManyWithoutTechnicianNestedInput = {
+    create?: XOR<WorkLogCreateWithoutTechnicianInput, WorkLogUncheckedCreateWithoutTechnicianInput> | WorkLogCreateWithoutTechnicianInput[] | WorkLogUncheckedCreateWithoutTechnicianInput[]
+    connectOrCreate?: WorkLogCreateOrConnectWithoutTechnicianInput | WorkLogCreateOrConnectWithoutTechnicianInput[]
+    upsert?: WorkLogUpsertWithWhereUniqueWithoutTechnicianInput | WorkLogUpsertWithWhereUniqueWithoutTechnicianInput[]
+    createMany?: WorkLogCreateManyTechnicianInputEnvelope
+    set?: WorkLogWhereUniqueInput | WorkLogWhereUniqueInput[]
+    disconnect?: WorkLogWhereUniqueInput | WorkLogWhereUniqueInput[]
+    delete?: WorkLogWhereUniqueInput | WorkLogWhereUniqueInput[]
+    connect?: WorkLogWhereUniqueInput | WorkLogWhereUniqueInput[]
+    update?: WorkLogUpdateWithWhereUniqueWithoutTechnicianInput | WorkLogUpdateWithWhereUniqueWithoutTechnicianInput[]
+    updateMany?: WorkLogUpdateManyWithWhereWithoutTechnicianInput | WorkLogUpdateManyWithWhereWithoutTechnicianInput[]
+    deleteMany?: WorkLogScalarWhereInput | WorkLogScalarWhereInput[]
+  }
+
   export type RefreshTokenUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
@@ -65786,6 +67562,48 @@ export namespace Prisma {
     update?: MaintenanceTaskUpdateWithWhereUniqueWithoutCompletedByInput | MaintenanceTaskUpdateWithWhereUniqueWithoutCompletedByInput[]
     updateMany?: MaintenanceTaskUpdateManyWithWhereWithoutCompletedByInput | MaintenanceTaskUpdateManyWithWhereWithoutCompletedByInput[]
     deleteMany?: MaintenanceTaskScalarWhereInput | MaintenanceTaskScalarWhereInput[]
+  }
+
+  export type WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput = {
+    create?: XOR<WorkLogCreateWithoutTechnicianInput, WorkLogUncheckedCreateWithoutTechnicianInput> | WorkLogCreateWithoutTechnicianInput[] | WorkLogUncheckedCreateWithoutTechnicianInput[]
+    connectOrCreate?: WorkLogCreateOrConnectWithoutTechnicianInput | WorkLogCreateOrConnectWithoutTechnicianInput[]
+    upsert?: WorkLogUpsertWithWhereUniqueWithoutTechnicianInput | WorkLogUpsertWithWhereUniqueWithoutTechnicianInput[]
+    createMany?: WorkLogCreateManyTechnicianInputEnvelope
+    set?: WorkLogWhereUniqueInput | WorkLogWhereUniqueInput[]
+    disconnect?: WorkLogWhereUniqueInput | WorkLogWhereUniqueInput[]
+    delete?: WorkLogWhereUniqueInput | WorkLogWhereUniqueInput[]
+    connect?: WorkLogWhereUniqueInput | WorkLogWhereUniqueInput[]
+    update?: WorkLogUpdateWithWhereUniqueWithoutTechnicianInput | WorkLogUpdateWithWhereUniqueWithoutTechnicianInput[]
+    updateMany?: WorkLogUpdateManyWithWhereWithoutTechnicianInput | WorkLogUpdateManyWithWhereWithoutTechnicianInput[]
+    deleteMany?: WorkLogScalarWhereInput | WorkLogScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutWorkLogsInput = {
+    create?: XOR<UserCreateWithoutWorkLogsInput, UserUncheckedCreateWithoutWorkLogsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWorkLogsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type MaintenanceCreateNestedOneWithoutWorkLogsInput = {
+    create?: XOR<MaintenanceCreateWithoutWorkLogsInput, MaintenanceUncheckedCreateWithoutWorkLogsInput>
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutWorkLogsInput
+    connect?: MaintenanceWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutWorkLogsNestedInput = {
+    create?: XOR<UserCreateWithoutWorkLogsInput, UserUncheckedCreateWithoutWorkLogsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWorkLogsInput
+    upsert?: UserUpsertWithoutWorkLogsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutWorkLogsInput, UserUpdateWithoutWorkLogsInput>, UserUncheckedUpdateWithoutWorkLogsInput>
+  }
+
+  export type MaintenanceUpdateOneRequiredWithoutWorkLogsNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutWorkLogsInput, MaintenanceUncheckedCreateWithoutWorkLogsInput>
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutWorkLogsInput
+    upsert?: MaintenanceUpsertWithoutWorkLogsInput
+    connect?: MaintenanceWhereUniqueInput
+    update?: XOR<XOR<MaintenanceUpdateToOneWithWhereWithoutWorkLogsInput, MaintenanceUpdateWithoutWorkLogsInput>, MaintenanceUncheckedUpdateWithoutWorkLogsInput>
   }
 
   export type PermissionCreateNestedManyWithoutRoleInput = {
@@ -68311,6 +70129,13 @@ export namespace Prisma {
     connect?: MaintenanceTaskWhereUniqueInput | MaintenanceTaskWhereUniqueInput[]
   }
 
+  export type WorkLogCreateNestedManyWithoutMaintenanceInput = {
+    create?: XOR<WorkLogCreateWithoutMaintenanceInput, WorkLogUncheckedCreateWithoutMaintenanceInput> | WorkLogCreateWithoutMaintenanceInput[] | WorkLogUncheckedCreateWithoutMaintenanceInput[]
+    connectOrCreate?: WorkLogCreateOrConnectWithoutMaintenanceInput | WorkLogCreateOrConnectWithoutMaintenanceInput[]
+    createMany?: WorkLogCreateManyMaintenanceInputEnvelope
+    connect?: WorkLogWhereUniqueInput | WorkLogWhereUniqueInput[]
+  }
+
   export type FileUncheckedCreateNestedManyWithoutMaintenanceInput = {
     create?: XOR<FileCreateWithoutMaintenanceInput, FileUncheckedCreateWithoutMaintenanceInput> | FileCreateWithoutMaintenanceInput[] | FileUncheckedCreateWithoutMaintenanceInput[]
     connectOrCreate?: FileCreateOrConnectWithoutMaintenanceInput | FileCreateOrConnectWithoutMaintenanceInput[]
@@ -68330,6 +70155,13 @@ export namespace Prisma {
     connectOrCreate?: MaintenanceTaskCreateOrConnectWithoutMaintenanceInput | MaintenanceTaskCreateOrConnectWithoutMaintenanceInput[]
     createMany?: MaintenanceTaskCreateManyMaintenanceInputEnvelope
     connect?: MaintenanceTaskWhereUniqueInput | MaintenanceTaskWhereUniqueInput[]
+  }
+
+  export type WorkLogUncheckedCreateNestedManyWithoutMaintenanceInput = {
+    create?: XOR<WorkLogCreateWithoutMaintenanceInput, WorkLogUncheckedCreateWithoutMaintenanceInput> | WorkLogCreateWithoutMaintenanceInput[] | WorkLogUncheckedCreateWithoutMaintenanceInput[]
+    connectOrCreate?: WorkLogCreateOrConnectWithoutMaintenanceInput | WorkLogCreateOrConnectWithoutMaintenanceInput[]
+    createMany?: WorkLogCreateManyMaintenanceInputEnvelope
+    connect?: WorkLogWhereUniqueInput | WorkLogWhereUniqueInput[]
   }
 
   export type EnumMaintenanceTypeFieldUpdateOperationsInput = {
@@ -68502,6 +70334,20 @@ export namespace Prisma {
     deleteMany?: MaintenanceTaskScalarWhereInput | MaintenanceTaskScalarWhereInput[]
   }
 
+  export type WorkLogUpdateManyWithoutMaintenanceNestedInput = {
+    create?: XOR<WorkLogCreateWithoutMaintenanceInput, WorkLogUncheckedCreateWithoutMaintenanceInput> | WorkLogCreateWithoutMaintenanceInput[] | WorkLogUncheckedCreateWithoutMaintenanceInput[]
+    connectOrCreate?: WorkLogCreateOrConnectWithoutMaintenanceInput | WorkLogCreateOrConnectWithoutMaintenanceInput[]
+    upsert?: WorkLogUpsertWithWhereUniqueWithoutMaintenanceInput | WorkLogUpsertWithWhereUniqueWithoutMaintenanceInput[]
+    createMany?: WorkLogCreateManyMaintenanceInputEnvelope
+    set?: WorkLogWhereUniqueInput | WorkLogWhereUniqueInput[]
+    disconnect?: WorkLogWhereUniqueInput | WorkLogWhereUniqueInput[]
+    delete?: WorkLogWhereUniqueInput | WorkLogWhereUniqueInput[]
+    connect?: WorkLogWhereUniqueInput | WorkLogWhereUniqueInput[]
+    update?: WorkLogUpdateWithWhereUniqueWithoutMaintenanceInput | WorkLogUpdateWithWhereUniqueWithoutMaintenanceInput[]
+    updateMany?: WorkLogUpdateManyWithWhereWithoutMaintenanceInput | WorkLogUpdateManyWithWhereWithoutMaintenanceInput[]
+    deleteMany?: WorkLogScalarWhereInput | WorkLogScalarWhereInput[]
+  }
+
   export type FileUncheckedUpdateManyWithoutMaintenanceNestedInput = {
     create?: XOR<FileCreateWithoutMaintenanceInput, FileUncheckedCreateWithoutMaintenanceInput> | FileCreateWithoutMaintenanceInput[] | FileUncheckedCreateWithoutMaintenanceInput[]
     connectOrCreate?: FileCreateOrConnectWithoutMaintenanceInput | FileCreateOrConnectWithoutMaintenanceInput[]
@@ -68542,6 +70388,20 @@ export namespace Prisma {
     update?: MaintenanceTaskUpdateWithWhereUniqueWithoutMaintenanceInput | MaintenanceTaskUpdateWithWhereUniqueWithoutMaintenanceInput[]
     updateMany?: MaintenanceTaskUpdateManyWithWhereWithoutMaintenanceInput | MaintenanceTaskUpdateManyWithWhereWithoutMaintenanceInput[]
     deleteMany?: MaintenanceTaskScalarWhereInput | MaintenanceTaskScalarWhereInput[]
+  }
+
+  export type WorkLogUncheckedUpdateManyWithoutMaintenanceNestedInput = {
+    create?: XOR<WorkLogCreateWithoutMaintenanceInput, WorkLogUncheckedCreateWithoutMaintenanceInput> | WorkLogCreateWithoutMaintenanceInput[] | WorkLogUncheckedCreateWithoutMaintenanceInput[]
+    connectOrCreate?: WorkLogCreateOrConnectWithoutMaintenanceInput | WorkLogCreateOrConnectWithoutMaintenanceInput[]
+    upsert?: WorkLogUpsertWithWhereUniqueWithoutMaintenanceInput | WorkLogUpsertWithWhereUniqueWithoutMaintenanceInput[]
+    createMany?: WorkLogCreateManyMaintenanceInputEnvelope
+    set?: WorkLogWhereUniqueInput | WorkLogWhereUniqueInput[]
+    disconnect?: WorkLogWhereUniqueInput | WorkLogWhereUniqueInput[]
+    delete?: WorkLogWhereUniqueInput | WorkLogWhereUniqueInput[]
+    connect?: WorkLogWhereUniqueInput | WorkLogWhereUniqueInput[]
+    update?: WorkLogUpdateWithWhereUniqueWithoutMaintenanceInput | WorkLogUpdateWithWhereUniqueWithoutMaintenanceInput[]
+    updateMany?: WorkLogUpdateManyWithWhereWithoutMaintenanceInput | WorkLogUpdateManyWithWhereWithoutMaintenanceInput[]
+    deleteMany?: WorkLogScalarWhereInput | WorkLogScalarWhereInput[]
   }
 
   export type ComplexCreateNestedOneWithoutPreventivesInput = {
@@ -69008,14 +70868,6 @@ export namespace Prisma {
     connectOrCreate?: GoodsReceiptItemCreateOrConnectWithoutItemInput | GoodsReceiptItemCreateOrConnectWithoutItemInput[]
     createMany?: GoodsReceiptItemCreateManyItemInputEnvelope
     connect?: GoodsReceiptItemWhereUniqueInput | GoodsReceiptItemWhereUniqueInput[]
-  }
-
-  export type DecimalFieldUpdateOperationsInput = {
-    set?: Decimal | DecimalJsLike | number | string
-    increment?: Decimal | DecimalJsLike | number | string
-    decrement?: Decimal | DecimalJsLike | number | string
-    multiply?: Decimal | DecimalJsLike | number | string
-    divide?: Decimal | DecimalJsLike | number | string
   }
 
   export type StockUpdateManyWithoutItemNestedInput = {
@@ -70263,6 +72115,17 @@ export namespace Prisma {
     not?: NestedEnumServiceStatusFilter<$PrismaModel> | $Enums.ServiceStatus
   }
 
+  export type NestedDecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -70375,6 +72238,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumServiceStatusFilter<$PrismaModel>
     _max?: NestedEnumServiceStatusFilter<$PrismaModel>
+  }
+
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
@@ -70765,33 +72644,6 @@ export namespace Prisma {
     _max?: NestedEnumFrequencyFilter<$PrismaModel>
   }
 
-  export type NestedDecimalFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-  }
-
-  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedDecimalFilter<$PrismaModel>
-    _sum?: NestedDecimalFilter<$PrismaModel>
-    _min?: NestedDecimalFilter<$PrismaModel>
-    _max?: NestedDecimalFilter<$PrismaModel>
-  }
-
   export type NestedEnumStockMovementTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.StockMovementType | EnumStockMovementTypeFieldRefInput<$PrismaModel>
     in?: $Enums.StockMovementType[] | ListEnumStockMovementTypeFieldRefInput<$PrismaModel>
@@ -71134,6 +72986,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -71155,6 +73008,7 @@ export namespace Prisma {
     photos?: FileCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutRequesterInput = {
@@ -71210,6 +73064,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -71223,6 +73078,7 @@ export namespace Prisma {
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutRequesterInput = {
@@ -71280,6 +73136,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -71301,6 +73158,7 @@ export namespace Prisma {
     photos?: FileCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutAssigneeInput = {
@@ -71357,6 +73215,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -71369,6 +73228,7 @@ export namespace Prisma {
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutAssigneeInput = {
@@ -71547,6 +73407,42 @@ export namespace Prisma {
 
   export type MaintenanceTaskCreateManyCompletedByInputEnvelope = {
     data: MaintenanceTaskCreateManyCompletedByInput | MaintenanceTaskCreateManyCompletedByInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type WorkLogCreateWithoutTechnicianInput = {
+    id?: string
+    description?: string | null
+    startTime: Date | string
+    endTime: Date | string
+    durationInMinutes: Decimal | DecimalJsLike | number | string
+    currentRate: Decimal | DecimalJsLike | number | string
+    totalCost: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    maintenance: MaintenanceCreateNestedOneWithoutWorkLogsInput
+  }
+
+  export type WorkLogUncheckedCreateWithoutTechnicianInput = {
+    id?: string
+    description?: string | null
+    maintenanceId: string
+    startTime: Date | string
+    endTime: Date | string
+    durationInMinutes: Decimal | DecimalJsLike | number | string
+    currentRate: Decimal | DecimalJsLike | number | string
+    totalCost: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WorkLogCreateOrConnectWithoutTechnicianInput = {
+    where: WorkLogWhereUniqueInput
+    create: XOR<WorkLogCreateWithoutTechnicianInput, WorkLogUncheckedCreateWithoutTechnicianInput>
+  }
+
+  export type WorkLogCreateManyTechnicianInputEnvelope = {
+    data: WorkLogCreateManyTechnicianInput | WorkLogCreateManyTechnicianInput[]
     skipDuplicates?: boolean
   }
 
@@ -71821,6 +73717,7 @@ export namespace Prisma {
     ttSysSuspension?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: StringNullableFilter<"Maintenance"> | string | null
     automaticConfig?: BoolFilter<"Maintenance"> | boolean
     jointAccounting?: BoolFilter<"Maintenance"> | boolean
@@ -72002,6 +73899,475 @@ export namespace Prisma {
     completedById?: StringNullableFilter<"MaintenanceTask"> | string | null
   }
 
+  export type WorkLogUpsertWithWhereUniqueWithoutTechnicianInput = {
+    where: WorkLogWhereUniqueInput
+    update: XOR<WorkLogUpdateWithoutTechnicianInput, WorkLogUncheckedUpdateWithoutTechnicianInput>
+    create: XOR<WorkLogCreateWithoutTechnicianInput, WorkLogUncheckedCreateWithoutTechnicianInput>
+  }
+
+  export type WorkLogUpdateWithWhereUniqueWithoutTechnicianInput = {
+    where: WorkLogWhereUniqueInput
+    data: XOR<WorkLogUpdateWithoutTechnicianInput, WorkLogUncheckedUpdateWithoutTechnicianInput>
+  }
+
+  export type WorkLogUpdateManyWithWhereWithoutTechnicianInput = {
+    where: WorkLogScalarWhereInput
+    data: XOR<WorkLogUpdateManyMutationInput, WorkLogUncheckedUpdateManyWithoutTechnicianInput>
+  }
+
+  export type WorkLogScalarWhereInput = {
+    AND?: WorkLogScalarWhereInput | WorkLogScalarWhereInput[]
+    OR?: WorkLogScalarWhereInput[]
+    NOT?: WorkLogScalarWhereInput | WorkLogScalarWhereInput[]
+    id?: StringFilter<"WorkLog"> | string
+    description?: StringNullableFilter<"WorkLog"> | string | null
+    technicianId?: StringFilter<"WorkLog"> | string
+    maintenanceId?: StringFilter<"WorkLog"> | string
+    startTime?: DateTimeFilter<"WorkLog"> | Date | string
+    endTime?: DateTimeFilter<"WorkLog"> | Date | string
+    durationInMinutes?: DecimalFilter<"WorkLog"> | Decimal | DecimalJsLike | number | string
+    currentRate?: DecimalFilter<"WorkLog"> | Decimal | DecimalJsLike | number | string
+    totalCost?: DecimalFilter<"WorkLog"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFilter<"WorkLog"> | Date | string
+    updatedAt?: DateTimeFilter<"WorkLog"> | Date | string
+  }
+
+  export type UserCreateWithoutWorkLogsInput = {
+    id?: string
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    status?: $Enums.UserStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    passwordResetToken?: string | null
+    passwordExpiresAt?: Date | string | null
+    passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    role: RoleCreateNestedOneWithoutUsersInput
+    permissions?: PermissionCreateNestedManyWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutEmployeesInput
+    calenderEntity?: CalenderEntityCreateNestedOneWithoutEmployeesInput
+    teams?: TeamCreateNestedManyWithoutMembersInput
+    requestedMaintenances?: MaintenanceCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigneeInput
+    supervisedTeams?: TeamCreateNestedManyWithoutSupervisorInput
+    costCenter?: CostCenterCreateNestedOneWithoutUsersInput
+    purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
+    goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
+  }
+
+  export type UserUncheckedCreateWithoutWorkLogsInput = {
+    id?: string
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    roleId: string
+    status?: $Enums.UserStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    passwordResetToken?: string | null
+    passwordExpiresAt?: Date | string | null
+    passwordResetAt?: Date | string | null
+    employeeCode?: string | null
+    employeeType?: $Enums.EmployeeType | null
+    companyId?: string | null
+    serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
+    calenderEntityId?: string | null
+    costCenterId?: string | null
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutUserInput
+    teams?: TeamUncheckedCreateNestedManyWithoutMembersInput
+    requestedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutRequesterInput
+    assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigneeInput
+    supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
+    purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
+    goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
+  }
+
+  export type UserCreateOrConnectWithoutWorkLogsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutWorkLogsInput, UserUncheckedCreateWithoutWorkLogsInput>
+  }
+
+  export type MaintenanceCreateWithoutWorkLogsInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    priority?: $Enums.Priority
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosureDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    requester?: UserCreateNestedOneWithoutRequestedMaintenancesInput
+    site: ComplexCreateNestedOneWithoutMaintenancesInput
+    costCenter?: CostCenterCreateNestedOneWithoutMaintenancesInput
+    company?: CompanyCreateNestedOneWithoutMaintenancesInput
+    building?: BuildingCreateNestedOneWithoutMaintenancesInput
+    team?: TeamCreateNestedOneWithoutMaintenancesInput
+    floor?: FloorCreateNestedOneWithoutMaintenancesInput
+    zone?: ZoneCreateNestedOneWithoutMaintenancesInput
+    space?: SpaceCreateNestedOneWithoutMaintenancesInput
+    assignee?: UserCreateNestedOneWithoutAssignedMaintenancesInput
+    asset?: AssetCreateNestedOneWithoutMaintenancesInput
+    photos?: FileCreateNestedManyWithoutMaintenanceInput
+    maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceUncheckedCreateWithoutWorkLogsInput = {
+    id?: string
+    type?: $Enums.MaintenanceType
+    code: string
+    description: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    shortDescription?: string | null
+    action?: string | null
+    message?: string | null
+    processNotes?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: string | null
+    performerReference?: $Enums.PerformerReference | null
+    processStatus?: $Enums.Status
+    register?: string | null
+    activityIdTimer?: string | null
+    activityStartTime?: Date | string | null
+    activityEndTime?: Date | string | null
+    allDeadlines?: string | null
+    processType?: $Enums.ProcessType
+    ttSysRunning?: Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: Decimal | DecimalJsLike | number | string | null
+    sorting?: string | null
+    requesterId?: string | null
+    priority?: $Enums.Priority
+    siteId: string
+    costCenterId?: string | null
+    outcome?: string | null
+    dueAssignedEnd?: Date | string | null
+    execStart?: Date | string | null
+    dueExecEndDate?: Date | string | null
+    execEndDate?: Date | string | null
+    dueClosureDate?: Date | string | null
+    totalExecTime?: Decimal | DecimalJsLike | number | string | null
+    expStartDate?: Date | string | null
+    suspensionReason?: string | null
+    category?: string | null
+    subCategory?: string | null
+    companyId?: string | null
+    buildingId?: string | null
+    teamId?: string | null
+    floorId?: string | null
+    zoneId?: string | null
+    spaceId?: string | null
+    ttSystemOpening?: Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: string | null
+    automaticConfig?: boolean
+    jointAccounting?: boolean
+    hasTasks?: boolean
+    estimateStatus?: $Enums.Status
+    delayNotification?: boolean
+    assigneeId?: string | null
+    assetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
+    maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
+    maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceCreateOrConnectWithoutWorkLogsInput = {
+    where: MaintenanceWhereUniqueInput
+    create: XOR<MaintenanceCreateWithoutWorkLogsInput, MaintenanceUncheckedCreateWithoutWorkLogsInput>
+  }
+
+  export type UserUpsertWithoutWorkLogsInput = {
+    update: XOR<UserUpdateWithoutWorkLogsInput, UserUncheckedUpdateWithoutWorkLogsInput>
+    create: XOR<UserCreateWithoutWorkLogsInput, UserUncheckedCreateWithoutWorkLogsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutWorkLogsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutWorkLogsInput, UserUncheckedUpdateWithoutWorkLogsInput>
+  }
+
+  export type UserUpdateWithoutWorkLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    role?: RoleUpdateOneRequiredWithoutUsersNestedInput
+    permissions?: PermissionUpdateManyWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutEmployeesNestedInput
+    calenderEntity?: CalenderEntityUpdateOneWithoutEmployeesNestedInput
+    teams?: TeamUpdateManyWithoutMembersNestedInput
+    requestedMaintenances?: MaintenanceUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUpdateManyWithoutAssigneeNestedInput
+    supervisedTeams?: TeamUpdateManyWithoutSupervisorNestedInput
+    costCenter?: CostCenterUpdateOneWithoutUsersNestedInput
+    purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
+    goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutWorkLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordResetAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
+    costCenterId?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutUserNestedInput
+    teams?: TeamUncheckedUpdateManyWithoutMembersNestedInput
+    requestedMaintenances?: MaintenanceUncheckedUpdateManyWithoutRequesterNestedInput
+    assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigneeNestedInput
+    supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
+    purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
+    goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
+  }
+
+  export type MaintenanceUpsertWithoutWorkLogsInput = {
+    update: XOR<MaintenanceUpdateWithoutWorkLogsInput, MaintenanceUncheckedUpdateWithoutWorkLogsInput>
+    create: XOR<MaintenanceCreateWithoutWorkLogsInput, MaintenanceUncheckedCreateWithoutWorkLogsInput>
+    where?: MaintenanceWhereInput
+  }
+
+  export type MaintenanceUpdateToOneWithWhereWithoutWorkLogsInput = {
+    where?: MaintenanceWhereInput
+    data: XOR<MaintenanceUpdateWithoutWorkLogsInput, MaintenanceUncheckedUpdateWithoutWorkLogsInput>
+  }
+
+  export type MaintenanceUpdateWithoutWorkLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    requester?: UserUpdateOneWithoutRequestedMaintenancesNestedInput
+    site?: ComplexUpdateOneRequiredWithoutMaintenancesNestedInput
+    costCenter?: CostCenterUpdateOneWithoutMaintenancesNestedInput
+    company?: CompanyUpdateOneWithoutMaintenancesNestedInput
+    building?: BuildingUpdateOneWithoutMaintenancesNestedInput
+    team?: TeamUpdateOneWithoutMaintenancesNestedInput
+    floor?: FloorUpdateOneWithoutMaintenancesNestedInput
+    zone?: ZoneUpdateOneWithoutMaintenancesNestedInput
+    space?: SpaceUpdateOneWithoutMaintenancesNestedInput
+    assignee?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
+    asset?: AssetUpdateOneWithoutMaintenancesNestedInput
+    photos?: FileUpdateManyWithoutMaintenanceNestedInput
+    maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateWithoutWorkLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    code?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    processNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    performerId?: NullableStringFieldUpdateOperationsInput | string | null
+    performerReference?: NullableEnumPerformerReferenceFieldUpdateOperationsInput | $Enums.PerformerReference | null
+    processStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    register?: NullableStringFieldUpdateOperationsInput | string | null
+    activityIdTimer?: NullableStringFieldUpdateOperationsInput | string | null
+    activityStartTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activityEndTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    allDeadlines?: NullableStringFieldUpdateOperationsInput | string | null
+    processType?: EnumProcessTypeFieldUpdateOperationsInput | $Enums.ProcessType
+    ttSysRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkRunning?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    sorting?: NullableStringFieldUpdateOperationsInput | string | null
+    requesterId?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    siteId?: StringFieldUpdateOperationsInput | string
+    costCenterId?: NullableStringFieldUpdateOperationsInput | string | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAssignedEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueExecEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    execEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueClosureDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    totalExecTime?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    expStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suspensionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    subCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingId?: NullableStringFieldUpdateOperationsInput | string | null
+    teamId?: NullableStringFieldUpdateOperationsInput | string | null
+    floorId?: NullableStringFieldUpdateOperationsInput | string | null
+    zoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    spaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    ttSystemOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkOpening?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkAssignment?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSystemExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkExecution?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    automaticConfig?: BoolFieldUpdateOperationsInput | boolean
+    jointAccounting?: BoolFieldUpdateOperationsInput | boolean
+    hasTasks?: BoolFieldUpdateOperationsInput | boolean
+    estimateStatus?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    delayNotification?: BoolFieldUpdateOperationsInput | boolean
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
+    maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
+    maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
+  }
+
   export type PermissionCreateWithoutRoleInput = {
     id?: string
     resource: string
@@ -72045,6 +74411,7 @@ export namespace Prisma {
     employeeCode?: string | null
     employeeType?: $Enums.EmployeeType | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     permissions?: PermissionCreateNestedManyWithoutUserInput
     company?: CompanyCreateNestedOneWithoutEmployeesInput
@@ -72057,6 +74424,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserUncheckedCreateWithoutRoleInput = {
@@ -72075,6 +74443,7 @@ export namespace Prisma {
     employeeType?: $Enums.EmployeeType | null
     companyId?: string | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     calenderEntityId?: string | null
     costCenterId?: string | null
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -72086,6 +74455,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserCreateOrConnectWithoutRoleInput = {
@@ -72150,6 +74520,7 @@ export namespace Prisma {
     employeeType?: EnumEmployeeTypeNullableFilter<"User"> | $Enums.EmployeeType | null
     companyId?: StringNullableFilter<"User"> | string | null
     serviceStatus?: EnumServiceStatusFilter<"User"> | $Enums.ServiceStatus
+    hourlyRate?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
     calenderEntityId?: StringNullableFilter<"User"> | string | null
     costCenterId?: StringNullableFilter<"User"> | string | null
   }
@@ -72194,6 +74565,7 @@ export namespace Prisma {
     employeeCode?: string | null
     employeeType?: $Enums.EmployeeType | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     role: RoleCreateNestedOneWithoutUsersInput
     company?: CompanyCreateNestedOneWithoutEmployeesInput
@@ -72206,6 +74578,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserUncheckedCreateWithoutPermissionsInput = {
@@ -72225,6 +74598,7 @@ export namespace Prisma {
     employeeType?: $Enums.EmployeeType | null
     companyId?: string | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     calenderEntityId?: string | null
     costCenterId?: string | null
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -72235,6 +74609,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserCreateOrConnectWithoutPermissionsInput = {
@@ -72299,6 +74674,7 @@ export namespace Prisma {
     employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     role?: RoleUpdateOneRequiredWithoutUsersNestedInput
     company?: CompanyUpdateOneWithoutEmployeesNestedInput
@@ -72311,6 +74687,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPermissionsInput = {
@@ -72330,6 +74707,7 @@ export namespace Prisma {
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     costCenterId?: NullableStringFieldUpdateOperationsInput | string | null
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -72340,6 +74718,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
   }
 
   export type AddressCreateWithoutSitesInput = {
@@ -72686,6 +75065,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -72707,6 +75087,7 @@ export namespace Prisma {
     photos?: FileCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutSiteInput = {
@@ -72762,6 +75143,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -72775,6 +75157,7 @@ export namespace Prisma {
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutSiteInput = {
@@ -73334,6 +75717,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -73355,6 +75739,7 @@ export namespace Prisma {
     photos?: FileCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutBuildingInput = {
@@ -73410,6 +75795,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -73423,6 +75809,7 @@ export namespace Prisma {
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutBuildingInput = {
@@ -73989,6 +76376,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -74010,6 +76398,7 @@ export namespace Prisma {
     photos?: FileCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutFloorInput = {
@@ -74065,6 +76454,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -74078,6 +76468,7 @@ export namespace Prisma {
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutFloorInput = {
@@ -74582,6 +76973,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -74603,6 +76995,7 @@ export namespace Prisma {
     photos?: FileCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutZoneInput = {
@@ -74658,6 +77051,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -74671,6 +77065,7 @@ export namespace Prisma {
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutZoneInput = {
@@ -75142,6 +77537,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -75163,6 +77559,7 @@ export namespace Prisma {
     photos?: FileCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutSpaceInput = {
@@ -75218,6 +77615,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -75231,6 +77629,7 @@ export namespace Prisma {
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutSpaceInput = {
@@ -75855,6 +78254,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -75876,6 +78276,7 @@ export namespace Prisma {
     photos?: FileCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutAssetInput = {
@@ -75932,6 +78333,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -75944,6 +78346,7 @@ export namespace Prisma {
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutAssetInput = {
@@ -76656,6 +79059,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -76677,6 +79081,7 @@ export namespace Prisma {
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutPhotosInput = {
@@ -76733,6 +79138,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -76745,6 +79151,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutPhotosInput = {
@@ -76872,6 +79279,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -76893,6 +79301,7 @@ export namespace Prisma {
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutPhotosInput = {
@@ -76949,6 +79358,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -76961,6 +79371,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type AddressCreateWithoutCompaniesInput = {
@@ -77007,6 +79418,7 @@ export namespace Prisma {
     employeeCode?: string | null
     employeeType?: $Enums.EmployeeType | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     role: RoleCreateNestedOneWithoutUsersInput
     permissions?: PermissionCreateNestedManyWithoutUserInput
@@ -77019,6 +79431,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserUncheckedCreateWithoutCompanyInput = {
@@ -77037,6 +79450,7 @@ export namespace Prisma {
     employeeCode?: string | null
     employeeType?: $Enums.EmployeeType | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     calenderEntityId?: string | null
     costCenterId?: string | null
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -77048,6 +79462,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserCreateOrConnectWithoutCompanyInput = {
@@ -77105,6 +79520,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -77126,6 +79542,7 @@ export namespace Prisma {
     photos?: FileCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutCompanyInput = {
@@ -77181,6 +79598,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -77194,6 +79612,7 @@ export namespace Prisma {
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutCompanyInput = {
@@ -77396,6 +79815,7 @@ export namespace Prisma {
     employeeCode?: string | null
     employeeType?: $Enums.EmployeeType | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     role: RoleCreateNestedOneWithoutUsersInput
     permissions?: PermissionCreateNestedManyWithoutUserInput
@@ -77408,6 +79828,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserUncheckedCreateWithoutSupervisedTeamsInput = {
@@ -77427,6 +79848,7 @@ export namespace Prisma {
     employeeType?: $Enums.EmployeeType | null
     companyId?: string | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     calenderEntityId?: string | null
     costCenterId?: string | null
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -77437,6 +79859,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserCreateOrConnectWithoutSupervisedTeamsInput = {
@@ -77489,6 +79912,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -77510,6 +79934,7 @@ export namespace Prisma {
     photos?: FileCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutTeamInput = {
@@ -77565,6 +79990,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -77578,6 +80004,7 @@ export namespace Prisma {
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutTeamInput = {
@@ -77661,6 +80088,7 @@ export namespace Prisma {
     employeeCode?: string | null
     employeeType?: $Enums.EmployeeType | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     role: RoleCreateNestedOneWithoutUsersInput
     permissions?: PermissionCreateNestedManyWithoutUserInput
@@ -77673,6 +80101,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserUncheckedCreateWithoutTeamsInput = {
@@ -77692,6 +80121,7 @@ export namespace Prisma {
     employeeType?: $Enums.EmployeeType | null
     companyId?: string | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     calenderEntityId?: string | null
     costCenterId?: string | null
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -77702,6 +80132,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserCreateOrConnectWithoutTeamsInput = {
@@ -77735,6 +80166,7 @@ export namespace Prisma {
     employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     role?: RoleUpdateOneRequiredWithoutUsersNestedInput
     permissions?: PermissionUpdateManyWithoutUserNestedInput
@@ -77747,6 +80179,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSupervisedTeamsInput = {
@@ -77766,6 +80199,7 @@ export namespace Prisma {
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     costCenterId?: NullableStringFieldUpdateOperationsInput | string | null
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -77776,6 +80210,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
   }
 
   export type MaintenanceUpsertWithWhereUniqueWithoutTeamInput = {
@@ -78326,6 +80761,7 @@ export namespace Prisma {
     employeeCode?: string | null
     employeeType?: $Enums.EmployeeType | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     role: RoleCreateNestedOneWithoutUsersInput
     permissions?: PermissionCreateNestedManyWithoutUserInput
@@ -78338,6 +80774,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserUncheckedCreateWithoutCalenderEntityInput = {
@@ -78357,6 +80794,7 @@ export namespace Prisma {
     employeeType?: $Enums.EmployeeType | null
     companyId?: string | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     costCenterId?: string | null
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutUserInput
@@ -78367,6 +80805,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserCreateOrConnectWithoutCalenderEntityInput = {
@@ -78474,6 +80913,7 @@ export namespace Prisma {
     employeeCode?: string | null
     employeeType?: $Enums.EmployeeType | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     role: RoleCreateNestedOneWithoutUsersInput
     permissions?: PermissionCreateNestedManyWithoutUserInput
@@ -78486,6 +80926,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserUncheckedCreateWithoutRequestedMaintenancesInput = {
@@ -78505,6 +80946,7 @@ export namespace Prisma {
     employeeType?: $Enums.EmployeeType | null
     companyId?: string | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     calenderEntityId?: string | null
     costCenterId?: string | null
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -78515,6 +80957,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserCreateOrConnectWithoutRequestedMaintenancesInput = {
@@ -78975,6 +81418,7 @@ export namespace Prisma {
     employeeCode?: string | null
     employeeType?: $Enums.EmployeeType | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     role: RoleCreateNestedOneWithoutUsersInput
     permissions?: PermissionCreateNestedManyWithoutUserInput
@@ -78987,6 +81431,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserUncheckedCreateWithoutAssignedMaintenancesInput = {
@@ -79006,6 +81451,7 @@ export namespace Prisma {
     employeeType?: $Enums.EmployeeType | null
     companyId?: string | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     calenderEntityId?: string | null
     costCenterId?: string | null
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -79016,6 +81462,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserCreateOrConnectWithoutAssignedMaintenancesInput = {
@@ -79146,6 +81593,42 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type WorkLogCreateWithoutMaintenanceInput = {
+    id?: string
+    description?: string | null
+    startTime: Date | string
+    endTime: Date | string
+    durationInMinutes: Decimal | DecimalJsLike | number | string
+    currentRate: Decimal | DecimalJsLike | number | string
+    totalCost: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    technician: UserCreateNestedOneWithoutWorkLogsInput
+  }
+
+  export type WorkLogUncheckedCreateWithoutMaintenanceInput = {
+    id?: string
+    description?: string | null
+    technicianId: string
+    startTime: Date | string
+    endTime: Date | string
+    durationInMinutes: Decimal | DecimalJsLike | number | string
+    currentRate: Decimal | DecimalJsLike | number | string
+    totalCost: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WorkLogCreateOrConnectWithoutMaintenanceInput = {
+    where: WorkLogWhereUniqueInput
+    create: XOR<WorkLogCreateWithoutMaintenanceInput, WorkLogUncheckedCreateWithoutMaintenanceInput>
+  }
+
+  export type WorkLogCreateManyMaintenanceInputEnvelope = {
+    data: WorkLogCreateManyMaintenanceInput | WorkLogCreateManyMaintenanceInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutRequestedMaintenancesInput = {
     update: XOR<UserUpdateWithoutRequestedMaintenancesInput, UserUncheckedUpdateWithoutRequestedMaintenancesInput>
     create: XOR<UserCreateWithoutRequestedMaintenancesInput, UserUncheckedCreateWithoutRequestedMaintenancesInput>
@@ -79172,6 +81655,7 @@ export namespace Prisma {
     employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     role?: RoleUpdateOneRequiredWithoutUsersNestedInput
     permissions?: PermissionUpdateManyWithoutUserNestedInput
@@ -79184,6 +81668,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRequestedMaintenancesInput = {
@@ -79203,6 +81688,7 @@ export namespace Prisma {
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     costCenterId?: NullableStringFieldUpdateOperationsInput | string | null
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -79213,6 +81699,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
   }
 
   export type ComplexUpsertWithoutMaintenancesInput = {
@@ -79727,6 +82214,7 @@ export namespace Prisma {
     employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     role?: RoleUpdateOneRequiredWithoutUsersNestedInput
     permissions?: PermissionUpdateManyWithoutUserNestedInput
@@ -79739,6 +82227,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedMaintenancesInput = {
@@ -79758,6 +82247,7 @@ export namespace Prisma {
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     costCenterId?: NullableStringFieldUpdateOperationsInput | string | null
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -79768,6 +82258,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
   }
 
   export type AssetUpsertWithoutMaintenancesInput = {
@@ -79859,6 +82350,22 @@ export namespace Prisma {
   export type MaintenanceTaskUpdateManyWithWhereWithoutMaintenanceInput = {
     where: MaintenanceTaskScalarWhereInput
     data: XOR<MaintenanceTaskUpdateManyMutationInput, MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceInput>
+  }
+
+  export type WorkLogUpsertWithWhereUniqueWithoutMaintenanceInput = {
+    where: WorkLogWhereUniqueInput
+    update: XOR<WorkLogUpdateWithoutMaintenanceInput, WorkLogUncheckedUpdateWithoutMaintenanceInput>
+    create: XOR<WorkLogCreateWithoutMaintenanceInput, WorkLogUncheckedCreateWithoutMaintenanceInput>
+  }
+
+  export type WorkLogUpdateWithWhereUniqueWithoutMaintenanceInput = {
+    where: WorkLogWhereUniqueInput
+    data: XOR<WorkLogUpdateWithoutMaintenanceInput, WorkLogUncheckedUpdateWithoutMaintenanceInput>
+  }
+
+  export type WorkLogUpdateManyWithWhereWithoutMaintenanceInput = {
+    where: WorkLogScalarWhereInput
+    data: XOR<WorkLogUpdateManyMutationInput, WorkLogUncheckedUpdateManyWithoutMaintenanceInput>
   }
 
   export type ComplexCreateWithoutPreventivesInput = {
@@ -80945,6 +83452,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -80966,6 +83474,7 @@ export namespace Prisma {
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutMaintenanceTasksInput = {
@@ -81022,6 +83531,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -81034,6 +83544,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutMaintenanceTasksInput = {
@@ -81056,6 +83567,7 @@ export namespace Prisma {
     employeeCode?: string | null
     employeeType?: $Enums.EmployeeType | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     role: RoleCreateNestedOneWithoutUsersInput
     permissions?: PermissionCreateNestedManyWithoutUserInput
@@ -81068,6 +83580,7 @@ export namespace Prisma {
     costCenter?: CostCenterCreateNestedOneWithoutUsersInput
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
+    workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserUncheckedCreateWithoutMaintenanceTasksInput = {
@@ -81087,6 +83600,7 @@ export namespace Prisma {
     employeeType?: $Enums.EmployeeType | null
     companyId?: string | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     calenderEntityId?: string | null
     costCenterId?: string | null
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -81097,6 +83611,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserCreateOrConnectWithoutMaintenanceTasksInput = {
@@ -81160,6 +83675,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -81181,6 +83697,7 @@ export namespace Prisma {
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutMaintenanceTasksInput = {
@@ -81237,6 +83754,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -81249,6 +83767,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type UserUpsertWithoutMaintenanceTasksInput = {
@@ -81277,6 +83796,7 @@ export namespace Prisma {
     employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     role?: RoleUpdateOneRequiredWithoutUsersNestedInput
     permissions?: PermissionUpdateManyWithoutUserNestedInput
@@ -81289,6 +83809,7 @@ export namespace Prisma {
     costCenter?: CostCenterUpdateOneWithoutUsersNestedInput
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
+    workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMaintenanceTasksInput = {
@@ -81308,6 +83829,7 @@ export namespace Prisma {
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     costCenterId?: NullableStringFieldUpdateOperationsInput | string | null
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -81318,6 +83840,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
   }
 
   export type AddressCreateWithoutWarehousesInput = {
@@ -82241,6 +84764,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -82262,6 +84786,7 @@ export namespace Prisma {
     asset?: AssetCreateNestedOneWithoutMaintenancesInput
     photos?: FileCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutMaintenanceItemsInput = {
@@ -82318,6 +84843,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -82330,6 +84856,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutMaintenanceItemsInput = {
@@ -82511,6 +85038,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -82532,6 +85060,7 @@ export namespace Prisma {
     asset?: AssetUpdateOneWithoutMaintenancesNestedInput
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutMaintenanceItemsInput = {
@@ -82588,6 +85117,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -82600,6 +85130,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type ItemUpsertWithoutMaintenanceItemsInput = {
@@ -82747,6 +85278,7 @@ export namespace Prisma {
     employeeCode?: string | null
     employeeType?: $Enums.EmployeeType | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     role: RoleCreateNestedOneWithoutUsersInput
     permissions?: PermissionCreateNestedManyWithoutUserInput
     company?: CompanyCreateNestedOneWithoutEmployeesInput
@@ -82759,6 +85291,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -82778,6 +85311,7 @@ export namespace Prisma {
     employeeType?: $Enums.EmployeeType | null
     companyId?: string | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     calenderEntityId?: string | null
     costCenterId?: string | null
     permissions?: PermissionUncheckedCreateNestedManyWithoutUserInput
@@ -82788,6 +85322,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -82821,6 +85356,7 @@ export namespace Prisma {
     employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     role?: RoleUpdateOneRequiredWithoutUsersNestedInput
     permissions?: PermissionUpdateManyWithoutUserNestedInput
     company?: CompanyUpdateOneWithoutEmployeesNestedInput
@@ -82833,6 +85369,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -82852,6 +85389,7 @@ export namespace Prisma {
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     costCenterId?: NullableStringFieldUpdateOperationsInput | string | null
     permissions?: PermissionUncheckedUpdateManyWithoutUserNestedInput
@@ -82862,6 +85400,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
   }
 
   export type AssetCreateWithoutMetersInput = {
@@ -83802,6 +86341,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -83823,6 +86363,7 @@ export namespace Prisma {
     photos?: FileCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceUncheckedCreateWithoutCostCenterInput = {
@@ -83878,6 +86419,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -83891,6 +86433,7 @@ export namespace Prisma {
     photos?: FileUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceItems?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutMaintenanceInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
   export type MaintenanceCreateOrConnectWithoutCostCenterInput = {
@@ -83918,6 +86461,7 @@ export namespace Prisma {
     employeeCode?: string | null
     employeeType?: $Enums.EmployeeType | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     role: RoleCreateNestedOneWithoutUsersInput
     permissions?: PermissionCreateNestedManyWithoutUserInput
@@ -83930,6 +86474,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserUncheckedCreateWithoutCostCenterInput = {
@@ -83949,6 +86494,7 @@ export namespace Prisma {
     employeeType?: $Enums.EmployeeType | null
     companyId?: string | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     calenderEntityId?: string | null
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutUserInput
@@ -83959,6 +86505,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserCreateOrConnectWithoutCostCenterInput = {
@@ -84228,6 +86775,7 @@ export namespace Prisma {
     employeeCode?: string | null
     employeeType?: $Enums.EmployeeType | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     role: RoleCreateNestedOneWithoutUsersInput
     permissions?: PermissionCreateNestedManyWithoutUserInput
@@ -84240,6 +86788,7 @@ export namespace Prisma {
     costCenter?: CostCenterCreateNestedOneWithoutUsersInput
     goodsReceipts?: GoodsReceiptCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserUncheckedCreateWithoutPurchaseRequestsInput = {
@@ -84259,6 +86808,7 @@ export namespace Prisma {
     employeeType?: $Enums.EmployeeType | null
     companyId?: string | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     calenderEntityId?: string | null
     costCenterId?: string | null
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -84269,6 +86819,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
     goodsReceipts?: GoodsReceiptUncheckedCreateNestedManyWithoutReceiverInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserCreateOrConnectWithoutPurchaseRequestsInput = {
@@ -84407,6 +86958,7 @@ export namespace Prisma {
     employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     role?: RoleUpdateOneRequiredWithoutUsersNestedInput
     permissions?: PermissionUpdateManyWithoutUserNestedInput
@@ -84419,6 +86971,7 @@ export namespace Prisma {
     costCenter?: CostCenterUpdateOneWithoutUsersNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPurchaseRequestsInput = {
@@ -84438,6 +86991,7 @@ export namespace Prisma {
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     costCenterId?: NullableStringFieldUpdateOperationsInput | string | null
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -84448,6 +87002,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
   }
 
   export type CostCenterUpsertWithoutPurchaseRequestsInput = {
@@ -85221,6 +87776,7 @@ export namespace Prisma {
     employeeCode?: string | null
     employeeType?: $Enums.EmployeeType | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     role: RoleCreateNestedOneWithoutUsersInput
     permissions?: PermissionCreateNestedManyWithoutUserInput
@@ -85233,6 +87789,7 @@ export namespace Prisma {
     costCenter?: CostCenterCreateNestedOneWithoutUsersInput
     purchaseRequests?: PurchaseRequestCreateNestedManyWithoutRequesterInput
     maintenanceTasks?: MaintenanceTaskCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserUncheckedCreateWithoutGoodsReceiptsInput = {
@@ -85252,6 +87809,7 @@ export namespace Prisma {
     employeeType?: $Enums.EmployeeType | null
     companyId?: string | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     calenderEntityId?: string | null
     costCenterId?: string | null
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -85262,6 +87820,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedCreateNestedManyWithoutSupervisorInput
     purchaseRequests?: PurchaseRequestUncheckedCreateNestedManyWithoutRequesterInput
     maintenanceTasks?: MaintenanceTaskUncheckedCreateNestedManyWithoutCompletedByInput
+    workLogs?: WorkLogUncheckedCreateNestedManyWithoutTechnicianInput
   }
 
   export type UserCreateOrConnectWithoutGoodsReceiptsInput = {
@@ -85387,6 +87946,7 @@ export namespace Prisma {
     employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     role?: RoleUpdateOneRequiredWithoutUsersNestedInput
     permissions?: PermissionUpdateManyWithoutUserNestedInput
@@ -85399,6 +87959,7 @@ export namespace Prisma {
     costCenter?: CostCenterUpdateOneWithoutUsersNestedInput
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGoodsReceiptsInput = {
@@ -85418,6 +87979,7 @@ export namespace Prisma {
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     costCenterId?: NullableStringFieldUpdateOperationsInput | string | null
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -85428,6 +87990,7 @@ export namespace Prisma {
     supervisedTeams?: TeamUncheckedUpdateManyWithoutSupervisorNestedInput
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
   }
 
   export type CompanyUpsertWithoutGoodsReceiptsInput = {
@@ -85683,6 +88246,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -85749,6 +88313,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -85794,6 +88359,19 @@ export namespace Prisma {
     completedAt?: Date | string | null
     notes?: string | null
     maintenanceId: string
+  }
+
+  export type WorkLogCreateManyTechnicianInput = {
+    id?: string
+    description?: string | null
+    maintenanceId: string
+    startTime: Date | string
+    endTime: Date | string
+    durationInMinutes: Decimal | DecimalJsLike | number | string
+    currentRate: Decimal | DecimalJsLike | number | string
+    totalCost: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type RefreshTokenUpdateWithoutUserInput = {
@@ -85929,6 +88507,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -85950,6 +88529,7 @@ export namespace Prisma {
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutRequesterInput = {
@@ -86005,6 +88585,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -86018,6 +88599,7 @@ export namespace Prisma {
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutRequesterInput = {
@@ -86073,6 +88655,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -86130,6 +88713,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -86151,6 +88735,7 @@ export namespace Prisma {
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutAssigneeInput = {
@@ -86207,6 +88792,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -86219,6 +88805,7 @@ export namespace Prisma {
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutAssigneeInput = {
@@ -86275,6 +88862,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -86406,6 +88994,45 @@ export namespace Prisma {
     maintenanceId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type WorkLogUpdateWithoutTechnicianInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationInMinutes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    maintenance?: MaintenanceUpdateOneRequiredWithoutWorkLogsNestedInput
+  }
+
+  export type WorkLogUncheckedUpdateWithoutTechnicianInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenanceId?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationInMinutes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WorkLogUncheckedUpdateManyWithoutTechnicianInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenanceId?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationInMinutes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type PermissionCreateManyRoleInput = {
     id?: string
     resource: string
@@ -86431,6 +89058,7 @@ export namespace Prisma {
     employeeType?: $Enums.EmployeeType | null
     companyId?: string | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     calenderEntityId?: string | null
     costCenterId?: string | null
   }
@@ -86477,6 +89105,7 @@ export namespace Prisma {
     employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     permissions?: PermissionUpdateManyWithoutUserNestedInput
     company?: CompanyUpdateOneWithoutEmployeesNestedInput
@@ -86489,6 +89118,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRoleInput = {
@@ -86507,6 +89137,7 @@ export namespace Prisma {
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     costCenterId?: NullableStringFieldUpdateOperationsInput | string | null
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -86518,6 +89149,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutRoleInput = {
@@ -86536,6 +89168,7 @@ export namespace Prisma {
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     costCenterId?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -86727,6 +89360,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -86917,6 +89551,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -86938,6 +89573,7 @@ export namespace Prisma {
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutSiteInput = {
@@ -86993,6 +89629,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -87006,6 +89643,7 @@ export namespace Prisma {
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutSiteInput = {
@@ -87061,6 +89699,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -87236,6 +89875,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -87468,6 +90108,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -87489,6 +90130,7 @@ export namespace Prisma {
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutBuildingInput = {
@@ -87544,6 +90186,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -87557,6 +90200,7 @@ export namespace Prisma {
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutBuildingInput = {
@@ -87612,6 +90256,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -87748,6 +90393,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -87931,6 +90577,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -87952,6 +90599,7 @@ export namespace Prisma {
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutFloorInput = {
@@ -88007,6 +90655,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -88020,6 +90669,7 @@ export namespace Prisma {
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutFloorInput = {
@@ -88075,6 +90725,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -88250,6 +90901,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -88495,6 +91147,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -88516,6 +91169,7 @@ export namespace Prisma {
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutZoneInput = {
@@ -88571,6 +91225,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -88584,6 +91239,7 @@ export namespace Prisma {
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutZoneInput = {
@@ -88639,6 +91295,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -88771,6 +91428,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -88897,6 +91555,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -88918,6 +91577,7 @@ export namespace Prisma {
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutSpaceInput = {
@@ -88973,6 +91633,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -88986,6 +91647,7 @@ export namespace Prisma {
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutSpaceInput = {
@@ -89041,6 +91703,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -89326,6 +91989,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -89459,6 +92123,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -89480,6 +92145,7 @@ export namespace Prisma {
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutAssetInput = {
@@ -89536,6 +92202,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -89548,6 +92215,7 @@ export namespace Prisma {
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutAssetInput = {
@@ -89604,6 +92272,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -90091,6 +92760,7 @@ export namespace Prisma {
     employeeCode?: string | null
     employeeType?: $Enums.EmployeeType | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     calenderEntityId?: string | null
     costCenterId?: string | null
   }
@@ -90148,6 +92818,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -90193,6 +92864,7 @@ export namespace Prisma {
     employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     role?: RoleUpdateOneRequiredWithoutUsersNestedInput
     permissions?: PermissionUpdateManyWithoutUserNestedInput
@@ -90205,6 +92877,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCompanyInput = {
@@ -90223,6 +92896,7 @@ export namespace Prisma {
     employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     costCenterId?: NullableStringFieldUpdateOperationsInput | string | null
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -90234,6 +92908,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutCompanyInput = {
@@ -90252,6 +92927,7 @@ export namespace Prisma {
     employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     costCenterId?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -90301,6 +92977,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -90322,6 +92999,7 @@ export namespace Prisma {
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutCompanyInput = {
@@ -90377,6 +93055,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -90390,6 +93069,7 @@ export namespace Prisma {
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutCompanyInput = {
@@ -90445,6 +93125,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -90570,6 +93251,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -90648,6 +93330,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -90669,6 +93352,7 @@ export namespace Prisma {
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutTeamInput = {
@@ -90724,6 +93408,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -90737,6 +93422,7 @@ export namespace Prisma {
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutTeamInput = {
@@ -90792,6 +93478,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -90886,6 +93573,7 @@ export namespace Prisma {
     employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     role?: RoleUpdateOneRequiredWithoutUsersNestedInput
     permissions?: PermissionUpdateManyWithoutUserNestedInput
@@ -90898,6 +93586,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTeamsInput = {
@@ -90917,6 +93606,7 @@ export namespace Prisma {
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     costCenterId?: NullableStringFieldUpdateOperationsInput | string | null
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -90927,6 +93617,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutTeamsInput = {
@@ -90946,6 +93637,7 @@ export namespace Prisma {
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     costCenterId?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -91210,6 +93902,7 @@ export namespace Prisma {
     employeeType?: $Enums.EmployeeType | null
     companyId?: string | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     costCenterId?: string | null
   }
 
@@ -91577,6 +94270,7 @@ export namespace Prisma {
     employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     role?: RoleUpdateOneRequiredWithoutUsersNestedInput
     permissions?: PermissionUpdateManyWithoutUserNestedInput
@@ -91589,6 +94283,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCalenderEntityInput = {
@@ -91608,6 +94303,7 @@ export namespace Prisma {
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     costCenterId?: NullableStringFieldUpdateOperationsInput | string | null
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutUserNestedInput
@@ -91618,6 +94314,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutCalenderEntityInput = {
@@ -91637,6 +94334,7 @@ export namespace Prisma {
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     costCenterId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -91662,6 +94360,19 @@ export namespace Prisma {
     completedAt?: Date | string | null
     notes?: string | null
     completedById?: string | null
+  }
+
+  export type WorkLogCreateManyMaintenanceInput = {
+    id?: string
+    description?: string | null
+    technicianId: string
+    startTime: Date | string
+    endTime: Date | string
+    durationInMinutes: Decimal | DecimalJsLike | number | string
+    currentRate: Decimal | DecimalJsLike | number | string
+    totalCost: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type FileUpdateWithoutMaintenanceInput = {
@@ -91742,6 +94453,45 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     completedById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type WorkLogUpdateWithoutMaintenanceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationInMinutes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    technician?: UserUpdateOneRequiredWithoutWorkLogsNestedInput
+  }
+
+  export type WorkLogUncheckedUpdateWithoutMaintenanceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    technicianId?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationInMinutes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WorkLogUncheckedUpdateManyWithoutMaintenanceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    technicianId?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationInMinutes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currentRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MeterMaintenanceTriggerCreateManyPreventiveInput = {
@@ -92287,6 +95037,7 @@ export namespace Prisma {
     ttSysSuspension?: Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: Decimal | DecimalJsLike | number | string | null
     ttEstimate?: Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: string | null
     automaticConfig?: boolean
     jointAccounting?: boolean
@@ -92316,6 +95067,7 @@ export namespace Prisma {
     employeeType?: $Enums.EmployeeType | null
     companyId?: string | null
     serviceStatus?: $Enums.ServiceStatus
+    hourlyRate?: Decimal | DecimalJsLike | number | string
     calenderEntityId?: string | null
   }
 
@@ -92445,6 +95197,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -92466,6 +95219,7 @@ export namespace Prisma {
     photos?: FileUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutCostCenterInput = {
@@ -92521,6 +95275,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -92534,6 +95289,7 @@ export namespace Prisma {
     photos?: FileUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceItems?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutMaintenanceNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutCostCenterInput = {
@@ -92589,6 +95345,7 @@ export namespace Prisma {
     ttSysSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttWorkSuspension?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ttEstimate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ttLaborCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     prevMaintenanceConfigId?: NullableStringFieldUpdateOperationsInput | string | null
     automaticConfig?: BoolFieldUpdateOperationsInput | boolean
     jointAccounting?: BoolFieldUpdateOperationsInput | boolean
@@ -92616,6 +95373,7 @@ export namespace Prisma {
     employeeCode?: NullableStringFieldUpdateOperationsInput | string | null
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     role?: RoleUpdateOneRequiredWithoutUsersNestedInput
     permissions?: PermissionUpdateManyWithoutUserNestedInput
@@ -92628,6 +95386,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUpdateManyWithoutTechnicianNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCostCenterInput = {
@@ -92647,6 +95406,7 @@ export namespace Prisma {
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutUserNestedInput
@@ -92657,6 +95417,7 @@ export namespace Prisma {
     purchaseRequests?: PurchaseRequestUncheckedUpdateManyWithoutRequesterNestedInput
     goodsReceipts?: GoodsReceiptUncheckedUpdateManyWithoutReceiverNestedInput
     maintenanceTasks?: MaintenanceTaskUncheckedUpdateManyWithoutCompletedByNestedInput
+    workLogs?: WorkLogUncheckedUpdateManyWithoutTechnicianNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutCostCenterInput = {
@@ -92676,6 +95437,7 @@ export namespace Prisma {
     employeeType?: NullableEnumEmployeeTypeFieldUpdateOperationsInput | $Enums.EmployeeType | null
     companyId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceStatus?: EnumServiceStatusFieldUpdateOperationsInput | $Enums.ServiceStatus
+    hourlyRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     calenderEntityId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 

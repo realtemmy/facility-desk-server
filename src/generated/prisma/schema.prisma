@@ -233,6 +233,8 @@ model User {
   company       Company?      @relation(fields: [companyId], references: [id])
   serviceStatus ServiceStatus @default(ACTIVE)
 
+  hourlyRate Decimal @default(0) @db.Decimal(10, 2)
+
   calenderEntityId String?
   calenderEntity   CalenderEntity? @relation(fields: [calenderEntityId], references: [id], onDelete: SetNull)
 
@@ -247,10 +249,40 @@ model User {
   purchaseRequests PurchaseRequest[]
   goodsReceipts    GoodsReceipt[]
   maintenanceTasks MaintenanceTask[]
+  workLogs         WorkLog[]
 
   @@index([email])
   @@index([roleId])
   @@map("users")
+}
+
+model WorkLog {
+  id          String  @id @default(uuid())
+  description String?
+
+  // Who did the work
+  technicianId String
+  technician   User   @relation(fields: [technicianId], references: [id])
+
+  // What work was done
+  maintenanceId String
+  maintenance   Maintenance @relation(fields: [maintenanceId], references: [id])
+
+  // When was the work done
+  startTime         DateTime
+  endTime           DateTime
+  durationInMinutes Decimal  @db.Decimal(10, 2) // automatically (endtime - startime)
+
+  // Financials
+  currentRate Decimal @db.Decimal(10, 2) // automatically (technician.hourlyRate)
+  totalCost   Decimal @db.Decimal(10, 2) // automatically (durationInMinutes * currentRate)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([technicianId])
+  @@index([maintenanceId])
+  @@map("worklogs")
 }
 
 model Role {
@@ -755,6 +787,8 @@ model Maintenance {
   ttWorkSuspension   Decimal?
   ttEstimate         Decimal?
 
+  ttLaborCost Decimal?
+
   // For preventive
   prevMaintenanceConfigId String? // For Preventive
   automaticConfig         Boolean @default(true)
@@ -776,6 +810,7 @@ model Maintenance {
   updatedAt        DateTime          @updatedAt
   maintenanceItems MaintenanceItem[]
   maintenanceTasks MaintenanceTask[]
+  workLogs         WorkLog[]
 
   @@map("maintenances")
 }

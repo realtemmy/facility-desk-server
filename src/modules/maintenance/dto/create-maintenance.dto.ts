@@ -75,3 +75,12 @@ export interface CreateMaintenanceDto {
   // Dynamic data
   metadata?: Record<string, any>;
 }
+
+export interface LogworkDto {
+  description?: string;
+  technicianId: string;
+  startTime: string;
+  endTime: string;
+  maintenanceId: string;
+}
+
