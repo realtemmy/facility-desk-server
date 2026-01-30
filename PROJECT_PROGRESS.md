@@ -161,3 +161,25 @@ The core facility management workflow is well-established.
   - Added `cost` field to `Item` model (Decimal) to support value tracking.
 - **Logistics Schema:**
   - Updated `createItemSchema` to include `cost` validation.
+
+## 6. Feature Comparison: Facility Desk vs. OpenMaint
+
+| Feature Area | OpenMaint Service | Facility Desk (Current Status) | Gap Analysis/Notes |
+| :--- | :--- | :--- | :--- |
+| **Space Management** | Complete hierarchy (Site to Room), GIS/BIM integration. | ✅ Complete hierarchy (Site -> Space). No GIS/BIM. | **Parity Achieved** on core hierarchy. GIS/BIM is a future enhancement. |
+| **Asset Registry** | Taxonomy, QR codes, financial depreciation. | ✅ Hierarchical asset registry, tagging support. | **High Parity**. Financial depreciation logic is currently missing. |
+| **Corrective Maintenance** | Workflows, SLA tracking, Mobile App. | ✅ Full workflow (Req -> Assign -> Exec -> Close). | **Functional**. Mobile app and complex SLA clocks are missing. |
+| **Preventive Maintenance** | Calendar/Meter-based scheduling. | ✅ Calendar-based scheduling (Cron). | **Functional**. Meter-based triggers and advanced recurrence patterns need verification. |
+| **Logistics & Inventory** | Multi-warehouse, spare parts, FIFO/LIFO. | ✅ Multi-warehouse, Stock tracking, Movements. | **High Parity**. Valuation methods (FIFO/LIFO) are basic (Standard Cost). |
+| **Financial Management** | Budgets, Cost Centers, Purchasing. | ✅ Cost Centers, PR -> PO Workflow, Receipting. | **Functional**. Recently added PO receipt value calculation and item cost tracking. |
+| **Energy & Metering** | Meter readings, carbon footprint, analysis. | ⚠️ Basic Meter/Reading models and routes exists. | **Partial**. Logic for analysis and automated alerts is minimal. |
+| **IoT / BMS** | SCADA/BMS connectors, real-time monitoring. | ❌ Not Started. | **Major Gap**. No infrastructure for MQTT or telemetry yet. |
+| **Reports & Dashboards** | KPIs, Custom Reports. | ❌ Basic API filters only. | **Gap**. No aggregated reporting endpoints or dashboard UI. |
+
+---
+
+## 7. Next Priority Targets
+Based on the comparison above, the immediate technical priorities to close the gap are:
+1.  **IoT Integration**: Basic MQTT subscriber to ingest Hello World data.
+2.  **Reporting**: Create a `/stats` or `/dashboard` endpoint for high-level KPIs (e.g., "Pending Tickets Count", "Budget Utilized %").
+3.  **Mobile Readiness**: Ensure all APIs are optimized for mobile consumption (payload sizes, offline sync support mechanisms).

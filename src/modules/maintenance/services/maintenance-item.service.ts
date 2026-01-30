@@ -111,8 +111,18 @@ export class MaintenanceItemService {
       const totalCost: number = Number(item.cost) * data.quantity;
 
       // Create maintenance item
-      const maintenanceItem = await tx.maintenanceItem.create({
-        data: {
+      const maintenanceItem = await tx.maintenanceItem.upsert({
+        where: {
+          maintenanceId_itemId: {
+            maintenanceId: data.maintenanceId,
+            itemId: data.itemId,
+          },
+        },
+        update: {
+          quantity: { increment: data.quantity },
+          cost: { increment: totalCost },
+        },
+        create: {
           maintenanceId: data.maintenanceId,
           itemId: data.itemId,
           quantity: data.quantity,
